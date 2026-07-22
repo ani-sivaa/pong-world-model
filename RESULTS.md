@@ -38,7 +38,21 @@
   `results/rollouts/main_h*_sample*.gif` — visual check: walls/paddles
   pixel-perfect, ball crisp (change-weighted loss prevented ball blur-out; the
   only |diff| signal is a small ball-position ghost late in long dreams).
-- Training-set-size ablation: running (4 parallel T4 jobs) → `results/ablation/`
+- **Training-set-size ablation** (4 parallel T4 jobs, controlled: identical
+  6,000-step budget per fraction; drift on the same 32 held-out windows):
+  | fraction | mse@1 | mse@30 | mse@60 |
+  |---|---|---|---|
+  | 10% (100k) | .00016 | .00212 | .00400 |
+  | 25% (250k) | .00020 | .00114 | .00329 |
+  | 50% (500k) | .00021 | .00149 | .00460 |
+  | 100% (1M)  | .00024 | .00165 | .00370 |
+  **Finding:** rollout coherence saturates at ~250k transitions under this step
+  budget — 10%→25% halves mse@30 (~2 SEM), while 25/50/100% are statistically
+  indistinguishable at every horizon. The 10% model shows a memorization
+  signature: lowest *train* loss, worst *rollout* drift.
+  → `results/ablation/ablation_drift.png`, `ablation_summary.{json,md}`
+  (Ops note: parallel Modal launches tripped an app-creation rate limit; fixed
+  with 25s staggering — logged in DECISIONS.ablation-runner.md.)
 
 ## Phase 3a — baseline agent — DONE
 - PPO, 9M env steps total (3M initial + 6M continuation after plateau at

@@ -61,3 +61,44 @@ Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pyto
   step 4300/6000 k=5 loss=0.00116 frame=0.00116 rew=0.00000 done=0.00000 469s
   step 4400/6000 k=5 loss=0.00083 frame=0.00083 rew=0.00000 done=0.00000 487s
   step 4500/6000 k=5 loss=0.00079 frame=0.00079 rew=0.00000 done=0.00000 504s
+  step 4600/6000 k=5 loss=0.00111 frame=0.00111 rew=0.00000 done=0.00000 522s
+  step 4700/6000 k=5 loss=0.00101 frame=0.00101 rew=0.00000 done=0.00000 539s
+  step 4800/6000 k=5 loss=0.00089 frame=0.00089 rew=0.00000 done=0.00000 556s
+  step 4900/6000 k=5 loss=0.00072 frame=0.00072 rew=0.00000 done=0.00000 573s
+  step 5000/6000 k=5 loss=0.00094 frame=0.00094 rew=0.00000 done=0.00000 591s
+  [ckpt] step 5000 val_frame=0.00333 -> /vol/checkpoints/ablation10.pt
+  step 5100/6000 k=5 loss=0.00089 frame=0.00089 rew=0.00000 done=0.00000 608s
+  step 5200/6000 k=5 loss=0.00074 frame=0.00074 rew=0.00000 done=0.00000 626s
+  step 5300/6000 k=5 loss=0.00100 frame=0.00100 rew=0.00000 done=0.00000 643s
+  step 5400/6000 k=5 loss=0.00059 frame=0.00059 rew=0.00000 done=0.00000 660s
+  step 5500/6000 k=5 loss=0.00067 frame=0.00067 rew=0.00000 done=0.00000 677s
+  step 5600/6000 k=5 loss=0.00063 frame=0.00063 rew=0.00000 done=0.00000 695s
+  step 5700/6000 k=5 loss=0.00068 frame=0.00068 rew=0.00000 done=0.00000 712s
+  step 5800/6000 k=5 loss=0.00074 frame=0.00074 rew=0.00000 done=0.00000 729s
+  step 5900/6000 k=5 loss=0.00072 frame=0.00072 rew=0.00000 done=0.00000 747s
+  step 6000/6000 k=5 loss=0.00077 frame=0.00077 rew=0.00000 done=0.00000 764s
+  [ckpt] step 6000 val_frame=0.00434 -> /vol/checkpoints/ablation10.pt
+WM_TRAIN_OK tag=ablation10 steps=6000 final_val=0.00434 wall=766s ckpt=/vol/checkpoints/ablation10.pt
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-LxQfduWRwUo7kIH6crFZXR
+=== REMOTE RESULT ===
+{
+  "module": "wm.train",
+  "argv": [
+    "--scale",
+    "full",
+    "--data-frac",
+    "0.1",
+    "--tag",
+    "ablation10",
+    "--steps",
+    "6000",
+    "--max-seconds",
+    "2700"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 773.74
+}

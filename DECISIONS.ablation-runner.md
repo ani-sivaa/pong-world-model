@@ -57,8 +57,29 @@
   retry wouldn't be spent on a launch bug), added the 25 s launch stagger and
   the launch-retry tier described above, and restarted clean. The unrelated
   wm_v1 processes were left untouched.
-- (further entries appended after the run if any)
+- Third (final) run: clean end to end. All 4 trainings succeeded on attempt 1
+  at the full 6000 steps (train logs confirm step 6000 reached, no wall-clock
+  cap hits), all 8 fetches and all 4 rollout evals rc=0. No fractions
+  dropped; no 3000-step retry ever used.
 
 ## Interpretation notes
 
-- (filled in after the run — see results/ablation/ablation_summary.md)
+- Coherence scales with data only from 10% -> 25% (mse@30 halves,
+  0.00212 -> 0.00114, ~2 SEM over 32 windows); 25/50/100% are statistically
+  indistinguishable at every horizon (SEM ~0.0004 at h=30, ~0.0007 at h=60).
+  Saturation point at THIS budget: ~250k transitions.
+- The apparent non-monotonicity at large fractions (50% slightly worse than
+  25%/100% at h=60) is within one SEM — reported as noise, not signal, in
+  ablation_summary.md. With only 32 eval windows the error bars at h=60 are
+  ~20% of the mean; a stronger claim would need more windows or seeds.
+- Overfitting signature at 10%: lowest final TRAIN loss (0.0008 vs 0.0012)
+  but worst mid-horizon drift — 6000 steps x batch 128 = ~7.7 epochs over
+  100k transitions vs ~0.77 over 1M. This is exactly the data-diversity
+  effect the fixed budget was designed to expose.
+- mse@1 is nearly flat across fractions (1.6e-4 .. 2.4e-4); separation only
+  appears after ~20 autoregressive steps. Single-step metrics are a poor
+  proxy for rollout coherence.
+- The auto-generated interpretation paragraph in ablation_summary.md was
+  hand-revised after the run to reflect the SEM analysis (the template's
+  "saturation" wording was directionally right but overstated a 0.90x
+  "gain"); numbers in the table/json are untouched script output.

@@ -2,3 +2,58 @@
 [ablation] launched ablation25 attempt 1 (steps=6000, pid=24204) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation25.attempt1.log
 [ablation] launched ablation50 attempt 1 (steps=6000, pid=24296) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation50.attempt1.log
 [ablation] launched ablation100 attempt 1 (steps=6000, pid=24403) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation100.attempt1.log
+[ablation] ablation10 attempt 1 finished rc=0
+[ablation] ablation25 attempt 1 finished rc=0
+[ablation] ablation50 attempt 1 finished rc=0
+[ablation] ablation100 attempt 1 finished rc=0
+[ablation] infra.remote --fetch checkpoints/ablation10.pt checkpoints/ablation10.pt rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation10_ckpt.log
+[ablation] infra.remote --fetch results/wm_train_log_ablation10.json results/wm_train_log_ablation10.json rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation10_log.log
+[ablation] infra.remote --fetch checkpoints/ablation25.pt checkpoints/ablation25.pt rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation25_ckpt.log
+[ablation] infra.remote --fetch results/wm_train_log_ablation25.json results/wm_train_log_ablation25.json rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation25_log.log
+[ablation] infra.remote --fetch checkpoints/ablation50.pt checkpoints/ablation50.pt rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation50_ckpt.log
+[ablation] infra.remote --fetch results/wm_train_log_ablation50.json results/wm_train_log_ablation50.json rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation50_log.log
+[ablation] infra.remote --fetch checkpoints/ablation100.pt checkpoints/ablation100.pt rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation100_ckpt.log
+[ablation] infra.remote --fetch results/wm_train_log_ablation100.json results/wm_train_log_ablation100.json rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/fetch_ablation100_log.log
+[ablation] ablation10 --n-windows 32 --gif-lengths rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/rollout_ablation10.log
+[ablation] ablation25 --n-windows 32 --gif-lengths rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/rollout_ablation25.log
+[ablation] ablation50 --n-windows 32 --gif-lengths rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/rollout_ablation50.log
+[ablation] ablation100 --n-windows 32 --gif-lengths rc=0 -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/rollout_ablation100.log
+[ablation] DONE
+{
+  "0.10": {
+    "tag": "ablation10",
+    "mse@1": 0.00016479611804243177,
+    "mse@10": 0.0006004209280945361,
+    "mse@30": 0.0021203160285949707,
+    "mse@60": 0.003999808803200722,
+    "final_train_loss": 0.0007730796933174133,
+    "train_steps_completed": 6000
+  },
+  "0.25": {
+    "tag": "ablation25",
+    "mse@1": 0.00020109735487494618,
+    "mse@10": 0.0004910983261652291,
+    "mse@30": 0.0011376672191545367,
+    "mse@60": 0.0032855987083166838,
+    "final_train_loss": 0.0009071229142136872,
+    "train_steps_completed": 6000
+  },
+  "0.50": {
+    "tag": "ablation50",
+    "mse@1": 0.00021037580154370517,
+    "mse@10": 0.0005074458313174546,
+    "mse@30": 0.0014925654977560043,
+    "mse@60": 0.004597060848027468,
+    "final_train_loss": 0.0012271269224584103,
+    "train_steps_completed": 6000
+  },
+  "1.00": {
+    "tag": "ablation100",
+    "mse@1": 0.00023977746604941785,
+    "mse@10": 0.0005107868346385658,
+    "mse@30": 0.0016528302803635597,
+    "mse@60": 0.003700374625623226,
+    "final_train_loss": 0.0012078891741111875,
+    "train_steps_completed": 6000
+  }
+}

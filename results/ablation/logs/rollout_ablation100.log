@@ -1,0 +1,2 @@
+# /Users/anisiva/Developer/WorldModel/.venv/bin/python -m wm.rollout --scale full --ckpt checkpoints/ablation100.pt --tag ablation100 --n-windows 32 --gif-lengths
+ROLLOUT_EVAL_OK tag=ablation100 mse@1=0.00024 mse@60=0.00370

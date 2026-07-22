@@ -1,0 +1,19 @@
+# /Users/anisiva/Developer/WorldModel/.venv/bin/python -m infra.remote --fetch results/wm_train_log_ablation100.json results/wm_train_log_ablation100.json
+╭─ Error ──────────────────────────────────────────────────────────────────────╮
+│ Cannot connect to host clobber.modal-storage.com:443 ssl:default [Connection │
+│ reset by peer]                                                               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+[infra.remote] `modal volume get` failed (rc=1); falling back to function-channel fetch
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-ZybJz4PbE8l152PknsvowF
+✓ Created objects.
+├── 🔨 Created mount PythonPackage:infra
+├── 🔨 Created mount /Users/anisiva/Developer/WorldModel
+├── 🔨 Created function run_module_gpu.
+├── 🔨 Created function run_module_cpu.
+└── 🔨 Created function vol_read.
+[infra.remote] fetched results/wm_train_log_ablation100.json -> /Users/anisiva/Developer/WorldModel/results/wm_train_log_ablation100.json (3946 bytes)
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-ZybJz4PbE8l152PknsvowF
+FETCHED /Users/anisiva/Developer/WorldModel/results/wm_train_log_ablation100.json

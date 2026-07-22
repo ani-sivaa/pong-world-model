@@ -53,3 +53,52 @@ Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pyto
   step 3600/6000 k=5 loss=0.00168 frame=0.00168 rew=0.00000 done=0.00000 392s
   step 3700/6000 k=5 loss=0.00206 frame=0.00206 rew=0.00000 done=0.00000 410s
   step 3800/6000 k=5 loss=0.00190 frame=0.00190 rew=0.00000 done=0.00000 429s
+  step 3900/6000 k=5 loss=0.00138 frame=0.00138 rew=0.00000 done=0.00000 448s
+  step 4000/6000 k=5 loss=0.00155 frame=0.00155 rew=0.00000 done=0.00000 465s
+  [ckpt] step 4000 val_frame=0.00143 -> /vol/checkpoints/ablation100.pt
+  step 4100/6000 k=5 loss=0.00157 frame=0.00157 rew=0.00000 done=0.00000 483s
+  step 4200/6000 k=5 loss=0.00138 frame=0.00138 rew=0.00000 done=0.00000 502s
+  step 4300/6000 k=5 loss=0.00162 frame=0.00162 rew=0.00000 done=0.00000 520s
+  step 4400/6000 k=5 loss=0.00133 frame=0.00133 rew=0.00000 done=0.00000 537s
+  step 4500/6000 k=5 loss=0.00120 frame=0.00120 rew=0.00000 done=0.00000 555s
+  step 4600/6000 k=5 loss=0.00144 frame=0.00144 rew=0.00000 done=0.00000 574s
+  step 4700/6000 k=5 loss=0.00117 frame=0.00117 rew=0.00000 done=0.00000 593s
+  step 4800/6000 k=5 loss=0.00173 frame=0.00173 rew=0.00000 done=0.00000 613s
+  step 4900/6000 k=5 loss=0.00149 frame=0.00149 rew=0.00000 done=0.00000 632s
+  step 5000/6000 k=5 loss=0.00128 frame=0.00128 rew=0.00000 done=0.00000 651s
+  [ckpt] step 5000 val_frame=0.00146 -> /vol/checkpoints/ablation100.pt
+  step 5100/6000 k=5 loss=0.00153 frame=0.00153 rew=0.00000 done=0.00000 670s
+  step 5200/6000 k=5 loss=0.00115 frame=0.00115 rew=0.00000 done=0.00000 689s
+  step 5300/6000 k=5 loss=0.00130 frame=0.00130 rew=0.00000 done=0.00000 707s
+  step 5400/6000 k=5 loss=0.00169 frame=0.00169 rew=0.00000 done=0.00000 726s
+  step 5500/6000 k=5 loss=0.00134 frame=0.00134 rew=0.00000 done=0.00000 744s
+  step 5600/6000 k=5 loss=0.00114 frame=0.00114 rew=0.00000 done=0.00000 763s
+  step 5700/6000 k=5 loss=0.00117 frame=0.00117 rew=0.00000 done=0.00000 781s
+  step 5800/6000 k=5 loss=0.00165 frame=0.00165 rew=0.00000 done=0.00000 799s
+  step 5900/6000 k=5 loss=0.00149 frame=0.00149 rew=0.00000 done=0.00000 818s
+  step 6000/6000 k=5 loss=0.00121 frame=0.00121 rew=0.00000 done=0.00000 836s
+  [ckpt] step 6000 val_frame=0.00155 -> /vol/checkpoints/ablation100.pt
+WM_TRAIN_OK tag=ablation100 steps=6000 final_val=0.00155 wall=837s ckpt=/vol/checkpoints/ablation100.pt
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-1d033OfaVCPzfoiF67hRhU
+=== REMOTE RESULT ===
+{
+  "module": "wm.train",
+  "argv": [
+    "--scale",
+    "full",
+    "--data-frac",
+    "1.0",
+    "--tag",
+    "ablation100",
+    "--steps",
+    "6000",
+    "--max-seconds",
+    "2700"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 843.44
+}

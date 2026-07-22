@@ -59,3 +59,46 @@ Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pyto
   step 4100/6000 k=5 loss=0.00164 frame=0.00164 rew=0.00000 done=0.00000 449s
   step 4200/6000 k=5 loss=0.00124 frame=0.00124 rew=0.00000 done=0.00000 466s
   step 4300/6000 k=5 loss=0.00140 frame=0.00140 rew=0.00000 done=0.00000 484s
+  step 4400/6000 k=5 loss=0.00132 frame=0.00132 rew=0.00000 done=0.00000 502s
+  step 4500/6000 k=5 loss=0.00108 frame=0.00108 rew=0.00000 done=0.00000 520s
+  step 4600/6000 k=5 loss=0.00156 frame=0.00156 rew=0.00000 done=0.00000 538s
+  step 4700/6000 k=5 loss=0.00159 frame=0.00159 rew=0.00000 done=0.00000 556s
+  step 4800/6000 k=5 loss=0.00151 frame=0.00151 rew=0.00000 done=0.00000 574s
+  step 4900/6000 k=5 loss=0.00107 frame=0.00107 rew=0.00000 done=0.00000 592s
+  step 5000/6000 k=5 loss=0.00133 frame=0.00133 rew=0.00000 done=0.00000 610s
+  [ckpt] step 5000 val_frame=0.00194 -> /vol/checkpoints/ablation25.pt
+  step 5100/6000 k=5 loss=0.00114 frame=0.00114 rew=0.00000 done=0.00000 628s
+  step 5200/6000 k=5 loss=0.00106 frame=0.00106 rew=0.00000 done=0.00000 646s
+  step 5300/6000 k=5 loss=0.00107 frame=0.00107 rew=0.00000 done=0.00000 664s
+  step 5400/6000 k=5 loss=0.00134 frame=0.00134 rew=0.00000 done=0.00000 682s
+  step 5500/6000 k=5 loss=0.00096 frame=0.00096 rew=0.00000 done=0.00000 700s
+  step 5600/6000 k=5 loss=0.00110 frame=0.00110 rew=0.00000 done=0.00000 718s
+  step 5700/6000 k=5 loss=0.00088 frame=0.00088 rew=0.00000 done=0.00000 735s
+  step 5800/6000 k=5 loss=0.00129 frame=0.00129 rew=0.00000 done=0.00000 753s
+  step 5900/6000 k=5 loss=0.00129 frame=0.00129 rew=0.00000 done=0.00000 771s
+  step 6000/6000 k=5 loss=0.00091 frame=0.00091 rew=0.00000 done=0.00000 789s
+  [ckpt] step 6000 val_frame=0.00148 -> /vol/checkpoints/ablation25.pt
+WM_TRAIN_OK tag=ablation25 steps=6000 final_val=0.00148 wall=791s ckpt=/vol/checkpoints/ablation25.pt
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-dI9hHxho0AvR0hCVDuM10i
+=== REMOTE RESULT ===
+{
+  "module": "wm.train",
+  "argv": [
+    "--scale",
+    "full",
+    "--data-frac",
+    "0.25",
+    "--tag",
+    "ablation25",
+    "--steps",
+    "6000",
+    "--max-seconds",
+    "2700"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 798.7
+}
