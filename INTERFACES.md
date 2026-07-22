@@ -30,9 +30,14 @@ class VecPong:
     def reset(self) -> np.ndarray                 # uint8 [n, 64, 64], all envs
     def step(self, actions: np.ndarray)           # int array [n] in {0,1,2}
         -> (frames uint8 [n,64,64], rewards float32 [n], dones bool [n],
-            info: dict with "paddle_hit" bool [n], "point" int8 [n] in {-1,0,+1})
+            info: dict with "paddle_hit" bool [n], "point" int8 [n] in {-1,0,+1},
+                  "terminal_frame" uint8 [n,64,64])
     # done envs AUTO-RESET inside step(); the returned frame for a done env is
     # the FIRST frame of the new episode; reward/done describe the ended one.
+    # info["terminal_frame"][i] = the TRUE final frame of the ended episode
+    # (post-step, PRE-reset) for done envs; zeros for non-done envs. Needed so
+    # PPO can bootstrap the value of truncated (max_steps) episodes correctly
+    # — "point"==0 with done=True identifies truncation vs a real terminal.
 
 class Pong:            # thin n=1 wrapper, same semantics, unbatched returns
 def scripted_action(state..., eps_random, rng) -> actions  # the collection policy

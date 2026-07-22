@@ -102,7 +102,10 @@ def load_wm(ckpt_path, device, with_heads=False) -> WorldModel:
     ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=True)
     wm = WorldModel(with_heads=with_heads)
     missing, unexpected = wm.load_state_dict(ckpt["model"], strict=False)
-    # strict=False so a v1 checkpoint can seed a v2 model (heads start fresh)
-    assert not unexpected, f"unexpected keys: {unexpected}"
-    assert all(k.startswith(("reward_head", "done_head")) for k in missing), missing
+    # strict=False covers both directions: v1 ckpt seeding a v2 model (head keys
+    # missing -> fresh init) and v2 ckpt loaded headless for drift eval (head
+    # keys unexpected -> ignored). Anything else is a real corruption.
+    _heads = ("reward_head", "done_head")
+    assert all(k.startswith(_heads) for k in unexpected), f"unexpected: {unexpected}"
+    assert all(k.startswith(_heads) for k in missing), f"missing: {missing}"
     return wm.to(device)

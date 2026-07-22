@@ -35,8 +35,13 @@ class StackedVecEnv:
 
     def step(self, actions):
         f, r, d, info = self.env.step(actions)
+        old = self.stacks
         self.stacks = np.concatenate([self.stacks[:, 1:], f[:, None]], axis=1)
         if d.any():
+            # true final stack of the ended episode (pre-reset), for truncation
+            # bootstrapping: old stack shifted + the env's terminal frame
+            info["terminal_stack"] = np.concatenate(
+                [old[d, 1:], info["terminal_frame"][d][:, None]], axis=1)
             self.stacks[d] = f[d][:, None]                # fresh episode: repeat
         return r, d, info
 
@@ -66,6 +71,8 @@ def main():
     rew_buf = np.zeros((T, N), dtype=np.float32)
     done_buf = np.zeros((T, N), dtype=np.float32)
     val_buf = np.zeros((T, N), dtype=np.float32)
+    timeout_buf = np.zeros((T, N), dtype=np.float32)  # done via max_steps, not a score
+    term_val_buf = np.zeros((T, N), dtype=np.float32)  # V(true terminal stack) where done
 
     ep_ret = np.zeros(N); ep_len = np.zeros(N, dtype=np.int64); ep_pts = np.zeros(N)
     stats = {"iter": [], "steps": [], "mean_point": [], "mean_shaped": [],
@@ -92,6 +99,16 @@ def main():
             act_buf[t] = acts
             r, d, info = venv.step(acts)
             rew_buf[t], done_buf[t] = r, d.astype(np.float32)
+            timeout_buf[t] = 0.0; term_val_buf[t] = 0.0  # buffers persist across iters
+            if d.any():
+                # truncated episodes are NOT true terminals: bootstrap the value
+                # of the real (pre-reset) final stack instead of zeroing it
+                timeout_buf[t, d] = (info["point"][d] == 0).astype(np.float32)
+                with torch.no_grad():
+                    ts = torch.from_numpy(
+                        info["terminal_stack"]).to(dev).float() / 255.0
+                    _, tv = policy(ts)
+                term_val_buf[t, d] = tv.cpu().numpy()
             ep_ret += r; ep_len += 1; ep_pts += info["point"]
             for i in np.flatnonzero(d):
                 recent["shaped"].append(ep_ret[i]); recent["lens"].append(ep_len[i])
@@ -108,7 +125,10 @@ def main():
         for t in reversed(range(T)):
             nxt_v = last_v if t == T - 1 else val_buf[t + 1]
             nonterm = 1.0 - done_buf[t]
-            delta = rew_buf[t] + P["gamma"] * nxt_v * nonterm - val_buf[t]
+            # bootstrap target: next value if alive; V(true terminal stack) if
+            # the episode was TRUNCATED (max_steps); zero on a real terminal
+            boot_v = nonterm * nxt_v + timeout_buf[t] * term_val_buf[t]
+            delta = rew_buf[t] + P["gamma"] * boot_v - val_buf[t]
             gae = delta + P["gamma"] * P["gae_lambda"] * nonterm * gae
             adv[t] = gae
         ret = adv + val_buf
