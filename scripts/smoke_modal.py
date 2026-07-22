@@ -15,8 +15,8 @@ def gpu_smoke() -> dict:
     import os
     import torch
 
-    os.chdir("/root/proj")
-    sys.path.insert(0, "/root/proj")
+    os.chdir("/root")
+    sys.path.insert(0, "/root")
     import config  # proves the repo mounted
 
     assert torch.cuda.is_available(), "CUDA not available on Modal worker"

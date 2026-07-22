@@ -18,6 +18,14 @@ progresses. Newest entries at the bottom of each section.
   overnight run + "a later failure must never destroy earlier results" — commits
   at phase boundaries are the standard mechanism for that guarantee.
 
+- **Preflight caught two Modal infra bugs** (this is exactly why it exists):
+  (1) `add_local_dir` ignore patterns used only `".venv/**"` — dockerignore
+  semantics need the bare dir name too, so the first smoke run silently hashed/
+  uploaded the multi-GB venv for 20+ minutes; killed, fixed with both forms.
+  (2) repo mounted at `/root/proj` but Modal's runner resolves imports from
+  `/root` → `ModuleNotFoundError: infra`; remounted at `/root`. Second run:
+  `MODAL_SMOKE_OK` on a Tesla T4 in ~2 min.
+
 ## Deviations from the requested plan (all logged, none load-bearing)
 
 - **INTERFACES.md written by the main thread before fanout**, not by eval-utils.

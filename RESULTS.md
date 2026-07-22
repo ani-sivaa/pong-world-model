@@ -1,7 +1,13 @@
 # RESULTS.md — every number, chart path, and surprise
 
-## Preflight
-(pending)
+## Preflight — PASSED (2026-07-22, ~00:45 PT)
+- Local end-to-end (CPU): 500 transitions collected; 30s WM train 1221 steps,
+  BCE 0.7179 → 0.0038; 100 policy-gradient steps; ONNX export parity
+  max|torch−ort| = 8.9e-08. All 4 stages green in 35s.
+- Modal GPU: Tesla T4, torch 2.13.0+cu130, 20 train steps in 2.10s, volume
+  write + commit verified. `MODAL_SMOKE_OK`.
+- Two infra failures found & fixed before real work (see DECISIONS.md):
+  ignore-pattern bug uploading the venv, and repo mount path vs remote sys.path.
 
 ## Phase 1 — environment & data
 (pending)

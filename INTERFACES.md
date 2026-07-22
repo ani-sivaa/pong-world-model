@@ -56,6 +56,23 @@ Physics contract (must match web/pong.js EXACTLY — see web section):
 - actions: 0=stay, 1=up(y-=speed), 2=down(y+=speed). Agent = RIGHT paddle.
 - rewards: r_score / r_concede / r_hit from config; episode done on point or max_steps.
 
+STEP ORDER (identical in Python and JS — parity depends on it):
+1. paddles move: agent by action, opponent scripted tracker (move opp_speed
+   toward ball CENTER y iff |paddle_cy - ball_cy| > opp_deadzone); clamp y to [1, 51].
+2. ball moves: x += vx; y += vy   (store prev x before the move for crossing tests)
+3. wall bounce: reflect y at 1 / 61, flip vy.
+4. paddle collision (crossing test vs PREV x, paddles at their NEW y):
+   reflect x about plane, vx = -vx, vy = clip(offset/(paddle_h/2), -1, 1)*max_vy;
+   agent-paddle contact => reward += r_hit, info paddle_hit.
+5. scoring: ball fully off-screen => point, done.
+6. t += 1; t >= max_steps => done (point 0).
+7. render.
+Serve/reset state: ball top-left (31, 31); paddles y = 26 (centered); vx sign
+and vy from seeded RNG as specified above.
+Scripted collection policy (agent paddle): with prob eps_random uniform random
+action, else tracker with opp_deadzone: paddle_cy < ball_cy - dz -> 2 (down),
+> ball_cy + dz -> 1 (up), else 0.
+
 ## Data format — written by `pong/collect.py` to `data/<scale>/`
 
 Contiguous streams, episodes back-to-back, frames stored ONCE and indexed:
@@ -114,9 +131,10 @@ opset 17. Demo uses argmax. Parity gate: max|torch−ort| < 1e-4 on 64 random in
 ## Modal — `infra/`
 
 - `infra/modal_common.py` (main-thread seeded): app "worldmodel-pong", volume
-  "worldmodel-vol" at /vol, image = debian_slim py3.11 + pip deps + repo at /root/proj.
+  "worldmodel-vol" at /vol, image = debian_slim py3.11 + pip deps + repo at /root
+  (matches Modal's runner cwd/sys.path so `import config`, `import infra` resolve).
 - modal-infra adds `infra/remote.py`: `run_module(module: str, argv: list[str])`
-  Modal function (T4, volume, timeout from config.CAPS) that chdirs to /root/proj,
+  Modal function (T4, volume, timeout from config.CAPS) that chdirs to /root,
   sets WM_ROOT=/vol, runs the module CLI via runpy, commits the volume; plus
   `launch(module, args, timeout_s, detach=False)` local helper invoking it, and
   `run_anywhere(module, args, scale_fallback)` — tries Modal, on ANY failure runs

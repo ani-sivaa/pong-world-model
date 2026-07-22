@@ -29,10 +29,14 @@ image = (
     .env({"WM_ROOT": "/vol", "MPLBACKEND": "Agg"})
     .add_local_dir(
         str(REPO_ROOT),
-        remote_path="/root/proj",
+        remote_path="/root",  # match Modal's runner cwd/sys.path so `import infra`, `import config` resolve
+        # dockerignore semantics: bare name excludes the dir itself; both forms
+        # kept for safety — a miss here uploads a multi-GB venv on every run
         ignore=[
-            ".venv/**", ".git/**", "data/**", "checkpoints/**",
-            "results/**", "__pycache__/**", "**/__pycache__/**",
+            ".venv", ".venv/**", ".git", ".git/**", "data", "data/**",
+            "checkpoints", "checkpoints/**", "results", "results/**",
+            "__pycache__", "**/__pycache__", "**/__pycache__/**", "*.pyc",
+            "*.onnx", "*.gif", "*.png",
         ],
     )
 )
