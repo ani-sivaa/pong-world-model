@@ -28,6 +28,25 @@ from wm.data import TransitionData
 from wm.model import load_wm
 
 
+def ball_alive(frames: torch.Tensor) -> torch.Tensor:
+    """Ball-existence guard (diagnostic probe fix): frames [B,1,64,64] sigmoid
+    probs -> float [B] 1.0 iff a ball is visibly present in the dreamed frame.
+
+    Rationale: with miss-events nearly absent from v1 data, the WM lets the
+    ball VANISH when it passes a paddle, the done head never fires, and the
+    reward head hallucinates hits in ball-less frames — the exploit the v1
+    dream agent farmed. Zeroing reward AND continuation when no ball pixels
+    exist outside walls/paddle columns makes vanish-states worthless: a dream
+    without a ball is over. (Legit dreamed scores also end here — correct.)
+    """
+    f = (frames[:, 0] > 0.5).float().clone()
+    f[:, 0, :] = 0
+    f[:, 63, :] = 0                    # walls
+    f[:, :, 2:4] = 0
+    f[:, :, 60:62] = 0                 # paddle columns
+    return (f.sum(dim=(1, 2)) >= 2).float()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--scale", default="local", choices=list(config.SCALES))
@@ -36,6 +55,9 @@ def main():
     ap.add_argument("--out", default=str(config.CKPT_DIR / "dream_agent.pt"))
     ap.add_argument("--updates", type=int, default=None)
     ap.add_argument("--batch", type=int, default=None)
+    ap.add_argument("--horizon", type=int, default=None)
+    ap.add_argument("--ball-guard", action="store_true",
+                    help="zero reward+continuation in ball-less dreamed frames")
     ap.add_argument("--max-seconds", type=int, default=config.CAPS["dream"])
     args = ap.parse_args()
 
@@ -45,7 +67,7 @@ def main():
     sc = config.SCALES[args.scale]
     updates = args.updates or sc["dream_updates"]
     B = args.batch or D["batch"]
-    H, gamma = D["horizon"], D["gamma"]
+    H, gamma = args.horizon or D["horizon"], D["gamma"]
     data_dir = args.data or (config.DATA_DIR / args.scale)
 
     wm = load_wm(args.wm, dev, with_heads=True).eval()
@@ -77,8 +99,9 @@ def main():
             with torch.no_grad():                            # frozen dynamics
                 fl, r, dl = wm(stack, a)
                 nxt = torch.sigmoid(fl)                      # [B,1,64,64]
-                rewards.append(r.clamp(-1.5, 1.5))           # guard head blowups
-                conts.append(1.0 - torch.sigmoid(dl))        # soft continuation
+                ok = ball_alive(nxt) if args.ball_guard else 1.0
+                rewards.append(r.clamp(-1.5, 1.5) * ok)      # no ball -> no pay
+                conts.append((1.0 - torch.sigmoid(dl)) * ok) # no ball -> dream over
                 stack = torch.cat([stack[:, 1:], nxt], dim=1)
         with torch.no_grad():
             _, boot = policy(stack)                          # tail bootstrap

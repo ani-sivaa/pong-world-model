@@ -1,0 +1,165 @@
+{
+  "calibration": {
+    "n": 4096,
+    "mse": 9.922299796016887e-06,
+    "threshold": 0.05,
+    "precision": 0.9583333333333334,
+    "recall": 0.9787234042553191,
+    "precision_excluding_true_score_events": 0.9583333333333334,
+    "tp": 46,
+    "fp": 2,
+    "fn": 1,
+    "per_class": {
+      "zero": {
+        "n": 4049,
+        "pred_mean": 8.724330109544098e-05,
+        "pred_std": 0.0024521532468497753,
+        "pred_min": -0.034236278384923935,
+        "pred_max": 0.09348998963832855,
+        "frac_pred_gt_thresh": 0.0004939491232403062
+      },
+      "hit(+0.1)": {
+        "n": 47,
+        "pred_mean": 0.09347882866859436,
+        "pred_std": 0.017421767115592957,
+        "pred_min": 0.032806411385536194,
+        "pred_max": 0.12698028981685638,
+        "frac_pred_gt_thresh": 0.9787234042553191
+      },
+      "score(+1)": {
+        "n": 0
+      },
+      "concede(-1)": {
+        "n": 0
+      }
+    }
+  },
+  "dreams": {
+    "n_dreams": 64,
+    "horizon": 40,
+    "mean_pred_reward_sum_per_dream": 0.2311478853225708,
+    "std_pred_reward_sum_per_dream": 0.49063366651535034,
+    "n_events_pred_gt_thresh": 92,
+    "events_per_dream": 1.4375,
+    "n_hitlike_events": 92,
+    "n_scorelike_events": 0,
+    "frac_events_NO_ball_near_paddle_strict": 0.8695652173913043,
+    "frac_events_NO_ball_near_paddle_lenient": 0.8695652173913043,
+    "frac_events_NO_ball_near_paddle_lenient_either_frame": 0.8586956521739131,
+    "frac_hitlike_NO_ball_near_paddle_lenient": 0.8695652173913043,
+    "frac_events_with_zero_ball_pixels": 0.8695652173913043,
+    "ball_max_col_at_events_median": -1.0,
+    "ball_max_col_histogram": {
+      "no_ball(-1)": 80,
+      "left_half(<32)": 0,
+      "mid(32-55)": 0,
+      "near_paddle(56-59)": 12,
+      "at/behind(>=60)": 0
+    },
+    "checker_sanity_frac_true_hits_flagged_near_paddle": 1.0,
+    "checker_sanity_n_true_hits": 115
+  },
+  "example_implausible_events": [
+    {
+      "dream": 2,
+      "step": 31,
+      "pred": 0.08791375160217285,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 3,
+      "step": 27,
+      "pred": 0.13412514328956604,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 4,
+      "step": 38,
+      "pred": 0.0814298614859581,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 5,
+      "step": 25,
+      "pred": 0.11908367276191711,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 5,
+      "step": 30,
+      "pred": 0.05296240746974945,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 5,
+      "step": 31,
+      "pred": 0.0560014545917511,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 5,
+      "step": 32,
+      "pred": 0.19754759967327118,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 5,
+      "step": 33,
+      "pred": 0.2894710302352905,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 6,
+      "step": 36,
+      "pred": 0.10785095393657684,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    },
+    {
+      "dream": 15,
+      "step": 34,
+      "pred": 0.10025548934936523,
+      "n_ball_px": 0,
+      "ball_max_col": -1,
+      "strict": false,
+      "lenient": false,
+      "lenient_either": false
+    }
+  ],
+  "runtime_s": 4.26943302154541
+}

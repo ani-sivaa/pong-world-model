@@ -1,0 +1,46 @@
+{
+  "dream::dream_agent": {
+    "mean_gapchange_from_paddle": -0.3809139274906867,
+    "p_paddle_steps_toward_ball": 0.15180265654648956,
+    "p_ball_steps_toward_paddle": 0.1954459203036053,
+    "n_pairs": 1054,
+    "mean_pad_cy_dream": 21.632102469920618,
+    "mean_ball_cy_dream": 31.655336250294223,
+    "mean_ball_cx_dream": 31.157634673081038,
+    "pred_hit_steps": {
+      "count": 20,
+      "ball_cx_mean": 53.11511595937386,
+      "ball_cx_min": 25.14680288888007,
+      "frac_ball_cx_gt_50": 0.85,
+      "abs_dy_mean": 6.6291033732557825,
+      "frac_geom_plausible": 0.75
+    },
+    "sum_pred_reward": 0.08612583109152872,
+    "mean_pred_reward_per_step": 0.002092668553814292
+  },
+  "dream::ppo_baseline": {
+    "mean_gapchange_from_paddle": -0.06786864909337391,
+    "p_paddle_steps_toward_ball": 0.21042471042471042,
+    "p_ball_steps_toward_paddle": 0.21525096525096524,
+    "n_pairs": 1036,
+    "mean_pad_cy_dream": 32.40095758771926,
+    "mean_ball_cy_dream": 32.88330962649481,
+    "mean_ball_cx_dream": 31.281446792334343,
+    "pred_hit_steps": {
+      "count": 19,
+      "ball_cx_mean": 56.175715350832796,
+      "ball_cx_min": 41.740301940637536,
+      "frac_ball_cx_gt_50": 0.8947368421052632,
+      "abs_dy_mean": 3.13388277646081,
+      "frac_geom_plausible": 0.8947368421052632
+    },
+    "sum_pred_reward": 0.05981857411524938,
+    "mean_pred_reward_per_step": 0.0014429480070248246
+  },
+  "real::dream_agent::physics_control": {
+    "mean_gapchange_from_paddle": -0.4361938639395287,
+    "p_paddle_steps_toward_ball": 0.10593597154290796,
+    "p_ball_steps_toward_paddle": 0.3277012005335705,
+    "n_pairs": 8996
+  }
+}

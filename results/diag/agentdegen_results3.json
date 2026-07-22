@@ -1,0 +1,20 @@
+{
+  "always_stay": {
+    "pred_hits_per_dream": 0.53125,
+    "pred_return_per_dream": 0.0482620672510482,
+    "mean_alive_len": 37.59248770979194,
+    "real_hits_per_40steps": 0.42083333333333334
+  },
+  "always_up": {
+    "pred_hits_per_dream": 0.625,
+    "pred_return_per_dream": 0.06859247124721385,
+    "mean_alive_len": 36.72320899985219,
+    "real_hits_per_40steps": 0.25
+  },
+  "uniform_random": {
+    "pred_hits_per_dream": 0.5,
+    "pred_return_per_dream": 0.04168494402399385,
+    "mean_alive_len": 37.77773614283346,
+    "real_hits_per_40steps": 0.19166666666666665
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "real::dream_agent": {
+    "pct_stay": 0.12541666666666668,
+    "pct_up": 0.7363541666666666,
+    "pct_down": 0.13822916666666665,
+    "paddle_y_var": 54.90422986111111,
+    "mean_abs_track_err": 22.30013454861111,
+    "median_abs_track_err": 21.0,
+    "toward_ball_when_offside": 0.12014589143960523,
+    "stay_when_offside": 0.12915683329757563,
+    "corr_paddle_ball_y": -0.101864448239165,
+    "n_valid_steps": 9600,
+    "incoming_only": {
+      "mean_abs_track_err": 24.401289207868153,
+      "toward_ball_when_offside": 0.12605588044184535,
+      "pct_stay": 0.15135566188197766,
+      "corr_paddle_ball_y": -0.08763477088846292
+    },
+    "hits_per_env_300": 1.25,
+    "points": {
+      "won": 15,
+      "lost": 152
+    },
+    "mean_paddle_cy": 12.075833333333334,
+    "extractor_check": {
+      "pad_cy_mae": 1.630209478021978,
+      "ball_cy_mae": 3.0464756944444455,
+      "ball_mass_mean": 3.716458333333333,
+      "pad_mass_mean": 24.095
+    }
+  },
+  "real::ppo_baseline": {
+    "pct_stay": 0.32614583333333336,
+    "pct_up": 0.315625,
+    "pct_down": 0.35822916666666665,
+    "paddle_y_var": 205.90596944444442,
+    "mean_abs_track_err": 13.085758734539398,
+    "median_abs_track_err": 9.187500000582073,
+    "toward_ball_when_offside": 0.37282546901648667,
+    "stay_when_offside": 0.31938601478112566,
+    "corr_paddle_ball_y": 0.40257726318373444,
+    "n_valid_steps": 9600,
+    "incoming_only": {
+      "mean_abs_track_err": 11.098432640658054,
+      "toward_ball_when_offside": 0.3902553291168892,
+      "pct_stay": 0.3000424088210348,
+      "corr_paddle_ball_y": 0.5800901544113657
+    },
+    "hits_per_env_300": 3.90625,
+    "points": {
+      "won": 18,
+      "lost": 16
+    },
+    "mean_paddle_cy": 31.720416666666665,
+    "extractor_check": {
+      "pad_cy_mae": 1.432257326007326,
+      "ball_cy_mae": 1.200551554742465,
+      "ball_mass_mean": 3.8920833333333333,
+      "pad_mass_mean": 24.01
+    }
+  },
+  "dream::dream_agent::argmax": {
+    "pct_stay": 0.2558139534883721,
+    "pct_up": 0.5478036175710594,
+    "pct_down": 0.19638242894056848,
+    "paddle_y_var": 57.20410980894495,
+    "mean_abs_track_err": 11.644614219506579,
+    "median_abs_track_err": 8.270968472744576,
+    "toward_ball_when_offside": 0.15179392824287027,
+    "stay_when_offside": 0.25850965961361544,
+    "corr_paddle_ball_y": 0.777609870174572,
+    "n_valid_steps": 1161,
+    "dream_return_per_traj": 0.08612583109152872,
+    "pred_hits_per_traj": 0.625,
+    "ball_mass_start": 4.55582001643357,
+    "ball_mass_end": 9.176492570594462,
+    "pad_mass_mean": 24.034639690302562,
+    "frac_steps_ball_coherent": 0.94453125,
+    "mean_alive_len": 36.11777107215417
+  },
+  "dream::ppo_baseline::argmax": {
+    "pct_stay": 0.2986167615947925,
+    "pct_up": 0.3189585028478438,
+    "pct_down": 0.3824247355573637,
+    "paddle_y_var": 18.595324650543805,
+    "mean_abs_track_err": 5.734253831730221,
+    "median_abs_track_err": 4.003150168283831,
+    "toward_ball_when_offside": 0.29896907216494845,
+    "stay_when_offside": 0.2774133083411434,
+    "corr_paddle_ball_y": 0.9218033153780552,
+    "n_valid_steps": 1229,
+    "dream_return_per_traj": 0.05981857411524938,
+    "pred_hits_per_traj": 0.59375,
+    "ball_mass_start": 4.496839874441292,
+    "ball_mass_end": 8.184470434588032,
+    "pad_mass_mean": 23.963464659004472,
+    "frac_steps_ball_coherent": 0.98828125,
+    "mean_alive_len": 37.47523379469277
+  },
+  "dream::dream_agent::sampled": {
+    "pct_stay": 0.26012058570198104,
+    "pct_up": 0.5279931093884582,
+    "pct_down": 0.21188630490956073,
+    "paddle_y_var": 51.732861474428866,
+    "mean_abs_track_err": 11.288034666348189,
+    "median_abs_track_err": 7.908604002474957,
+    "toward_ball_when_offside": 0.1724137931034483,
+    "stay_when_offside": 0.27041742286751363,
+    "corr_paddle_ball_y": 0.7795442779423531,
+    "n_valid_steps": 1161,
+    "dream_return_per_traj": 0.07993373413342876,
+    "pred_hits_per_traj": 0.625,
+    "ball_mass_start": 4.530966034226381,
+    "ball_mass_end": 10.889521686143212,
+    "pad_mass_mean": 24.006924854606872,
+    "frac_steps_ball_coherent": 0.94453125,
+    "mean_alive_len": 36.19288572867721
+  }
+}
