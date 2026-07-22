@@ -57,10 +57,45 @@ progresses. Newest entries at the bottom of each section.
 
 (sections merged from subagent decision files as they complete)
 
-## Phase 2 — world model
+## Phase 2 — world model (design, main thread)
 
-(main thread, written during the run)
+- **U-Net skips from encoder to decoder.** Static content (walls, mostly-still
+  paddles) rides through skips nearly free, so bottleneck capacity goes to
+  dynamics. The classic risk (model learns identity) is countered by the
+  change-weighted loss below.
+- **BCE loss on logits, not MSE.** Pong pixels are near-binary; BCE keeps
+  predictions crisp where MSE regresses to gray.
+- **Change-weighted loss (w=15).** The 2×2 ball is ~0.1% of pixels; with
+  uniform loss it blurs out of existence within a few rollout steps (the classic
+  failure of this exact experiment). Per-pixel weight `1 + 15·|Δframe|`
+  computed on *ground-truth* frames concentrates loss on the ball and moving
+  paddle edges.
+- **Multi-step unroll training (k=5) with gradient THROUGH the unroll,** feeding
+  back sigmoid probabilities — the same convention the dream rollout uses, so
+  train and inference distributions match. 35% of steps run at k=1 first
+  (cheap warmup), then k=5. This is the single biggest lever for long-horizon
+  coherence.
+- **Bug caught in self-review before any training:** frame loss at a step where
+  `done` fires would have trained the model to predict the *reset* frame
+  (serve direction is RNG — unlearnable noise). Frame loss now masks
+  `alive · (1-done)`; reward/done heads keep the `alive` mask so the done head
+  still sees positive examples.
+- **Fixed val windows (seeded rng(0))** so drift curves are comparable across
+  ablation runs and model versions.
 
-## Phase 3
+## Phase 3 — agents (design, main thread)
 
-(written during the run)
+- **3a = PPO** (clip, GAE), not DQN: fastest reliable route to a decent Pong
+  policy, and its value head matches the dream agent's A2C value head so the
+  "identical policy architecture" requirement holds exactly (same PolicyNet).
+- **3b = REINFORCE + value baseline inside frozen WM dreams.** No gradients
+  through dynamics (not needed for discrete actions), WM outputs detached,
+  predicted rewards clamped to [-1.5, 1.5] to guard against reward-head
+  blowups, soft continuation mask `1 - p(done)` both discounts returns and
+  weights losses — robust to a miscalibrated done head.
+- **Dream starts are real frame-stacks sampled from the dataset** — keeps
+  dreams anchored in-distribution rather than compounding from a fixed start.
+- **Subagent tool restriction is prompt-level** (agents instructed which tools
+  to use + hard file-ownership rules) rather than harness-level: custom agent
+  definitions written mid-session may not be picked up, and a failed agent
+  launch would cost more than the soft restriction risks.
