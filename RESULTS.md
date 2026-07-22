@@ -28,8 +28,16 @@
 - Real-vs-dreamed GIFs: pending → `results/rollouts/`
 - Training-set-size ablation: pending → `results/ablation/`
 
-## Phase 3a — baseline agent
-(pending)
+## Phase 3a — baseline agent — DONE
+- PPO, 9M env steps total (3M initial + 6M continuation after plateau at
+  −0.34; see DECISIONS.md), 35 min wall on local MPS.
+- Training tail (sampling): mean point ≈ +0.03, shaped return +0.27, rallies ~200 steps.
+- **Formal eval (greedy, 200 episodes): mean point +0.12 — 52.5% wins,
+  40.5% losses, 7% truncations; 2.8 paddle hits/ep; mean episode 217 steps.**
+  The baseline beats the scripted tracker opponent.
+- Checkpoints: ppo_baseline.pt (9M), ppo_baseline_3M.pt (banked mid-run).
+- Curves: results/ppo_train.png, results/ppo_train_log.json; play GIF:
+  results/agent_baseline_play.gif.
 
 ## Phase 3b — dream agent
 (pending)

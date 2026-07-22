@@ -1,0 +1,34 @@
+# /Users/anisiva/Developer/WorldModel/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data-frac 0.25 --tag ablation25 --steps 6000 --max-seconds 2700
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-dI9hHxho0AvR0hCVDuM10i
+✓ Created objects.
+├── 🔨 Created mount PythonPackage:infra
+├── 🔨 Created mount /Users/anisiva/Developer/WorldModel
+├── 🔨 Created function run_module_gpu.
+├── 🔨 Created function run_module_cpu.
+└── 🔨 Created function vol_read.
+[wm.train] tag=ablation25 dev=cuda steps=6000 batch=128 T=1000000 train_end=237114 v2=False frac=0.25
+/root/wm/train.py:137: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  log["loss"].append(float(total))
+  step 1/6000 k=1 loss=0.82320 frame=0.82320 rew=0.00000 done=0.00000 2s
+  step 100/6000 k=1 loss=0.01680 frame=0.01680 rew=0.00000 done=0.00000 7s
+  step 200/6000 k=1 loss=0.00609 frame=0.00609 rew=0.00000 done=0.00000 11s
+  step 300/6000 k=1 loss=0.00510 frame=0.00510 rew=0.00000 done=0.00000 15s
+  step 400/6000 k=1 loss=0.00437 frame=0.00437 rew=0.00000 done=0.00000 19s
+  step 500/6000 k=1 loss=0.00361 frame=0.00361 rew=0.00000 done=0.00000 23s
+  step 600/6000 k=1 loss=0.00372 frame=0.00372 rew=0.00000 done=0.00000 27s
+  step 700/6000 k=1 loss=0.00381 frame=0.00381 rew=0.00000 done=0.00000 31s
+  step 800/6000 k=1 loss=0.00340 frame=0.00340 rew=0.00000 done=0.00000 35s
+  step 900/6000 k=1 loss=0.00306 frame=0.00306 rew=0.00000 done=0.00000 39s
+  step 1000/6000 k=1 loss=0.00272 frame=0.00272 rew=0.00000 done=0.00000 44s
+  [ckpt] step 1000 val_frame=0.01095 -> /vol/checkpoints/ablation25.pt
+  step 1100/6000 k=1 loss=0.00304 frame=0.00304 rew=0.00000 done=0.00000 48s
+  step 1200/6000 k=1 loss=0.00209 frame=0.00209 rew=0.00000 done=0.00000 52s
+  step 1300/6000 k=1 loss=0.00244 frame=0.00244 rew=0.00000 done=0.00000 56s
+  step 1400/6000 k=1 loss=0.00160 frame=0.00160 rew=0.00000 done=0.00000 60s
+  step 1500/6000 k=1 loss=0.00191 frame=0.00191 rew=0.00000 done=0.00000 64s
+  step 1600/6000 k=1 loss=0.00193 frame=0.00193 rew=0.00000 done=0.00000 68s
+  step 1700/6000 k=1 loss=0.00149 frame=0.00149 rew=0.00000 done=0.00000 72s
+  step 1800/6000 k=1 loss=0.00152 frame=0.00152 rew=0.00000 done=0.00000 77s
+  step 1900/6000 k=1 loss=0.00182 frame=0.00182 rew=0.00000 done=0.00000 81s

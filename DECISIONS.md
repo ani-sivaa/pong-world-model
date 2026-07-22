@@ -97,6 +97,15 @@ progresses. Newest entries at the bottom of each section.
   ≈ 55 min (inside the 1.5h cap); PPO needs no dataset, the Mac is idle, and
   local removes a remote failure mode + T4 cost. WM training (the heavy,
   data-bound job) runs on Modal T4 in parallel.
+- **PPO extended 3M → 9M steps.** The 3M run finished in only 10 min and
+  plateaued at mean point ≈ −0.34 (learning clearly happened: −1.0 → −0.34,
+  rallies lengthened, entropy healthy ~0.67 — but Pong-from-pixels typically
+  needs >3M frames, and the tracker opponent is strong). With 80 min of cap
+  headroom, continuing from the checkpoint is the cheapest way to strengthen
+  the guaranteed deliverable. The 3M checkpoint is banked at
+  checkpoints/ppo_baseline_3M.pt — 3a is already satisfied even if the
+  continuation adds nothing. Same hypers, no mid-run tuning (keeps the story
+  clean).
 
 ## Phase 2 — world model (design, main thread)
 

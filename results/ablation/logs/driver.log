@@ -1,0 +1,4 @@
+[ablation] launched ablation10 attempt 1 (steps=6000, pid=24128) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation10.attempt1.log
+[ablation] launched ablation25 attempt 1 (steps=6000, pid=24204) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation25.attempt1.log
+[ablation] launched ablation50 attempt 1 (steps=6000, pid=24296) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation50.attempt1.log
+[ablation] launched ablation100 attempt 1 (steps=6000, pid=24403) -> /Users/anisiva/Developer/WorldModel/results/ablation/logs/ablation100.attempt1.log

@@ -1,0 +1,20 @@
+# /Users/anisiva/Developer/WorldModel/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data-frac 0.5 --tag ablation50 --steps 6000 --max-seconds 2700
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-Iir8dwaEpAv8WicIkzl01t
+✓ Created objects.
+├── 🔨 Created mount PythonPackage:infra
+├── 🔨 Created mount /Users/anisiva/Developer/WorldModel
+├── 🔨 Created function run_module_gpu.
+├── 🔨 Created function run_module_cpu.
+└── 🔨 Created function vol_read.
+[wm.train] tag=ablation50 dev=cuda steps=6000 batch=128 T=1000000 train_end=472750 v2=False frac=0.5
+/root/wm/train.py:137: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  log["loss"].append(float(total))
+  step 1/6000 k=1 loss=0.82593 frame=0.82593 rew=0.00000 done=0.00000 2s
+  step 100/6000 k=1 loss=0.01838 frame=0.01838 rew=0.00000 done=0.00000 6s
+  step 200/6000 k=1 loss=0.00699 frame=0.00699 rew=0.00000 done=0.00000 10s
+  step 300/6000 k=1 loss=0.00513 frame=0.00513 rew=0.00000 done=0.00000 15s
+  step 400/6000 k=1 loss=0.00434 frame=0.00434 rew=0.00000 done=0.00000 19s
+  step 500/6000 k=1 loss=0.00410 frame=0.00410 rew=0.00000 done=0.00000 23s
+  step 600/6000 k=1 loss=0.00372 frame=0.00372 rew=0.00000 done=0.00000 27s
