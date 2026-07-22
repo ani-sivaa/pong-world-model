@@ -61,9 +61,42 @@ progresses. Newest entries at the bottom of each section.
   from the same seed at training start (~minutes, vectorized env) instead of
   uploading ~4.1GB to the volume. Same code + same seed ⇒ identical data.
 
-## Wave 1
+## Wave 1 — all four agents landed (details in DECISIONS.<agent>.md files)
 
-(sections merged from subagent decision files as they complete)
+- **env-builder**: contract-exact vectorized env, bit-exact determinism
+  verified; 5k/100k/1M transitions collected (~460k transitions/s pure env).
+  KEY FINDING: **organic scoring is rare** (~1 point per 20–40k transitions per
+  side) because the tracker opponent pre-positions; the 1M set holds 2,004 true
+  episode-ends but only ~53 scored points. It *strengthened* rather than
+  weakened the validation (deterministic engineered max-angle shots score on
+  both sides — a skilled agent CAN win points). Implications accepted: dream
+  reward signal is mostly r_hit shaping (by design), done-head positives are
+  sparse-but-learnable, and eval win-rates will be modest — the transfer
+  comparison is unaffected since both agents face identical conditions. It also
+  appends forced `done=True` at each env-chunk boundary so no consumer stitches
+  across env streams (3% of dones; harmless noise for the done head).
+- **eval-utils**: contract implemented exactly; imageio.v3+pillow writer chosen
+  for stable GIF duration semantics. Validated end-to-end by main thread.
+- **web-demo**: verbatim JS physics port; `Math.random()` for serves (dynamics
+  parity matters, RNG-stream parity doesn't — sensible). Its independently
+  mirrored left-plane crossing test `new < 4 <= prev` MATCHES env-builder's —
+  cross-checked at merge, no parity gap. Model-missing fallback keeps the demo
+  playable before ONNX lands.
+- **modal-infra**: remote runner verified on T4; found this network TLS-resets
+  Modal's blob CDN (`modal volume get` unusable) and built a chunked-gRPC
+  `fetch()` fallback — all artifact retrieval must use it.
+- **Transient failure**: modal-infra's first run died to an API connection
+  error; resumed with context intact, completed normally.
+
+## Full-scale launch decisions
+
+- **Whole project ran end-to-end at SMOKE scale first** (WM v1 → rollout → WM
+  v2 → PPO → dream → transfer eval, ~2 min total) before any full-scale spend.
+  All green on first try.
+- **PPO (3a) runs LOCALLY on MPS, not Modal**: smoke timing projects 3M steps
+  ≈ 55 min (inside the 1.5h cap); PPO needs no dataset, the Mac is idle, and
+  local removes a remote failure mode + T4 cost. WM training (the heavy,
+  data-bound job) runs on Modal T4 in parallel.
 
 ## Phase 2 — world model (design, main thread)
 

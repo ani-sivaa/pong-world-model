@@ -9,8 +9,19 @@
 - Two infra failures found & fixed before real work (see DECISIONS.md):
   ignore-pattern bug uploading the venv, and repo mount path vs remote sys.path.
 
-## Phase 1 — environment & data
-(pending)
+## Phase 1 — environment & data — DONE
+- data/full: T=1,000,000 transitions, 2,068 episodes (2,004 true ends), mean
+  episode length 483.6, reward sum 1,402.4 (points +29/−24 — scoring is rare;
+  see DECISIONS.md), collected in 22.3s (disk-bound; pure env ~460k tps).
+- data/local: T=100,000 (257 eps); data/smoke: T=5,000.
+- Determinism: two seed-7 runs bit-identical over 500 steps. Frames exactly {0,255}.
+- Sample play GIFs: results/env_samples/.
+
+## Smoke-scale pipeline (pre-GPU gate) — ALL GREEN
+- WM v1 (200 steps): val frame loss 0.0287; drift MSE 0.0025@1 → 0.0153@20.
+- WM v2 heads trained; PPO 1 iter OK (truncation-bootstrap path exercised);
+  dream loop OK (alive-mass 31.2/40 — done head soft-masking behaves);
+  transfer eval + exploit-flag logic OK.
 
 ## Phase 2 — world model
 - Drift curve (prediction error vs. rollout step): pending → `results/drift_curve.png`
