@@ -1,0 +1,9 @@
+torch>=2.4
+numpy
+imageio
+pillow
+matplotlib
+onnx
+onnxruntime
+tqdm
+modal
