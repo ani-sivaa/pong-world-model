@@ -23,10 +23,22 @@
   dream loop OK (alive-mass 31.2/40 — done head soft-masking behaves);
   transfer eval + exploit-flag logic OK.
 
-## Phase 2 — world model
-- Drift curve (prediction error vs. rollout step): pending → `results/drift_curve.png`
-- Real-vs-dreamed GIFs: pending → `results/rollouts/`
-- Training-set-size ablation: pending → `results/ablation/`
+## Phase 2 — world model — TRAINED + EVALUATED
+- Training: 18,000 steps (6.3k @ k=1 warmup, 11.7k @ k=5 unroll-with-gradient),
+  batch 128, T4, 40.5 min. Final val weighted-BCE **0.00184**.
+- **Drift curve (the key experiment)** — per-pixel MSE of pure autoregressive
+  dreams vs reality, mean over 32 held-out windows, logged actions replayed:
+  | rollout step | 1 | 5 | 10 | 15 | 30 | 45 | 60 |
+  |---|---|---|---|---|---|---|---|
+  | MSE | .00018 | .00027 | .00036 | .00054 | .00134 | .00278 | .00386 |
+  Growth is ~linear (ball positional drift), NOT exponential — no model
+  collapse over the full 60-step horizon. For scale: two unrelated frames
+  differ by ≈ .025. → `results/drift_curve_main.png`, `results/drift_main.json`
+- **Real-vs-dream GIFs** (h = 15/30/60, 3 samples each):
+  `results/rollouts/main_h*_sample*.gif` — visual check: walls/paddles
+  pixel-perfect, ball crisp (change-weighted loss prevented ball blur-out; the
+  only |diff| signal is a small ball-position ghost late in long dreams).
+- Training-set-size ablation: running (4 parallel T4 jobs) → `results/ablation/`
 
 ## Phase 3a — baseline agent — DONE
 - PPO, 9M env steps total (3M initial + 6M continuation after plateau at
