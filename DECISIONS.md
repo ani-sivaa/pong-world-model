@@ -158,6 +158,37 @@ progresses. Newest entries at the bottom of each section.
   (Fixes, not attempted overnight by design: collect data under iteratively
   retrained policies à la Dreamer, add stochastic latents, or DAgger-style
   dream-data refresh.)
+## Iteration 2 — diagnosing and fixing the transfer gap
+
+- **Diagnosis ran as a 4-probe parallel fanout**, each probe an actual
+  experiment (not code reading): reward-head calibration + ball-pixel evidence
+  checking, paddle-position coverage + forced-miss lockstep, horizon reward
+  binning + tracker-action control, and behavioral fingerprinting of the
+  policy in real vs dreamed frames. All probe code/numbers preserved under
+  `results/diag/` with a README index — rerunnable.
+- **Why fixes were chosen (and rejected):**
+  - CHOSEN: event-dense mixed-policy data (~100× more miss/score events).
+    Probes 1+2 showed every pathology traces to the un-modeled miss event;
+    coverage of *events*, not states, was the hole.
+  - CHOSEN: WM v3 from scratch rather than fine-tuning v2 — fine-tuning risks
+    retaining the vanish attractor; same GPU cost either way.
+  - CHOSEN: ball-existence guard in dream training (reward AND continuation
+    zeroed in ball-less frames), default OFF via --ball-guard so iteration-1
+    results stay reproducible. Belt-and-braces: the exploit pays nothing even
+    if v3 keeps rare vanish modes. The pixel checker validated at 100% on real
+    hit events before adoption.
+  - REJECTED: horizon truncation (probe 3: dreams are off-manifold from step 1
+    under this policy; H=15 would destroy reward signal without adding honesty).
+  - DEFERRED: geometric reward computed from decoded frames (probe 4's
+    suggestion) — more invasive; only if iteration 2 still shows hallucinated
+    reward. Escalation path documented here on purpose.
+  - KEPT: identical policy architecture and A2C hyperparameters, so the
+    iteration-1 → iteration-2 comparison isolates the WM/data/guard changes.
+- **v1 dream agent kept as a data collector** (10% of the new mix): its
+  ball-dodging behavior is a concentrated generator of concede events — the
+  exact events the WM needs to learn. The failure mode literally becomes
+  training data (DAgger flavor).
+
 - **Both models shipped in the demo** — the spec said ship the dream toggle
   "if 3b produced anything usable"; a weak-but-functional agent that
   demonstrates the transfer gap live is judged usable and instructive.

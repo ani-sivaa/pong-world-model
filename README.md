@@ -34,6 +34,22 @@ is hard; that gap is the point).
   (9%). Inside its dream the agent scores +0.134 — an ~8× flattery factor,
   characterized as distribution-shift exploitation in `results/exploit/`.
 
+## Case study: how an agent exploits its own world model
+
+The v1 dream agent's failure was diagnosed with four parallel experimental
+probes (`results/diag/`, each rerunnable) and turned out to be a textbook
+specification-gaming story: the training data contained only **53 scoring
+events in 1M transitions**, so the world model never learned what a miss looks
+like — inside dreams the ball silently **vanishes** when it passes a paddle
+(no terminal, no −1), and the reward head, near-perfectly calibrated
+on-distribution, hallucinates free +0.1 "hits" in ball-less frames (87% of the
+agent's imagined reward). The optimal dream policy is therefore to *dodge* the
+ball — which is exactly what it learned. Iteration 2 fixes the data (mixed
+behavior policies, ~100× more miss/score events), retrains the world model,
+and adds a ball-existence guard to dream training (a dream without a ball pays
+nothing and ends). Full narrative: `RESULTS.md`, probe index:
+`results/diag/README.md`, decision rationale: `DECISIONS.md`.
+
 ## Repo map
 
 ```
