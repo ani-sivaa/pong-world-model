@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pong — world model demo</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    background: #0d0f12; color: #e6e6e6;
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header { margin: 24px 0 4px; text-align: center; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0; letter-spacing: .02em; }
+  .hint { color: #8a919c; font-size: 12px; }
+  #banner {
+    display: none; margin: 10px 16px; padding: 8px 14px;
+    border-radius: 6px; font-weight: 600; max-width: 520px; text-align: center;
+  }
+  #banner.error { display: block; background: #4d1113; color: #ff8a8a; border: 1px solid #a33333; }
+  #banner.warn  { display: block; background: #4a3a08; color: #ffd166; border: 1px solid #b58900; }
+  #score { font-size: 32px; font-variant-numeric: tabular-nums; margin: 6px 0 10px; text-align: center; }
+  #score .labels { font-size: 11px; color: #8a919c; display: flex; justify-content: center; gap: 34px; }
+  canvas {
+    image-rendering: pixelated;
+    border: 1px solid #2a2f36; border-radius: 4px; background: #000;
+    max-width: 92vw; height: auto;
+  }
+  #controls { display: flex; gap: 18px; align-items: center; margin: 12px 0 4px; flex-wrap: wrap; justify-content: center; }
+  label { color: #8a919c; font-size: 12px; }
+  select {
+    background: #161a20; color: #e6e6e6; border: 1px solid #2a2f36;
+    border-radius: 6px; padding: 4px 8px; font: inherit; margin-left: 6px;
+  }
+  #statusbar { color: #8a919c; font-size: 12px; display: flex; gap: 16px; font-variant-numeric: tabular-nums; }
+  #touch { display: flex; gap: 16px; margin: 10px 0 24px; }
+  #touch button {
+    width: 72px; height: 48px; font-size: 20px;
+    background: #161a20; color: #e6e6e6; border: 1px solid #2a2f36;
+    border-radius: 8px; touch-action: none; user-select: none; -webkit-user-select: none;
+  }
+  #touch button:active { background: #232a33; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pong vs. the world model</h1>
+  <div class="hint">you are the LEFT paddle — hold W/S or &uarr;/&darr;</div>
+</header>
+
+<div id="banner"></div>
+
+<div id="score">
+  <div><span id="score-human">0</span> : <span id="score-agent">0</span></div>
+  <div class="labels"><span>you</span><span>agent</span></div>
+</div>
+
+<canvas id="screen" width="512" height="512"></canvas>
+
+<div id="controls">
+  <label>model
+    <select id="model-select">
+      <option value="baseline" selected>baseline</option>
+      <option value="dream">dream</option>
+    </select>
+  </label>
+  <div id="statusbar">
+    <span id="status-model">loading&hellip;</span>
+    <span id="status-latency"></span>
+  </div>
+</div>
+
+<div id="touch">
+  <button id="btn-up" aria-label="move up">&#9650;</button>
+  <button id="btn-down" aria-label="move down">&#9660;</button>
+</div>
+
+<!-- include order matters: constants (generated) -> onnxruntime-web -> game -->
+<script src="constants.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+<script src="pong.js"></script>
+</body>
+</html>
