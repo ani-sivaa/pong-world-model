@@ -27,3 +27,13 @@ ImportError: No module named infra.does_not_exist
   wm_v3) completed and persisted to the volume before the failure.
 - Action: relaunched the chain from stage 3 (heads → dream v2). No scale
   reduction needed.
+
+## Modal GPU scheduling degraded — iteration-2 stages 3-4 moved LOCAL — 2026-07-22 ~15:40 PT
+- Three consecutive GPU-job failures (`RemoteError: cancelled`, `ConflictError:
+  APP_STATE_STOPPED`), then a GPU hello that hung >7 min while a CPU hello
+  returned ok=true in seconds → T4 capacity/scheduling issue on Modal's side,
+  not our code (same commands ran fine for hours earlier today).
+- Fallback per unattended rules: regenerate mixed data locally (same seed),
+  fetch wm_v3.pt from the volume, run heads fine-tune (5k steps) and dream v2
+  (1,200 updates, batch 128, ball-guard) on local MPS with wall-clock caps.
+  Reduced scale is logged; v1 artifacts untouched.
