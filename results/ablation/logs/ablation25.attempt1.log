@@ -32,3 +32,11 @@ Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pyto
   step 1700/6000 k=1 loss=0.00149 frame=0.00149 rew=0.00000 done=0.00000 72s
   step 1800/6000 k=1 loss=0.00152 frame=0.00152 rew=0.00000 done=0.00000 77s
   step 1900/6000 k=1 loss=0.00182 frame=0.00182 rew=0.00000 done=0.00000 81s
+  step 2000/6000 k=1 loss=0.00155 frame=0.00155 rew=0.00000 done=0.00000 85s
+  [ckpt] step 2000 val_frame=0.00666 -> /vol/checkpoints/ablation25.pt
+  step 2100/6000 k=1 loss=0.00134 frame=0.00134 rew=0.00000 done=0.00000 89s
+  step 2200/6000 k=5 loss=0.00373 frame=0.00373 rew=0.00000 done=0.00000 107s
+  step 2300/6000 k=5 loss=0.00270 frame=0.00270 rew=0.00000 done=0.00000 125s
+  step 2400/6000 k=5 loss=0.00275 frame=0.00275 rew=0.00000 done=0.00000 143s
+  step 2500/6000 k=5 loss=0.00206 frame=0.00206 rew=0.00000 done=0.00000 161s
+  step 2600/6000 k=5 loss=0.00236 frame=0.00236 rew=0.00000 done=0.00000 179s

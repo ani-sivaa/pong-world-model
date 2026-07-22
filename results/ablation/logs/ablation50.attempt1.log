@@ -18,3 +18,23 @@ Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pyto
   step 400/6000 k=1 loss=0.00434 frame=0.00434 rew=0.00000 done=0.00000 19s
   step 500/6000 k=1 loss=0.00410 frame=0.00410 rew=0.00000 done=0.00000 23s
   step 600/6000 k=1 loss=0.00372 frame=0.00372 rew=0.00000 done=0.00000 27s
+  step 700/6000 k=1 loss=0.00380 frame=0.00380 rew=0.00000 done=0.00000 31s
+  step 800/6000 k=1 loss=0.00347 frame=0.00347 rew=0.00000 done=0.00000 35s
+  step 900/6000 k=1 loss=0.00303 frame=0.00303 rew=0.00000 done=0.00000 39s
+  step 1000/6000 k=1 loss=0.00381 frame=0.00381 rew=0.00000 done=0.00000 43s
+  [ckpt] step 1000 val_frame=0.01216 -> /vol/checkpoints/ablation50.pt
+  step 1100/6000 k=1 loss=0.00304 frame=0.00304 rew=0.00000 done=0.00000 48s
+  step 1200/6000 k=1 loss=0.00258 frame=0.00258 rew=0.00000 done=0.00000 52s
+  step 1300/6000 k=1 loss=0.00198 frame=0.00198 rew=0.00000 done=0.00000 56s
+  step 1400/6000 k=1 loss=0.00276 frame=0.00276 rew=0.00000 done=0.00000 60s
+  step 1500/6000 k=1 loss=0.00254 frame=0.00254 rew=0.00000 done=0.00000 64s
+  step 1600/6000 k=1 loss=0.00185 frame=0.00185 rew=0.00000 done=0.00000 68s
+  step 1700/6000 k=1 loss=0.00170 frame=0.00170 rew=0.00000 done=0.00000 72s
+  step 1800/6000 k=1 loss=0.00236 frame=0.00236 rew=0.00000 done=0.00000 76s
+  step 1900/6000 k=1 loss=0.00149 frame=0.00149 rew=0.00000 done=0.00000 80s
+  step 2000/6000 k=1 loss=0.00167 frame=0.00167 rew=0.00000 done=0.00000 85s
+  [ckpt] step 2000 val_frame=0.00649 -> /vol/checkpoints/ablation50.pt
+  step 2100/6000 k=1 loss=0.00192 frame=0.00192 rew=0.00000 done=0.00000 89s
+  step 2200/6000 k=5 loss=0.00290 frame=0.00290 rew=0.00000 done=0.00000 106s
+  step 2300/6000 k=5 loss=0.00286 frame=0.00286 rew=0.00000 done=0.00000 123s
+  step 2400/6000 k=5 loss=0.00249 frame=0.00249 rew=0.00000 done=0.00000 140s
