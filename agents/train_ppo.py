@@ -52,6 +52,8 @@ def main():
     ap.add_argument("--out", default=str(config.CKPT_DIR / "ppo_baseline.pt"))
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--max-seconds", type=int, default=config.CAPS["ppo"])
+    ap.add_argument("--init-from", default=None,
+                    help="checkpoint to continue training from")
     args = ap.parse_args()
 
     config.seed_everything()
@@ -63,6 +65,11 @@ def main():
 
     venv = StackedVecEnv(N, seed=config.SEED)
     policy = PolicyNet().to(dev)
+    if args.init_from:
+        ckpt = torch.load(args.init_from, map_location="cpu", weights_only=True)
+        policy.load_state_dict(ckpt["model"])
+        print(f"[ppo] continuing from {args.init_from} (step {ckpt['step']})",
+              flush=True)
     opt = torch.optim.Adam(policy.parameters(), lr=P["lr"], eps=1e-5)
 
     obs_buf = np.zeros((T, N, config.FRAME_STACK, 64, 64), dtype=np.uint8)
