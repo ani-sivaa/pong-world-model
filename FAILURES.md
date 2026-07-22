@@ -19,3 +19,11 @@ ImportError: No module named infra.does_not_exist
 
 - action: local retry: `/Users/anisiva/Developer/WorldModel/.venv/bin/python -m infra.does_not_exist --scale local`
 - local fallback result: ok=False returncode=1 seconds=0.03
+
+## Modal remote cancellation — iteration-2 chain, stage 3 — 2026-07-22 ~15:10 PT
+- `wm.train --v2` (heads fine-tune) died with `modal.exception.RemoteError:
+  Function call was cancelled by user or a failure` — Modal-side cancellation
+  (no local kill issued; likely worker preemption). Stages 1–2 (mixed collect,
+  wm_v3) completed and persisted to the volume before the failure.
+- Action: relaunched the chain from stage 3 (heads → dream v2). No scale
+  reduction needed.
