@@ -65,18 +65,52 @@
 - Curves: results/ppo_train.png, results/ppo_train_log.json; play GIF:
   results/agent_baseline_play.gif.
 
-## Phase 3b — dream agent
-(pending)
+## Phase 3b — dream agent — TRAINED (inside the world model only)
+- WM v2 (reward + done heads): 8k fine-tune steps from v1, T4, 18 min; val
+  frame loss **0.00081** (better than v1); rollout coherence unchanged
+  (mse@60 0.00393 vs 0.00386).
+- Dream training: 2,500 A2C updates × 256 parallel dreams × 40-step horizon
+  (≈ 25.6M imagined steps), T4, 71 min. **Zero real-Pong steps.**
+- Dream return: ~0 → **+0.120** (≈1.2 imagined paddle-hits/dream); entropy
+  1.10 → 0.63; dreams survive 37/40 steps.
+  → `results/dream_train.png`, `results/dream_train_log.json`
 
 ## Phase 3c — transfer (HEADLINE)
-- Dream agent: score inside the dream vs. score on real Pong — the gap is the headline number. (pending)
+| agent | trained on | real mean point | real win rate | hits/ep | ep len |
+|---|---|---|---|---|---|
+| baseline | 9M real steps | **+0.12** | 52.5% | 2.80 | 217 |
+| dream | 25.6M imagined steps | **−0.82** | 9.0% | 0.20 | 50 |
 
-## Phase 4 — web demo — BASELINE WIRED + VERIFIED
-- Headless-browser verification (Playwright): page loads, ONNX baseline model
-  loads (no fallback banner), zero console/page errors, simulation advances,
-  agent plays — screenshot `results/webdemo_check.png`; verifier:
+- **The headline gap: +0.134/dream inside the imagination vs −0.82/episode in
+  reality.** Per-step hit rate ≈ 8× overestimated by the dream.
+- **Exploit characterization (lockstep protocol** — same policy, same action
+  stream fed to dream and reality simultaneously, `scripts/characterize_exploit.py`):
+  - Dream-vs-real divergence under POLICY actions: MSE@5 = 0.0043 —
+    **16× the honest logged-action drift** (0.00027). The WM is accurate on
+    its training distribution and wrong off it.
+  - Same actions: WM promises +0.045 reward (0.45 hits)/dream; reality returns
+    −0.34 and **0 hits in 32/32 envs**.
+  - Visual evidence (`results/exploit/exploit_sample*.gif`): from a serve, the
+    velocity-less 4-stack makes the deterministic WM hedge TWO ghost balls;
+    dreams resolve the ambiguity arbitrarily and permissively — the policy
+    learned to intercept dreamed balls that reality never serves.
+  - **Diagnosis: distribution-shift exploitation.** The WM was trained on
+    tracker-style behavior; the dream policy's action patterns push it
+    off-distribution where its physics get permissive. Classic
+    imagination-exploitation, cleanly demonstrated at miniature scale.
+  - (The automated exploit_flag in transfer.json used a crude threshold and
+    did not fire; this manual characterization supersedes it.)
+  → `results/exploit/{policy_drift.png, reward_gap.json, exploit_sample*.gif}`,
+    `results/transfer.json`, play GIFs `results/agent_{baseline,dream}_play.gif`
+
+## Phase 4 — web demo — COMPLETE (both models)
+- Headless-browser verification (Playwright): page loads, ONNX models load
+  (no fallback banner), zero console/page errors, simulation advances, agent
+  plays — screenshot `results/webdemo_check.png`; verifier:
   `scripts/verify_webdemo.py`.
+- **Both agents shipped with a dropdown toggle**: `baseline` (strong) and
+  `dream` (weak in reality — playing it IS the transfer-gap exhibit).
+  ONNX parity: baseline 1.3e-05, dream 2.7e-05; argmax agreement 8/8 each.
 - Client-side inference latency: **~1.2 ms/tick**.
 - **Play it: `cd web && python -m http.server 8321` → http://localhost:8321**
   (a server is already running on :8321 from the overnight run).
-- Dream-model toggle awaits Phase 3b outcome.

@@ -145,6 +145,22 @@ progresses. Newest entries at the bottom of each section.
   weights losses — robust to a miscalibrated done head.
 - **Dream starts are real frame-stacks sampled from the dataset** — keeps
   dreams anchored in-distribution rather than compounding from a fixed start.
+- **3b outcome & 3c interpretation.** The dream agent converged (dream return
+  ~0 → +0.12) and transferred POORLY (−0.82 real vs baseline's +0.12). Rather
+  than treating this as failure, it was characterized per spec with a lockstep
+  same-action protocol (scripts/characterize_exploit.py): policy-driven WM
+  divergence is 16× the honest drift at h=5; the WM promises rewards reality
+  refuses (0.45 vs 0.0 hits). Root causes: (a) serve stacks carry no velocity
+  → the deterministic WM hedges two ghost balls, (b) the dream policy's action
+  distribution is unlike the collection tracker's, and the WM gets permissive
+  off-distribution. This is the canonical world-model-exploitation result, at
+  miniature scale — arguably a better pedagogical outcome than a clean win.
+  (Fixes, not attempted overnight by design: collect data under iteratively
+  retrained policies à la Dreamer, add stochastic latents, or DAgger-style
+  dream-data refresh.)
+- **Both models shipped in the demo** — the spec said ship the dream toggle
+  "if 3b produced anything usable"; a weak-but-functional agent that
+  demonstrates the transfer gap live is judged usable and instructive.
 - **Subagent tool restriction is prompt-level** (agents instructed which tools
   to use + hard file-ownership rules) rather than harness-level: custom agent
   definitions written mid-session may not be picked up, and a failed agent
