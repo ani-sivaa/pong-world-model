@@ -143,3 +143,23 @@ opset 17. Demo uses argmax. Parity gate: max|torch−ort| < 1e-4 on 64 random in
   `fetch(remote_path, local_path)`.
 
 ## Appendix — agent clarifications (append below, own heading only)
+
+### env-builder
+
+- **Dataset boundary dones**: in `data/<scale>/dones.npy` the LAST transition of
+  each of the 64 per-env streams is forced `done=True` (even if that episode was
+  still running) so no consumer stitches a (t → t+1) pair across two envs'
+  streams. The contract's sampling rule ("valid iff no done in the window")
+  already handles this with no extra logic. `meta.json` has `n_true_dones` /
+  `n_forced_boundary_dones`. This applies to the DATASET only — live `VecPong`
+  never emits forced dones.
+- **Scoring is rare under scripted play** (measured: ~1 point per 20–40k
+  transitions per side; full-scale data = 2,068 episodes, 29 agent / 24 opponent
+  points, mean episode ≈ 484 steps ⇒ truncation-dominated). Contract-exact
+  trackers pre-position, so only near-max-|vy| full-runway shots beat the
+  opponent. Physics kept exact (web parity); expect high trunc_rate at
+  scripted-level play.
+- **Left-plane crossing test** (contract writes only the right-side inequality):
+  `new_left < 4 <= prev_left`. Reflections: right `x' = 2*60 - x - 2*ball_size`,
+  left `x' = 2*4 - x`. Opponent tracker steps a full `opp_speed` (no
+  min-with-distance) when outside the deadzone — pong.js must mirror all three.

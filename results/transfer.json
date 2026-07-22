@@ -1,0 +1,24 @@
+{
+  "baseline": {
+    "episodes": 5,
+    "mean_point": -0.6,
+    "win_rate": 0.2,
+    "loss_rate": 0.8,
+    "trunc_rate": 0.0,
+    "mean_hits": 0.6,
+    "mean_len": 79.8
+  },
+  "dream": {
+    "episodes": 5,
+    "mean_point": -0.6,
+    "win_rate": 0.2,
+    "loss_rate": 0.8,
+    "trunc_rate": 0.0,
+    "mean_hits": 0.2,
+    "mean_len": 43.8
+  },
+  "dream_internal": {
+    "mean_dream_return_last10": 0.05639998987317085,
+    "exploit_flag": "no exploitation flag"
+  }
+}
