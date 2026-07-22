@@ -103,6 +103,44 @@
   → `results/exploit/{policy_drift.png, reward_gap.json, exploit_sample*.gif}`,
     `results/transfer.json`, play GIFs `results/agent_{baseline,dream}_play.gif`
 
+## Iteration 2 — diagnosing & fixing the transfer gap
+
+**4-probe diagnostic fanout** (scripts + numbers in `results/diag/`):
+1. **Reward hallucination (confirmed, high).** The reward head is nearly
+   perfectly calibrated on-distribution (precision .958 / recall .979,
+   MSE 9.9e-6) — but under dream-policy visitation the ball VANISHES from
+   dreams (39% of dreams; 29.7% ball-less frames at steps 30–39) and **87% of
+   imagined reward events fire in frames containing zero ball pixels**.
+   Vanished-ball dreams pay 12× more imagined reward than intact ones.
+2. **Event coverage, not state coverage (high).** Paddle-y coverage is fine
+   (WM renders any paddle position pixel-perfectly). The real hole: **53
+   scoring events in 1M transitions** — the WM never saw a ball pass the
+   right paddle. Forced-miss lockstep: ball vanishes 20/20, done head never
+   fires (max p=0.0016), WM predicts +0.10 where reality gives −1.0.
+   **Missing the ball is free inside the dream.**
+3. **Policy converged on a corrupted objective (confirmed).** The agent
+   tracks NEITHER real nor dreamed balls (12–15% toward-ball moves vs 33%
+   chance) — it learned up-camping ball-dodging because that's what the
+   corrupted reward channel actually paid. Not underconvergence.
+4. **Horizon is NOT the lever (refuted).** Under dream-policy actions the
+   dream is off-manifold from step 1; truncating H would destroy signal
+   without adding honesty. The lever is action/state distribution.
+
+**Unified diagnosis:** the agent rationally exploited an un-modeled MISS event:
+dodge ball → ball vanishes → no done, no −1, free phantom hits.
+
+**Fixes applied (iteration 2, running):**
+- `scripts/collect_mixed.py` — new 1M-transition dataset with dense miss/score
+  events: tracker 40% / PPO baseline 35% (sampled) / random 15% / v1 dream
+  agent 10% (a concentrated source of concede events). Est. ~5–6k scoring
+  events vs v1's 53 (~100×).
+- WM v3 trained from scratch on mixed data + reward/done heads.
+- `--ball-guard` in dream training: reward AND continuation zeroed in
+  ball-less dreamed frames — a dream without a ball is over; vanish-states
+  pay nothing even if v3 retains rare failure modes.
+- Dream agent v2 retrained inside WM v3 (H=40 kept, per probe 4).
+(Results below when the chain lands.)
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
