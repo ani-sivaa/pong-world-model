@@ -71,5 +71,12 @@
 ## Phase 3c — transfer (HEADLINE)
 - Dream agent: score inside the dream vs. score on real Pong — the gap is the headline number. (pending)
 
-## Phase 4 — web demo
-(pending)
+## Phase 4 — web demo — BASELINE WIRED + VERIFIED
+- Headless-browser verification (Playwright): page loads, ONNX baseline model
+  loads (no fallback banner), zero console/page errors, simulation advances,
+  agent plays — screenshot `results/webdemo_check.png`; verifier:
+  `scripts/verify_webdemo.py`.
+- Client-side inference latency: **~1.2 ms/tick**.
+- **Play it: `cd web && python -m http.server 8321` → http://localhost:8321**
+  (a server is already running on :8321 from the overnight run).
+- Dream-model toggle awaits Phase 3b outcome.
