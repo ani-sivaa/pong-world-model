@@ -139,7 +139,26 @@ dodge ball → ball vanishes → no done, no −1, free phantom hits.
   ball-less dreamed frames — a dream without a ball is over; vanish-states
   pay nothing even if v3 retains rare failure modes.
 - Dream agent v2 retrained inside WM v3 (H=40 kept, per probe 4).
-(Results below when the chain lands.)
+**Iteration-2 model-level results (the fix worked):**
+- WM v3: 18k steps on mixed data, val frame loss 0.00005; drift on mixed-data
+  val windows mse@1 = 0.00001 → mse@60 = 0.00555 (`results/drift_curve_v3.png`).
+- **Forced-miss lockstep, v2 vs v3h** (`results/diag/paddlecov_miss_results.json`):
+  | metric (guaranteed miss) | WM v2 | WM v3h |
+  |---|---|---|
+  | predicted cum reward (real −1.0) | +0.10 | **−0.93** |
+  | done-head max prob | 0.0016 | **0.9998** |
+  Intercept control: 70% correct bounce-backs, honest reward (−0.24 pred vs
+  −0.175 real). **Missing now costs −1 and ends the dream — the exploit is dead.**
+- Ops: three T4 preemptions/cancellations during this chain (FAILURES.md);
+  dream v2 checkpoint recovered at update 1,100/2,500 and continued.
+
+**Iteration-2 agent-level results (interim, update 1,100):**
+- Real Pong, 200 eps: mean point −0.79, win 10.5%, hits 0.32/ep, len 57.7 —
+  directionally better than v1 (−0.82 / 9% / 0.20 / 50.2) but the gap is not
+  closed. Interpretation: the gym is now honest, which makes it HARDER — the
+  v1 agent "converged" quickly because the exploit was easy; earning real
+  interceptions from policy-gradient-in-dreams needs more updates. Training
+  continuing from the recovered checkpoint; final numbers below when done.
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
