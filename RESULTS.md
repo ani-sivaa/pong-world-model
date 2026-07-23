@@ -152,13 +152,24 @@ dodge ball → ball vanishes → no done, no −1, free phantom hits.
 - Ops: three T4 preemptions/cancellations during this chain (FAILURES.md);
   dream v2 checkpoint recovered at update 1,100/2,500 and continued.
 
-**Iteration-2 agent-level results (interim, update 1,100):**
-- Real Pong, 200 eps: mean point −0.79, win 10.5%, hits 0.32/ep, len 57.7 —
-  directionally better than v1 (−0.82 / 9% / 0.20 / 50.2) but the gap is not
-  closed. Interpretation: the gym is now honest, which makes it HARDER — the
-  v1 agent "converged" quickly because the exploit was easy; earning real
-  interceptions from policy-gradient-in-dreams needs more updates. Training
-  continuing from the recovered checkpoint; final numbers below when done.
+**Iteration-2 agent-level results (FINAL, 2,500 updates in the honest WM):**
+| real Pong, 200 eps | dream v1 | dream v2 | baseline |
+|---|---|---|---|
+| mean point | −0.82 | **−0.76** | +0.12 |
+| win rate | 9.0% | **12.0%** | 52.5% |
+| paddle hits/ep | 0.195 | **0.62** (3.2×) | 2.80 |
+| episode length | 50.2 | **80.4** (+60%) | 217 |
+- Dream-internal return collapsed from +0.134 (v1, mostly hallucinated) to
+  +0.022 (v2, earned) — the dream no longer flatters much; what the agent
+  believes and what reality delivers are far closer.
+- **Takeaway:** killing the exploit produced an agent that genuinely plays
+  (tracks, intercepts, rallies 60% longer) instead of dodging, but one honest
+  Dreamer iteration at this scale does not reach real-data parity. The
+  remaining gap is RL sample-efficiency inside honest dreams (every hit must
+  be earned; misses cost −1 immediately) plus residual WM imperfection.
+  Next levers, if continued: more dream-train compute, additional
+  collect→retrain iterations with the improving agent, stochastic latents.
+- Demo now ships dream **v2** as the "dream" model (ONNX parity 2.3e-05).
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load

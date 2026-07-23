@@ -44,11 +44,17 @@ like — inside dreams the ball silently **vanishes** when it passes a paddle
 (no terminal, no −1), and the reward head, near-perfectly calibrated
 on-distribution, hallucinates free +0.1 "hits" in ball-less frames (87% of the
 agent's imagined reward). The optimal dream policy is therefore to *dodge* the
-ball — which is exactly what it learned. Iteration 2 fixes the data (mixed
-behavior policies, ~100× more miss/score events), retrains the world model,
-and adds a ball-existence guard to dream training (a dream without a ball pays
-nothing and ends). Full narrative: `RESULTS.md`, probe index:
-`results/diag/README.md`, decision rationale: `DECISIONS.md`.
+ball — which is exactly what it learned. Iteration 2 fixed the data (mixed
+behavior policies, ~100× more miss/score events), retrained the world model,
+and added a ball-existence guard to dream training (a dream without a ball
+pays nothing and ends). **Outcome:** the world model became honest (a
+guaranteed miss now predicts −0.93 with the done head at p≈1.0, vs +0.10 and
+never-done before), and the retrained dream agent genuinely plays instead of
+dodging — 3.2× more paddle hits, 60% longer rallies, 9%→12% wins — though one
+honest iteration doesn't reach real-data parity (the honest gym is *harder*:
+dream-internal return fell from a hallucinated +0.134 to an earned +0.022).
+Full narrative: `RESULTS.md`, probe index: `results/diag/README.md`, decision
+rationale: `DECISIONS.md`.
 
 ## Repo map
 
