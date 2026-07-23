@@ -1,24 +1,11 @@
 {
-  "baseline": {
+  "dreamv2": {
     "episodes": 200,
-    "mean_point": 0.12,
-    "win_rate": 0.525,
-    "loss_rate": 0.405,
-    "trunc_rate": 0.07,
-    "mean_hits": 2.795,
-    "mean_len": 217.085
-  },
-  "dream": {
-    "episodes": 200,
-    "mean_point": -0.82,
-    "win_rate": 0.09,
-    "loss_rate": 0.91,
+    "mean_point": -0.79,
+    "win_rate": 0.105,
+    "loss_rate": 0.895,
     "trunc_rate": 0.0,
-    "mean_hits": 0.195,
-    "mean_len": 50.17
-  },
-  "dream_internal": {
-    "mean_dream_return_last10": 0.1341853141784668,
-    "exploit_flag": "no exploitation flag"
+    "mean_hits": 0.32,
+    "mean_len": 57.745
   }
 }

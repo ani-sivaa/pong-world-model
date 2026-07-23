@@ -37,3 +37,8 @@ ImportError: No module named infra.does_not_exist
   fetch wm_v3.pt from the volume, run heads fine-tune (5k steps) and dream v2
   (1,200 updates, batch 128, ball-guard) on local MPS with wall-clock caps.
   Reduced scale is logged; v1 artifacts untouched.
+
+## Third T4 preemption — dream v2 stopped at update 1,100/2,500 — 2026-07-22 ~16:20 PT
+- Heads (wm_v3h) completed (val 0.00020); dream v2 preempted mid-run, last
+  checkpoint update 1,100. v1 plateaued by ~1,000 updates, so evaluating the
+  1,100-update checkpoint directly instead of fighting Modal's GPU queue.

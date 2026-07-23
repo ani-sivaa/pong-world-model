@@ -58,6 +58,8 @@ def main():
     ap.add_argument("--horizon", type=int, default=None)
     ap.add_argument("--ball-guard", action="store_true",
                     help="zero reward+continuation in ball-less dreamed frames")
+    ap.add_argument("--init-from", default=None,
+                    help="policy checkpoint to continue training from")
     ap.add_argument("--max-seconds", type=int, default=config.CAPS["dream"])
     args = ap.parse_args()
 
@@ -74,6 +76,11 @@ def main():
     for p in wm.parameters():
         p.requires_grad_(False)
     policy = PolicyNet().to(dev)
+    if args.init_from:
+        ckpt = torch.load(args.init_from, map_location="cpu", weights_only=True)
+        policy.load_state_dict(ckpt["model"])
+        print(f"[dream] continuing from {args.init_from} (update {ckpt['step']})",
+              flush=True)
     opt = torch.optim.Adam(policy.parameters(), lr=D["lr"], eps=1e-5)
     data = TransitionData(data_dir)
     out = Path(args.out); out.parent.mkdir(parents=True, exist_ok=True)
