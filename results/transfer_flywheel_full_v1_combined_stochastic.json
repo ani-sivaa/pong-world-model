@@ -1,0 +1,15 @@
+{
+  "dream": {
+    "episodes": 200,
+    "mean_point": -0.65,
+    "win_rate": 0.175,
+    "loss_rate": 0.825,
+    "trunc_rate": 0.0,
+    "mean_hits": 1.0,
+    "mean_len": 104.795
+  },
+  "dream_internal": {
+    "mean_dream_return_last10": 0.04681468829512596,
+    "exploit_flag": "no exploitation flag"
+  }
+}

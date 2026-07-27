@@ -69,6 +69,12 @@ def main():
     ap.add_argument("--policies", nargs="+", required=True,
                     help="name=ckpt_path pairs")
     ap.add_argument("--gif-steps", type=int, default=300)
+    ap.add_argument("--out", default=None,
+                    help="output JSON path (legacy default: results/transfer.json)")
+    ap.add_argument("--tag", default=None,
+                    help="artifact suffix; also selects dream_train_log_<tag>.json")
+    ap.add_argument("--dream-log", default=None,
+                    help="explicit dream training log used for the return gap")
     args = ap.parse_args()
 
     from evalutils import gifs
@@ -84,12 +90,16 @@ def main():
                                     record_first=args.gif_steps)
         report[name] = stats
         if frames:
+            suffix = f"_{args.tag}" if args.tag else ""
             gifs.save_gif(np.stack(frames),
-                          config.RESULTS_DIR / f"agent_{name}_play.gif", fps=30)
+                          config.RESULTS_DIR / f"agent_{name}{suffix}_play.gif", fps=30)
         print(f"[eval] {name}: {json.dumps(stats)}", flush=True)
 
     # dream-internal score for the headline gap
-    dream_log = config.RESULTS_DIR / "dream_train_log.json"
+    dream_log = (Path(args.dream_log) if args.dream_log else
+                 config.RESULTS_DIR / (
+                     f"dream_train_log_{args.tag}.json" if args.tag
+                     else "dream_train_log.json"))
     if "dream" in report and dream_log.exists():
         dl = json.loads(dream_log.read_text())
         tail = dl["dream_return"][-10:] if dl["dream_return"] else [0.0]
@@ -100,7 +110,8 @@ def main():
             else "no exploitation flag")
         report["dream_internal"]["exploit_flag"] = gap_note
 
-    out = config.RESULTS_DIR / "transfer.json"
+    out = (Path(args.out) if args.out else config.RESULTS_DIR / (
+        f"transfer_{args.tag}.json" if args.tag else "transfer.json"))
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=2))
     print("TRANSFER_EVAL_OK", json.dumps(report))

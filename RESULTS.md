@@ -171,6 +171,78 @@ dodge ball → ball vanishes → no done, no −1, free phantom hits.
   collect→retrain iterations with the improving agent, stochastic latents.
 - Demo now ships dream **v2** as the "dream" model (ONNX parity 2.3e-05).
 
+## Iteration 3 — trustworthy dream-agent flywheel (July 2026)
+
+**Protocol.** Policy gradients still came only from imagined rollouts. Real
+`VecPong` was used for data acquisition and the fixed 200-episode transfer
+evaluation, never for policy updates. The full combined round was launched with:
+
+```bash
+python -m scripts.run_flywheel --execute --backend modal --scale full \
+  --mode combined --tag flywheel_full_v1 --final-retrain --stochastic
+```
+
+The local preflight also ran all independent control paths (`balanced-only`,
+`ensemble-only`, `pessimism-only`, and `combined`) at two-step smoke scale.
+Those smoke controls validate plumbing only; their deliberately untrained
+models are not evidence for causal attribution.
+
+**Data and compute.**
+- Initial adaptive set: 1,000,000 real-only transitions; 9,574 hits, 1,199
+  scores, 7,589 concedes, and 780 natural truncations. Composition was 30%
+  tracker, 20% baseline, 15% current dream, 10% random, 15% engineered rare
+  events, and 10% untouched natural holdout.
+- Red-team policy: 2,500 imagined-policy updates against three frozen WMs.
+  Its one million-transition real replay set was 35% red-team actions and
+  increased concedes to 14,436. Every stored frame remained real; ensemble
+  disagreement and real-vs-dream mismatch affected priorities only.
+- Six deterministic ensemble members (three before and three after red-team
+  collection) each completed 18,000 WM steps. Final validation frame losses
+  were 0.00535, 0.00569, and 0.00490. The stochastic CVAE ablation completed
+  18,000 steps with final validation frame loss 0.00217.
+- Both policies completed the configured 2,500 imagined updates through
+  checkpointed continuations. The first sequential Modal round took 9.54
+  hours; preemptions and client disconnects required resumable follow-up
+  segments. No policy continuation used real-environment gradients.
+
+**Trust results.**
+- The deterministic ensemble passed every full-scale gate: natural 60-step
+  rollout MSE 0.00613; current-policy lockstep MSE 0.00315; dream/real reward
+  gap 0.00499; reward MAE 0.00131; done Brier 0.00373; forced-scenario MSE
+  0.00374; ball-less positive-reward rate 1.20% (1/83); and uncertainty/error
+  rank correlation 0.507 (high-error AUROC 0.765).
+- Forced intercept and miss tests produced the correct real events. On the
+  forced miss, the deterministic ensemble's terminal prediction included a
+  large negative reward (approximately −0.73), rather than the old free miss.
+- The stochastic single-model ablation **failed** trust despite lower frame
+  drift: done Brier 0.251, concede reward MAE 1.003, score reward MAE 0.984,
+  and no usable epistemic uncertainty ranking. Its sampled-latent variation
+  was also nearly collapsed. It is rejected in favor of the deterministic
+  ensemble.
+
+**Final 200-episode real transfer (same seed/protocol as v2):**
+
+| real Pong | dream v2 control | deterministic ensemble | stochastic ablation |
+|---|---:|---:|---:|
+| win rate | 12.0% | **8.5%** | **17.5%** |
+| mean point | −0.76 | −0.83 | −0.65 |
+| paddle hits/episode | 0.62 | **1.085** | 1.00 |
+| episode length | 80.4 | **115.7** | 104.8 |
+| trust gate | not measured by new suite | **PASS** | **FAIL** |
+
+**Conclusion: honest negative result.** The trustworthy deterministic agent
+rallies longer and hits more often than v2, but its 8.5% win rate is below the
+12% control and the >20% target. The stochastic policy reaches 17.5%, but its
+reward/done model is badly miscalibrated, so that apparent gain is not accepted
+and no web export was performed. The flywheel fixed simulator trust and made
+uncertainty predictive; it did not yet improve honest match wins. A next round
+should feed the stochastic model's score/concede failures back into acquisition
+or improve its conditional reward/done heads before more policy training.
+
+Artifacts: `results/{transfer,trust}_flywheel_full_v1_combined*.json`,
+`results/flywheel_full_v1_{initial,enriched}_meta.json`, and
+`results/flywheel_full_v1_flywheel_state.json`.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent

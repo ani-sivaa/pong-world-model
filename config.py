@@ -48,10 +48,46 @@ FRAME_STACK = 4          # one frame doesn't encode velocity
 # Data-collection behavior policy: scripted tracker with eps-random actions
 COLLECT = dict(eps_random=0.20, n_envs=64)
 
+# Adaptive real-data flywheel. Keep this section stdlib-only: collectors and
+# remote launchers import config before numpy/torch are necessarily available.
+FLYWHEEL = dict(
+    # "natural" is an unmodified tracker stream written last, so the existing
+    # episode-level validation split remains natural rather than enriched.
+    composition=dict(
+        tracker=0.20, baseline=0.20, dream=0.15, redteam=0.10,
+        random=0.10, rare=0.15, natural=0.10,
+    ),
+    natural_holdout_frac=0.10,
+    # Multipliers used to seed priorities before optional WM disagreement.
+    event_priority=dict(
+        ordinary=1.0, hit=5.0, score=10.0, concede=10.0,
+        done_truncation=4.0, serve_near_terminal=2.0, boundary=1.0,
+    ),
+    disagreement_weight=4.0,
+    frame_mismatch_weight=1.0,
+    reward_mismatch_weight=1.0,
+    done_mismatch_weight=1.0,
+    priority_floor=1e-3,
+    # Relative event mass for inverse-frequency balanced window sampling.
+    # Boundary is deliberately zero: forced stream breaks are not game events.
+    balanced_event_weight=dict(
+        ordinary=1.0, hit=1.0, score=1.0, concede=1.0,
+        done_truncation=1.0, serve_near_terminal=1.0, boundary=0.0,
+    ),
+    sampler="natural",
+    ensemble_size=3,
+    ensemble_seeds=(42, 314, 2718),
+    bootstrap=True,
+    bootstrap_frac=1.0,
+)
+
 # ---------------------------------------------------------- world model ----
 WM = dict(
     base_channels=32,        # enc: 32-64-128-256 at 32,16,8,4 spatial
     act_embed=32,
+    latent_dim=16,           # stochastic CVAE dynamics latent
+    kl_coef=1e-3,
+    free_bits=0.05,          # nats per latent dimension
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp
     lr=1e-3, weight_decay=1e-5, batch_size=128,
     unroll_k=5,              # multi-step training unroll (feed own sigmoid outputs back)
@@ -74,6 +110,59 @@ PPO = dict(
 DREAM = dict(
     horizon=40, batch=256, gamma=0.97,
     ent_coef=0.01, vf_coef=0.5, lr=3e-4, grad_clip=0.5,
+    # Ensemble pessimism. All zero values reproduce legacy mean-reward dreams.
+    reward_disagreement_coef=0.25,
+    frame_disagreement_coef=5.0,
+    done_disagreement_coef=1.0,
+    uncertainty_continuation_coef=1.0,
+    uncertainty_threshold=None,
+    frame_mode="mean",       # deterministic; "sample" draws coherent members
+)
+REDTEAM = dict(
+    horizon=30, batch=128, gamma=0.97,
+    ent_coef=0.02, vf_coef=0.5, lr=3e-4, grad_clip=0.5,
+    reward_disagreement_coef=1.0,
+    frame_disagreement_coef=10.0,
+    done_disagreement_coef=2.0,
+    ball_disappearance_coef=5.0,
+    frame_mode="mean",
+)
+
+# ------------------------------------------------------- trust evaluation ----
+# Deliberately forgiving preflight limits: smoke runs should catch broken
+# checkpoints/contracts, not reject an under-trained 200-step model. Full runs
+# may override individual values with evaluate_trust.py --threshold NAME=VALUE.
+TRUST = dict(
+    smoke=dict(
+        natural_rollout_mse_max=0.35,
+        policy_lockstep_mse_max=0.40,
+        forced_scenario_mse_max=0.45,
+        reward_mae_max=1.50,
+        done_brier_max=0.55,
+        ballless_positive_rate_max=0.50,
+        dream_real_reward_gap_max=1.50,
+        uncertainty_rank_corr_min=-1.0,
+    ),
+    local=dict(
+        natural_rollout_mse_max=0.18,
+        policy_lockstep_mse_max=0.22,
+        forced_scenario_mse_max=0.28,
+        reward_mae_max=0.55,
+        done_brier_max=0.25,
+        ballless_positive_rate_max=0.10,
+        dream_real_reward_gap_max=0.45,
+        uncertainty_rank_corr_min=0.05,
+    ),
+    full=dict(
+        natural_rollout_mse_max=0.12,
+        policy_lockstep_mse_max=0.16,
+        forced_scenario_mse_max=0.20,
+        reward_mae_max=0.35,
+        done_brier_max=0.18,
+        ballless_positive_rate_max=0.05,
+        dream_real_reward_gap_max=0.30,
+        uncertainty_rank_corr_min=0.10,
+    ),
 )
 
 # -------------------------------------------------------- scale presets ----
