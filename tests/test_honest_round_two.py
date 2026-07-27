@@ -15,9 +15,17 @@ from agents.train_dream import (
 from scripts.collect_adaptive import enrich_terminal_context
 from scripts.evaluate_trust import stochastic_collapse_gates
 from scripts.promote_round_two import aggregate_reports
+from scripts.run_honest_campaign import acquisition_mix, round_plan
 from scripts.run_round_two import build_plan
+from scripts.select_candidate import select_candidate
+from scripts.evaluate_panel import wilson_interval
 from wm.data import EVENT_CODES
-from wm.model import StochasticWorldModel, WorldModel, WorldModelEnsemble
+from wm.model import (
+    StochasticWorldModel,
+    WorldModel,
+    WorldModelEnsemble,
+    load_wm,
+)
 from wm.train import event_balanced_weights
 
 
@@ -65,6 +73,24 @@ class StochasticRepairTest(unittest.TestCase):
         weights = event_balanced_weights(events, alive)
         self.assertAlmostEqual(float(weights[:3].sum()), float(weights[3]), places=5)
         self.assertAlmostEqual(float(weights.mean()), 1.0, places=5)
+
+    def test_legacy_stochastic_checkpoint_preserves_latent_heads(self):
+        cfg = dict(
+            config.WM, base_channels=8, act_embed=8, latent_dim=4,
+            stochastic_heads_deterministic=False)
+        legacy = StochasticWorldModel(with_heads=True, cfg=cfg)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "legacy.pt"
+            torch.save({
+                "model": legacy.state_dict(),
+                "model_type": "stochastic",
+                "config": {
+                    "base_channels": 8, "act_embed": 8, "latent_dim": 4,
+                    "model_type": "stochastic",
+                },
+            }, path)
+            loaded = load_wm(path, torch.device("cpu"), with_heads=True)
+        self.assertFalse(loaded.deterministic_heads)
 
     def test_collapse_and_unavailable_diagnostics_fail_closed(self):
         collapsed = {
@@ -147,6 +173,37 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
             [trust, broken, trust], [transfer] * 3, 0.12, 0.20, 0.005)
         self.assertFalse(rejected["accepted"])
         self.assertIsNone(rejected["export_policy"])
+
+    def test_campaign_separates_development_and_final_panels(self):
+        args = SimpleNamespace(
+            tag="campaign-test", redteam="/vol/checkpoints/red.pt",
+            stochastic_policy="/vol/checkpoints/stochastic.pt",
+            base_wm=["/vol/checkpoints/old.pt"], transitions=100,
+            steps=1, updates=1)
+        stages, _ = round_plan(args, 0, acquisition_mix(None))
+        joined = "\n".join(" ".join(command) for _, command, _, _ in stages)
+        self.assertIn("--purpose development", joined)
+        self.assertNotIn("--purpose final", joined)
+        self.assertEqual(
+            sum(name.startswith("development-") for name, *_ in stages), 3)
+
+    def test_candidate_selection_never_reads_final_results(self):
+        trust = {"overall_pass": True,
+                 "gates": {"all": {"available": True, "pass": True}}}
+        developments = [
+            {"mean_win_rate": 0.81, "pooled_win_rate_ci95": [0.7, 0.9]},
+            {"mean_win_rate": 0.85, "pooled_win_rate_ci95": [0.8, 0.9]},
+            {"mean_win_rate": 0.85, "pooled_win_rate_ci95": [0.8, 0.9]},
+        ]
+        selected = select_candidate(
+            ["a.pt", "b.pt", "c.pt"], [trust] * 3, developments, 0.8)
+        self.assertTrue(selected["selection_uses_final_results"] is False)
+        self.assertEqual(selected["selected_candidate_index"], 1)
+
+    def test_wilson_interval_contains_observed_rate(self):
+        low, high = wilson_interval(160, 200)
+        self.assertLess(low, 0.8)
+        self.assertGreater(high, 0.8)
 
 
 if __name__ == "__main__":

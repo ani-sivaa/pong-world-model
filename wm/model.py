@@ -123,6 +123,8 @@ class StochasticWorldModel(WorldModel):
         latent_dim = int(cfg.get("latent_dim", config.WM.get("latent_dim", 16)))
         self.model_type = "stochastic"
         self.latent_dim = latent_dim
+        self.deterministic_heads = bool(
+            cfg.get("stochastic_heads_deterministic", True))
         self.model_config = dict(cfg, latent_dim=latent_dim)
 
         # Encode the target independently, then condition q on both target and
@@ -180,7 +182,9 @@ class StochasticWorldModel(WorldModel):
             # and termination are properties of the observed state/action
             # transition context; allowing sampled z into these heads made
             # imagined outcomes vary independently of the evidence.
-            pooled = context.mean(dim=(2, 3))
+            pooled = (
+                context if self.deterministic_heads else dynamics
+            ).mean(dim=(2, 3))
             reward = self.reward_head(pooled).squeeze(-1)
             done_logit = self.done_head(pooled).squeeze(-1)
         return logits, reward, done_logit
@@ -262,9 +266,16 @@ def load_wm(ckpt_path, device, with_heads=False) -> WorldModel:
     if model_type not in ("deterministic", "stochastic"):
         raise ValueError(f"unsupported world-model type: {model_type!r}")
     model_cfg = dict(config.WM)
-    for key in ("base_channels", "act_embed", "latent_dim"):
+    for key in ("base_channels", "act_embed", "latent_dim",
+                "stochastic_heads_deterministic"):
         if key in saved_cfg:
             model_cfg[key] = saved_cfg[key]
+    if model_type == "stochastic" \
+            and "stochastic_heads_deterministic" not in saved_cfg:
+        # Checkpoints predating the repaired architecture retain their exact
+        # latent-conditioned outcome-head behavior. New training writes the
+        # explicit flag and uses deterministic heads.
+        model_cfg["stochastic_heads_deterministic"] = False
     model_cls = StochasticWorldModel if model_type == "stochastic" else WorldModel
     wm = model_cls(with_heads=with_heads, cfg=model_cfg)
     missing, unexpected = wm.load_state_dict(ckpt["model"], strict=False)

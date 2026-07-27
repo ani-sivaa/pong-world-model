@@ -92,6 +92,7 @@ WM = dict(
     base_channels=32,        # enc: 32-64-128-256 at 32,16,8,4 spatial
     act_embed=32,
     latent_dim=16,           # stochastic CVAE dynamics latent
+    stochastic_heads_deterministic=True,
     kl_coef=1e-3,
     kl_warmup_frac=0.30,    # linear beta warmup; avoids early posterior collapse
     free_bits=0.05,          # nats per latent dimension
@@ -206,10 +207,32 @@ STOCHASTIC_TRUST = dict(
 
 ROUND_TWO = dict(
     policy_seeds=(42, 314, 2718),
+    acquisition_seeds=(1103, 2207, 3301, 4409, 5519),
+    wm_seeds=(42, 314, 2718),
+    development_seeds=(7001, 7003, 7013),
+    final_evaluation_seeds=(104729, 130363, 155921),
+    development_episodes_per_seed=100,
+    final_episodes_per_seed=200,
+    development_promotion_win_rate=0.80,
     minimum_win_rate=0.12,
     target_win_rate=0.20,
     max_reward_gap=0.00499,
     eval_episodes=200,
+)
+
+CAMPAIGN = dict(
+    max_rounds=5,
+    max_stage_retries=2,
+    target_final_win_rate=0.80,
+    # Fixed acquisition recipes selected only from development trust failures.
+    acquisition_mix_default=(
+        "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10"),
+    acquisition_mix_calibration=(
+        "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10"),
+    acquisition_mix_collapse=(
+        "tracker=.05,rare=.20,redteam=.20,stochastic=.45,natural=.10"),
+    acquisition_mix_uncertainty=(
+        "tracker=.05,rare=.20,redteam=.40,stochastic=.25,natural=.10"),
 )
 
 # -------------------------------------------------------- scale presets ----

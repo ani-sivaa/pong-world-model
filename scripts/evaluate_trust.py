@@ -354,22 +354,33 @@ def stochastic_diagnostics(ensemble, stacks, actions, targets, events,
     prior_sample_mse = (
         sample_frames_t - mean_frames_t.mean(0)).square().mean()
 
-    serve_mask = torch.from_numpy(
-        np.asarray(events) == EVENT_CODES["serve_near_terminal"]).to(device)
-    direction_coverage = None
-    if serve_mask.any():
-        current_x, current_ok = _ball_x(x[:, -1:])
-        sampled_x, sampled_ok = _ball_x(
-            sample_frames_t[:, serve_mask].flatten(0, 1))
-        sampled_x = sampled_x.reshape(len(sample_frames_t), -1)
-        sampled_ok = sampled_ok.reshape(len(sample_frames_t), -1)
-        delta = sampled_x - current_x[serve_mask][None]
-        valid = sampled_ok & current_ok[serve_mask][None]
-        directions = {
-            sign for sign, mask in ((-1, delta < -0.25), (1, delta > 0.25))
-            if bool((mask & valid).any())
-        }
-        direction_coverage = len(directions) / 2.0
+    # A repeated reset frame deliberately removes serve velocity. Coverage is
+    # measured across prior draws for this same ambiguous context, rather than
+    # across different logged states (which could falsely credit deterministic
+    # context variation to the latent).
+    serve_frame = VecPong(1, seed).reset()
+    serve_stack = _tensor_stacks(
+        np.repeat(serve_frame[:, None], config.FRAME_STACK, axis=1), device)
+    serve_action = torch.zeros(1, dtype=torch.long, device=device)
+    serve_draws = []
+    for member_index, member in enumerate(ensemble.members):
+        if not isinstance(member, StochasticWorldModel):
+            continue
+        for draw in range(samples):
+            serve_draws.append(torch.sigmoid(member(
+                serve_stack, serve_action, latent_mode="sample",
+                generator=torch.Generator().manual_seed(
+                    seed + 100_003 + member_index * 1009 + draw))[0]))
+    serve_draws = torch.cat(serve_draws)
+    current_x, current_ok = _ball_x(serve_stack[:, -1:])
+    sampled_x, sampled_ok = _ball_x(serve_draws)
+    delta = sampled_x - current_x
+    valid = sampled_ok & current_ok
+    directions = {
+        sign for sign, mask in ((-1, delta < -0.25), (1, delta > 0.25))
+        if bool((mask & valid).any())
+    }
+    direction_coverage = len(directions) / 2.0
 
     values = []
     for sample in range(samples):
@@ -386,8 +397,7 @@ def stochastic_diagnostics(ensemble, stacks, actions, targets, events,
         "latent_utilization": float(
             torch.stack(member_utilization).mean().cpu()),
         "prior_sample_frame_mse": float(prior_sample_mse.cpu()),
-        "serve_direction_coverage": (
-            float(direction_coverage) if direction_coverage is not None else None),
+        "serve_direction_coverage": float(direction_coverage),
     }
 
 

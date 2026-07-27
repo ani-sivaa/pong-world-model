@@ -54,6 +54,9 @@ def eval_policy(policy, n_episodes, dev, seed=123, record_first=0):
                           np.array(lens[:n_episodes]))
     return {
         "episodes": int(len(points)),
+        "wins": int((points == 1).sum()),
+        "losses": int((points == -1).sum()),
+        "truncations": int((points == 0).sum()),
         "mean_point": float(points.mean()),
         "win_rate": float((points == 1).mean()),
         "loss_rate": float((points == -1).mean()),

@@ -154,7 +154,7 @@ def main():
     steps = args.steps or sc["wm_steps"]
     batch = sc["wm_batch"]
     K = config.WM["unroll_k"]
-    warmup_end = int(steps * config.WM["warmup_frac"])
+    warmup_end = max(1, int(steps * config.WM["warmup_frac"]))
     tag = args.tag or (
         "wm_stochastic_v2" if args.stochastic and args.v2
         else "wm_stochastic" if args.stochastic
@@ -175,7 +175,8 @@ def main():
           f"events={data.has_events} priorities={data.has_priorities}", flush=True)
 
     model_cfg = dict(config.WM, latent_dim=args.latent_dim,
-                     kl_coef=args.kl_coef, free_bits=args.free_bits)
+                     kl_coef=args.kl_coef, free_bits=args.free_bits,
+                     kl_warmup_frac=args.kl_warmup_frac)
     if args.init_from:
         wm = load_wm(args.init_from, dev, with_heads=args.v2)
         if args.stochastic != isinstance(wm, StochasticWorldModel):
@@ -223,11 +224,11 @@ def main():
                 EVENT_NAMES[i]: int(event_count[i])
                 for i in range(len(event_count)) if event_count[i]}
             log["step"].append(step)
-            log["loss"].append(float(total))
-            log["frame"].append(float(fl))
-            log["reward"].append(float(rl))
-            log["done"].append(float(dl))
-            log["kl"].append(float(kl))
+            log["loss"].append(float(total.detach()))
+            log["frame"].append(float(fl.detach()))
+            log["reward"].append(float(rl.detach()))
+            log["done"].append(float(dl.detach()))
+            log["kl"].append(float(kl.detach()))
             log["kl_beta"].append(float(kl_beta))
             if isinstance(wm, StochasticWorldModel):
                 with torch.no_grad():
