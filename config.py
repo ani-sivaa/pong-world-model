@@ -54,7 +54,7 @@ FLYWHEEL = dict(
     # "natural" is an unmodified tracker stream written last, so the existing
     # episode-level validation split remains natural rather than enriched.
     composition=dict(
-        tracker=0.20, baseline=0.20, dream=0.15, redteam=0.10,
+        tracker=0.20, baseline=0.20, dream=0.15, stochastic=0.0, redteam=0.10,
         random=0.10, rare=0.15, natural=0.10,
     ),
     natural_holdout_frac=0.10,
@@ -62,17 +62,23 @@ FLYWHEEL = dict(
     event_priority=dict(
         ordinary=1.0, hit=5.0, score=10.0, concede=10.0,
         done_truncation=4.0, serve_near_terminal=2.0, boundary=1.0,
+        miss=8.0,
     ),
     disagreement_weight=4.0,
     frame_mismatch_weight=1.0,
     reward_mismatch_weight=1.0,
     done_mismatch_weight=1.0,
     priority_floor=1e-3,
+    # Pre-terminal frames are the useful historical context for rare outcomes.
+    # Their priorities are decayed backwards from each real event anchor.
+    terminal_context_radius=8,
+    terminal_context_decay=0.75,
     # Relative event mass for inverse-frequency balanced window sampling.
     # Boundary is deliberately zero: forced stream breaks are not game events.
     balanced_event_weight=dict(
         ordinary=1.0, hit=1.0, score=1.0, concede=1.0,
         done_truncation=1.0, serve_near_terminal=1.0, boundary=0.0,
+        miss=1.0,
     ),
     sampler="natural",
     ensemble_size=3,
@@ -87,7 +93,10 @@ WM = dict(
     act_embed=32,
     latent_dim=16,           # stochastic CVAE dynamics latent
     kl_coef=1e-3,
+    kl_warmup_frac=0.30,    # linear beta warmup; avoids early posterior collapse
     free_bits=0.05,          # nats per latent dimension
+    head_event_balance=True,
+    head_weight_clip=20.0,
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp
     lr=1e-3, weight_decay=1e-5, batch_size=128,
     unroll_k=5,              # multi-step training unroll (feed own sigmoid outputs back)
@@ -117,6 +126,10 @@ DREAM = dict(
     uncertainty_continuation_coef=1.0,
     uncertainty_threshold=None,
     frame_mode="mean",       # deterministic; "sample" draws coherent members
+    gae_lambda=0.95,
+    ppo_clip=0.2,
+    ppo_epochs=4,
+    ppo_minibatches=8,
 )
 REDTEAM = dict(
     horizon=30, batch=128, gamma=0.97,
@@ -163,6 +176,40 @@ TRUST = dict(
         dream_real_reward_gap_max=0.30,
         uncertainty_rank_corr_min=0.10,
     ),
+)
+
+# Applied only when at least one stochastic WM is evaluated. Deterministic
+# reports retain the established gates exactly.
+STOCHASTIC_TRUST = dict(
+    smoke=dict(
+        prior_std_min=1e-4,
+        prior_sample_frame_mse_min=1e-8,
+        latent_utilization_min=1e-8,
+        serve_direction_coverage_min=0.0,
+        posterior_prior_kl_min=1e-6,
+    ),
+    local=dict(
+        prior_std_min=1e-3,
+        prior_sample_frame_mse_min=1e-7,
+        latent_utilization_min=1e-7,
+        serve_direction_coverage_min=1.0,
+        posterior_prior_kl_min=1e-4,
+    ),
+    full=dict(
+        prior_std_min=1e-3,
+        prior_sample_frame_mse_min=1e-7,
+        latent_utilization_min=1e-7,
+        serve_direction_coverage_min=1.0,
+        posterior_prior_kl_min=1e-4,
+    ),
+)
+
+ROUND_TWO = dict(
+    policy_seeds=(42, 314, 2718),
+    minimum_win_rate=0.12,
+    target_win_rate=0.20,
+    max_reward_gap=0.00499,
+    eval_episodes=200,
 )
 
 # -------------------------------------------------------- scale presets ----

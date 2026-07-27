@@ -73,6 +73,32 @@ def pessimistic_targets(prediction, reward_coef: float, frame_coef: float,
     return reward, continuation, uncertainty, penalty
 
 
+def compute_gae(rewards: torch.Tensor, values: torch.Tensor,
+                continuations: torch.Tensor, bootstrap: torch.Tensor,
+                gamma: float, gae_lambda: float):
+    """Soft-continuation generalized advantage estimates for [H,B] tensors."""
+    if rewards.shape != values.shape or rewards.shape != continuations.shape:
+        raise ValueError("rewards, values and continuations must share [H,B] shape")
+    advantages = torch.zeros_like(rewards)
+    gae = torch.zeros_like(bootstrap)
+    next_value = bootstrap
+    for step in reversed(range(len(rewards))):
+        delta = (rewards[step] + gamma * continuations[step] * next_value
+                 - values[step])
+        gae = delta + gamma * gae_lambda * continuations[step] * gae
+        advantages[step] = gae
+        next_value = values[step]
+    return advantages, advantages + values
+
+
+def clipped_policy_loss(new_logp, old_logp, advantages, weights, clip):
+    ratio = (new_logp - old_logp).exp()
+    objective = torch.minimum(
+        ratio * advantages,
+        ratio.clamp(1.0 - clip, 1.0 + clip) * advantages)
+    return -(objective * weights).sum() / weights.sum().clamp_min(1.0)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--scale", default="local", choices=list(config.SCALES))
@@ -92,6 +118,9 @@ def main():
     ap.add_argument("--latent-mode", choices=("mean", "sample"),
                     default="mean",
                     help="use prior mean or sample stochastic WM dynamics latents")
+    ap.add_argument("--algorithm", choices=("reinforce", "ppo"),
+                    default="reinforce",
+                    help="imagined policy optimizer; both keep the WM frozen")
     ap.add_argument("--reward-disagreement-coef", type=float,
                     default=config.DREAM["reward_disagreement_coef"])
     ap.add_argument("--frame-disagreement-coef", type=float,
@@ -145,7 +174,8 @@ def main():
     log = {"update": [], "dream_return": [], "dream_len": [], "entropy": [],
            "loss_pi": [], "loss_v": [], "uncertainty": [], "penalty": [],
            "reward_std": [], "frame_mse": [], "done_disagreement": [],
-           "aleatoric_frame_mse": []}
+           "aleatoric_frame_mse": [], "algorithm": args.algorithm,
+           "approx_kl": [], "clip_fraction": []}
     frame_generator = torch.Generator(device="cpu")
     frame_generator.manual_seed(args.seed + 1_000_003 + start_update - 1)
     t0 = time.time()
@@ -157,13 +187,20 @@ def main():
         stacks_u8, *_ = data.sample(B, 1)                    # real starts
         stack = torch.from_numpy(stacks_u8.astype(np.float32) / 255.0).to(dev)
 
+        states, actions = [], []
         logps, values, entropies, rewards, conts = [], [], [], [], []
         uncertainties, penalties, reward_stds, frame_mses, done_disagreements, \
             aleatoric_frame_mses = [], [], [], [], [], []
         for _ in range(H):
-            logits, v = policy(stack)                        # WITH grad
+            states.append(stack.detach())
+            policy_context = (
+                torch.no_grad() if args.algorithm == "ppo"
+                else torch.enable_grad())
+            with policy_context:
+                logits, v = policy(stack)
             dist = torch.distributions.Categorical(logits=logits)
             a = dist.sample()
+            actions.append(a)
             logps.append(dist.log_prob(a))
             values.append(v)
             entropies.append(dist.entropy())
@@ -192,30 +229,94 @@ def main():
         with torch.no_grad():
             _, boot = policy(stack)                          # tail bootstrap
 
-        # discounted returns with soft done-masking, backwards
-        R = boot
-        returns = [None] * H
-        for j in reversed(range(H)):
-            R = rewards[j] + gamma * conts[j] * R
-            returns[j] = R
-        returns = torch.stack(returns)                       # [H,B]
+        rewards_t = torch.stack(rewards)
+        conts_t = torch.stack(conts)
         values_t = torch.stack(values)
         logps_t = torch.stack(logps)
         ent_t = torch.stack(entropies)
         # weight: probability the dream is still alive when the step happens
         alive = torch.cumprod(torch.cat(
-            [torch.ones(1, B, device=dev), torch.stack(conts)[:-1]], 0), dim=0)
+            [torch.ones(1, B, device=dev), conts_t[:-1]], 0), dim=0)
 
-        adv = (returns - values_t).detach()
-        adv = (adv - adv.mean()) / (adv.std() + 1e-8)
-        loss_pi = -(logps_t * adv * alive).mean()
-        loss_v = (F.mse_loss(values_t, returns.detach(), reduction="none")
-                  * alive).mean()
-        loss = loss_pi + D["vf_coef"] * loss_v - D["ent_coef"] * (ent_t * alive).mean()
-        opt.zero_grad(set_to_none=True)
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(policy.parameters(), D["grad_clip"])
-        opt.step()
+        if args.algorithm == "reinforce":
+            # Legacy Monte-Carlo actor-critic path.
+            R = boot
+            returns_list = [None] * H
+            for j in reversed(range(H)):
+                R = rewards[j] + gamma * conts[j] * R
+                returns_list[j] = R
+            returns = torch.stack(returns_list)
+            adv = (returns - values_t).detach()
+            adv = (adv - adv.mean()) / (adv.std() + 1e-8)
+            loss_pi = -(logps_t * adv * alive).mean()
+            loss_v = (F.mse_loss(values_t, returns.detach(), reduction="none")
+                      * alive).mean()
+            loss = (loss_pi + D["vf_coef"] * loss_v
+                    - D["ent_coef"] * (ent_t * alive).mean())
+            opt.zero_grad(set_to_none=True)
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(policy.parameters(), D["grad_clip"])
+            opt.step()
+            approx_kl = clip_fraction = 0.0
+        else:
+            with torch.no_grad():
+                adv, returns = compute_gae(
+                    rewards_t, values_t, conts_t, boot, gamma,
+                    D["gae_lambda"])
+                valid_adv = adv[alive > 0]
+                adv = (adv - valid_adv.mean()) / (
+                    valid_adv.std(unbiased=False) + 1e-8)
+            flat_states = torch.stack(states).flatten(0, 1)
+            flat_actions = torch.stack(actions).flatten()
+            flat_old_logps = logps_t.flatten().detach()
+            flat_adv = adv.flatten().detach()
+            flat_returns = returns.flatten().detach()
+            flat_alive = alive.flatten().detach()
+            indices = torch.arange(H * B, device=dev)
+            minibatch = max(1, (H * B) // D["ppo_minibatches"])
+            pi_losses, v_losses, kls, clips = [], [], [], []
+            for _ in range(D["ppo_epochs"]):
+                for mb in indices[torch.randperm(len(indices), device=dev)].split(
+                        minibatch):
+                    new_logits, new_values = policy(flat_states[mb])
+                    new_dist = torch.distributions.Categorical(logits=new_logits)
+                    new_logps = new_dist.log_prob(flat_actions[mb])
+                    mb_weights = flat_alive[mb]
+                    loss_pi_mb = clipped_policy_loss(
+                        new_logps, flat_old_logps[mb], flat_adv[mb],
+                        mb_weights, D["ppo_clip"])
+                    loss_v_mb = (
+                        F.mse_loss(
+                            new_values, flat_returns[mb], reduction="none")
+                        * mb_weights).sum() / mb_weights.sum().clamp_min(1.0)
+                    entropy_mb = (
+                        new_dist.entropy() * mb_weights).sum() \
+                        / mb_weights.sum().clamp_min(1.0)
+                    loss = (loss_pi_mb + D["vf_coef"] * loss_v_mb
+                            - D["ent_coef"] * entropy_mb)
+                    opt.zero_grad(set_to_none=True)
+                    loss.backward()
+                    torch.nn.utils.clip_grad_norm_(
+                        policy.parameters(), D["grad_clip"])
+                    opt.step()
+                    with torch.no_grad():
+                        ratio = (new_logps - flat_old_logps[mb]).exp()
+                        kls.append(float(
+                            ((flat_old_logps[mb] - new_logps) * mb_weights
+                             ).sum() / mb_weights.sum().clamp_min(1.0)))
+                        clips.append(float(
+                            (((ratio - 1).abs() > D["ppo_clip"]).float()
+                             * mb_weights).sum()
+                            / mb_weights.sum().clamp_min(1.0)))
+                    pi_losses.append(float(loss_pi_mb.detach()))
+                    v_losses.append(float(loss_v_mb.detach()))
+            loss_pi = torch.tensor(np.mean(pi_losses), device=dev)
+            loss_v = torch.tensor(np.mean(v_losses), device=dev)
+            approx_kl = float(np.mean(kls))
+            clip_fraction = float(np.mean(clips))
+
+        if any(parameter.grad is not None for parameter in wm.parameters()):
+            raise RuntimeError("world-model gradient detected during dream training")
 
         if u % 10 == 0 or u == start_update:
             dream_ret = float((torch.stack(rewards) * alive).sum(0).mean())
@@ -224,6 +325,8 @@ def main():
             log["update"].append(u); log["dream_return"].append(dream_ret)
             log["dream_len"].append(dream_len); log["entropy"].append(ent)
             log["loss_pi"].append(float(loss_pi)); log["loss_v"].append(float(loss_v))
+            log["approx_kl"].append(approx_kl)
+            log["clip_fraction"].append(clip_fraction)
             metric_weight = alive / alive.sum().clamp_min(1.0)
             metrics = {
                 "uncertainty": torch.stack(uncertainties),
@@ -244,6 +347,7 @@ def main():
             torch.save({"model": {k: v.cpu() for k, v in policy.state_dict().items()},
                         "config": dict(
                             D, wm=wm_paths, seed=args.seed, frame_mode=args.frame_mode,
+                            algorithm=args.algorithm,
                             latent_mode=args.latent_mode,
                             reward_disagreement_coef=args.reward_disagreement_coef,
                             frame_disagreement_coef=args.frame_disagreement_coef,
@@ -260,6 +364,7 @@ def main():
     torch.save({"model": {k: v.cpu() for k, v in policy.state_dict().items()},
                 "config": dict(
                     D, wm=wm_paths, seed=args.seed, frame_mode=args.frame_mode,
+                    algorithm=args.algorithm,
                     latent_mode=args.latent_mode,
                     reward_disagreement_coef=args.reward_disagreement_coef,
                     frame_disagreement_coef=args.frame_disagreement_coef,

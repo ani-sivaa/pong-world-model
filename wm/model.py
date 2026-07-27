@@ -176,10 +176,41 @@ class StochasticWorldModel(WorldModel):
         logits = self.out(self.d0(x))
         reward = done_logit = None
         if self.with_heads:
-            pooled = dynamics.mean(dim=(2, 3))
+            # Outcome heads intentionally bypass the stochastic latent. Reward
+            # and termination are properties of the observed state/action
+            # transition context; allowing sampled z into these heads made
+            # imagined outcomes vary independently of the evidence.
+            pooled = context.mean(dim=(2, 3))
             reward = self.reward_head(pooled).squeeze(-1)
             done_logit = self.done_head(pooled).squeeze(-1)
         return logits, reward, done_logit
+
+    def latent_statistics(self, stack: torch.Tensor, action: torch.Tensor,
+                          target: torch.Tensor | None = None):
+        """Return prior and optional posterior parameters for diagnostics."""
+        context, _ = self._encode_context(stack, action)
+        pooled = context.mean(dim=(2, 3))
+        prior_mean, prior_logvar = self._stats(self.prior_stats(pooled))
+        result = {
+            "prior_mean": prior_mean,
+            "prior_logvar": prior_logvar,
+        }
+        if target is not None:
+            if target.ndim == 3:
+                target = target[:, None]
+            target_features = self.target_encoder(target).mean(dim=(2, 3))
+            post_mean, post_logvar = self._stats(
+                self.posterior_stats(torch.cat(
+                    [pooled, target_features], dim=-1)))
+            result.update({
+                "posterior_mean": post_mean,
+                "posterior_logvar": post_logvar,
+                "posterior_prior_kl": 0.5 * (
+                    prior_logvar - post_logvar
+                    + (post_logvar.exp() + (post_mean - prior_mean).square())
+                    / prior_logvar.exp() - 1.0),
+            })
+        return result
 
     def forward(self, stack: torch.Tensor, action: torch.Tensor,
                 latent_mode: str = "mean",

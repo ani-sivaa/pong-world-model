@@ -22,6 +22,7 @@ EVENT_NAMES = {
     4: "done_truncation",
     5: "serve_near_terminal",
     6: "boundary",
+    7: "miss",
 }
 EVENT_CODES = {name: code for code, name in EVENT_NAMES.items()}
 

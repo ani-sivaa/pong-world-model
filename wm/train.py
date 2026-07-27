@@ -31,8 +31,27 @@ def to_dev(x, dev, dtype=torch.float32):
     return torch.from_numpy(np.ascontiguousarray(x)).to(dev, dtype)
 
 
+def event_balanced_weights(events: torch.Tensor, alive: torch.Tensor,
+                           clip: float = 20.0) -> torch.Tensor:
+    """Inverse-frequency event weights, normalized over valid examples."""
+    if events.shape != alive.shape:
+        raise ValueError("events and alive must have identical [B,k] shapes")
+    result = torch.zeros_like(alive)
+    for step in range(events.shape[1]):
+        active = alive[:, step] > 0
+        if not active.any():
+            continue
+        labels = events[active, step].long()
+        counts = torch.bincount(labels)
+        weights = counts.sum().float() / counts.clamp_min(1).float()
+        selected = weights[labels].clamp_max(clip)
+        selected = selected / selected.mean().clamp_min(1e-8)
+        result[active, step] = selected
+    return result
+
+
 def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
-                   free_bits=None, return_kl=False):
+                   free_bits=None, return_kl=False, events=None):
     stack_u8, acts, targets_u8, rews, dns, alive = batch
     B, k = acts.shape
     stack = to_dev(stack_u8, dev) / 255.0
@@ -40,6 +59,11 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
     acts_t = to_dev(acts, dev, torch.long)
     alive_t = to_dev(alive, dev)                          # [B,k] episode alive at step j
     dns_t = to_dev(dns, dev)                              # [B,k] done fires AT step j
+    head_weights = alive_t
+    if v2 and events is not None and config.WM.get("head_event_balance", False):
+        events_t = to_dev(events, dev, torch.long)
+        head_weights = event_balanced_weights(
+            events_t, alive_t, float(config.WM.get("head_weight_clip", 20.0)))
 
     # ground-truth previous frames for change weights: [stack[-1], targets[:-1]]
     prev = torch.cat([stack[:, -1:], targets[:, :-1]], dim=1)
@@ -76,9 +100,9 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
             # reward/done AT step j are valid whenever the episode is alive at j
             rt = to_dev(rews[:, j], dev)
             rew_loss = rew_loss + (F.mse_loss(r, rt, reduction="none")
-                                   * alive_t[:, j]).mean()
+                                   * head_weights[:, j]).mean()
             done_loss = done_loss + (F.binary_cross_entropy_with_logits(
-                d, dns_t[:, j], reduction="none") * alive_t[:, j]).mean()
+                d, dns_t[:, j], reduction="none") * head_weights[:, j]).mean()
         if j + 1 < k:  # feed own prediction back in, gradient intact
             cur = torch.cat([cur[:, 1:], torch.sigmoid(logits)], dim=1)
 
@@ -104,6 +128,8 @@ def main():
                     help="train a conditional latent (CVAE) world model")
     ap.add_argument("--latent-dim", type=int, default=config.WM["latent_dim"])
     ap.add_argument("--kl-coef", type=float, default=config.WM["kl_coef"])
+    ap.add_argument("--kl-warmup-frac", type=float,
+                    default=config.WM["kl_warmup_frac"])
     ap.add_argument("--free-bits", type=float, default=config.WM["free_bits"])
     ap.add_argument("--init-from", default=None)
     ap.add_argument("--data-frac", type=float, default=1.0)
@@ -166,6 +192,8 @@ def main():
     scaler = torch.amp.GradScaler(enabled=use_amp)
 
     log = {"step": [], "loss": [], "frame": [], "reward": [], "done": [], "kl": [],
+           "kl_beta": [], "prior_std": [], "posterior_prior_kl": [],
+           "latent_utilization": [],
            "batch_events": [], "val_frame": [], "val_step": [],
            "val_event_frame": []}
     t0 = time.time()
@@ -173,10 +201,13 @@ def main():
         k = 1 if step <= warmup_end else K
         b, batch_info = data.sample(
             batch, k, sampler=args.sampler, return_info=True)
+        kl_warmup_steps = max(1, int(steps * args.kl_warmup_frac))
+        kl_beta = args.kl_coef * min(1.0, step / kl_warmup_steps)
         with torch.amp.autocast(dev.type, enabled=use_amp):
             total, fl, rl, dl, kl = compute_losses(
                 wm, b, dev, args.v2, config.WM["change_loss_weight"],
-                kl_coef=args.kl_coef, free_bits=args.free_bits, return_kl=True)
+                kl_coef=kl_beta, free_bits=args.free_bits, return_kl=True,
+                events=batch_info["events"])
         opt.zero_grad(set_to_none=True)
         scaler.scale(total).backward()
         scaler.unscale_(opt)
@@ -197,6 +228,33 @@ def main():
             log["reward"].append(float(rl))
             log["done"].append(float(dl))
             log["kl"].append(float(kl))
+            log["kl_beta"].append(float(kl_beta))
+            if isinstance(wm, StochasticWorldModel):
+                with torch.no_grad():
+                    diagnostic_n = min(16, len(b[0]))
+                    diagnostic_stack = to_dev(b[0][:diagnostic_n], dev) / 255.0
+                    diagnostic_action = to_dev(
+                        b[1][:diagnostic_n, 0], dev, torch.long)
+                    diagnostic_target = to_dev(
+                        b[2][:diagnostic_n, 0], dev) / 255.0
+                    stats = wm.latent_statistics(
+                        diagnostic_stack, diagnostic_action, diagnostic_target)
+                    mean_frame = torch.sigmoid(wm(
+                        diagnostic_stack, diagnostic_action,
+                        latent_mode="mean")[0])
+                    sample_frame = torch.sigmoid(wm(
+                        diagnostic_stack, diagnostic_action,
+                        latent_mode="sample")[0])
+                    log["prior_std"].append(float(
+                        (0.5 * stats["prior_logvar"]).exp().mean()))
+                    log["posterior_prior_kl"].append(float(
+                        stats["posterior_prior_kl"].sum(-1).mean()))
+                    log["latent_utilization"].append(float(
+                        (sample_frame - mean_frame).square().mean()))
+            else:
+                for name in ("prior_std", "posterior_prior_kl",
+                             "latent_utilization"):
+                    log[name].append(None)
             log["batch_events"].append(event_log)
             print(f"  step {step}/{steps} k={k} loss={float(total):.5f} "
                   f"frame={float(fl):.5f} rew={float(rl):.5f} "
