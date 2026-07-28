@@ -17,7 +17,7 @@ import torch
 import config
 from agents.policy import load_policy
 from pong.env import VecPong, scripted_action
-from wm.data import EVENT_NAMES, TransitionData
+from wm.data import EVENT_CODES, EVENT_NAMES, TransitionData
 from wm.model import StochasticWorldModel, load_wm_ensemble
 
 
@@ -303,22 +303,102 @@ def forced_scenarios(ensemble, device):
     return _metric(np.mean(all_errors)), reports, frames, rewards
 
 
+def _ball_x(frames):
+    pixels = frames[:, 0].clone()
+    pixels[:, (0, config.ENV["H"] - 1), :] = 0
+    for x in (config.ENV["left_x"], config.ENV["right_x"]):
+        pixels[:, :, x:x + config.ENV["paddle_w"]] = 0
+    mass_x = pixels.sum(1)
+    coordinates = torch.arange(
+        config.ENV["W"], device=frames.device, dtype=frames.dtype)
+    mass = mass_x.sum(1)
+    return (mass_x * coordinates).sum(1) / mass.clamp_min(1e-8), mass > 0
+
+
 @torch.no_grad()
-def stochastic_diagnostics(ensemble, stacks, actions, samples, seed, device):
+def stochastic_diagnostics(ensemble, stacks, actions, targets, events,
+                           samples, seed, device):
     if samples <= 0 or not any(
             isinstance(member, StochasticWorldModel) for member in ensemble.members):
         return {"available": False, "reason": (
             "sampling disabled" if samples <= 0 else "ensemble is deterministic")}
     x = _tensor_stacks(stacks, device)
     a = torch.from_numpy(np.asarray(actions)).to(device, torch.long)
+    target = torch.from_numpy(np.asarray(targets)).to(device).float()
+    if target.max() > 1:
+        target = target / 255.0
+    prior_stds, posterior_kls, member_utilization = [], [], []
+    sample_frames = []
+    mean_frames = []
+    for member_index, member in enumerate(ensemble.members):
+        if not isinstance(member, StochasticWorldModel):
+            continue
+        stats = member.latent_statistics(x, a, target)
+        prior_stds.append((0.5 * stats["prior_logvar"]).exp().mean())
+        posterior_kls.append(stats["posterior_prior_kl"].sum(-1).mean())
+        mean_frames.append(torch.sigmoid(
+            member(x, a, latent_mode="mean")[0]))
+        draws = [
+            torch.sigmoid(member(
+                x, a, latent_mode="sample",
+                generator=torch.Generator().manual_seed(
+                    seed + member_index * 1009 + draw))[0])
+            for draw in range(samples)
+        ]
+        member_draws = torch.stack(draws)
+        sample_frames.append(member_draws)
+        member_utilization.append(
+            member_draws.var(0, unbiased=False).mean())
+    sample_frames_t = torch.cat(sample_frames, dim=0)
+    mean_frames_t = torch.stack(mean_frames)
+    prior_sample_mse = (
+        sample_frames_t - mean_frames_t.mean(0)).square().mean()
+
+    # A repeated reset frame deliberately removes serve velocity. Coverage is
+    # measured across prior draws for this same ambiguous context, rather than
+    # across different logged states (which could falsely credit deterministic
+    # context variation to the latent).
+    serve_frame = VecPong(1, seed).reset()
+    serve_stack = _tensor_stacks(
+        np.repeat(serve_frame[:, None], config.FRAME_STACK, axis=1), device)
+    serve_action = torch.zeros(1, dtype=torch.long, device=device)
+    serve_draws = []
+    for member_index, member in enumerate(ensemble.members):
+        if not isinstance(member, StochasticWorldModel):
+            continue
+        for draw in range(samples):
+            serve_draws.append(torch.sigmoid(member(
+                serve_stack, serve_action, latent_mode="sample",
+                generator=torch.Generator().manual_seed(
+                    seed + 100_003 + member_index * 1009 + draw))[0]))
+    serve_draws = torch.cat(serve_draws)
+    current_x, current_ok = _ball_x(serve_stack[:, -1:])
+    sampled_x, sampled_ok = _ball_x(serve_draws)
+    delta = sampled_x - current_x
+    valid = sampled_ok & current_ok
+    directions = {
+        sign for sign, mask in ((-1, delta < -0.25), (1, delta > 0.25))
+        if bool((mask & valid).any())
+    }
+    direction_coverage = len(directions) / 2.0
+
     values = []
     for sample in range(samples):
         _, prediction = ensemble.rollout_step(
             x, a, latent_mode="sample",
             generator=torch.Generator().manual_seed(seed + sample))
         values.append(float(prediction.aleatoric_frame_mse.mean().cpu()))
-    return {"available": True, "samples": samples,
-            "mean_prior_sample_frame_mse": float(np.mean(values))}
+    return {
+        "available": True,
+        "samples": samples,
+        "mean_prior_sample_frame_mse": float(np.mean(values)),
+        "prior_std": float(torch.stack(prior_stds).mean().cpu()),
+        "posterior_prior_kl": float(torch.stack(posterior_kls).mean().cpu()),
+        "latent_utilization": float(
+            torch.stack(member_utilization).mean().cpu()),
+        "prior_sample_frame_mse": float(prior_sample_mse.cpu()),
+        "serve_direction_coverage": float(direction_coverage),
+    }
 
 
 def _parse_thresholds(scale, overrides):
@@ -329,6 +409,25 @@ def _parse_thresholds(scale, overrides):
             raise ValueError(f"unknown trust threshold {name!r}")
         thresholds[name] = float(value)
     return thresholds
+
+
+def stochastic_collapse_gates(diagnostics, scale):
+    names = (
+        "prior_std", "prior_sample_frame_mse", "latent_utilization",
+        "serve_direction_coverage", "posterior_prior_kl")
+    metrics = {
+        name: _metric(
+            diagnostics.get(name),
+            reason=f"stochastic diagnostic {name} unavailable")
+        for name in names
+    }
+    thresholds = dict(config.STOCHASTIC_TRUST[scale])
+    gates, passed = aggregate_gates(metrics, thresholds)
+    # Stochastic promotion is fail-closed: every anti-collapse diagnostic must
+    # be measurable, unlike legacy deterministic reports.
+    passed = passed and all(
+        gate["available"] and gate["pass"] for gate in gates.values())
+    return gates, passed, thresholds
 
 
 def evaluate(args):
@@ -393,10 +492,31 @@ def evaluate(args):
     }
     thresholds = _parse_thresholds(args.scale, args.threshold)
     gates, overall = aggregate_gates(metrics, thresholds)
+    has_stochastic = any(
+        isinstance(member, StochasticWorldModel) for member in ensemble.members)
+    diagnostic_samples = (
+        max(4, args.stochastic_samples) if has_stochastic
+        else args.stochastic_samples)
+    diagnostic_indices = np.unique(np.concatenate([
+        np.arange(min(16, len(stacks))),
+        np.flatnonzero(events == EVENT_CODES["serve_near_terminal"])[:16],
+    ]))
     diagnostics = stochastic_diagnostics(
-        ensemble, stacks[:min(32, len(stacks))],
-        actions[:min(32, len(actions))], args.stochastic_samples,
-        args.seed, device)
+        ensemble, stacks[diagnostic_indices],
+        actions[diagnostic_indices],
+        real_frames[diagnostic_indices],
+        events[diagnostic_indices],
+        diagnostic_samples, args.seed, device)
+    stochastic_gates = {}
+    stochastic_thresholds = {}
+    if has_stochastic:
+        stochastic_gates, stochastic_pass, stochastic_thresholds = \
+            stochastic_collapse_gates(diagnostics, args.scale)
+        overall = overall and stochastic_pass
+        gates.update({
+            f"stochastic_{name}": gate
+            for name, gate in stochastic_gates.items()
+        })
     return {
         "schema_version": 1,
         "tag": args.tag,
@@ -423,7 +543,7 @@ def evaluate(args):
                 "stochastic_diagnostics": diagnostics,
             },
         },
-        "thresholds": thresholds,
+        "thresholds": dict(thresholds, **stochastic_thresholds),
         "gates": gates,
         "overall_pass": overall,
     }

@@ -243,6 +243,84 @@ Artifacts: `results/{transfer,trust}_flywheel_full_v1_combined*.json`,
 `results/flywheel_full_v1_{initial,enriched}_meta.json`, and
 `results/flywheel_full_v1_flywheel_state.json`.
 
+## Honest-agent round two — implementation and smoke evidence (2026-07-27)
+
+No full-training or transfer result is claimed in this section.
+
+- Added real-only terminal context anchors (`hit`, `score`, `concede`, `miss`,
+  and truncation), backwards-decayed priorities, an overlap-safe event bitmask,
+  and an untouched natural holdout. A 256-transition local smoke wrote only
+  binary real frames and passed collector boundary/self checks across 24
+  streams.
+- Stochastic latents now affect frame decoding only. Reward/done heads use the
+  deterministic pre-latent state/action context. Existing deterministic,
+  headless, and stochastic checkpoint keys remain loadable. Training adds
+  event-balanced outcome losses, KL warmup, prior/posterior KL, prior
+  variation, and latent-utilization logs.
+- Trust now fail-closes stochastic promotion on missing or collapsed prior
+  standard deviation, sampled-frame variation, latent utilization,
+  posterior/prior KL, and two-direction coverage from the same ambiguous serve
+  context. Deterministic thresholds are unchanged.
+- `agents.train_dream --algorithm ppo` adds clipped imagined PPO with soft-done
+  GAE. The WM is frozen, all imagined targets are detached, pessimism and the
+  ball guard remain active, and runtime/tests reject any WM gradient.
+- The local collect → one-step stochastic WM → one-update/two-step PPO → trust
+  smoke completed. Its smoke-scale trust report passed the intentionally loose
+  preflight thresholds; this is plumbing evidence, not model-quality evidence.
+- 24 unit/integration tests passed, including real-only context boundaries,
+  latent-invariant heads, balanced loss weights, collapse rejection, GAE,
+  clipped PPO with zero WM gradients, immutable final-panel selection, and
+  dry-run orchestration. `compileall` and `git diff --check` also passed.
+- The campaign preregisters acquisition seeds `(1103,2207,3301,4409,5519)`,
+  WM/policy seeds, development seeds `(7001,7003,7013)`, and one untouched
+  final panel `(104729,130363,155921)` at 200 episodes per seed. Development
+  evidence alone chooses a candidate. The final panel is immutable,
+  overwrite-protected, reports Wilson 95% intervals, and can be consumed once.
+- The resumable controller records commands, dataset composition/event counts,
+  seeds, trust/development evidence, retries, wall time, and unavailable cost
+  fields in a structured manifest. It uses a process lock and bounded
+  rounds/retries, has no export stage, and starts a new acquisition round
+  before more policy optimization whenever a trust gate fails. Round zero also
+  preregisters a same-seed REINFORCE development ablation for PPO attribution.
+
+Full campaign was not launched: the Modal Python client is installed, but
+`python3 -m modal billing summary` returned `Token missing`, and no credit
+balance telemetry was available. Consequently no cloud smoke, paid job, final
+evaluation, or web export was attempted. Once credentials and explicit
+remaining-credit telemetry are available, the exact resumable command is:
+
+A resume attempt after the credentials were configured externally reached the
+same safe stop: this already-running Cursor Cloud process had none of
+`MODAL_TOKEN_ID`, `MODAL_TOKEN_SECRET`, or `MODAL_CREDIT_BALANCE_USD` in its
+environment, and its run reports no saved Cursor environment snapshot. Modal
+billing authentication therefore still returned `Token missing`. No secret
+value was printed, no paid job was launched, and the immutable final panel
+remains unused. A newly started Cloud Agent/environment is required for the
+configured variables to be injected.
+
+```bash
+export MODAL_CREDIT_BALANCE_USD='<remaining balance from Modal billing>'
+python3 -m scripts.run_honest_campaign --execute \
+  --tag honest_campaign_v1 \
+  --base-wm \
+    /vol/checkpoints/flywheel_full_v1_combined_final_wm0.pt \
+    /vol/checkpoints/flywheel_full_v1_combined_final_wm1.pt \
+    /vol/checkpoints/flywheel_full_v1_combined_final_wm2.pt \
+  --redteam /vol/checkpoints/flywheel_full_v1_combined_redteam.pt \
+  --stochastic-policy \
+    /vol/checkpoints/flywheel_full_v1_combined_stochastic_dream.pt \
+  --transitions 1000000 --steps 18000 --updates 2500 \
+  --max-rounds 5 --retries 2
+```
+
+Limitations: the 80% development threshold is deliberately demanding and has
+not been reached; Wilson intervals quantify evaluation uncertainty but do not
+remove dependence among episodes from the same vectorized simulator; Modal's
+billing summary may expose spend without an explicit remaining-credit field,
+in which case the controller stops instead of estimating a balance; and a
+below-80% result on the one final panel terminates the protocol because tuning
+after reading that panel would invalidate its untouched status.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent

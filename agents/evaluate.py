@@ -54,6 +54,9 @@ def eval_policy(policy, n_episodes, dev, seed=123, record_first=0):
                           np.array(lens[:n_episodes]))
     return {
         "episodes": int(len(points)),
+        "wins": int((points == 1).sum()),
+        "losses": int((points == -1).sum()),
+        "truncations": int((points == 0).sum()),
         "mean_point": float(points.mean()),
         "win_rate": float((points == 1).mean()),
         "loss_rate": float((points == -1).mean()),
@@ -75,18 +78,20 @@ def main():
                     help="artifact suffix; also selects dream_train_log_<tag>.json")
     ap.add_argument("--dream-log", default=None,
                     help="explicit dream training log used for the return gap")
+    ap.add_argument("--seed", type=int, default=123)
+    ap.add_argument("--episodes", type=int, default=None)
     args = ap.parse_args()
 
     from evalutils import gifs
 
     config.seed_everything()
     dev = config.get_device()
-    n_eps = config.SCALES[args.scale]["eval_episodes"]
+    n_eps = args.episodes or config.SCALES[args.scale]["eval_episodes"]
     report = {}
     for spec in args.policies:
         name, path = spec.split("=", 1)
         policy = load_policy(path, dev).eval()
-        stats, frames = eval_policy(policy, n_eps, dev,
+        stats, frames = eval_policy(policy, n_eps, dev, seed=args.seed,
                                     record_first=args.gif_steps)
         report[name] = stats
         if frames:

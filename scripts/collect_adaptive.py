@@ -12,6 +12,7 @@ Event codes (events.npy, uint8; one mutually-exclusive label per transition):
   4 real episode done by time truncation
   5 serve or near-terminal state
   6 forced stream boundary (not a game event)
+  7 pre-concede miss context
 
 The final ``natural`` segment is plain tracker collection and is marked in
 meta.json. Per-environment streams and every forced boundary are also recorded.
@@ -67,6 +68,8 @@ def _load_optional_models(args, device, needed_policies):
     paths = {
         "baseline": Path(args.baseline_checkpoint),
         "dream": Path(args.dream_checkpoint),
+        "stochastic": Path(getattr(
+            args, "stochastic_checkpoint", args.dream_checkpoint)),
         "redteam": Path(getattr(
             args, "redteam_checkpoint", config.CKPT_DIR / "redteam_agent.pt")),
     }
@@ -194,6 +197,47 @@ def _event_labels(env_t, ball_x, info, done):
     return event
 
 
+def enrich_terminal_context(events, priorities, dones, streams, radius, decay):
+    """Mark and prioritize real history preceding rare terminal anchors.
+
+    ``event_context`` is a bit mask and can represent overlapping events while
+    the legacy ``events.npy`` remains a single primary label. A concede also
+    labels its immediately preceding real transition as ``miss`` when safe.
+    Context never crosses an episode or forced stream boundary.
+    """
+    if radius < 0 or not 0 < decay <= 1:
+        raise ValueError("terminal context requires radius >= 0 and 0 < decay <= 1")
+    context = np.zeros(len(events), np.uint16)
+    anchor_codes = {
+        EVENT_CODES[name] for name in
+        ("hit", "score", "concede", "done_truncation")
+    }
+    anchors = []
+    for stream in streams:
+        lo, hi = int(stream["start"]), int(stream["end"])
+        for anchor in range(lo, hi):
+            code = int(events[anchor])
+            if code not in anchor_codes:
+                continue
+            anchors.append((anchor, code))
+            if code == EVENT_CODES["concede"] and anchor > lo \
+                    and not dones[anchor - 1]:
+                events[anchor - 1] = EVENT_CODES["miss"]
+            start = max(lo, anchor - radius)
+            # A true done inside the history starts a new episode.
+            prior_done = np.flatnonzero(np.asarray(dones[start:anchor]))
+            if len(prior_done):
+                start += int(prior_done[-1]) + 1
+            bit = np.uint16(1 << code)
+            base = float(config.FLYWHEEL["event_priority"][EVENT_NAMES[code]])
+            for index in range(start, anchor + 1):
+                distance = anchor - index
+                context[index] |= bit
+                priorities[index] = max(
+                    float(priorities[index]), base * decay ** distance)
+    return context, np.asarray(anchors, dtype=np.int64).reshape(-1, 2)
+
+
 def collect(args):
     total = args.transitions if args.transitions is not None \
         else config.SCALES[args.scale]["transitions"]
@@ -204,7 +248,8 @@ def collect(args):
     mix = _parse_mix(args.mix)
     allocation = _allocate(total, mix)
     device = None
-    if {"baseline", "dream", "redteam"} & set(mix) or args.world_model_checkpoint:
+    if {"baseline", "dream", "stochastic", "redteam"} & set(mix) \
+            or args.world_model_checkpoint:
         try:
             device = config.get_device()
         except ImportError:
@@ -249,7 +294,8 @@ def collect(args):
         rng = np.random.default_rng(args.seed + 7919 * (segment_index + 1))
         cur = env.reset()
         stacks = np.repeat(cur[:, None], config.FRAME_STACK, axis=1)
-        actual_kind = kind if kind not in ("baseline", "dream", "redteam") or kind in policies \
+        actual_kind = kind if kind not in (
+            "baseline", "dream", "stochastic", "redteam") or kind in policies \
             else "tracker_fallback"
 
         for step in range(int(quota.max())):
@@ -300,6 +346,15 @@ def collect(args):
         print(f"[collect_adaptive] {kind}: T={segment_n} policy={actual_kind}",
               flush=True)
 
+    event_context, anchors = enrich_terminal_context(
+        events, priorities, dones, streams,
+        int(config.FLYWHEEL["terminal_context_radius"]),
+        float(config.FLYWHEEL["terminal_context_decay"]))
+    np.save(out / "event_context.npy", event_context)
+    np.save(out / "event_anchors.npy", anchors)
+    # Recompute after contextual miss labels and forced boundaries.
+    event_counts = np.bincount(
+        np.asarray(events), minlength=max(EVENT_NAMES) + 1)
     for array in (frames, actions, rewards, dones, events, priorities):
         array.flush()
     elapsed = time.perf_counter() - started
@@ -315,6 +370,13 @@ def collect(args):
         "event_codes": {str(k): v for k, v in EVENT_NAMES.items()},
         "event_counts": {
             EVENT_NAMES[i]: int(event_counts[i]) for i in range(len(event_counts))},
+        "terminal_context": {
+            "radius": int(config.FLYWHEEL["terminal_context_radius"]),
+            "decay": float(config.FLYWHEEL["terminal_context_decay"]),
+            "anchors": int(len(anchors)),
+            "event_context": "event_context.npy uint16 bitmask",
+            "event_anchors": "event_anchors.npy [index,event_code]",
+        },
         "priorities": {
             "world_model_checkpoint": args.world_model_checkpoint,
             "world_model_loaded": wm is not None,
@@ -338,6 +400,8 @@ def _self_check(out, meta):
         name: np.load(out / f"{name}.npy", mmap_mode="r")
         for name in ("frames", "actions", "rewards", "dones", "events", "priorities")
     }
+    context = np.load(out / "event_context.npy", mmap_mode="r")
+    anchors = np.load(out / "event_anchors.npy", mmap_mode="r")
     T = meta["T"]
     assert all(len(a) == T for a in arrays.values())
     assert arrays["frames"].dtype == np.uint8
@@ -345,6 +409,8 @@ def _self_check(out, meta):
     assert arrays["priorities"].dtype == np.float32
     assert np.isfinite(arrays["priorities"]).all() and (arrays["priorities"] > 0).all()
     assert arrays["dones"].dtype == bool
+    assert len(context) == T and context.dtype == np.uint16
+    assert anchors.ndim == 2 and anchors.shape[1] == 2
     for stream in meta["streams"]:
         assert arrays["dones"][stream["end"] - 1]
         assert arrays["events"][stream["end"] - 1] == EVENT_CODES["boundary"]
@@ -369,6 +435,8 @@ def main():
                     default=str(config.CKPT_DIR / "dream_agent.pt"))
     ap.add_argument("--redteam-checkpoint",
                     default=str(config.CKPT_DIR / "redteam_agent.pt"))
+    ap.add_argument("--stochastic-checkpoint",
+                    default=str(config.CKPT_DIR / "stochastic_dream_agent.pt"))
     ap.add_argument("--world-model-checkpoint", nargs="+", action="append", default=None,
                     help="headed WM checkpoint(s); repeat for an ensemble")
     ap.add_argument("--self-check", action="store_true")

@@ -123,6 +123,8 @@ class StochasticWorldModel(WorldModel):
         latent_dim = int(cfg.get("latent_dim", config.WM.get("latent_dim", 16)))
         self.model_type = "stochastic"
         self.latent_dim = latent_dim
+        self.deterministic_heads = bool(
+            cfg.get("stochastic_heads_deterministic", True))
         self.model_config = dict(cfg, latent_dim=latent_dim)
 
         # Encode the target independently, then condition q on both target and
@@ -176,10 +178,43 @@ class StochasticWorldModel(WorldModel):
         logits = self.out(self.d0(x))
         reward = done_logit = None
         if self.with_heads:
-            pooled = dynamics.mean(dim=(2, 3))
+            # Outcome heads intentionally bypass the stochastic latent. Reward
+            # and termination are properties of the observed state/action
+            # transition context; allowing sampled z into these heads made
+            # imagined outcomes vary independently of the evidence.
+            pooled = (
+                context if self.deterministic_heads else dynamics
+            ).mean(dim=(2, 3))
             reward = self.reward_head(pooled).squeeze(-1)
             done_logit = self.done_head(pooled).squeeze(-1)
         return logits, reward, done_logit
+
+    def latent_statistics(self, stack: torch.Tensor, action: torch.Tensor,
+                          target: torch.Tensor | None = None):
+        """Return prior and optional posterior parameters for diagnostics."""
+        context, _ = self._encode_context(stack, action)
+        pooled = context.mean(dim=(2, 3))
+        prior_mean, prior_logvar = self._stats(self.prior_stats(pooled))
+        result = {
+            "prior_mean": prior_mean,
+            "prior_logvar": prior_logvar,
+        }
+        if target is not None:
+            if target.ndim == 3:
+                target = target[:, None]
+            target_features = self.target_encoder(target).mean(dim=(2, 3))
+            post_mean, post_logvar = self._stats(
+                self.posterior_stats(torch.cat(
+                    [pooled, target_features], dim=-1)))
+            result.update({
+                "posterior_mean": post_mean,
+                "posterior_logvar": post_logvar,
+                "posterior_prior_kl": 0.5 * (
+                    prior_logvar - post_logvar
+                    + (post_logvar.exp() + (post_mean - prior_mean).square())
+                    / prior_logvar.exp() - 1.0),
+            })
+        return result
 
     def forward(self, stack: torch.Tensor, action: torch.Tensor,
                 latent_mode: str = "mean",
@@ -231,9 +266,16 @@ def load_wm(ckpt_path, device, with_heads=False) -> WorldModel:
     if model_type not in ("deterministic", "stochastic"):
         raise ValueError(f"unsupported world-model type: {model_type!r}")
     model_cfg = dict(config.WM)
-    for key in ("base_channels", "act_embed", "latent_dim"):
+    for key in ("base_channels", "act_embed", "latent_dim",
+                "stochastic_heads_deterministic"):
         if key in saved_cfg:
             model_cfg[key] = saved_cfg[key]
+    if model_type == "stochastic" \
+            and "stochastic_heads_deterministic" not in saved_cfg:
+        # Checkpoints predating the repaired architecture retain their exact
+        # latent-conditioned outcome-head behavior. New training writes the
+        # explicit flag and uses deterministic heads.
+        model_cfg["stochastic_heads_deterministic"] = False
     model_cls = StochasticWorldModel if model_type == "stochastic" else WorldModel
     wm = model_cls(with_heads=with_heads, cfg=model_cfg)
     missing, unexpected = wm.load_state_dict(ckpt["model"], strict=False)

@@ -1,0 +1,70 @@
+{
+  "final_evaluation_uses": 0,
+  "modal_credit_telemetry_status": "authentication_failed",
+  "preregistration": {
+    "acquisition_seeds": [
+      1103,
+      2207,
+      3301,
+      4409,
+      5519
+    ],
+    "candidate_rule": "highest development mean, then lowest index",
+    "created_at": 1785195527.0293598,
+    "development_episodes_per_seed": 100,
+    "development_promotion_threshold": 0.8,
+    "development_seeds": [
+      7001,
+      7003,
+      7013
+    ],
+    "final_episodes_per_seed": 200,
+    "final_evaluation_seeds": [
+      104729,
+      130363,
+      155921
+    ],
+    "final_panel_max_uses": 1,
+    "final_results_used_for_tuning": false,
+    "max_rounds": 5,
+    "max_stage_retries": 2,
+    "modal_credit_balance_usd_at_start": null,
+    "modal_credit_telemetry_source": "modal billing summary --json",
+    "policy_training_seeds": [
+      42,
+      314,
+      2718
+    ],
+    "real_policy_gradient_steps": 0,
+    "schema_version": 1,
+    "target_mean_win_rate": 0.8,
+    "wm_seeds": [
+      42,
+      314,
+      2718
+    ]
+  },
+  "rounds": [
+    {
+      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "index": 0,
+      "selection_report": "/vol/results/selection_honest_campaign_v1_r0.json"
+    }
+  ],
+  "resume_attempts": [
+    {
+      "billing_auth_ok": false,
+      "credentials_present": false,
+      "missing_environment_variables": [
+        "MODAL_TOKEN_ID",
+        "MODAL_TOKEN_SECRET",
+        "MODAL_CREDIT_BALANCE_USD"
+      ],
+      "paid_jobs_launched": 0,
+      "reason": "configured Cursor Cloud variables are not injected into this existing run; Modal billing returned Token missing",
+      "timestamp": "2026-07-27"
+    }
+  ],
+  "stages": {},
+  "status": "blocked_current_run_environment_not_refreshed"
+}
