@@ -289,6 +289,15 @@ balance telemetry was available. Consequently no cloud smoke, paid job, final
 evaluation, or web export was attempted. Once credentials and explicit
 remaining-credit telemetry are available, the exact resumable command is:
 
+A resume attempt after the credentials were configured externally reached the
+same safe stop: this already-running Cursor Cloud process had none of
+`MODAL_TOKEN_ID`, `MODAL_TOKEN_SECRET`, or `MODAL_CREDIT_BALANCE_USD` in its
+environment, and its run reports no saved Cursor environment snapshot. Modal
+billing authentication therefore still returned `Token missing`. No secret
+value was printed, no paid job was launched, and the immutable final panel
+remains unused. A newly started Cloud Agent/environment is required for the
+configured variables to be injected.
+
 ```bash
 export MODAL_CREDIT_BALANCE_USD='<remaining balance from Modal billing>'
 python3 -m scripts.run_honest_campaign --execute \

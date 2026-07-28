@@ -51,6 +51,20 @@
       "selection_report": "/vol/results/selection_honest_campaign_v1_r0.json"
     }
   ],
+  "resume_attempts": [
+    {
+      "billing_auth_ok": false,
+      "credentials_present": false,
+      "missing_environment_variables": [
+        "MODAL_TOKEN_ID",
+        "MODAL_TOKEN_SECRET",
+        "MODAL_CREDIT_BALANCE_USD"
+      ],
+      "paid_jobs_launched": 0,
+      "reason": "configured Cursor Cloud variables are not injected into this existing run; Modal billing returned Token missing",
+      "timestamp": "2026-07-27"
+    }
+  ],
   "stages": {},
-  "status": "blocked_credit_telemetry_unavailable"
+  "status": "blocked_current_run_environment_not_refreshed"
 }
