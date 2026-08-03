@@ -303,10 +303,15 @@
       "credentials_present": true,
       "credit_balance_usd": 30.0,
       "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "first_paid_job": {
+        "modal_app": "https://modal.com/apps/ani-sivaa/main/ap-r1kWmQbSWTBtq7QLdY4NBZ",
+        "noted_at": "2026-08-03T19:11:45Z",
+        "stage": "round-0:collect"
+      },
       "missing_environment_variables": [],
       "modal_billing_summary_ok": true,
       "modal_profile": "default",
-      "paid_jobs_launched": 0,
+      "paid_jobs_launched": 1,
       "reason": "Auth ok on fresh agent; cleared blocked_current_run_environment_not_refreshed; recovering prior volume r0-r4 pretrust failures; launching cost-aware cycle max_rounds=2",
       "timestamp": "2026-08-03T19:10:35Z"
     }
