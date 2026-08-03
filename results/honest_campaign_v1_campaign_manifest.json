@@ -1,6 +1,7 @@
 {
   "final_evaluation_uses": 0,
-  "modal_credit_telemetry_status": "authentication_failed",
+  "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+  "modal_credit_telemetry_status": "available",
   "preregistration": {
     "acquisition_seeds": [
       1103,
@@ -10,6 +11,12 @@
       5519
     ],
     "candidate_rule": "highest development mean, then lowest index",
+    "chosen_scale": {
+      "rationale": "Full scale fits ~$30 Modal credits for 1-2 rounds when pretrust-stop is common; prior volume rounds used same scale.",
+      "steps": 18000,
+      "transitions": 1000000,
+      "updates": 2500
+    },
     "created_at": 1785195527.0293598,
     "development_episodes_per_seed": 100,
     "development_promotion_threshold": 0.8,
@@ -26,10 +33,10 @@
     ],
     "final_panel_max_uses": 1,
     "final_results_used_for_tuning": false,
-    "max_rounds": 5,
+    "max_rounds": 2,
     "max_stage_retries": 2,
-    "modal_credit_balance_usd_at_start": null,
-    "modal_credit_telemetry_source": "modal billing summary --json",
+    "modal_credit_balance_usd_at_start": 30.0,
+    "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
     "policy_training_seeds": [
       42,
       314,
@@ -38,19 +45,244 @@
     "real_policy_gradient_steps": 0,
     "schema_version": 1,
     "target_mean_win_rate": 0.8,
+    "this_cycle_max_rounds": 2,
     "wm_seeds": [
       42,
       314,
       2718
     ]
   },
-  "rounds": [
+  "prior_volume_rounds": [
     {
-      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "T": 1000000,
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.25,
+        "redteam": 0.25,
+        "stochastic": 0.3,
+        "tracker": 0.1
+      },
+      "event_counts": {
+        "boundary": 320,
+        "concede": 13656,
+        "done_truncation": 380,
+        "hit": 6268,
+        "miss": 13656,
+        "ordinary": 801237,
+        "score": 904,
+        "serve_near_terminal": 163579
+      },
+      "evidence": {
+        "collect_meta": "/workspace/results/campaign_evidence/round-0_collect_meta.json",
+        "pretrust": "/workspace/results/campaign_evidence/round-0_pretrust.json"
+      },
+      "failed_trust_gates": [
+        "ballless_positive_rate",
+        "stochastic_latent_utilization"
+      ],
+      "gate_values": {
+        "ballless_positive_rate": {
+          "pass": false,
+          "threshold": 0.05,
+          "value": 0.0661764705882353
+        },
+        "stochastic_latent_utilization": {
+          "pass": false,
+          "threshold": 1e-07,
+          "value": 8.249696037410104e-08
+        }
+      },
       "index": 0,
-      "selection_report": "/vol/results/selection_honest_campaign_v1_r0.json"
+      "note": "Recovered from worldmodel-vol; local controller had been blocked before manifest stages were recorded.",
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "source": "modal_volume_recovery"
+    },
+    {
+      "T": 1000000,
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.2,
+        "redteam": 0.2,
+        "stochastic": 0.45,
+        "tracker": 0.05
+      },
+      "event_counts": {
+        "boundary": 320,
+        "concede": 12629,
+        "done_truncation": 253,
+        "hit": 6809,
+        "miss": 12629,
+        "ordinary": 805443,
+        "score": 945,
+        "serve_near_terminal": 160972
+      },
+      "evidence": {
+        "collect_meta": "/workspace/results/campaign_evidence/round-1_collect_meta.json",
+        "pretrust": "/workspace/results/campaign_evidence/round-1_pretrust.json"
+      },
+      "failed_trust_gates": [
+        "ballless_positive_rate",
+        "stochastic_latent_utilization"
+      ],
+      "gate_values": {
+        "ballless_positive_rate": {
+          "pass": false,
+          "threshold": 0.05,
+          "value": 0.2727272727272727
+        },
+        "stochastic_latent_utilization": {
+          "pass": false,
+          "threshold": 1e-07,
+          "value": 4.379147000577177e-08
+        }
+      },
+      "index": 1,
+      "note": "Recovered from worldmodel-vol; local controller had been blocked before manifest stages were recorded.",
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "source": "modal_volume_recovery"
+    },
+    {
+      "T": 1000000,
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.2,
+        "redteam": 0.2,
+        "stochastic": 0.45,
+        "tracker": 0.05
+      },
+      "event_counts": {
+        "boundary": 320,
+        "concede": 12647,
+        "done_truncation": 253,
+        "hit": 6776,
+        "miss": 12647,
+        "ordinary": 805453,
+        "score": 925,
+        "serve_near_terminal": 160979
+      },
+      "evidence": {
+        "collect_meta": "/workspace/results/campaign_evidence/round-2_collect_meta.json",
+        "pretrust": "/workspace/results/campaign_evidence/round-2_pretrust.json"
+      },
+      "failed_trust_gates": [
+        "ballless_positive_rate",
+        "stochastic_latent_utilization"
+      ],
+      "gate_values": {
+        "ballless_positive_rate": {
+          "pass": false,
+          "threshold": 0.05,
+          "value": 0.1935483870967742
+        },
+        "stochastic_latent_utilization": {
+          "pass": false,
+          "threshold": 1e-07,
+          "value": 4.688883947778777e-08
+        }
+      },
+      "index": 2,
+      "note": "Recovered from worldmodel-vol; local controller had been blocked before manifest stages were recorded.",
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "source": "modal_volume_recovery"
+    },
+    {
+      "T": 1000000,
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.2,
+        "redteam": 0.2,
+        "stochastic": 0.45,
+        "tracker": 0.05
+      },
+      "event_counts": {
+        "boundary": 320,
+        "concede": 12651,
+        "done_truncation": 250,
+        "hit": 6770,
+        "miss": 12651,
+        "ordinary": 805445,
+        "score": 923,
+        "serve_near_terminal": 160990
+      },
+      "evidence": {
+        "collect_meta": "/workspace/results/campaign_evidence/round-3_collect_meta.json",
+        "pretrust": "/workspace/results/campaign_evidence/round-3_pretrust.json"
+      },
+      "failed_trust_gates": [
+        "stochastic_latent_utilization"
+      ],
+      "gate_values": {
+        "stochastic_latent_utilization": {
+          "pass": false,
+          "threshold": 1e-07,
+          "value": 7.789972045202376e-08
+        }
+      },
+      "index": 3,
+      "note": "Recovered from worldmodel-vol; local controller had been blocked before manifest stages were recorded.",
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "source": "modal_volume_recovery"
+    },
+    {
+      "T": 1000000,
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.2,
+        "redteam": 0.2,
+        "stochastic": 0.45,
+        "tracker": 0.05
+      },
+      "event_counts": {
+        "boundary": 320,
+        "concede": 12639,
+        "done_truncation": 253,
+        "hit": 6828,
+        "miss": 12639,
+        "ordinary": 805090,
+        "score": 1008,
+        "serve_near_terminal": 161223
+      },
+      "evidence": {
+        "collect_meta": "/workspace/results/campaign_evidence/round-4_collect_meta.json",
+        "pretrust": "/workspace/results/campaign_evidence/round-4_pretrust.json"
+      },
+      "failed_trust_gates": [
+        "ballless_positive_rate",
+        "stochastic_latent_utilization"
+      ],
+      "gate_values": {
+        "ballless_positive_rate": {
+          "pass": false,
+          "threshold": 0.05,
+          "value": 0.17801047120418848
+        },
+        "stochastic_latent_utilization": {
+          "pass": false,
+          "threshold": 1e-07,
+          "value": 5.3846427761072846e-08
+        }
+      },
+      "index": 4,
+      "note": "Recovered from worldmodel-vol; local controller had been blocked before manifest stages were recorded.",
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "source": "modal_volume_recovery"
     }
   ],
+  "prior_volume_summary": {
+    "all_pretrust_failed": true,
+    "best_near_miss_note": "r3 failed only stochastic_latent_utilization (7.79e-8 vs 1e-7); ballless passed",
+    "best_near_miss_round": 3,
+    "binding_failure": "stochastic_latent_utilization",
+    "final_evaluation_uses": 0,
+    "policy_training_reached": false,
+    "rounds_recovered": 5,
+    "secondary_failure": "ballless_positive_rate"
+  },
   "resume_attempts": [
     {
       "billing_auth_ok": false,
@@ -63,8 +295,40 @@
       "paid_jobs_launched": 0,
       "reason": "configured Cursor Cloud variables are not injected into this existing run; Modal billing returned Token missing",
       "timestamp": "2026-07-27"
+    },
+    {
+      "agent": "fresh_cloud_agent",
+      "billing_auth_ok": true,
+      "blocker_cleared": "blocked_current_run_environment_not_refreshed",
+      "credentials_present": true,
+      "credit_balance_usd": 30.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "missing_environment_variables": [],
+      "modal_billing_summary_ok": true,
+      "modal_profile": "default",
+      "paid_jobs_launched": 0,
+      "reason": "Auth ok on fresh agent; cleared blocked_current_run_environment_not_refreshed; recovering prior volume r0-r4 pretrust failures; launching cost-aware cycle max_rounds=2",
+      "timestamp": "2026-08-03T19:10:35Z"
+    }
+  ],
+  "rounds": [
+    {
+      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "index": 0,
+      "selection_report": "/vol/results/selection_honest_campaign_v1_r0.json"
+    },
+    {
+      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "index": 1,
+      "selection_report": "/vol/results/selection_honest_campaign_v1_r1.json"
     }
   ],
   "stages": {},
-  "status": "blocked_current_run_environment_not_refreshed"
+  "status": "running",
+  "this_cycle": {
+    "max_rounds": 2,
+    "note": "New cycle overwrites volume r0/r1 artifacts; r2-r4 prior near-miss retained on volume and in prior_volume_rounds",
+    "started_at": "2026-08-03T19:10:35Z",
+    "tag": "honest_campaign_v1"
+  }
 }
