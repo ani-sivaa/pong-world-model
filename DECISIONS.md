@@ -189,6 +189,37 @@ progresses. Newest entries at the bottom of each section.
   exact events the WM needs to learn. The failure mode literally becomes
   training data (DAgger flavor).
 
+## Iteration 3 — geometry-grounded dream reward (deferred lever, now built)
+
+- **Picked the DEFERRED lever, not a new one.** Iteration 2 explicitly deferred
+  "geometric reward computed from decoded frames … only if iteration 2 still
+  shows hallucinated reward". It does (the `reward_head` arm below still dodges),
+  so this was the principled next step rather than inventing something new.
+- **Why geometry, not a better head.** The root cause is *data* (misses are
+  ~absent), so any learned head is hostage to coverage. Reading reward off the
+  decoded pixels sidesteps the coverage hole entirely: a miss is defined by the
+  ball leaving the playfield, which is visible even when the WM's heads are
+  miscalibrated. Bounce-vs-leave (not paddle-alignment) is the discriminator —
+  the physics the WM renders *is* the signal.
+- **Validated before trusting.** The oracle is checked against the true env on
+  real transitions (`scripts/validate_geo_reward.py`) and must hit ≥90% MISS
+  recall + 0 ball-less payouts before use; it scored 100% on all terminal
+  events. An early single-frame version conflated proximity with crossing
+  (hits over-fired 2×, misses mistimed); switching to a 3-frame window
+  (prev→cur→nxt) with velocity-gated crossings fixed it.
+- **Controlled A/B/C, fair by construction.** One shared WM; identical policy
+  arch/horizon/batch/updates; only the reward source differs. lr bumped
+  3e-4→1e-3 and batch 256→64 purely to converge within a CPU-only budget (no
+  GPU on this VM) — applied to ALL arms, so the comparison holds; this deviates
+  from the `full`-scale hypers and is why absolute numbers are weak.
+- **Honest outcome, not oversold.** geo eliminates the dodge (toward-ball
+  0.13→0.37) and earns (vs hallucinates) its dream return, but does not
+  decisively beat the iteration-2 `ball_guard` heuristic on real transfer at
+  local scale, and no arm reaches real wins. Reported as such in RESULTS.md;
+  the clean, defensible wins are the *validated honest oracle* and the
+  *reproduced-then-killed* dodging exploit. Real-win parity is left to
+  `full`-scale compute.
+
 - **Both models shipped in the demo** — the spec said ship the dream toggle
   "if 3b produced anything usable"; a weak-but-functional agent that
   demonstrates the transfer gap live is judged usable and instructive.
