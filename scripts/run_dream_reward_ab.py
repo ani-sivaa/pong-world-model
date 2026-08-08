@@ -43,6 +43,7 @@ def main():
     ap.add_argument("--data", default=str(config.DATA_DIR / "local"))
     ap.add_argument("--updates", type=int, default=300)
     ap.add_argument("--batch", type=int, default=128)
+    ap.add_argument("--lr", type=float, default=None)
     ap.add_argument("--eval-episodes", type=int, default=50)
     ap.add_argument("--outdir", default=str(config.RESULTS_DIR / "exp_geo"))
     args = ap.parse_args()
@@ -62,6 +63,8 @@ def main():
                "--wm", args.wm, "--data", args.data,
                "--updates", str(args.updates), "--batch", str(args.batch),
                "--out", str(ckpt)] + flags
+        if args.lr:
+            cmd += ["--lr", str(args.lr)]
         subprocess.run(cmd, check=True)
         # the trainer wrote results/dream_train_log.json for THIS arm; snapshot it
         log = json.loads((config.RESULTS_DIR / "dream_train_log.json").read_text())

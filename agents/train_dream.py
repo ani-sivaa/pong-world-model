@@ -57,6 +57,7 @@ def main():
     ap.add_argument("--updates", type=int, default=None)
     ap.add_argument("--batch", type=int, default=None)
     ap.add_argument("--horizon", type=int, default=None)
+    ap.add_argument("--lr", type=float, default=None)
     ap.add_argument("--ball-guard", action="store_true",
                     help="zero reward+continuation in ball-less dreamed frames")
     ap.add_argument("--geo-reward", action="store_true",
@@ -86,7 +87,8 @@ def main():
         policy.load_state_dict(ckpt["model"])
         print(f"[dream] continuing from {args.init_from} (update {ckpt['step']})",
               flush=True)
-    opt = torch.optim.Adam(policy.parameters(), lr=D["lr"], eps=1e-5)
+    lr = args.lr or D["lr"]
+    opt = torch.optim.Adam(policy.parameters(), lr=lr, eps=1e-5)
     data = TransitionData(data_dir)
     out = Path(args.out); out.parent.mkdir(parents=True, exist_ok=True)
 
