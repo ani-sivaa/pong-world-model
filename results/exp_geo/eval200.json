@@ -1,0 +1,29 @@
+{
+  "reward_head": {
+    "episodes": 200,
+    "mean_point": -0.79,
+    "win_rate": 0.105,
+    "loss_rate": 0.895,
+    "trunc_rate": 0.0,
+    "mean_hits": 0.32,
+    "mean_len": 57.745
+  },
+  "ball_guard": {
+    "episodes": 200,
+    "mean_point": -1.0,
+    "win_rate": 0.0,
+    "loss_rate": 1.0,
+    "trunc_rate": 0.0,
+    "mean_hits": 0.59,
+    "mean_len": 82.12
+  },
+  "geo": {
+    "episodes": 200,
+    "mean_point": -1.0,
+    "win_rate": 0.0,
+    "loss_rate": 1.0,
+    "trunc_rate": 0.0,
+    "mean_hits": 0.41,
+    "mean_len": 69.88
+  }
+}

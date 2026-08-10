@@ -24,6 +24,7 @@ import torch.nn.functional as F
 
 import config
 from agents.policy import PolicyNet
+from agents.geo_reward import geo_signal
 from wm.data import TransitionData
 from wm.model import load_wm
 
@@ -56,8 +57,13 @@ def main():
     ap.add_argument("--updates", type=int, default=None)
     ap.add_argument("--batch", type=int, default=None)
     ap.add_argument("--horizon", type=int, default=None)
+    ap.add_argument("--lr", type=float, default=None)
     ap.add_argument("--ball-guard", action="store_true",
                     help="zero reward+continuation in ball-less dreamed frames")
+    ap.add_argument("--geo-reward", action="store_true",
+                    help="derive reward+continuation from decoded frame GEOMETRY "
+                         "(plane crossings) instead of the WM's learned heads; "
+                         "an honest miss/hit oracle that the exploit can't game")
     ap.add_argument("--init-from", default=None,
                     help="policy checkpoint to continue training from")
     ap.add_argument("--max-seconds", type=int, default=config.CAPS["dream"])
@@ -81,7 +87,8 @@ def main():
         policy.load_state_dict(ckpt["model"])
         print(f"[dream] continuing from {args.init_from} (update {ckpt['step']})",
               flush=True)
-    opt = torch.optim.Adam(policy.parameters(), lr=D["lr"], eps=1e-5)
+    lr = args.lr or D["lr"]
+    opt = torch.optim.Adam(policy.parameters(), lr=lr, eps=1e-5)
     data = TransitionData(data_dir)
     out = Path(args.out); out.parent.mkdir(parents=True, exist_ok=True)
 
@@ -106,9 +113,16 @@ def main():
             with torch.no_grad():                            # frozen dynamics
                 fl, r, dl = wm(stack, a)
                 nxt = torch.sigmoid(fl)                      # [B,1,64,64]
-                ok = ball_alive(nxt) if args.ball_guard else 1.0
-                rewards.append(r.clamp(-1.5, 1.5) * ok)      # no ball -> no pay
-                conts.append((1.0 - torch.sigmoid(dl)) * ok) # no ball -> dream over
+                if args.geo_reward:
+                    # honest reward/termination read off decoded geometry
+                    # (prev, cur, nxt); ignores the WM's miscalibrated heads
+                    g_rew, g_cont = geo_signal(stack[:, -2:-1], stack[:, -1:], nxt)
+                    rewards.append(g_rew)
+                    conts.append(g_cont)
+                else:
+                    ok = ball_alive(nxt) if args.ball_guard else 1.0
+                    rewards.append(r.clamp(-1.5, 1.5) * ok)      # no ball -> no pay
+                    conts.append((1.0 - torch.sigmoid(dl)) * ok) # no ball -> dream over
                 stack = torch.cat([stack[:, 1:], nxt], dim=1)
         with torch.no_grad():
             _, boot = policy(stack)                          # tail bootstrap

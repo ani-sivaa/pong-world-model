@@ -1,0 +1,26 @@
+{
+  "reward_head": {
+    "dream_return": 0.05691355988383293,
+    "real_mean_point": -0.79,
+    "win_rate": 0.105,
+    "hits_per_ep": 0.32,
+    "ep_len": 57.745,
+    "toward_ball_frac": 0.13
+  },
+  "ball_guard": {
+    "dream_return": 0.05093559548258782,
+    "real_mean_point": -1.0,
+    "win_rate": 0.0,
+    "hits_per_ep": 0.59,
+    "ep_len": 82.12,
+    "toward_ball_frac": 0.4
+  },
+  "geo": {
+    "dream_return": 0.11968750804662705,
+    "real_mean_point": -1.0,
+    "win_rate": 0.0,
+    "hits_per_ep": 0.41,
+    "ep_len": 69.88,
+    "toward_ball_frac": 0.371
+  }
+}

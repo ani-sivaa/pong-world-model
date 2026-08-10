@@ -1,0 +1,44 @@
+{
+  "wm": "checkpoints/wm_exp.pt",
+  "updates": 600,
+  "batch": 64,
+  "eval_episodes": 50,
+  "arms": {
+    "reward_head": {
+      "dream_return_last5": 0.05691355988383293,
+      "dream_len_last5": 37.83991165161133,
+      "ckpt": "/workspace/checkpoints/dream_reward_head.pt",
+      "episodes": 50,
+      "mean_point": -0.8,
+      "win_rate": 0.1,
+      "loss_rate": 0.9,
+      "trunc_rate": 0.0,
+      "mean_hits": 0.1,
+      "mean_len": 38.66
+    },
+    "ball_guard": {
+      "dream_return_last5": 0.05093559548258782,
+      "dream_len_last5": 36.04821853637695,
+      "ckpt": "/workspace/checkpoints/dream_ball_guard.pt",
+      "episodes": 50,
+      "mean_point": -1.0,
+      "win_rate": 0.0,
+      "loss_rate": 1.0,
+      "trunc_rate": 0.0,
+      "mean_hits": 0.04,
+      "mean_len": 38.56
+    },
+    "geo": {
+      "dream_return_last5": 0.11968750804662705,
+      "dream_len_last5": 38.953125,
+      "ckpt": "/workspace/checkpoints/dream_geo.pt",
+      "episodes": 50,
+      "mean_point": -1.0,
+      "win_rate": 0.0,
+      "loss_rate": 1.0,
+      "trunc_rate": 0.0,
+      "mean_hits": 0.36,
+      "mean_len": 61.6
+    }
+  }
+}

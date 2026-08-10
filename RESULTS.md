@@ -182,3 +182,54 @@ dodge ball → ball vanishes → no done, no −1, free phantom hits.
 - Client-side inference latency: **~1.2 ms/tick**.
 - **Play it: `cd web && python -m http.server 8321` → http://localhost:8321**
   (a server is already running on :8321 from the overnight run).
+
+## Iteration 3 — geometry-grounded dream reward (honest oracle, no learned heads)
+
+**Lever:** the item `DECISIONS.md` deferred — "geometric reward computed from
+decoded frames". Instead of trusting the WM's learned reward/done heads (root
+cause of the iteration-1 exploit: they never saw a miss), derive an HONEST
+per-step reward + termination directly from the *decoded* dreamed ball geometry
+(plane crossings, `config.ENV` constants). Code: `agents/geo_reward.py`,
+`--geo-reward` in `agents/train_dream.py`.
+
+**Compute caveat:** this iteration ran on a **CPU-only VM (no GPU)** at
+`--scale local`, so absolute numbers are weaker than the `full`-scale headline
+figures above. The A/B/C is apples-to-apples: one shared WM
+(`checkpoints/wm_exp.pt`, val frame loss 0.00366), identical policy arch /
+horizon / batch (64) / budget (600 updates) / lr (1e-3); only the reward source
+differs. Driver: `scripts/run_dream_reward_ab.py`.
+
+**Oracle validation (`scripts/validate_geo_reward.py`, 194 real Pong rallies):**
+concede / score / truncation terminal-sign accuracy **100% / 100% / 100%**; hit
+shaping exact (geo 6.36 vs env 6.36 hits/rally, ratio 1.00); **0** reward paid
+in ball-less frames. The oracle matches the true env — so using it inside
+imperfect dreams is principled. → `GEO_VALIDATE_OK`.
+
+**A/B/C transfer (real Pong: 200-episode greedy eval; toward-ball fraction over
+6k steps × 32 envs, 0.5 = neutral, low = dodging):**
+| dream reward source | toward-ball | hits/ep | ep len | mean pt | win | dream return |
+|---|---|---|---|---|---|---|
+| `reward_head` (WM heads, iter-1) | **0.13** | 0.32 | 57.7 | −0.79 | 10.5% | +0.057 (flat/hallucinated) |
+| `ball_guard` (iter-2 heuristic)  | 0.40 | 0.59 | 82.1 | −1.00 | 0% | +0.051 (flat) |
+| `geo` (iter-3 honest oracle)     | 0.37 | 0.41 | 69.9 | −1.00 | 0% | **+0.120 (earned)** |
+→ `results/exp_geo/geo_ab_summary.png`, `summary_final.json`,
+  `play_{reward_head,ball_guard,geo}.gif`, `dream_log_*.json`.
+
+**Findings (honest):**
+1. **The exploit reproduces cleanly.** The `reward_head` arm learned to DODGE:
+   toward-ball fraction **0.13** — matching the diagnosed iteration-1 fingerprint
+   (0.12–0.15) — with a flat, hallucinated dream belief. Its play GIF visibly
+   moves the paddle *away* from the ball.
+2. **The geometry oracle kills the dodge.** `geo` raises toward-ball to **0.37**
+   (~3× more tracking), plays longer rallies and more paddle hits than
+   `reward_head`, and — uniquely — its dream belief (+0.120) is *earned* in
+   honest r_hit/r_concede units rather than hallucinated. Its play GIF visibly
+   tracks and intercepts the ball.
+3. **Not a decisive win over the iter-2 heuristic at this scale.** `ball_guard`
+   also lifts aggregate tracking (0.40) and engagement; geo does not clearly
+   beat it on real transfer here, and **no arm reaches real wins** — win rate is
+   dominated by rare, largely agent-independent scoring events and is noise at
+   200 eps (consistent with iteration-2's conclusion that one honest iteration at
+   this scale doesn't reach parity). geo's distinct value is being a *validated*
+   honest reward (matches the env exactly) rather than a heuristic patch. Closing
+   the remaining gap needs `full`-scale GPU compute / more dream updates.
