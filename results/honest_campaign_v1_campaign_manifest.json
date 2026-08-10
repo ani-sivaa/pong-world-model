@@ -283,6 +283,10 @@
     "rounds_recovered": 5,
     "secondary_failure": "ballless_positive_rate"
   },
+  "promotion": {
+    "promoted": false,
+    "reason": "Both this-cycle rounds failed pretrust; no trust-passing candidate; no development panel; final panel unused; demo unchanged."
+  },
   "resume_attempts": [
     {
       "billing_auth_ok": false,
@@ -314,26 +318,407 @@
       "paid_jobs_launched": 1,
       "reason": "Auth ok on fresh agent; cleared blocked_current_run_environment_not_refreshed; recovering prior volume r0-r4 pretrust failures; launching cost-aware cycle max_rounds=2",
       "timestamp": "2026-08-03T19:10:35Z"
+    },
+    {
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "paid_jobs_launched": 0,
+      "reason": "Status-check resume after VM reset: no active controller/Modal apps; reconstructed completed \u22642-round cycle from volume; did not launch duplicate campaign.",
+      "timestamp": "2026-08-10T21:41:28Z"
     }
   ],
   "rounds": [
     {
-      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.25,
+        "redteam": 0.25,
+        "stochastic": 0.3,
+        "tracker": 0.1
+      },
+      "development_metrics": null,
+      "failed_trust_gates": [
+        "ballless_positive_rate",
+        "stochastic_latent_utilization"
+      ],
       "index": 0,
-      "selection_report": "/vol/results/selection_honest_campaign_v1_r0.json"
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "selection_report": "/vol/results/selection_honest_campaign_v1_r0.json",
+      "stopped_before_policy": true
     },
     {
-      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "acquisition_mix": {
+        "natural": 0.1,
+        "rare": 0.2,
+        "redteam": 0.2,
+        "stochastic": 0.45,
+        "tracker": 0.05
+      },
+      "development_metrics": null,
+      "failed_trust_gates": [
+        "ballless_positive_rate",
+        "stochastic_latent_utilization"
+      ],
       "index": 1,
-      "selection_report": "/vol/results/selection_honest_campaign_v1_r1.json"
+      "policy_stage_reached": false,
+      "pretrust_overall_pass": false,
+      "selection_report": "/vol/results/selection_honest_campaign_v1_r1.json",
+      "stopped_before_policy": true
     }
   ],
-  "stages": {},
-  "status": "running",
+  "stages": {
+    "round-0:collect": {
+      "artifact": "/vol/data/honest_campaign_v1_r0/meta.json",
+      "dataset": {
+        "T": 1000000,
+        "elapsed_sec": 600.669995761,
+        "event_counts": {
+          "boundary": 320,
+          "concede": 13656,
+          "done_truncation": 380,
+          "hit": 6268,
+          "miss": 13656,
+          "ordinary": 801237,
+          "score": 904,
+          "serve_near_terminal": 163579
+        },
+        "mix": {
+          "natural": 0.1,
+          "rare": 0.25,
+          "redteam": 0.25,
+          "stochastic": 0.3,
+          "tracker": 0.1
+        },
+        "real_frames_only": true,
+        "seed": 1103
+      },
+      "evidence": "results/campaign_evidence/this_cycle_r0_collect_meta.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true
+    },
+    "round-0:pretrust": {
+      "artifact": "/vol/results/trust_honest_campaign_v1_r0_prepolicy.json",
+      "evidence": "results/campaign_evidence/this_cycle_r0_pretrust.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "trust": {
+        "gates": {
+          "ballless_positive_rate": {
+            "available": true,
+            "operator": "<=",
+            "pass": false,
+            "threshold": 0.05,
+            "value": 0.0661764705882353
+          },
+          "done_brier": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.18,
+            "value": 0.003752776887267828
+          },
+          "dream_real_reward_gap": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.3,
+            "value": 0.008826765297180827
+          },
+          "forced_scenario_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.2,
+            "value": 0.0037653179896581803
+          },
+          "natural_rollout_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.12,
+            "value": 0.006012072472573759
+          },
+          "policy_lockstep_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.16,
+            "value": 0.0017622637882289724
+          },
+          "reward_mae": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.35,
+            "value": 0.0015876187244430184
+          },
+          "stochastic_latent_utilization": {
+            "available": true,
+            "operator": ">=",
+            "pass": false,
+            "threshold": 1e-07,
+            "value": 8.24969319523916e-08
+          },
+          "stochastic_posterior_prior_kl": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.0001,
+            "value": 0.2624644637107849
+          },
+          "stochastic_prior_sample_frame_mse": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1e-07,
+            "value": 6.0440484958235174e-05
+          },
+          "stochastic_prior_std": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.001,
+            "value": 0.4720938205718994
+          },
+          "stochastic_serve_direction_coverage": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1.0,
+            "value": 1.0
+          },
+          "uncertainty_rank_corr": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.1,
+            "value": 0.2951486797462313
+          }
+        },
+        "overall_pass": false
+      }
+    },
+    "round-0:wm-0": {
+      "artifact": "/vol/checkpoints/honest_campaign_v1_r0_wm0.pt",
+      "evidence": "results/campaign_evidence/wm_log_r0_wm0.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "wm_steps_logged": 18000
+    },
+    "round-0:wm-1": {
+      "artifact": "/vol/checkpoints/honest_campaign_v1_r0_wm1.pt",
+      "evidence": "results/campaign_evidence/wm_log_r0_wm1.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "wm_steps_logged": 18000
+    },
+    "round-0:wm-2": {
+      "artifact": "/vol/checkpoints/honest_campaign_v1_r0_wm2.pt",
+      "evidence": "results/campaign_evidence/wm_log_r0_wm2.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "wm_steps_logged": 18000
+    },
+    "round-1:collect": {
+      "artifact": "/vol/data/honest_campaign_v1_r1/meta.json",
+      "dataset": {
+        "T": 1000000,
+        "elapsed_sec": 551.239587283,
+        "event_counts": {
+          "boundary": 320,
+          "concede": 12629,
+          "done_truncation": 253,
+          "hit": 6809,
+          "miss": 12629,
+          "ordinary": 805443,
+          "score": 945,
+          "serve_near_terminal": 160972
+        },
+        "mix": {
+          "natural": 0.1,
+          "rare": 0.2,
+          "redteam": 0.2,
+          "stochastic": 0.45,
+          "tracker": 0.05
+        },
+        "real_frames_only": true,
+        "seed": 2207
+      },
+      "evidence": "results/campaign_evidence/this_cycle_r1_collect_meta.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true
+    },
+    "round-1:pretrust": {
+      "artifact": "/vol/results/trust_honest_campaign_v1_r1_prepolicy.json",
+      "evidence": "results/campaign_evidence/this_cycle_r1_pretrust.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "trust": {
+        "gates": {
+          "ballless_positive_rate": {
+            "available": true,
+            "operator": "<=",
+            "pass": false,
+            "threshold": 0.05,
+            "value": 0.2727272727272727
+          },
+          "done_brier": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.18,
+            "value": 0.0037992310244590044
+          },
+          "dream_real_reward_gap": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.3,
+            "value": 0.00659028933787719
+          },
+          "forced_scenario_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.2,
+            "value": 0.003812445155117952
+          },
+          "natural_rollout_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.12,
+            "value": 0.0063351830558000905
+          },
+          "policy_lockstep_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.16,
+            "value": 0.002585494732882588
+          },
+          "reward_mae": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.35,
+            "value": 0.0019336837576702237
+          },
+          "stochastic_latent_utilization": {
+            "available": true,
+            "operator": ">=",
+            "pass": false,
+            "threshold": 1e-07,
+            "value": 4.379147000577177e-08
+          },
+          "stochastic_posterior_prior_kl": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.0001,
+            "value": 0.2272428721189499
+          },
+          "stochastic_prior_sample_frame_mse": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1e-07,
+            "value": 9.39430101425387e-05
+          },
+          "stochastic_prior_std": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.001,
+            "value": 0.44843706488609314
+          },
+          "stochastic_serve_direction_coverage": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1.0,
+            "value": 1.0
+          },
+          "uncertainty_rank_corr": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.1,
+            "value": 0.32865506492136193
+          }
+        },
+        "overall_pass": false
+      }
+    },
+    "round-1:wm-0": {
+      "artifact": "/vol/checkpoints/honest_campaign_v1_r1_wm0.pt",
+      "evidence": "results/campaign_evidence/wm_log_r1_wm0.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "wm_steps_logged": 18000
+    },
+    "round-1:wm-1": {
+      "artifact": "/vol/checkpoints/honest_campaign_v1_r1_wm1.pt",
+      "evidence": "results/campaign_evidence/wm_log_r1_wm1.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "wm_steps_logged": 18000
+    },
+    "round-1:wm-2": {
+      "artifact": "/vol/checkpoints/honest_campaign_v1_r1_wm2.pt",
+      "evidence": "results/campaign_evidence/wm_log_r1_wm2.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "recovered_after_session_loss": true,
+      "wm_steps_logged": 18000
+    }
+  },
+  "status": "stopped_after_max_rounds_pretrust_failures",
   "this_cycle": {
     "max_rounds": 2,
     "note": "New cycle overwrites volume r0/r1 artifacts; r2-r4 prior near-miss retained on volume and in prior_volume_rounds",
     "started_at": "2026-08-03T19:10:35Z",
     "tag": "honest_campaign_v1"
+  },
+  "this_cycle_completion": {
+    "billing_summary_observed": {
+      "billed_cost_usd": 0.0,
+      "credit_env_balance_usd_static": 30.0,
+      "credit_env_note": "MODAL_CREDIT_BALANCE_USD is a static env value, not live remaining balance",
+      "credits_applied_usd_approx": 3.42,
+      "metered_cost_usd_approx": 4.43
+    },
+    "binding_failures": [
+      "ballless_positive_rate",
+      "stochastic_latent_utilization"
+    ],
+    "both_stopped_before_policy": true,
+    "completed_at": "2026-08-10T21:41:28Z",
+    "early_stop_judgment": "Round 1 repeated the same trust failures as round 0 / prior volume history (latent utilization + ballless); no new transfer evidence. Stop after 2 rounds for human review.",
+    "local_controller_lost": true,
+    "max_rounds": 2,
+    "note": "VM/session ended mid-cycle; no Modal apps or local controller on resume. Volume artifacts show both r0 and r1 collect+WM+pretrust completed with trust FAIL. Manifest stages reconstructed from volume; campaign controller NOT relaunched to avoid duplicate spend.",
+    "rounds_completed": 2,
+    "transfer_deltas_vs_12pct_control": "n/a \u2014 no policy trained this cycle"
   }
 }

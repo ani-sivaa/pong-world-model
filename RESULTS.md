@@ -327,6 +327,39 @@ explicit remaining-credit field (env balance used here); and a below-target
 result on the one final panel terminates the protocol because tuning after
 reading that panel would invalidate its untouched status.
 
+### Honest research cycle complete (2026-08-10) — ≤2 rounds, no promotion
+Primary success for this cycle is transferable evidence + lab notebook, not
+an 80% win-rate requirement.
+
+- **Credits:** Modal billing summary at notebook time ≈ metered $4.43 /
+  credits applied ≈ $3.42 / billed $0.00. Env `MODAL_CREDIT_BALANCE_USD=30`
+  is static start telemetry, not live remaining balance.
+- **Rounds completed:** 2 / 2 (`max_rounds=2`). Both stopped at **pretrust**
+  before any dream-policy training.
+- **Trust:**
+  - r0 (default mix): **FAIL** —
+    `ballless_positive_rate` 0.066 > 0.05;
+    `stochastic_latent_utilization` 8.25e-8 < 1e-7.
+  - r1 (collapse mix, stochastic=.45): **FAIL** —
+    `ballless_positive_rate` 0.273 > 0.05;
+    `stochastic_latent_utilization` 4.38e-8 < 1e-7.
+  - Other gates passed in both rounds (reward/done calibration, rollouts,
+    prior std, serve-direction coverage, etc.).
+- **Development win rates vs 12% dream-v2 control:** n/a — no policies
+  trained; no development panel; no transfer delta this cycle.
+- **What the WM still gets wrong:** latent codes remain near-collapsed under
+  the utilization gate; ballless frames still predict ball mass too often.
+  Collapse-mix acquisition made ballless worse and did not lift latent
+  utilization over threshold (same binding failures as prior volume history).
+- **final_evaluation_uses:** 0 (never promoted).
+- **Promotion:** **not promoted.** Demo/web export **unchanged** (trust
+  gates never passed).
+- **Controls retained:** dream v2 ~12%; trust-passing deterministic ensemble;
+  prior 17.5% trust-failed stochastic policy not exported.
+- Evidence: `results/campaign_evidence/this_cycle_r{0,1}_{pretrust,collect_meta}.json`,
+  WM train logs `wm_log_r*_wm*.json`, manifest
+  `results/honest_campaign_v1_campaign_manifest.json`.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent

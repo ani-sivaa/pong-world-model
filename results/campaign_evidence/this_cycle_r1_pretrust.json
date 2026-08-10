@@ -1,0 +1,533 @@
+{
+  "data": "/vol/data/honest_campaign_v1_r1",
+  "deterministic_epistemic_prior": true,
+  "gates": {
+    "ballless_positive_rate": {
+      "available": true,
+      "operator": "<=",
+      "pass": false,
+      "threshold": 0.05,
+      "value": 0.2727272727272727
+    },
+    "done_brier": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.18,
+      "value": 0.0037992310244590044
+    },
+    "dream_real_reward_gap": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.3,
+      "value": 0.00659028933787719
+    },
+    "forced_scenario_mse": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.2,
+      "value": 0.003812445155117952
+    },
+    "natural_rollout_mse": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.12,
+      "value": 0.0063351830558000905
+    },
+    "policy_lockstep_mse": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.16,
+      "value": 0.002585494732882588
+    },
+    "reward_mae": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.35,
+      "value": 0.0019336837576702237
+    },
+    "stochastic_latent_utilization": {
+      "available": true,
+      "operator": ">=",
+      "pass": false,
+      "threshold": 1e-07,
+      "value": 4.379147000577177e-08
+    },
+    "stochastic_posterior_prior_kl": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 0.0001,
+      "value": 0.2272428721189499
+    },
+    "stochastic_prior_sample_frame_mse": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 1e-07,
+      "value": 9.39430101425387e-05
+    },
+    "stochastic_prior_std": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 0.001,
+      "value": 0.44843706488609314
+    },
+    "stochastic_serve_direction_coverage": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 1.0,
+      "value": 1.0
+    },
+    "uncertainty_rank_corr": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 0.1,
+      "value": 0.32865506492136193
+    }
+  },
+  "headed_checkpoints": [
+    "/vol/checkpoints/honest_campaign_v1_r1_wm0.pt",
+    "/vol/checkpoints/honest_campaign_v1_r1_wm1.pt",
+    "/vol/checkpoints/honest_campaign_v1_r1_wm2.pt"
+  ],
+  "measurements": {
+    "current_policy_lockstep": {
+      "dream_real_reward_gap": {
+        "available": true,
+        "count": 480,
+        "value": 0.00659028933787719
+      },
+      "frame_mse": {
+        "available": true,
+        "steps": 60,
+        "transitions": 480,
+        "value": 0.002585494732882588
+      },
+      "policy": "deterministic_tracker"
+    },
+    "forced_scenarios": {
+      "intercept": {
+        "mse": {
+          "available": true,
+          "steps": 1,
+          "value": 0.001178431130719944
+        },
+        "observed_real_event": "hit",
+        "predicted_rewards": [
+          0.0038085493724793196
+        ],
+        "real_rewards": [
+          0.10000000149011612
+        ]
+      },
+      "miss": {
+        "mse": {
+          "available": true,
+          "steps": 5,
+          "value": 0.004339247959997554
+        },
+        "observed_real_event": "concede",
+        "predicted_rewards": [
+          -0.0018524392507970333,
+          0.04736914485692978,
+          0.008185111917555332,
+          -0.0032354420982301235,
+          -0.658694863319397
+        ],
+        "real_rewards": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0
+        ]
+      }
+    },
+    "natural_logged_action_rollout": {
+      "available": true,
+      "curve": [
+        0.00041464884744815553,
+        0.000661015512203675,
+        0.0006515848484807002,
+        0.0008875759100155513,
+        0.0010548225425283352,
+        0.0013312761940651764,
+        0.0015480655909845327,
+        0.0016903957884725688,
+        0.001974652909408416,
+        0.0019674498535295734,
+        0.0025178977961173308,
+        0.0027124508306130488,
+        0.0031535701677080866,
+        0.003309429701151361,
+        0.0038968599906013244,
+        0.0041025865926216714,
+        0.004439361965373502,
+        0.004473829328265491,
+        0.004804360438389048,
+        0.005089577219941481,
+        0.005571532140354244,
+        0.005556485271419148,
+        0.006047922089030993,
+        0.005835131172452906,
+        0.006161172471176516,
+        0.005951401635247712,
+        0.006650174197202258,
+        0.006312251493951192,
+        0.006686976662138177,
+        0.006800914069573609,
+        0.0066774121867078885,
+        0.007039539881105955,
+        0.00694361380258939,
+        0.007227973454936389,
+        0.007528851800038161,
+        0.007909555354778058,
+        0.007921907039931309,
+        0.008700190113077481,
+        0.0082193428002819,
+        0.008487801331942858,
+        0.008214195874653822,
+        0.008464179875499061,
+        0.00848629371529087,
+        0.008889717876899558,
+        0.008403150548988401,
+        0.009262398125005032,
+        0.008884512561134827,
+        0.009325845942349031,
+        0.009407609131879019,
+        0.009959627842254199,
+        0.009866518363550895,
+        0.010569772199202392,
+        0.009766860196409134,
+        0.010241412451782755,
+        0.010108396327328082,
+        0.00998780665520306,
+        0.009982084446536237,
+        0.010618719087407665,
+        0.010156075028467975,
+        0.010604246102308127
+      ],
+      "horizon": 60,
+      "value": 0.0063351830558000905,
+      "windows": 16
+    },
+    "physical_invariants": {
+      "ballless_positive_rate": {
+        "available": true,
+        "ballless_frames": 11,
+        "value": 0.2727272727272727,
+        "violations": 3
+      },
+      "frame_probability_bounds": {
+        "available": true,
+        "value": 1.0
+      },
+      "mean_wall_intensity": {
+        "available": true,
+        "value": 0.999809205532074
+      }
+    },
+    "reward_done_calibration": {
+      "by_sample_source": {
+        "event_balanced": {
+          "done_brier": {
+            "available": true,
+            "value": 0.0011774064041674137
+          },
+          "done_negative_brier": {
+            "available": true,
+            "count": 1158,
+            "value": 0.0008792734006419778
+          },
+          "done_positive_brier": {
+            "available": true,
+            "count": 890,
+            "value": 0.0015653143636882305
+          },
+          "event_boundary_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'boundary' samples"
+          },
+          "event_concede_reward_mae": {
+            "available": true,
+            "count": 305,
+            "value": 0.001270712586119771
+          },
+          "event_done_truncation_reward_mae": {
+            "available": true,
+            "count": 302,
+            "value": 0.0015406369930133224
+          },
+          "event_hit_reward_mae": {
+            "available": true,
+            "count": 302,
+            "value": 0.003047902137041092
+          },
+          "event_miss_reward_mae": {
+            "available": true,
+            "count": 279,
+            "value": 0.0006387681351043284
+          },
+          "event_ordinary_reward_mae": {
+            "available": true,
+            "count": 287,
+            "value": 0.0009918379364535213
+          },
+          "event_score_reward_mae": {
+            "available": true,
+            "count": 283,
+            "value": 0.0009510285453870893
+          },
+          "event_serve_near_terminal_reward_mae": {
+            "available": true,
+            "count": 290,
+            "value": 0.00179793790448457
+          },
+          "frame_mse": {
+            "available": true,
+            "value": 0.00919799692928791
+          },
+          "reward_mae": {
+            "available": true,
+            "value": 0.0014778920449316502
+          },
+          "reward_nonzero_mae": {
+            "available": true,
+            "count": 890,
+            "value": 0.0017721066251397133
+          },
+          "reward_zero_mae": {
+            "available": true,
+            "count": 1158,
+            "value": 0.0012517686700448394
+          },
+          "uncertainty_high_error_auroc": {
+            "available": true,
+            "value": 0.652871715056286
+          },
+          "uncertainty_rank_corr": {
+            "available": true,
+            "value": 0.32838871538001957
+          }
+        },
+        "natural": {
+          "done_brier": {
+            "available": true,
+            "value": 0.006421055644750595
+          },
+          "done_negative_brier": {
+            "available": true,
+            "count": 2041,
+            "value": 0.004188233055174351
+          },
+          "done_positive_brier": {
+            "available": true,
+            "count": 7,
+            "value": 0.6574483513832092
+          },
+          "event_boundary_reward_mae": {
+            "available": true,
+            "count": 3,
+            "value": 0.008622359484434128
+          },
+          "event_concede_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'concede' samples"
+          },
+          "event_done_truncation_reward_mae": {
+            "available": true,
+            "count": 4,
+            "value": 0.0015792610356584191
+          },
+          "event_hit_reward_mae": {
+            "available": true,
+            "count": 31,
+            "value": 0.00646299310028553
+          },
+          "event_miss_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'miss' samples"
+          },
+          "event_ordinary_reward_mae": {
+            "available": true,
+            "count": 1759,
+            "value": 0.0022380752488970757
+          },
+          "event_score_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'score' samples"
+          },
+          "event_serve_near_terminal_reward_mae": {
+            "available": true,
+            "count": 251,
+            "value": 0.0028857956640422344
+          },
+          "frame_mse": {
+            "available": true,
+            "value": 0.0004883121000602841
+          },
+          "reward_mae": {
+            "available": true,
+            "value": 0.0023894754704087973
+          },
+          "reward_nonzero_mae": {
+            "available": true,
+            "count": 31,
+            "value": 0.00646299310028553
+          },
+          "reward_zero_mae": {
+            "available": true,
+            "count": 2017,
+            "value": 0.00232686847448349
+          },
+          "uncertainty_high_error_auroc": {
+            "available": true,
+            "value": 0.6764693260192871
+          },
+          "uncertainty_rank_corr": {
+            "available": true,
+            "value": 0.3794338391122577
+          }
+        }
+      },
+      "done_brier": {
+        "available": true,
+        "value": 0.0037992310244590044
+      },
+      "done_negative_brier": {
+        "available": true,
+        "count": 3199,
+        "value": 0.002990428823977709
+      },
+      "done_positive_brier": {
+        "available": true,
+        "count": 897,
+        "value": 0.00668368861079216
+      },
+      "event_boundary_reward_mae": {
+        "available": true,
+        "count": 3,
+        "value": 0.008622359484434128
+      },
+      "event_concede_reward_mae": {
+        "available": true,
+        "count": 305,
+        "value": 0.001270712586119771
+      },
+      "event_done_truncation_reward_mae": {
+        "available": true,
+        "count": 306,
+        "value": 0.0015411420026794076
+      },
+      "event_hit_reward_mae": {
+        "available": true,
+        "count": 333,
+        "value": 0.003365823533385992
+      },
+      "event_miss_reward_mae": {
+        "available": true,
+        "count": 279,
+        "value": 0.0006387681351043284
+      },
+      "event_ordinary_reward_mae": {
+        "available": true,
+        "count": 2046,
+        "value": 0.00206326087936759
+      },
+      "event_score_reward_mae": {
+        "available": true,
+        "count": 283,
+        "value": 0.0009510285453870893
+      },
+      "event_serve_near_terminal_reward_mae": {
+        "available": true,
+        "count": 541,
+        "value": 0.002302655717357993
+      },
+      "frame_mse": {
+        "available": true,
+        "value": 0.004843154456466436
+      },
+      "reward_mae": {
+        "available": true,
+        "value": 0.0019336837576702237
+      },
+      "reward_nonzero_mae": {
+        "available": true,
+        "count": 921,
+        "value": 0.0019299974665045738
+      },
+      "reward_zero_mae": {
+        "available": true,
+        "count": 3175,
+        "value": 0.001934753148816526
+      },
+      "uncertainty_high_error_auroc": {
+        "available": true,
+        "value": 0.6656779050827026
+      },
+      "uncertainty_rank_corr": {
+        "available": true,
+        "value": 0.32865506492136193
+      }
+    },
+    "uncertainty": {
+      "high_error_auroc": {
+        "available": true,
+        "value": 0.6656779050827026
+      },
+      "rank_correlation": {
+        "available": true,
+        "value": 0.32865506492136193
+      },
+      "stochastic_diagnostics": {
+        "available": true,
+        "latent_utilization": 4.379147000577177e-08,
+        "mean_prior_sample_frame_mse": 5.432146465977894e-08,
+        "posterior_prior_kl": 0.2272428721189499,
+        "prior_sample_frame_mse": 9.39430101425387e-05,
+        "prior_std": 0.44843706488609314,
+        "samples": 8,
+        "serve_direction_coverage": 1.0
+      }
+    }
+  },
+  "overall_pass": false,
+  "policy": null,
+  "samples": {
+    "event_balanced": 2048,
+    "natural": 2048
+  },
+  "scale": "full",
+  "schema_version": 1,
+  "seed": 42,
+  "tag": "honest_campaign_v1_r1_prepolicy",
+  "thresholds": {
+    "ballless_positive_rate_max": 0.05,
+    "done_brier_max": 0.18,
+    "dream_real_reward_gap_max": 0.3,
+    "forced_scenario_mse_max": 0.2,
+    "latent_utilization_min": 1e-07,
+    "natural_rollout_mse_max": 0.12,
+    "policy_lockstep_mse_max": 0.16,
+    "posterior_prior_kl_min": 0.0001,
+    "prior_sample_frame_mse_min": 1e-07,
+    "prior_std_min": 0.001,
+    "reward_mae_max": 0.35,
+    "serve_direction_coverage_min": 1.0,
+    "uncertainty_rank_corr_min": 0.1
+  }
+}

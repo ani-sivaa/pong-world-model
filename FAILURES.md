@@ -42,3 +42,18 @@ ImportError: No module named infra.does_not_exist
 - Heads (wm_v3h) completed (val 0.00020); dream v2 preempted mid-run, last
   checkpoint update 1,100. v1 plateaued by ~1,000 updates, so evaluating the
   1,100-update checkpoint directly instead of fighting Modal's GPU queue.
+
+## Honest campaign local controller lost mid-cycle — 2026-08-03 → 2026-08-10
+- Phase: `honest_campaign_v1` execute (`max_rounds=2`), after r0 pretrust FAIL
+  and during/after r1 WM training.
+- Symptom: fresh Cloud Agent VM had no local controller, no tmux session, no
+  campaign lock, empty local `stages` in the tracked manifest, and no
+  `campaign_logs/`. Modal `app list` showed zero running apps.
+- Impact: local progress bookkeeping was lost; volume retained completed
+  r0/r1 collect+WM+pretrust artifacts (both trust FAIL; no policies).
+- Recovery: did **not** relaunch a second campaign controller (would redo
+  paid stages from empty local stages). Reconstructed manifest stages from
+  volume-fetched evidence, wrote RESULTS notebook, marked cycle stopped
+  after ≤2 pretrust failures with no promotion/demo export.
+- Collision check: only this Cloud Agent was RUNNING on the branch; no
+  second controller started.
