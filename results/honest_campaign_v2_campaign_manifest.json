@@ -151,7 +151,43 @@
       "ok": true,
       "returncode": 0,
       "wall_seconds": 606.07426404953
+    },
+    "round-0:wm-0": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r0_wm0.pt",
+      "attempts": 1,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r0",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r0_wm0.pt",
+        "--tag",
+        "honest_campaign_v2_r0_wm0",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "42",
+        "--steps",
+        "18000"
+      ],
+      "log": "/workspace/results/campaign_logs/round-0_wm-0.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 7235.946893692017
     }
   },
-  "status": "running"
+  "status": "starting"
 }

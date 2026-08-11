@@ -395,6 +395,11 @@ an 80% win-rate requirement.
   (~1e-5). Continuing through wm-0/1/2 → pretrust before any dream-policy work.
 
 
+
+- **Round-0 WM-0 finished under wall-clock:** `WM_TRAIN_OK` at step **17592/18000**
+  (hit previous 7200s cap; val_frame 0.00709). Late-training `util` hinge still
+  non-zero at times through 17k — unlike historical collapse-to-~1e-8. Raised
+  `CAPS.wm_train` to 10800s for subsequent members. WM-1 training underway.
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
