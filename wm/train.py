@@ -150,8 +150,19 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
             done_loss = done_loss + (F.binary_cross_entropy_with_logits(
                 d, dns_t[:, j], reduction="none") * head_weights[:, j]).mean()
             if ballless_reward_coef > 0:
-                pred_mass = interior_ball_mass(torch.sigmoid(logits[:, 0]))
-                ballless_w = torch.exp(-pred_mass / max(ballless_mass_tau, 1e-6))
+                pred_frame = torch.sigmoid(logits[:, 0])
+                pred_mass = interior_ball_mass(pred_frame)
+                soft_w = torch.exp(-pred_mass / max(ballless_mass_tau, 1e-6))
+                # Match evaluate_trust._has_ball: a frame is ballless iff no
+                # interior pixel exceeds 0.5. Soft mass alone under-penalized
+                # empty-looking frames that still triggered the hard gate.
+                interior = pred_frame.clone()
+                interior[:, 0, :] = 0
+                interior[:, config.ENV["H"] - 1, :] = 0
+                for x in (config.ENV["left_x"], config.ENV["right_x"]):
+                    interior[:, :, x:x + config.ENV["paddle_w"]] = 0
+                hard_ballless = (interior.amax(dim=(1, 2)) <= 0.5).float()
+                ballless_w = torch.maximum(soft_w, hard_ballless)
                 ballless_loss = ballless_loss + (
                     F.relu(r) * ballless_w * alive_t[:, j]
                 ).mean()
