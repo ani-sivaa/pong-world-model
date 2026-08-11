@@ -18,3 +18,5 @@ FETCHED /workspace/results/campaign_evidence/round-0_collect.json
   /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r0 --out /vol/checkpoints/honest_campaign_v2_r0_wm0.pt --tag honest_campaign_v2_r0_wm0 --v2 --stochastic --sampler balanced --bootstrap --seed 42 --steps 18000
 [campaign] RUN round-0:wm-1
   /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r0 --out /vol/checkpoints/honest_campaign_v2_r0_wm1.pt --tag honest_campaign_v2_r0_wm1 --v2 --stochastic --sampler balanced --bootstrap --seed 314 --steps 18000
+[campaign] RUN round-0:wm-2
+  /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r0 --out /vol/checkpoints/honest_campaign_v2_r0_wm2.pt --tag honest_campaign_v2_r0_wm2 --v2 --stochastic --sampler balanced --bootstrap --seed 2718 --steps 18000

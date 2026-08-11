@@ -400,6 +400,10 @@ an 80% win-rate requirement.
   (hit previous 7200s cap; val_frame 0.00709). Late-training `util` hinge still
   non-zero at times through 17k — unlike historical collapse-to-~1e-8. Raised
   `CAPS.wm_train` to 10800s for subsequent members. WM-1 training underway.
+
+- **Round-0 WM-1 complete:** full **18000/18000** steps. Train-log latent
+  utilization remains ~1e-3 class into the final third (orders of magnitude
+  above the 1e-7 gate). WM-2 training underway with raised 10800s cap.
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent

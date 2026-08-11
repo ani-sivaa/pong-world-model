@@ -187,7 +187,46 @@
       "ok": true,
       "returncode": 0,
       "wall_seconds": 7235.946893692017
+    },
+    "round-0:wm-1": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r0_wm1.pt",
+      "attempts": 1,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r0",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r0_wm1.pt",
+        "--tag",
+        "honest_campaign_v2_r0_wm1",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "314",
+        "--steps",
+        "18000"
+      ],
+      "evidence": "results/campaign_evidence/wm_log_v2_r0_wm1.json",
+      "log": "/workspace/results/campaign_logs/round-0_wm-1.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "note": "Completed full 18000 steps under prior 7200s-capable runtime (~6909s wall).",
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 6908.745847463608,
+      "wm_steps_logged": 18000
     }
   },
-  "status": "starting"
+  "status": "running"
 }
