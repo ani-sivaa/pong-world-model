@@ -79,12 +79,22 @@
       "billing_auth_ok": true,
       "credentials_present": true,
       "credit_balance_usd": 25.0,
-      "paid_jobs_launched": 0,
+      "first_paid_job": {
+        "noted_at": "2026-08-11T11:14:30Z",
+        "stage": "round-0:collect"
+      },
+      "paid_jobs_launched": 1,
       "reason": "Daily cron cycle: auth ok; concrete binding-trust repairs landed and smoke-validated; launching honest_campaign_v2.",
       "timestamp": "2026-08-11T11:15:00Z"
     }
   ],
-  "rounds": [],
+  "rounds": [
+    {
+      "acquisition_mix": "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+      "index": 0,
+      "selection_report": "/vol/results/selection_honest_campaign_v2_r0.json"
+    }
+  ],
   "stages": {},
-  "status": "starting"
+  "status": "running"
 }

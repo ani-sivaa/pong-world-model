@@ -387,6 +387,8 @@ an 80% win-rate requirement.
   the repaired trainer. Dream-policy training only if pretrust passes. Demo
   export remains gated. Control retained: dream-v2 ~12% wins; prior 17.5%
   trust-failed stochastic policy not exported.
+- **First paid Modal job this cycle:** `round-0:collect` for `honest_campaign_v2` launched (default mix). Controller log: `results/campaign_logs/controller_v2.log`.
+
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
