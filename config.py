@@ -272,7 +272,7 @@ SCALES = dict(
 
 # ---------------------------------------------------- wall-clock caps (s) --
 CAPS = dict(
-    collect=1_800, wm_train=7_200, wm_eval=1_800, ablation=5_400,
+    collect=1_800, wm_train=10_800, wm_eval=1_800, ablation=5_400,
     ppo=5_400, wm_v2=3_600, dream=5_400, transfer=1_800,
 )
 

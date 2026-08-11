@@ -127,6 +127,7 @@ def round_plan(args, round_index, mix):
             "--tag", f"{tag}_wm{index}", "--v2", "--stochastic",
             "--sampler", "balanced", "--bootstrap", "--seed", str(seed),
             "--steps", str(args.steps),
+            "--max-seconds", str(config.CAPS["wm_train"]),
         ]), path, True))
 
     pretrust = results / f"trust_{tag}_prepolicy.json"
