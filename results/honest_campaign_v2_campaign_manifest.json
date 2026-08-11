@@ -79,11 +79,7 @@
       "billing_auth_ok": true,
       "credentials_present": true,
       "credit_balance_usd": 25.0,
-      "first_paid_job": {
-        "noted_at": "2026-08-11T11:14:30Z",
-        "stage": "round-0:collect"
-      },
-      "paid_jobs_launched": 1,
+      "paid_jobs_launched": 0,
       "reason": "Daily cron cycle: auth ok; concrete binding-trust repairs landed and smoke-validated; launching honest_campaign_v2.",
       "timestamp": "2026-08-11T11:15:00Z"
     }
@@ -95,6 +91,67 @@
       "selection_report": "/vol/results/selection_honest_campaign_v2_r0.json"
     }
   ],
-  "stages": {},
+  "stages": {
+    "round-0:collect": {
+      "artifact": "/vol/data/honest_campaign_v2_r0/meta.json",
+      "attempts": 1,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "scripts.collect_adaptive",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--out",
+        "/vol/data/honest_campaign_v2_r0",
+        "--self-check",
+        "--seed",
+        "1103",
+        "--mix",
+        "tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10",
+        "--redteam-checkpoint",
+        "/vol/checkpoints/flywheel_full_v1_combined_redteam.pt",
+        "--stochastic-checkpoint",
+        "/vol/checkpoints/flywheel_full_v1_combined_stochastic_dream.pt",
+        "--world-model-checkpoint",
+        "/vol/checkpoints/flywheel_full_v1_combined_final_wm0.pt",
+        "/vol/checkpoints/flywheel_full_v1_combined_final_wm1.pt",
+        "/vol/checkpoints/flywheel_full_v1_combined_final_wm2.pt",
+        "--transitions",
+        "1000000"
+      ],
+      "dataset": {
+        "T": 1000000,
+        "event_counts": {
+          "boundary": 320,
+          "concede": 13656,
+          "done_truncation": 380,
+          "hit": 6268,
+          "miss": 13656,
+          "ordinary": 801237,
+          "score": 904,
+          "serve_near_terminal": 163579
+        },
+        "mix": {
+          "natural": 0.1,
+          "rare": 0.25,
+          "redteam": 0.25,
+          "stochastic": 0.3,
+          "tracker": 0.1
+        },
+        "real_frames_only": true
+      },
+      "evidence": "/workspace/results/campaign_evidence/round-0_collect.json",
+      "log": "/workspace/results/campaign_logs/round-0_collect.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 606.07426404953
+    }
+  },
   "status": "running"
 }

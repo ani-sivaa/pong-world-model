@@ -1,2 +1,18 @@
 [campaign] RUN round-0:collect
   /workspace/.venv/bin/python -m infra.remote --module scripts.collect_adaptive --gpu -- --scale full --out /vol/data/honest_campaign_v2_r0 --self-check --seed 1103 --mix tracker=.10,rare=.25,redteam=.25,stochastic=.30,natural=.10 --redteam-checkpoint /vol/checkpoints/flywheel_full_v1_combined_redteam.pt --stochastic-checkpoint /vol/checkpoints/flywheel_full_v1_combined_stochastic_dream.pt --world-model-checkpoint /vol/checkpoints/flywheel_full_v1_combined_final_wm0.pt /vol/checkpoints/flywheel_full_v1_combined_final_wm1.pt /vol/checkpoints/flywheel_full_v1_combined_final_wm2.pt --transitions 1000000
+[?25l⠋ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠸ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠦ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m
+[1mdata/honest_campaign_v2_r0/meta.json[0m             0.0% • 0.0/32.6   • ? • -:--:--
+                                                        kB                      [2K[1A[2K[1A[2K[1A[2K⠏ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m
+[1mdata/honest_campaign_v2_r0/meta.json[0m             0.0% • 0.0/32.6   • ? • -:--:--
+                                                        kB                      [2K[1A[2K[1A[2K[1A[2K⠹ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:01                                        [1m.[0m
+[1mdata/honest_campaign_v2_r0/meta.json[0m             0.0% • 0.0/32.6   • ? • -:--:--
+                                                        kB                      [2K[1A[2K[1A[2K[1A[2K⠴ Post processing...
+[?25h[1A[2K✓ Finished downloading files to local!
+FETCHED /workspace/results/campaign_evidence/round-0_collect.json
+[campaign] RUN round-0:wm-0
+  /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r0 --out /vol/checkpoints/honest_campaign_v2_r0_wm0.pt --tag honest_campaign_v2_r0_wm0 --v2 --stochastic --sampler balanced --bootstrap --seed 42 --steps 18000
