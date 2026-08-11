@@ -57,3 +57,13 @@ ImportError: No module named infra.does_not_exist
   after ≤2 pretrust failures with no promotion/demo export.
 - Collision check: only this Cloud Agent was RUNNING on the branch; no
   second controller started.
+
+## Modal GPU preemption — honest_campaign_v2 round-1 wm-1 — 2026-08-11
+- Phase: `honest_campaign_v2` execute, round-1 WM ensemble member 1 (seed 314).
+- Symptom: `Container terminated due to preemption. Your Function will be
+  restarted with the same input.` Modal auto-restarted training from step 1
+  (no local kill). First attempt had reached ~9.7k/18k before preemption.
+- Impact: wall-clock and credit burn increased for this stage; no artifact loss
+  beyond the in-progress uncommitted weights (checkpoints persist only after
+  train completes). Controller retries not required — Modal restarted in place.
+- Action: continue; stronger ballless penalty remains active on the restart.
