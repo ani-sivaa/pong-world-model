@@ -45,3 +45,5 @@ FETCHED /workspace/results/campaign_evidence/round-0_pretrust.json
 FETCHED /workspace/results/campaign_evidence/round-1_collect.json
 [campaign] RUN round-1:wm-0
   /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --out /vol/checkpoints/honest_campaign_v2_r1_wm0.pt --tag honest_campaign_v2_r1_wm0 --v2 --stochastic --sampler balanced --bootstrap --seed 42 --steps 18000
+[campaign] RUN round-1:wm-1
+  /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --out /vol/checkpoints/honest_campaign_v2_r1_wm1.pt --tag honest_campaign_v2_r1_wm1 --v2 --stochastic --sampler balanced --bootstrap --seed 314 --steps 18000

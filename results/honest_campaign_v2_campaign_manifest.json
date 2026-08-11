@@ -90,29 +90,13 @@
       "failed_trust_gates": [
         "ballless_positive_rate"
       ],
-      "gate_values": {
-        "ballless_positive_rate": {
-          "pass": false,
-          "threshold": 0.05,
-          "value": 0.12307692307692308
-        },
-        "stochastic_latent_utilization": {
-          "pass": true,
-          "threshold": 1e-07,
-          "value": 0.0005575170507654548
-        }
-      },
       "index": 0,
-      "note": "Latent utilization binding gate CLEARED after repairs; ballless remains binding.",
-      "policy_stage_reached": false,
-      "pretrust_overall_pass": false,
       "selection_report": "/vol/results/selection_honest_campaign_v2_r0.json",
       "stopped_before_policy": true
     },
     {
       "acquisition_mix": "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10",
       "index": 1,
-      "note": "calibration mix after ballless-only failure; stronger ballless_reward_coef=3.0 for WM retrain",
       "selection_report": "/vol/results/selection_honest_campaign_v2_r1.json"
     }
   ],
@@ -474,7 +458,43 @@
       "ok": true,
       "returncode": 0,
       "wall_seconds": 591.3786909580231
+    },
+    "round-1:wm-0": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r1_wm0.pt",
+      "attempts": 1,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r1",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r1_wm0.pt",
+        "--tag",
+        "honest_campaign_v2_r1_wm0",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "42",
+        "--steps",
+        "18000"
+      ],
+      "log": "/workspace/results/campaign_logs/round-1_wm-0.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 7601.704450130463
     }
   },
-  "status": "running"
+  "status": "starting"
 }

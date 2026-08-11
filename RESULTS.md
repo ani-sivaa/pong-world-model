@@ -415,6 +415,10 @@ an 80% win-rate requirement.
   raised `ballless_reward_coef=3.0` (was 0.75). Goal: keep utilization healthy
   while driving ballless under 0.05.
 
+- **Round-1 mid-flight:** wm-0 completed 18k; wm-1 training with strengthened
+  ballless penalty (`coef=3.0` + hard interior mask). Credits applied ≈ $12.3 /
+  env start telemetry $25. Still no policy training / no demo export.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
