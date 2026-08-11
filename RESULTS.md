@@ -389,6 +389,11 @@ an 80% win-rate requirement.
   trust-failed stochastic policy not exported.
 - **First paid Modal job this cycle:** `round-0:collect` for `honest_campaign_v2` launched (default mix). Controller log: `results/campaign_logs/controller_v2.log`.
 
+- **Round-0 WM-0 mid-train (Modal, ~10.8k/18k steps):** relative utilization hinge
+  still firing intermittently (`util` loss ~0–0.002) rather than sitting at the
+  late-training collapse seen historically; ballless penalty remains tiny
+  (~1e-5). Continuing through wm-0/1/2 → pretrust before any dream-policy work.
+
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
