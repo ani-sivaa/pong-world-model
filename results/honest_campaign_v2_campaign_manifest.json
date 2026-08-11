@@ -1,0 +1,90 @@
+{
+  "final_evaluation_uses": 0,
+  "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+  "modal_credit_telemetry_status": "available",
+  "preregistration": {
+    "acquisition_seeds": [
+      1103,
+      2207,
+      3301,
+      4409,
+      5519
+    ],
+    "candidate_rule": "highest development mean, then lowest index",
+    "chosen_scale": {
+      "rationale": "Full scale after smoke-validated binding-trust repairs; stop early if pretrust still fails identically.",
+      "steps": 18000,
+      "transitions": 1000000,
+      "updates": 2500
+    },
+    "controls": {
+      "do_not_export_trust_failed_stochastic": true,
+      "dream_v2_win_rate": 0.12
+    },
+    "created_at": 1786446849.428508,
+    "development_episodes_per_seed": 100,
+    "development_promotion_threshold": 0.8,
+    "development_seeds": [
+      7001,
+      7003,
+      7013
+    ],
+    "final_episodes_per_seed": 200,
+    "final_evaluation_seeds": [
+      104729,
+      130363,
+      155921
+    ],
+    "final_panel_max_uses": 1,
+    "final_results_used_for_tuning": false,
+    "max_rounds": 3,
+    "max_stage_retries": 2,
+    "modal_credit_balance_usd_at_start": 25.0,
+    "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+    "parent_cycle": "honest_campaign_v1",
+    "policy_training_seeds": [
+      42,
+      314,
+      2718
+    ],
+    "real_policy_gradient_steps": 0,
+    "repair_summary": {
+      "acquisition_mix_on_latent_fail": "binding_repair",
+      "ballless_reward_coef": 0.75,
+      "free_bits": 0.08,
+      "kl_coef": 0.0005,
+      "kl_warmup_frac": 0.5,
+      "latent_inject_gain": 2.5,
+      "smoke_ballless_positive_rate": 0.0,
+      "smoke_latent_utilization": 0.0001169,
+      "utilization_coef": 0.15,
+      "utilization_loss": "relative_hinge",
+      "utilization_target": 5e-06
+    },
+    "schema_version": 1,
+    "tag": "honest_campaign_v2",
+    "this_cycle_max_rounds": 3,
+    "wm_seeds": [
+      42,
+      314,
+      2718
+    ]
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "cycle starting; no candidate yet"
+  },
+  "resume_attempts": [
+    {
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "paid_jobs_launched": 0,
+      "reason": "Daily cron cycle: auth ok; concrete binding-trust repairs landed and smoke-validated; launching honest_campaign_v2.",
+      "timestamp": "2026-08-11T11:15:00Z"
+    }
+  ],
+  "rounds": [],
+  "stages": {},
+  "status": "starting"
+}
