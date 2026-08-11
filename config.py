@@ -105,8 +105,10 @@ WM = dict(
     utilization_target=5e-6, # soft floor above full-scale latent_utilization_min
     # ballless_positive_rate: refuse positive reward when predicted ball mass
     # is near zero (trust invariant uses the same interior-ball definition).
-    ballless_reward_coef=0.75,
-    ballless_mass_tau=0.75,  # soft mass scale; ~exp(-mass/tau) ballless weight
+    # Round-0 full trust cleared latent utilization (5.6e-4) but ballless
+    # stayed at 0.123 > 0.05 — raise the consistency weight for later rounds.
+    ballless_reward_coef=3.0,
+    ballless_mass_tau=0.5,   # soft mass scale; ~exp(-mass/tau) ballless weight
     head_event_balance=True,
     head_weight_clip=20.0,
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp

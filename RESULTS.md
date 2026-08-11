@@ -404,6 +404,17 @@ an 80% win-rate requirement.
 - **Round-0 WM-1 complete:** full **18000/18000** steps. Train-log latent
   utilization remains ~1e-3 class into the final third (orders of magnitude
   above the 1e-7 gate). WM-2 training underway with raised 10800s cap.
+
+- **Round-0 pretrust (full):** **FAIL** on `ballless_positive_rate` only.
+  - `stochastic_latent_utilization` **PASS** at **5.58e-4** (threshold ≥1e-7) —
+    binding latent-collapse gate cleared by the repair package.
+  - `ballless_positive_rate` **FAIL** at **0.123** (threshold ≤0.05).
+  - Other stochastic gates (prior_std, KL, serve coverage, sample MSE) all PASS.
+  - No dream-policy training; no demo export.
+- **Round-1:** calibration acquisition mix (rare=.40) collected; WM retrain with
+  raised `ballless_reward_coef=3.0` (was 0.75). Goal: keep utilization healthy
+  while driving ballless under 0.05.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
