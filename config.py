@@ -101,7 +101,7 @@ WM = dict(
     kl_warmup_frac=0.50,    # linear beta warmup; avoids early posterior collapse
     free_bits=0.08,          # nats per latent dimension
     latent_inject_gain=2.5,  # residual scale for z at the dynamics bottleneck
-    utilization_coef=0.25,   # hinge loss pushing prior-sample frame diversity
+    utilization_coef=0.15,   # relative hinge weight (O(1) when collapsed)
     utilization_target=5e-6, # soft floor above full-scale latent_utilization_min
     # ballless_positive_rate: refuse positive reward when predicted ball mass
     # is near zero (trust invariant uses the same interior-ball definition).

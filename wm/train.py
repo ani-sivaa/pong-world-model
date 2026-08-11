@@ -129,16 +129,18 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
             per_example_kl = kl_per_dim.clamp_min(free_bits).sum(dim=-1)
             kl_loss = kl_loss + (per_example_kl * frame_mask).mean()
             if utilization_coef > 0 and wm.training:
-                # Hinge: keep prior samples disagreeing in pixel space. Trust
-                # measures sample-to-sample variance; late training previously
-                # drove that below 1e-7 while prior_std looked healthy.
+                # Relative hinge: O(1) when collapsed, 0 at/above target. Absolute
+                # MSE hinges were ~1e-6 and drowned by frame BCE (~1e-2).
                 sample_a = torch.sigmoid(wm(
                     cur, acts_t[:, j], latent_mode="sample")[0])
                 sample_b = torch.sigmoid(wm(
                     cur, acts_t[:, j], latent_mode="sample")[0])
                 sample_var = (sample_a - sample_b).square().mean(dim=(1, 2, 3))
+                # Two-sample MSE ≈ 2·Var; compare against 2·target so the trust
+                # gate's multi-sample variance floor is the intended scale.
+                target = max(2.0 * float(utilization_target), 1e-12)
                 util_loss = util_loss + (
-                    F.relu(utilization_target - sample_var) * frame_mask
+                    F.relu(1.0 - sample_var / target) * frame_mask
                 ).mean()
         if v2:
             # reward/done AT step j are valid whenever the episode is alive at j
@@ -317,10 +319,11 @@ def main():
                              "latent_utilization"):
                     log[name].append(None)
             log["batch_events"].append(event_log)
-            print(f"  step {step}/{steps} k={k} loss={float(total):.5f} "
-                  f"frame={float(fl):.5f} rew={float(rl):.5f} "
-                  f"done={float(dl):.5f} kl={float(kl):.5f} "
-                  f"util={float(util_l):.5f} ballless={float(ballless_l):.5f} "
+            print(f"  step {step}/{steps} k={k} loss={float(total.detach()):.5f} "
+                  f"frame={float(fl.detach()):.5f} rew={float(rl.detach()):.5f} "
+                  f"done={float(dl.detach()):.5f} kl={float(kl.detach()):.5f} "
+                  f"util={float(util_l.detach()):.5f} "
+                  f"ballless={float(ballless_l.detach()):.5f} "
                   f"events={event_log} {time.time()-t0:.0f}s", flush=True)
         if step % 1000 == 0 or step == steps:
             wm.eval()
