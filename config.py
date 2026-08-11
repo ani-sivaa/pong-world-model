@@ -93,9 +93,20 @@ WM = dict(
     act_embed=32,
     latent_dim=16,           # stochastic CVAE dynamics latent
     stochastic_heads_deterministic=True,
-    kl_coef=1e-3,
-    kl_warmup_frac=0.30,    # linear beta warmup; avoids early posterior collapse
-    free_bits=0.05,          # nats per latent dimension
+    # Prior full-scale rounds collapsed late: prior_std stayed healthy while
+    # sample-to-sample frame variance fell below the 1e-7 trust gate. Slightly
+    # weaker KL, longer warmup, stronger z injection, and an explicit
+    # utilization hinge target the binding stochastic_latent_utilization fail.
+    kl_coef=5e-4,
+    kl_warmup_frac=0.50,    # linear beta warmup; avoids early posterior collapse
+    free_bits=0.08,          # nats per latent dimension
+    latent_inject_gain=2.5,  # residual scale for z at the dynamics bottleneck
+    utilization_coef=0.25,   # hinge loss pushing prior-sample frame diversity
+    utilization_target=5e-6, # soft floor above full-scale latent_utilization_min
+    # ballless_positive_rate: refuse positive reward when predicted ball mass
+    # is near zero (trust invariant uses the same interior-ball definition).
+    ballless_reward_coef=0.75,
+    ballless_mass_tau=0.75,  # soft mass scale; ~exp(-mass/tau) ballless weight
     head_event_balance=True,
     head_weight_clip=20.0,
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp
@@ -231,6 +242,11 @@ CAMPAIGN = dict(
         "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10"),
     acquisition_mix_collapse=(
         "tracker=.05,rare=.20,redteam=.20,stochastic=.45,natural=.10"),
+    # Prior collapse-only mix raised stochastic share and made ballless worse
+    # without lifting latent utilization. Prefer rare miss/score context plus
+    # moderate stochastic pressure when BOTH binding gates fail.
+    acquisition_mix_binding_repair=(
+        "tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10"),
     acquisition_mix_uncertainty=(
         "tracker=.05,rare=.20,redteam=.40,stochastic=.25,natural=.10"),
 )

@@ -82,6 +82,13 @@ def acquisition_mix(previous_selection):
         gate for candidate in previous_selection.get("candidates", [])
         for gate in candidate.get("failed_trust_gates", [])
     }
+    # Prefer the binding-repair mix whenever latent utilization failed.
+    # The old collapse mix (stochastic=.45) repeatedly made ballless worse
+    # without clearing the utilization gate.
+    if "stochastic_latent_utilization" in failed:
+        return config.CAMPAIGN["acquisition_mix_binding_repair"]
+    if "ballless_positive_rate" in failed:
+        return config.CAMPAIGN["acquisition_mix_calibration"]
     if any(name.startswith("stochastic_") for name in failed):
         return config.CAMPAIGN["acquisition_mix_collapse"]
     if {"reward_mae", "done_brier", "dream_real_reward_gap"} & failed:
