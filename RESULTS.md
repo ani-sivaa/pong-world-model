@@ -360,6 +360,34 @@ an 80% win-rate requirement.
   WM train logs `wm_log_r*_wm*.json`, manifest
   `results/honest_campaign_v1_campaign_manifest.json`.
 
+### Honest research cycle (2026-08-11) — binding-trust repair then flywheel
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` present; Modal profile ok; billing summary ok
+  (metered ≈ $4.53 / credits applied ≈ $3.42 / billed $0.00). Env credit
+  telemetry at start of this cycle = **$25**.
+- Prior cycle (`honest_campaign_v1`) stopped after ≤2 pretrust failures on
+  `stochastic_latent_utilization` + `ballless_positive_rate`. Collapse-mix
+  acquisition alone did not repair those gates.
+- **Concrete repairs before more collect→WM spend:**
+  - Stronger latent residual injection (`latent_inject_gain=2.5`)
+  - Weaker KL / longer warmup (`kl_coef=5e-4`, `kl_warmup_frac=0.5`,
+    `free_bits=0.08`)
+  - Relative utilization hinge (O(1) when collapsed; absolute hinge was
+    drowned by frame BCE)
+  - Ballless-reward consistency loss (penalize `relu(reward)` when predicted
+    interior ball mass ≈ 0)
+  - New `acquisition_mix_binding_repair` (rare=.35, stochastic=.25) replaces
+    the failure-driven collapse mix when latent utilization fails
+- **Local smoke evidence** (`repair_smoke_v2b`, 200 steps, CPU): trust report
+  `results/campaign_evidence/repair_smoke_v2b_pretrust.json` — latent
+  utilization **1.17e-4** (full gate ≥1e-7), ballless **0.0** (full gate
+  ≤0.05), serve-direction coverage 1.0. Prior absolute-hinge smoke util was
+  2.8e-8 (would fail full).
+- Next: launch `honest_campaign_v2` on Modal (full scale, max_rounds=3) with
+  the repaired trainer. Dream-policy training only if pretrust passes. Demo
+  export remains gated. Control retained: dream-v2 ~12% wins; prior 17.5%
+  trust-failed stochastic policy not exported.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
