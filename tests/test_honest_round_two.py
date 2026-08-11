@@ -26,7 +26,7 @@ from wm.model import (
     WorldModelEnsemble,
     load_wm,
 )
-from wm.train import event_balanced_weights
+from wm.train import event_balanced_weights, interior_ball_mass, compute_losses
 
 
 class TerminalContextTest(unittest.TestCase):
@@ -103,6 +103,65 @@ class StochasticRepairTest(unittest.TestCase):
         gates, passed, _ = stochastic_collapse_gates(collapsed, "full")
         self.assertFalse(passed)
         self.assertFalse(gates["serve_direction_coverage"]["available"])
+
+    def test_latent_inject_gain_amplifies_sample_diversity(self):
+        weak = StochasticWorldModel(
+            with_heads=True,
+            cfg=dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
+                     latent_inject_gain=0.01)).eval()
+        strong = StochasticWorldModel(
+            with_heads=True,
+            cfg=dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
+                     latent_inject_gain=8.0)).eval()
+        strong.load_state_dict(weak.state_dict(), strict=False)
+        strong.latent_inject_gain = 8.0
+        stack = torch.rand(4, 4, 64, 64)
+        action = torch.tensor([0, 1, 2, 0])
+        with torch.no_grad():
+            def util(model):
+                draws = [
+                    torch.sigmoid(model(
+                        stack, action, latent_mode="sample",
+                        generator=torch.Generator().manual_seed(10 + i))[0])
+                    for i in range(6)
+                ]
+                return float(torch.stack(draws).var(0, unbiased=False).mean())
+            self.assertGreater(util(strong), util(weak))
+
+    def test_ballless_reward_penalty_and_interior_mass(self):
+        frames = torch.zeros(2, 64, 64)
+        frames[1, 20:22, 30:32] = 1.0
+        mass = interior_ball_mass(frames)
+        self.assertAlmostEqual(float(mass[0]), 0.0, places=5)
+        self.assertAlmostEqual(float(mass[1]), 4.0, places=5)
+
+        cfg = dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
+                   utilization_coef=0.0, ballless_reward_coef=1.0,
+                   ballless_mass_tau=0.5)
+        model = StochasticWorldModel(with_heads=True, cfg=cfg)
+        model.train()
+        B, k = 4, 1
+        stacks = np.zeros((B, 4, 64, 64), np.uint8)
+        acts = np.zeros((B, k), np.int64)
+        targets = np.zeros((B, k, 64, 64), np.uint8)
+        rews = np.zeros((B, k), np.float32)
+        dns = np.zeros((B, k), np.float32)
+        alive = np.ones((B, k), np.float32)
+        batch = (stacks, acts, targets, rews, dns, alive)
+        with torch.no_grad():
+            for name, param in model.named_parameters():
+                if "reward_head" in name:
+                    param.zero_()
+            # Near-empty decode so interior ball mass ≈ 0 (ballless weight ≈ 1).
+            model.out.weight.zero_()
+            model.out.bias.fill_(-8.0)
+            model.reward_head[2].bias.fill_(1.5)
+        total, *_, ballless_after = compute_losses(
+            model, batch, torch.device("cpu"), v2=True, w_change=0.0,
+            return_kl=True, utilization_coef=0.0, ballless_reward_coef=1.0)
+        self.assertGreater(float(ballless_after.detach()), 0.1)
+        total.backward()
+        self.assertTrue(any(p.grad is not None for p in model.parameters()))
 
 
 class ImaginedPPOTest(unittest.TestCase):
@@ -186,6 +245,19 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
         self.assertNotIn("--purpose final", joined)
         self.assertEqual(
             sum(name.startswith("development-") for name, *_ in stages), 3)
+
+    def test_binding_failures_select_repair_mix_not_collapse(self):
+        selection = {
+            "candidates": [{
+                "failed_trust_gates": [
+                    "ballless_positive_rate",
+                    "stochastic_latent_utilization",
+                ],
+            }],
+        }
+        mix = acquisition_mix(selection)
+        self.assertEqual(mix, config.CAMPAIGN["acquisition_mix_binding_repair"])
+        self.assertNotEqual(mix, config.CAMPAIGN["acquisition_mix_collapse"])
 
     def test_candidate_selection_never_reads_final_results(self):
         trust = {"overall_pass": True,
