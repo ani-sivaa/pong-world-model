@@ -1,12 +1,12 @@
 {
   "final_evaluation_uses": 0,
   "modal_credit_note": {
-    "as_of": "2026-08-12T11:50Z",
+    "as_of": "2026-08-12T12:55Z",
     "billing_summary_billed": 0.0,
-    "billing_summary_credits_applied_approx": 27.62,
-    "billing_summary_metered_approx": 28.85,
+    "billing_summary_credits_applied_approx": 28.61,
+    "billing_summary_metered_approx": 29.84,
     "env_start_telemetry_usd": 25,
-    "policy_2_progress": "retry ~260/2500 after cancel at ~990"
+    "policy_2_progress": "retry ~610/2500"
   },
   "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
   "modal_credit_telemetry_status": "available",
@@ -80,7 +80,7 @@
   },
   "promotion": {
     "promoted": false,
-    "reason": "development wins below 80% threshold and below 12% dream-v2 control so far; policy-2 retry after Modal cancel (~260/2500 on restart)"
+    "reason": "development wins below 80% and below 12% dream-v2 control; policy-2 retry ~610/2500"
   },
   "resume_attempts": [
     {

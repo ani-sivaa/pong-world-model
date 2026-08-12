@@ -442,11 +442,12 @@ an 80% win-rate requirement.
 
 - **Round-1 policy-2 (seed 2718) mid-flight (2026-08-12):** first attempt
   reached ~**990/2500** then Modal cancelled (`RemoteError` / preemption class).
-  Controller retry restarted from update 1; now ~**260/2500** on the new app
-  (~2670s elapsed). Dream return still slightly negative. Billing: metered ≈
-  $28.9 / credits applied ≈ $27.6 / billed $0.00 (env start telemetry $25).
-  Still no promotion; no demo export; final panel not run. Remaining after
-  policy-2: candidate trust → development-2 → reinforce ablation → selection.
+  Controller retry restarted from update 1; now ~**610/2500** on the new app
+  (~6100s elapsed; `CAPS.dream=14400`). Dream return still slightly negative.
+  Billing: metered ≈ $29.8 / credits applied ≈ $28.6 / billed $0.00 (env start
+  telemetry $25). Still no promotion; no demo export; final panel not run.
+  Remaining after policy-2: candidate trust → development-2 → reinforce
+  ablation → selection.
 
 
 
