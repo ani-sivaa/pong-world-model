@@ -427,6 +427,14 @@ an 80% win-rate requirement.
   later development eval). First seed `policy-0` launched. No demo export yet
   (requires trust-passing promotion after development panel).
 
+- **Round-1 policy-0 (seed 42):** wall-clock stopped at ~**550/2500** imagined
+  PPO updates under the old 5400s dream cap (ensemble+sample latent ≈10s/update).
+  Candidate trust passed; **development mean win rate 0.0%** (300 episodes across
+  seeds 7001/7003/7013; mean hits ≈0.14; mean point −1.0) — below the 12%
+  dream-v2 control. Not a promotion candidate.
+- Raised `CAPS.dream` to 14400s for subsequent policy seeds before more training.
+
+
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load

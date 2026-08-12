@@ -64,3 +64,25 @@ FETCHED /workspace/results/campaign_evidence/round-1_collect.json
 FETCHED /workspace/results/campaign_evidence/round-1_pretrust.json
 [campaign] RUN round-1:policy-0
   /workspace/.venv/bin/python -m infra.remote --module agents.train_dream --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --wm /vol/checkpoints/honest_campaign_v2_r1_wm0.pt /vol/checkpoints/honest_campaign_v2_r1_wm1.pt /vol/checkpoints/honest_campaign_v2_r1_wm2.pt --algorithm ppo --latent-mode sample --ball-guard --seed 42 --updates 2500 --tag honest_campaign_v2_r1_ppo_seed42 --out /vol/checkpoints/honest_campaign_v2_r1_ppo_seed42.pt
+[campaign] RUN round-1:policy-trust-0
+  /workspace/.venv/bin/python -m infra.remote --module scripts.evaluate_trust --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --wm /vol/checkpoints/honest_campaign_v2_r1_wm0.pt /vol/checkpoints/honest_campaign_v2_r1_wm1.pt /vol/checkpoints/honest_campaign_v2_r1_wm2.pt --policy /vol/checkpoints/honest_campaign_v2_r1_ppo_seed42.pt --seed 7001 --stochastic-samples 8 --out /vol/results/trust_honest_campaign_v2_r1_candidate0.json --tag honest_campaign_v2_r1_candidate0
+[?25l⠋ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠸ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠦ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m
+[1mresults/trust_honest_campaign_v2_r1_candidate0.json[0m      0.0% • 0.0… • ? • -:--…
+                                                                kB              [2K[1A[2K[1A[2K[1A[2K⠦ Post processing...
+[?25h[1A[2K✓ Finished downloading files to local!
+FETCHED /workspace/results/campaign_evidence/round-1_policy-trust-0.json
+[campaign] RUN round-1:development-0
+  /workspace/.venv/bin/python -m infra.remote --module scripts.evaluate_panel --cpu -- --purpose development --policy /vol/checkpoints/honest_campaign_v2_r1_ppo_seed42.pt --out /vol/results/development_honest_campaign_v2_r1_candidate0.json
+[?25l⠋ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠸ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠦ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m
+[1mresults/development_honest_campaign_v2_r1_candidate0.json[0m    0.0% • 0… • ? • -:…
+                                                                    kB          [2K[1A[2K[1A[2K[1A[2K⠇ Post processing...
+[?25h[1A[2K✓ Finished downloading files to local!
+FETCHED /workspace/results/campaign_evidence/round-1_development-0.json
+[campaign] RUN round-1:policy-1
+  /workspace/.venv/bin/python -m infra.remote --module agents.train_dream --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --wm /vol/checkpoints/honest_campaign_v2_r1_wm0.pt /vol/checkpoints/honest_campaign_v2_r1_wm1.pt /vol/checkpoints/honest_campaign_v2_r1_wm2.pt --algorithm ppo --latent-mode sample --ball-guard --seed 314 --updates 2500 --tag honest_campaign_v2_r1_ppo_seed314 --out /vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt
