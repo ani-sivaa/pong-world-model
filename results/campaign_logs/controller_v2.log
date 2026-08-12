@@ -47,3 +47,20 @@ FETCHED /workspace/results/campaign_evidence/round-1_collect.json
   /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --out /vol/checkpoints/honest_campaign_v2_r1_wm0.pt --tag honest_campaign_v2_r1_wm0 --v2 --stochastic --sampler balanced --bootstrap --seed 42 --steps 18000
 [campaign] RUN round-1:wm-1
   /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --out /vol/checkpoints/honest_campaign_v2_r1_wm1.pt --tag honest_campaign_v2_r1_wm1 --v2 --stochastic --sampler balanced --bootstrap --seed 314 --steps 18000
+[campaign] RUN round-1:wm-2
+  /workspace/.venv/bin/python -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --out /vol/checkpoints/honest_campaign_v2_r1_wm2.pt --tag honest_campaign_v2_r1_wm2 --v2 --stochastic --sampler balanced --bootstrap --seed 2718 --steps 18000
+[campaign] RUN round-1:pretrust
+  /workspace/.venv/bin/python -m infra.remote --module scripts.evaluate_trust --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --wm /vol/checkpoints/honest_campaign_v2_r1_wm0.pt /vol/checkpoints/honest_campaign_v2_r1_wm1.pt /vol/checkpoints/honest_campaign_v2_r1_wm2.pt --stochastic-samples 8 --out /vol/results/trust_honest_campaign_v2_r1_prepolicy.json --tag honest_campaign_v2_r1_prepolicy
+[?25l⠋ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠸ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m[2K[1A[2K⠦ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m
+[1mresults/trust_honest_campaign_v2_r1_prepolicy.json[0m      0.0% • 0.0… • ? • -:--:…
+                                                               kB               [2K[1A[2K[1A[2K[1A[2K⠏ Downloading file(s) to local...
+[1mDownloading file(s) to local...[0m 0:00:00                                        [1m.[0m
+[1mresults/trust_honest_campaign_v2_r1_prepolicy.json[0m      0.0% • 0.0… • ? • -:--:…
+                                                               kB               [2K[1A[2K[1A[2K[1A[2K⠙ Post processing...
+[?25h[1A[2K✓ Finished downloading files to local!
+FETCHED /workspace/results/campaign_evidence/round-1_pretrust.json
+[campaign] RUN round-1:policy-0
+  /workspace/.venv/bin/python -m infra.remote --module agents.train_dream --gpu -- --scale full --data /vol/data/honest_campaign_v2_r1 --wm /vol/checkpoints/honest_campaign_v2_r1_wm0.pt /vol/checkpoints/honest_campaign_v2_r1_wm1.pt /vol/checkpoints/honest_campaign_v2_r1_wm2.pt --algorithm ppo --latent-mode sample --ball-guard --seed 42 --updates 2500 --tag honest_campaign_v2_r1_ppo_seed42 --out /vol/checkpoints/honest_campaign_v2_r1_ppo_seed42.pt

@@ -419,6 +419,15 @@ an 80% win-rate requirement.
   ballless penalty (`coef=3.0` + hard interior mask). Credits applied ≈ $12.3 /
   env start telemetry $25. Still no policy training / no demo export.
 
+- **Round-1 pretrust (full): PASS.** Both previously binding gates cleared:
+  - `stochastic_latent_utilization` **5.02e-5** (≥1e-7) PASS
+  - `ballless_positive_rate` **0.0267** (≤0.05) PASS
+  - Evidence: `results/campaign_evidence/v2_r1_pretrust.json`
+- **Dream-policy training started** (imagined PPO only; real Pong reserved for
+  later development eval). First seed `policy-0` launched. No demo export yet
+  (requires trust-passing promotion after development panel).
+
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
