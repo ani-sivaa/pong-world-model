@@ -145,6 +145,7 @@ def round_plan(args, round_index, mix):
             "--scale", "full", "--data", str(data), "--wm", *map(str, wm_paths),
             "--algorithm", "ppo", "--latent-mode", "sample", "--ball-guard",
             "--seed", str(seed), "--updates", str(args.updates),
+            "--max-seconds", str(config.CAPS["dream"]),
             "--tag", f"{tag}_ppo_seed{seed}", "--out", str(policy),
         ]), policy, True))
         trust = results / f"trust_{tag}_candidate{index}.json"
@@ -174,7 +175,9 @@ def round_plan(args, round_index, mix):
                 "--wm", *map(str, wm_paths), "--algorithm", "reinforce",
                 "--latent-mode", "sample", "--ball-guard",
                 "--seed", str(config.ROUND_TWO["policy_seeds"][0]),
-                "--updates", str(args.updates), "--tag", f"{tag}_reinforce",
+                "--updates", str(args.updates),
+                "--max-seconds", str(config.CAPS["dream"]),
+                "--tag", f"{tag}_reinforce",
                 "--out", str(ablation),
             ]), ablation, True))
         stages.append(("reinforce-development", remote_command(
