@@ -75,3 +75,14 @@ ImportError: No module named infra.does_not_exist
 - Impact: extra credit/wall burn; effective training repeatedly reset.
   Credits applied ≈ $21 at note time (env start telemetry $25).
 - Action: continue current restart; no controller duplicate launch.
+
+## Modal cancel/retry — honest_campaign_v2 round-1 policy-2 — 2026-08-12
+- Phase: imagined PPO seed 2718 after pretrust PASS.
+- Symptom: first attempt reached ~**990+/2500** updates then
+  `RemoteError: Function call was cancelled by user or a failure` (preemption
+  class / Modal-side cancel). Controller retry launched a new app
+  (`ap-paJ6WEoDakfi6wufRiEk4R`) from update 1.
+- Impact: lost ~990 updates of progress; extra credit burn. Billing after
+  restart underway: metered ≈ $28.9 / credits applied ≈ $27.6 / billed $0.00.
+- Action: let controller retry continue (retries=2); do not start a second
+  campaign controller.
