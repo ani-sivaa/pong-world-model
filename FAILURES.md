@@ -67,3 +67,11 @@ ImportError: No module named infra.does_not_exist
   beyond the in-progress uncommitted weights (checkpoints persist only after
   train completes). Controller retries not required — Modal restarted in place.
 - Action: continue; stronger ballless penalty remains active on the restart.
+
+## Modal GPU preemption — honest_campaign_v2 round-1 policy-1 — 2026-08-12
+- Phase: imagined PPO seed 314 after pretrust PASS.
+- Symptom: at least two `Container terminated due to preemption` events;
+  Modal restarted the same input from update 1 each time (progress lost).
+- Impact: extra credit/wall burn; effective training repeatedly reset.
+  Credits applied ≈ $21 at note time (env start telemetry $25).
+- Action: continue current restart; no controller duplicate launch.
