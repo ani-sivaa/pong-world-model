@@ -434,6 +434,13 @@ an 80% win-rate requirement.
   dream-v2 control. Not a promotion candidate.
 - Raised `CAPS.dream` to 14400s for subsequent policy seeds before more training.
 
+- **Round-1 policy-1 (seed 314):** ~**1460/2500** updates (14400s cap after two
+  preemption restarts). Candidate trust PASS. **Development mean win rate
+  9.33%** (CI ≈ [0.066, 0.130]; hits/ep ≈ 0.19) — above policy-0's 0% but
+  **still below the 12% dream-v2 control**. Not promoted.
+- Policy-2 training started; Modal credits applied ≈ $24.1 (env start $25).
+
+
 
 
 ## Phase 4 — web demo — COMPLETE (both models)
