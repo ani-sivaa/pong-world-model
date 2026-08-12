@@ -1,12 +1,12 @@
 {
   "final_evaluation_uses": 0,
   "modal_credit_note": {
-    "as_of": "2026-08-12T10:20Z",
+    "as_of": "2026-08-12T11:05Z",
     "billing_summary_billed": 0.0,
-    "billing_summary_credits_applied_approx": 26.12,
-    "billing_summary_metered_approx": 27.35,
+    "billing_summary_credits_applied_approx": 26.87,
+    "billing_summary_metered_approx": 28.11,
     "env_start_telemetry_usd": 25,
-    "policy_2_progress": "740/2500"
+    "policy_2_progress": "990/2500"
   },
   "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
   "modal_credit_telemetry_status": "available",
@@ -80,7 +80,7 @@
   },
   "promotion": {
     "promoted": false,
-    "reason": "development wins below 80% threshold and below 12% dream-v2 control so far; policy-2 mid-flight (~740/2500 updates)"
+    "reason": "development wins below 80% threshold and below 12% dream-v2 control so far; policy-2 mid-flight (~990/2500 updates)"
   },
   "resume_attempts": [
     {
