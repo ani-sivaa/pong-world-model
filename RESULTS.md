@@ -440,10 +440,10 @@ an 80% win-rate requirement.
   **still below the 12% dream-v2 control**. Not promoted.
 - Policy-2 training started; Modal credits applied ≈ $24.1 (env start $25).
 
-- **Round-1 policy-2 (seed 2718) mid-flight (2026-08-12):** ~**740/2500**
-  imagined PPO updates at ~10.1s/update (~7400s elapsed; `CAPS.dream=14400`).
+- **Round-1 policy-2 (seed 2718) mid-flight (2026-08-12):** ~**990/2500**
+  imagined PPO updates at ~10.1s/update (~9900s elapsed; `CAPS.dream=14400`).
   Dream return still slightly negative; entropy ~0.55. No preemption yet on
-  this seed. Billing: metered ≈ $27.4 / credits applied ≈ $26.1 / billed $0.00
+  this seed. Billing: metered ≈ $28.1 / credits applied ≈ $26.9 / billed $0.00
   (env start telemetry $25). Still no promotion; no demo export; final panel
   not run (requires development promotion). Remaining after policy-2: candidate
   trust → development-2 → reinforce ablation → selection.
