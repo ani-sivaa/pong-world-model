@@ -396,9 +396,18 @@ an 80% win-rate requirement.
 
 
 
-- **Round-2 WM-2 mid-train:** step 15200/18000 k=5 loss=0.05033 frame=0.00101 rew=0.00381 done=0.02591 kl=0.90965 util=0.00000 ballless=0.00638 events
 
 
+
+
+- **Round-2 WM-2 complete:** full **18000/18000** (~7029s). Evidence
+  `results/campaign_evidence/wm_log_v2_r2_wm2.json`.
+- **Round-2 pretrust (full): PASS.** Binding gates cleared again:
+  - `stochastic_latent_utilization` **4.739e-05** (≥1e-07) PASS
+  - `ballless_positive_rate` **0.0331** (≤0.05) PASS
+  - Evidence: `results/campaign_evidence/v2_r2_pretrust.json`
+- **Dream-policy training started** for round-2 (imagined PPO only). First seed
+  `policy-0` (42) launched under `CAPS.dream=14400`. No demo export yet.
 
 - Science unchanged: policy gradients only inside WM; no demo export until
   trust-passing development promotion; prior 17.5% trust-failed stochastic
