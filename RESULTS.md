@@ -388,11 +388,10 @@ an 80% win-rate requirement.
   `results/campaign_logs/controller_v2_2026-08-13.log`.
 
 
-- **Round-2 WM-1 mid-train (Modal):** reached **6400/18000** and entered
-  `k=5` unroll (~802s). Relative utilization hinge firing (`util≈1.6e-3`);
-  ballless penalty also non-zero (`≈1.7e-2`). App
-  `ap-VWA6vk00c8yLlgkAyafO2d`. Billing ≈ metered $33.8 / credits $30 /
-  billed $2.47. No policy training until pretrust.
+- **Round-2 WM-1 mid-train (Modal):** **11500/18000** at ~3516s (`k=5`);
+  utilization hinge still intermittently active (`util≈6e-4`). Continuing
+  toward full 18k before wm-2 / pretrust. App `ap-VWA6vk00c8yLlgkAyafO2d`.
+
 
 
 - Science unchanged: policy gradients only inside WM; no demo export until
