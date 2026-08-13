@@ -16,6 +16,7 @@ from scripts.collect_adaptive import enrich_terminal_context
 from scripts.evaluate_trust import stochastic_collapse_gates
 from scripts.promote_round_two import aggregate_reports
 from scripts.run_honest_campaign import (
+    STOP_ERROR,
     acquisition_mix,
     prior_round_pretrust_stop,
     round_plan,
@@ -279,6 +280,13 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
             "failed_trust_gates": ["ballless_positive_rate"],
         }))
         self.assertIsNone(prior_round_pretrust_stop(None))
+
+    def test_stop_error_matches_modal_spend_limit(self):
+        self.assertTrue(STOP_ERROR.search(
+            "ResourceExhaustedError: Workspace has exceeded its spend limit"))
+        self.assertTrue(STOP_ERROR.search(
+            "ConflictError('workspace ac-x is disabled')"))
+        self.assertFalse(STOP_ERROR.search("RemoteError: Function cancelled"))
 
     def test_candidate_selection_never_reads_final_results(self):
         trust = {"overall_pass": True,

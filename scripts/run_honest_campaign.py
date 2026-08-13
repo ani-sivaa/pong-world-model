@@ -22,7 +22,8 @@ import config  # noqa: E402
 
 STOP_ERROR = re.compile(
     r"(insufficient.*credit|quota.*exceed|payment required|not authenticated|"
-    r"unauthorized|credit.*exhaust)", re.IGNORECASE)
+    r"unauthorized|credit.*exhaust|spend limit|resourceexhausted|"
+    r"workspace .* disabled|exceeded its spend)", re.IGNORECASE)
 
 
 def modal_credit_telemetry():

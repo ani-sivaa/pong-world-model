@@ -57,3 +57,16 @@ ImportError: No module named infra.does_not_exist
   after ≤2 pretrust failures with no promotion/demo export.
 - Collision check: only this Cloud Agent was RUNNING on the branch; no
   second controller started.
+
+## Modal spend-limit hard stop — honest_campaign_v2 round-2 policy-0 — 2026-08-13
+- Phase: `honest_campaign_v2` execute, after r2 pretrust PASS, during `round-2:policy-0`
+  dream PPO (seed 42).
+- Symptom: first attempt reached **update 180/2500** (~1795s) then Modal raised
+  `ResourceExhaustedError: Workspace ... has exceeded its spend limit`. Retries
+  hit `ConflictError: workspace ... is disabled`. Billing snapshot: metered ≈
+  $37.96 / credits applied ≈ $30 / billed ≈ $6.59.
+- Impact: controller stopped; no further dream-policy seeds; no development
+  panel for round-2; no promotion; no demo export; final panel unused.
+- Action: recorded `budget_or_auth_exhausted` in campaign manifest; widened
+  `STOP_ERROR` regex to catch spend-limit / workspace-disabled so future runs
+  do not burn retries. Did **not** relaunch paid jobs.

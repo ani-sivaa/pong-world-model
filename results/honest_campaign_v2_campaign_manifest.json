@@ -1,9 +1,20 @@
 {
   "final_evaluation_uses": 0,
+  "hard_stops": [
+    {
+      "billing_note": "metered~37.96 credits_applied~30 billed~6.59",
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit; subsequent ConflictError workspace disabled",
+      "kind": "modal_spend_limit",
+      "stage": "round-2:policy-0",
+      "timestamp": "2026-08-13T16:37:50Z",
+      "updates_reached": 180,
+      "updates_target": 2500
+    }
+  ],
   "live_notes": [
     {
-      "note": "r2 pretrust PASS util=4.739e-05 ballless=0.0331; policy-0 dream PPO started",
-      "timestamp": "2026-08-13T15:06:01Z"
+      "note": "Daily cycle stop: Modal spend limit / workspace disabled during r2 policy-0",
+      "timestamp": "2026-08-13T16:37:50Z"
     }
   ],
   "modal_credit_note": {
@@ -86,7 +97,7 @@
   },
   "promotion": {
     "promoted": false,
-    "reason": "Round-1 trust PASS but development max 9.33% < 12% dream-v2 control and <80% threshold; resuming round-2 flywheel from volume collect+wm0"
+    "reason": "Round-2 pretrust PASS but Modal spend limit stopped policy-0 at ~180/2500 updates; no round-2 development panel; round-1 best development 9.33% < 12% dream-v2 control; final panel unused; demo unchanged."
   },
   "resume_attempts": [
     {
@@ -181,13 +192,12 @@
         "stochastic": 0.3,
         "tracker": 0.1
       },
-      "failed_trust_gates": [],
+      "development_metrics": null,
       "index": 2,
       "note": "Resumed 2026-08-13 from volume: collect+wm0 present; continuing wm1+",
       "policy_stage_reached": true,
-      "pretrust_overall_pass": true,
-      "selection_report": "/vol/results/selection_honest_campaign_v2_r2.json",
-      "stopped_before_policy": false
+      "policy_training_incomplete": true,
+      "selection_report": "/vol/results/selection_honest_campaign_v2_r2.json"
     }
   ],
   "stages": {
@@ -1479,12 +1489,83 @@
       "ok": true,
       "recovered_after_session_loss": true
     },
+    "round-2:policy-0": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt",
+      "attempts": 3,
+      "budget_or_auth_exhausted": true,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "agents.train_dream",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r2",
+        "--wm",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm0.pt",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm1.pt",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm2.pt",
+        "--algorithm",
+        "ppo",
+        "--latent-mode",
+        "sample",
+        "--ball-guard",
+        "--seed",
+        "42",
+        "--updates",
+        "2500",
+        "--max-seconds",
+        "14400",
+        "--tag",
+        "honest_campaign_v2_r2_ppo_seed42",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt"
+      ],
+      "log": "results/campaign_logs/round-2_policy-0.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "note": "Spend limit after ~180/2500; workspace disabled on retries",
+      "ok": false,
+      "returncode": 1,
+      "updates_logged": 180,
+      "wall_seconds": 1869.0860662460327
+    },
     "round-2:pretrust": {
       "artifact": "/vol/results/trust_honest_campaign_v2_r2_prepolicy.json",
-      "evidence": "results/campaign_evidence/v2_r2_pretrust.json",
+      "attempts": 1,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "scripts.evaluate_trust",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r2",
+        "--wm",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm0.pt",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm1.pt",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm2.pt",
+        "--stochastic-samples",
+        "8",
+        "--out",
+        "/vol/results/trust_honest_campaign_v2_r2_prepolicy.json",
+        "--tag",
+        "honest_campaign_v2_r2_prepolicy"
+      ],
+      "evidence": "/workspace/results/campaign_evidence/round-2_pretrust.json",
+      "log": "/workspace/results/campaign_logs/round-2_pretrust.log",
       "modal_compute_cost_usd": null,
       "modal_gpu_stage": true,
       "ok": true,
+      "returncode": 0,
       "trust": {
         "gates": {
           "ballless_positive_rate": {
@@ -1580,7 +1661,8 @@
           }
         },
         "overall_pass": true
-      }
+      },
+      "wall_seconds": 24.182433605194092
     },
     "round-2:wm-0": {
       "artifact": "/vol/checkpoints/honest_campaign_v2_r2_wm0.pt",
@@ -1630,13 +1712,42 @@
     },
     "round-2:wm-2": {
       "artifact": "/vol/checkpoints/honest_campaign_v2_r2_wm2.pt",
-      "evidence": "results/campaign_evidence/wm_log_v2_r2_wm2.json",
+      "attempts": 1,
+      "command": [
+        "/workspace/.venv/bin/python",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r2",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r2_wm2.pt",
+        "--tag",
+        "honest_campaign_v2_r2_wm2",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "2718",
+        "--steps",
+        "18000",
+        "--max-seconds",
+        "10800"
+      ],
+      "log": "/workspace/results/campaign_logs/round-2_wm-2.log",
       "modal_compute_cost_usd": null,
       "modal_gpu_stage": true,
       "ok": true,
-      "wall_seconds": 7029,
-      "wm_steps_logged": 18000
+      "returncode": 0,
+      "wall_seconds": 7054.605870246887
     }
   },
-  "status": "running"
+  "status": "budget_or_auth_exhausted"
 }

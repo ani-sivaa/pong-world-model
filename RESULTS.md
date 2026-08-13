@@ -409,9 +409,23 @@ an 80% win-rate requirement.
 - **Dream-policy training started** for round-2 (imagined PPO only). First seed
   `policy-0` (42) launched under `CAPS.dream=14400`. No demo export yet.
 
-- **Round-2 policy-0 mid-flight:** update 180/2500 dream_return=-0.053 alive_len=22.1/40 ent=0.733 unc=0.00413 penalty=0.00435 1795s
 
 
+
+
+- **Hard stop (Modal spend limit):** round-2 `policy-0` reached **180/2500**
+  imagined PPO updates then Modal returned `ResourceExhaustedError` (workspace
+  spend limit); retries saw workspace disabled. Billing ≈ metered $38 /
+  credits $30 / billed $6.6. Controller stopped; no further policy seeds.
+- **Trust gates (this cycle):** r2 pretrust **PASS** (util 4.74e-5, ballless
+  0.033). Prior r1 also PASS with development best **9.33%** vs **12%**
+  dream-v2 control.
+- **Development / transfer vs 12% control:** round-2 incomplete (no finished
+  policy → no development panel). Round-1 best remains **9.33%** (below
+  control). **Not promoted.**
+- **final_evaluation_uses:** 0. Demo/web export **unchanged**.
+- **Controls retained:** dream v2 ~12%; trust-passing deterministic ensemble;
+  prior 17.5% trust-failed stochastic policy not exported.
 
 - Science unchanged: policy gradients only inside WM; no demo export until
   trust-passing development promotion; prior 17.5% trust-failed stochastic
