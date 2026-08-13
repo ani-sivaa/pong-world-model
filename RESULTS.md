@@ -387,6 +387,11 @@ an 80% win-rate requirement.
   starting at `round-2:wm-1` (collect+wm0 recovered). Log:
   `results/campaign_logs/controller_v2_2026-08-13.log`.
 
+
+- **Round-2 WM-1 mid-train (Modal):** step 1500/18000 k=1 loss=0.00777 frame=0.00452 rew=0.00019 done=0.00251 kl=5.16298 util=0.00000 ballless=0.00004 events={'ordinary': 25, 'hit': 20, 'score': 21, 'concede': 17, 'done_truncation': 16, 'serve_near_terminal': 19, 'miss': 10} 181s
+  App `ap-VWA6vk00c8yLlgkAyafO2d`. Controller alive; no policy training until
+  wm-1/wm-2 + pretrust. Demo export still gated.
+
 - Science unchanged: policy gradients only inside WM; no demo export until
   trust-passing development promotion; prior 17.5% trust-failed stochastic
   not exported; final panel unused.

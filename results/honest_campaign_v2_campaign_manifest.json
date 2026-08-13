@@ -1,5 +1,12 @@
 {
   "final_evaluation_uses": 0,
+  "live_notes": [
+    {
+      "modal_app": "https://modal.com/apps/ani-sivaa/main/ap-VWA6vk00c8yLlgkAyafO2d",
+      "note": "round-2 wm-1 training on Modal (~1400/18000 early k=1); controller pid active",
+      "timestamp": "2026-08-13T11:13:38Z"
+    }
+  ],
   "modal_credit_note": {
     "as_of": "2026-08-12T14:20Z",
     "billing_summary_billed": 0.0,
