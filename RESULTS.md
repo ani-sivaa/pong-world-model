@@ -388,9 +388,11 @@ an 80% win-rate requirement.
   `results/campaign_logs/controller_v2_2026-08-13.log`.
 
 
-- **Round-2 WM-1 mid-train (Modal):** **11500/18000** at ~3516s (`k=5`);
-  utilization hinge still intermittently active (`util≈6e-4`). Continuing
-  toward full 18k before wm-2 / pretrust. App `ap-VWA6vk00c8yLlgkAyafO2d`.
+- **Round-2 WM-1 complete:** full **18000/18000** steps (~6973s). Late-train
+  `util` hinge mostly quiet (above target); ballless penalty tiny. Evidence
+  `results/campaign_evidence/wm_log_v2_r2_wm1.json`. **WM-2 training started**
+  (app `ap-6VcpSQXXGdKrkX07vWTEHD`). Billing ≈ metered $35.6 / billed $4.18.
+
 
 
 

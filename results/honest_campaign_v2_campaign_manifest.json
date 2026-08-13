@@ -2,9 +2,9 @@
   "final_evaluation_uses": 0,
   "live_notes": [
     {
-      "modal_app": "https://modal.com/apps/ani-sivaa/main/ap-VWA6vk00c8yLlgkAyafO2d",
-      "note": "round-2 wm-1 training on Modal (~1400/18000 early k=1); controller pid active",
-      "timestamp": "2026-08-13T11:13:38Z"
+      "modal_app_wm2": "https://modal.com/apps/ani-sivaa/main/ap-6VcpSQXXGdKrkX07vWTEHD",
+      "note": "round-2 wm-1 complete 18000/18000; wm-2 started",
+      "timestamp": "2026-08-13T13:09:54Z"
     }
   ],
   "modal_credit_note": {
@@ -1483,6 +1483,15 @@
       "note": "Recovered from worldmodel-vol; no local train log yet",
       "ok": true,
       "recovered_after_session_loss": true
+    },
+    "round-2:wm-1": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r2_wm1.pt",
+      "evidence": "results/campaign_evidence/wm_log_v2_r2_wm1.json",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "wall_seconds": 6973,
+      "wm_steps_logged": 18000
     }
   },
   "status": "running"
