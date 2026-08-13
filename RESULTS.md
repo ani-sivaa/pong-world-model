@@ -360,6 +360,24 @@ an 80% win-rate requirement.
   WM train logs `wm_log_r*_wm*.json`, manifest
   `results/honest_campaign_v1_campaign_manifest.json`.
 
+
+
+### Honest research cycle (2026-08-13) — resume after trust-pass flywheel
+
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` present; Modal profile `default` ok; GPU smoke
+  `MODAL_SMOKE_OK` (Tesla T4). Env credit telemetry at start = **$25**.
+- Billing snapshot (spend fields only): metered ≈ $33.63 / credits applied ≈
+  $30.00 / billed ≈ $2.26 — free credits consumed; continue under env
+  telemetry until auth/quota hard-stop.
+- Prior branch work (`honest_campaign_v2` on 4b66) already cleared binding
+  pretrust gates and completed round-1 development (best **9.33%** wins vs
+  **12%** dream-v2 control; none eligible). Volume retains round-2 collect +
+  `wm0` checkpoint mid-cycle. This branch ports the repairs and resumes.
+- Science unchanged: policy gradients only inside WM; no demo export until
+  trust-passing development promotion; prior 17.5% trust-failed stochastic
+  not exported; final panel unused.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent

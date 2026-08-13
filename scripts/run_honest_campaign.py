@@ -82,6 +82,13 @@ def acquisition_mix(previous_selection):
         gate for candidate in previous_selection.get("candidates", [])
         for gate in candidate.get("failed_trust_gates", [])
     }
+    # Prefer the binding-repair mix whenever latent utilization failed.
+    # The old collapse mix (stochastic=.45) repeatedly made ballless worse
+    # without clearing the utilization gate.
+    if "stochastic_latent_utilization" in failed:
+        return config.CAMPAIGN["acquisition_mix_binding_repair"]
+    if "ballless_positive_rate" in failed:
+        return config.CAMPAIGN["acquisition_mix_calibration"]
     if any(name.startswith("stochastic_") for name in failed):
         return config.CAMPAIGN["acquisition_mix_collapse"]
     if {"reward_mae", "done_brier", "dream_real_reward_gap"} & failed:
@@ -120,6 +127,7 @@ def round_plan(args, round_index, mix):
             "--tag", f"{tag}_wm{index}", "--v2", "--stochastic",
             "--sampler", "balanced", "--bootstrap", "--seed", str(seed),
             "--steps", str(args.steps),
+            "--max-seconds", str(config.CAPS["wm_train"]),
         ]), path, True))
 
     pretrust = results / f"trust_{tag}_prepolicy.json"
@@ -137,6 +145,7 @@ def round_plan(args, round_index, mix):
             "--scale", "full", "--data", str(data), "--wm", *map(str, wm_paths),
             "--algorithm", "ppo", "--latent-mode", "sample", "--ball-guard",
             "--seed", str(seed), "--updates", str(args.updates),
+            "--max-seconds", str(config.CAPS["dream"]),
             "--tag", f"{tag}_ppo_seed{seed}", "--out", str(policy),
         ]), policy, True))
         trust = results / f"trust_{tag}_candidate{index}.json"
@@ -166,7 +175,9 @@ def round_plan(args, round_index, mix):
                 "--wm", *map(str, wm_paths), "--algorithm", "reinforce",
                 "--latent-mode", "sample", "--ball-guard",
                 "--seed", str(config.ROUND_TWO["policy_seeds"][0]),
-                "--updates", str(args.updates), "--tag", f"{tag}_reinforce",
+                "--updates", str(args.updates),
+                "--max-seconds", str(config.CAPS["dream"]),
+                "--tag", f"{tag}_reinforce",
                 "--out", str(ablation),
             ]), ablation, True))
         stages.append(("reinforce-development", remote_command(
