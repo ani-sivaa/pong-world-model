@@ -412,6 +412,7 @@ an 80% win-rate requirement.
 - **Round-2 policy-0 mid-flight:** update 180/2500 dream_return=-0.053 alive_len=22.1/40 ent=0.733 unc=0.00413 penalty=0.00435 1795s
 
 
+
 - Science unchanged: policy gradients only inside WM; no demo export until
   trust-passing development promotion; prior 17.5% trust-failed stochastic
   not exported; final panel unused.
