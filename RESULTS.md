@@ -374,6 +374,14 @@ an 80% win-rate requirement.
   pretrust gates and completed round-1 development (best **9.33%** wins vs
   **12%** dream-v2 control; none eligible). Volume retains round-2 collect +
   `wm0` checkpoint mid-cycle. This branch ports the repairs and resumes.
+
+- **Volume recovery (2026-08-13):** `honest_campaign_v2` round-1 selection
+  complete — candidates development mean win rates **0.0% / 9.33% / 0.0%**
+  (policy-2 wall-clock ~1390/2500 updates). All three candidate trusts PASS;
+  none eligible vs 80% threshold or the 12% dream-v2 control. Round-2
+  collect (default mix, seed 3301, T=1e6) and `wm0` checkpoint already on
+  `worldmodel-vol`. Resuming controller at `round-2:wm-1`.
+
 - Science unchanged: policy gradients only inside WM; no demo export until
   trust-passing development promotion; prior 17.5% trust-failed stochastic
   not exported; final panel unused.
