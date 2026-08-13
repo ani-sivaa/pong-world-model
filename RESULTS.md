@@ -382,6 +382,11 @@ an 80% win-rate requirement.
   collect (default mix, seed 3301, T=1e6) and `wm0` checkpoint already on
   `worldmodel-vol`. Resuming controller at `round-2:wm-1`.
 
+
+- **Controller resume launched:** `honest_campaign_v2 --execute --max-rounds 3`
+  starting at `round-2:wm-1` (collect+wm0 recovered). Log:
+  `results/campaign_logs/controller_v2_2026-08-13.log`.
+
 - Science unchanged: policy gradients only inside WM; no demo export until
   trust-passing development promotion; prior 17.5% trust-failed stochastic
   not exported; final panel unused.
