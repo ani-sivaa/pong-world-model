@@ -75,6 +75,18 @@ def remote_command(module, argv, gpu=True):
     ]
 
 
+def prior_round_pretrust_stop(manifest_round):
+    """If a prior run stopped before policy, return a synthetic selection.
+
+    Resume must not re-enter dream-policy stages after a failed pretrust just
+    because the pretrust command itself returned ok=True.
+    """
+    if not manifest_round or not manifest_round.get("stopped_before_policy"):
+        return None
+    failed = list(manifest_round.get("failed_trust_gates") or [])
+    return {"candidates": [{"failed_trust_gates": failed}]}
+
+
 def acquisition_mix(previous_selection):
     if not previous_selection:
         return config.CAMPAIGN["acquisition_mix_default"]
@@ -277,6 +289,16 @@ def main():
 
     previous_selection = None
     for round_index in range(args.max_rounds):
+        # Resume-safe: a prior pretrust failure must not fall through into
+        # unpaid-for policy stages just because the pretrust *command* ok'd.
+        if round_index < len(manifest["rounds"]):
+            synthetic = prior_round_pretrust_stop(manifest["rounds"][round_index])
+            if synthetic is not None:
+                failed = synthetic["candidates"][0]["failed_trust_gates"]
+                previous_selection = synthetic
+                print(f"[campaign] SKIP round-{round_index} "
+                      f"(prior pretrust stop: {failed or ['overall_pass=false']})")
+                continue
         mix = acquisition_mix(previous_selection)
         stages, selection_path = round_plan(args, round_index, mix)
         if len(manifest["rounds"]) <= round_index:
@@ -290,6 +312,20 @@ def main():
             prior = manifest["stages"].get(stage_id)
             if prior and prior.get("ok"):
                 print(f"[campaign] SKIP {stage_id}")
+                # Reconstruct round_failure from stored trust when skipping.
+                if name == "pretrust":
+                    trust = prior.get("trust") or {}
+                    gates = trust.get("gates") or {}
+                    failed_gates = [
+                        gate_name for gate_name, gate in gates.items()
+                        if not gate.get("available", False)
+                        or gate.get("pass") is not True
+                    ]
+                    if trust.get("overall_pass") is not True or failed_gates:
+                        round_failure = {
+                            "candidates": [{
+                                "failed_trust_gates": failed_gates}]}
+                        break
                 continue
             print(f"[campaign] {'RUN' if args.execute else 'DRY-RUN'} "
                   f"{stage_id}\n  {shlex.join(command)}")

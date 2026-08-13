@@ -15,7 +15,11 @@ from agents.train_dream import (
 from scripts.collect_adaptive import enrich_terminal_context
 from scripts.evaluate_trust import stochastic_collapse_gates
 from scripts.promote_round_two import aggregate_reports
-from scripts.run_honest_campaign import acquisition_mix, round_plan
+from scripts.run_honest_campaign import (
+    acquisition_mix,
+    prior_round_pretrust_stop,
+    round_plan,
+)
 from scripts.run_round_two import build_plan
 from scripts.select_candidate import select_candidate
 from scripts.evaluate_panel import wilson_interval
@@ -258,6 +262,23 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
         mix = acquisition_mix(selection)
         self.assertEqual(mix, config.CAMPAIGN["acquisition_mix_binding_repair"])
         self.assertNotEqual(mix, config.CAMPAIGN["acquisition_mix_collapse"])
+
+    def test_prior_pretrust_stop_blocks_policy_resume(self):
+        stopped = prior_round_pretrust_stop({
+            "stopped_before_policy": True,
+            "failed_trust_gates": ["ballless_positive_rate"],
+        })
+        self.assertEqual(
+            stopped["candidates"][0]["failed_trust_gates"],
+            ["ballless_positive_rate"])
+        self.assertEqual(
+            acquisition_mix(stopped),
+            config.CAMPAIGN["acquisition_mix_calibration"])
+        self.assertIsNone(prior_round_pretrust_stop({
+            "stopped_before_policy": False,
+            "failed_trust_gates": ["ballless_positive_rate"],
+        }))
+        self.assertIsNone(prior_round_pretrust_stop(None))
 
     def test_candidate_selection_never_reads_final_results(self):
         trust = {"overall_pass": True,
