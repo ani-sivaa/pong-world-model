@@ -396,7 +396,8 @@ an 80% win-rate requirement.
 
 
 
-- **Round-2 WM-2 mid-train:** step 11900/18000 k=5 loss=0.00831 frame=0.00212 rew=0.00009 done=0.00081 kl=1.03711 util=0.00029 ballless=0.00158 events
+- **Round-2 WM-2 mid-train:** step 15200/18000 k=5 loss=0.05033 frame=0.00101 rew=0.00381 done=0.02591 kl=0.90965 util=0.00000 ballless=0.00638 events
+
 
 
 - Science unchanged: policy gradients only inside WM; no demo export until
