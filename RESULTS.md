@@ -360,6 +360,77 @@ an 80% win-rate requirement.
   WM train logs `wm_log_r*_wm*.json`, manifest
   `results/honest_campaign_v1_campaign_manifest.json`.
 
+
+
+### Honest research cycle (2026-08-13) — resume after trust-pass flywheel
+
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` present; Modal profile `default` ok; GPU smoke
+  `MODAL_SMOKE_OK` (Tesla T4). Env credit telemetry at start = **$25**.
+- Billing snapshot (spend fields only): metered ≈ $33.63 / credits applied ≈
+  $30.00 / billed ≈ $2.26 — free credits consumed; continue under env
+  telemetry until auth/quota hard-stop.
+- Prior branch work (`honest_campaign_v2` on 4b66) already cleared binding
+  pretrust gates and completed round-1 development (best **9.33%** wins vs
+  **12%** dream-v2 control; none eligible). Volume retains round-2 collect +
+  `wm0` checkpoint mid-cycle. This branch ports the repairs and resumes.
+
+- **Volume recovery (2026-08-13):** `honest_campaign_v2` round-1 selection
+  complete — candidates development mean win rates **0.0% / 9.33% / 0.0%**
+  (policy-2 wall-clock ~1390/2500 updates). All three candidate trusts PASS;
+  none eligible vs 80% threshold or the 12% dream-v2 control. Round-2
+  collect (default mix, seed 3301, T=1e6) and `wm0` checkpoint already on
+  `worldmodel-vol`. Resuming controller at `round-2:wm-1`.
+
+
+- **Controller resume launched:** `honest_campaign_v2 --execute --max-rounds 3`
+  starting at `round-2:wm-1` (collect+wm0 recovered). Log:
+  `results/campaign_logs/controller_v2_2026-08-13.log`.
+
+
+- **Round-2 WM-1 complete:** full **18000/18000** steps (~6973s). Late-train
+  `util` hinge mostly quiet (above target); ballless penalty tiny. Evidence
+  `results/campaign_evidence/wm_log_v2_r2_wm1.json`. **WM-2 training started**
+  (app `ap-6VcpSQXXGdKrkX07vWTEHD`). Billing ≈ metered $35.6 / billed $4.18.
+
+
+
+
+
+
+
+
+- **Round-2 WM-2 complete:** full **18000/18000** (~7029s). Evidence
+  `results/campaign_evidence/wm_log_v2_r2_wm2.json`.
+- **Round-2 pretrust (full): PASS.** Binding gates cleared again:
+  - `stochastic_latent_utilization` **4.739e-05** (≥1e-07) PASS
+  - `ballless_positive_rate` **0.0331** (≤0.05) PASS
+  - Evidence: `results/campaign_evidence/v2_r2_pretrust.json`
+- **Dream-policy training started** for round-2 (imagined PPO only). First seed
+  `policy-0` (42) launched under `CAPS.dream=14400`. No demo export yet.
+
+
+
+
+
+- **Hard stop (Modal spend limit):** round-2 `policy-0` reached **180/2500**
+  imagined PPO updates then Modal returned `ResourceExhaustedError` (workspace
+  spend limit); retries saw workspace disabled. Billing ≈ metered $38 /
+  credits $30 / billed $6.6. Controller stopped; no further policy seeds.
+- **Trust gates (this cycle):** r2 pretrust **PASS** (util 4.74e-5, ballless
+  0.033). Prior r1 also PASS with development best **9.33%** vs **12%**
+  dream-v2 control.
+- **Development / transfer vs 12% control:** round-2 incomplete (no finished
+  policy → no development panel). Round-1 best remains **9.33%** (below
+  control). **Not promoted.**
+- **final_evaluation_uses:** 0. Demo/web export **unchanged**.
+- **Controls retained:** dream v2 ~12%; trust-passing deterministic ensemble;
+  prior 17.5% trust-failed stochastic policy not exported.
+
+- Science unchanged: policy gradients only inside WM; no demo export until
+  trust-passing development promotion; prior 17.5% trust-failed stochastic
+  not exported; final panel unused.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
