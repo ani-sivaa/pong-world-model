@@ -57,3 +57,30 @@ ImportError: No module named infra.does_not_exist
   after ≤2 pretrust failures with no promotion/demo export.
 - Collision check: only this Cloud Agent was RUNNING on the branch; no
   second controller started.
+
+## Modal spend-limit hard stop — honest_campaign_v2 round-2 policy-0 — 2026-08-13
+- Phase: `honest_campaign_v2` execute, after r2 pretrust PASS, during
+  `round-2:policy-0` dream PPO (seed 42).
+- Symptom: first attempt reached ~update 180/2500 then Modal raised
+  `ResourceExhaustedError: Workspace ... has exceeded its spend limit`.
+  Retries hit workspace-disabled / spend-limit. Billing ≈ metered $38 /
+  credits $30 / billed $6.6. Partial policy checkpoint persisted at step 100.
+- Impact: controller stopped; no further dream-policy seeds; no round-2
+  development panel; no promotion; no demo export; final panel unused.
+- Action: recorded `budget_or_auth_exhausted`; widened `STOP_ERROR` regex.
+  Did **not** relaunch paid jobs under the hard stop.
+
+## Modal spend limit still enforced — daily resume 2026-08-15
+- Phase: daily honest-research automation on
+  `cursor/honest-research-cycle-6c40` after porting binding-trust repairs.
+- Auth: tokens present; Modal profile authenticates; billing summary JSON
+  readable. Env `MODAL_CREDIT_BALANCE_USD=25` is present but is **not** a
+  live remaining-balance override for Modal's workspace spend limit.
+- Symptom: `modal run scripts/smoke_modal.py` fails immediately with
+  `Workspace ... has exceeded its spend limit` (no GPU allocation).
+- Impact: cannot resume `honest_campaign_v2` round-2 policy-0 or run any
+  paid collect/WM/dream stages. No credits burned this run.
+- Action: recorded blocker in RESULTS.md + campaign manifest
+  `resume_attempts`; controller now ready to `--init-from` the step-100
+  checkpoint when the spend limit is raised. Stopped without launching
+  campaign execute.
