@@ -22,7 +22,8 @@ import config  # noqa: E402
 
 STOP_ERROR = re.compile(
     r"(insufficient.*credit|quota.*exceed|payment required|not authenticated|"
-    r"unauthorized|credit.*exhaust)", re.IGNORECASE)
+    r"unauthorized|credit.*exhaust|spend limit|resourceexhausted|"
+    r"workspace .* disabled|exceeded its spend)", re.IGNORECASE)
 
 
 def modal_credit_telemetry():
@@ -75,6 +76,18 @@ def remote_command(module, argv, gpu=True):
     ]
 
 
+def prior_round_pretrust_stop(manifest_round):
+    """If a prior run stopped before policy, return a synthetic selection.
+
+    Resume must not re-enter dream-policy stages after a failed pretrust just
+    because the pretrust command itself returned ok=True.
+    """
+    if not manifest_round or not manifest_round.get("stopped_before_policy"):
+        return None
+    failed = list(manifest_round.get("failed_trust_gates") or [])
+    return {"candidates": [{"failed_trust_gates": failed}]}
+
+
 def acquisition_mix(previous_selection):
     if not previous_selection:
         return config.CAMPAIGN["acquisition_mix_default"]
@@ -82,6 +95,13 @@ def acquisition_mix(previous_selection):
         gate for candidate in previous_selection.get("candidates", [])
         for gate in candidate.get("failed_trust_gates", [])
     }
+    # Prefer the binding-repair mix whenever latent utilization failed.
+    # The old collapse mix (stochastic=.45) repeatedly made ballless worse
+    # without clearing the utilization gate.
+    if "stochastic_latent_utilization" in failed:
+        return config.CAMPAIGN["acquisition_mix_binding_repair"]
+    if "ballless_positive_rate" in failed:
+        return config.CAMPAIGN["acquisition_mix_calibration"]
     if any(name.startswith("stochastic_") for name in failed):
         return config.CAMPAIGN["acquisition_mix_collapse"]
     if {"reward_mae", "done_brier", "dream_real_reward_gap"} & failed:
@@ -120,6 +140,7 @@ def round_plan(args, round_index, mix):
             "--tag", f"{tag}_wm{index}", "--v2", "--stochastic",
             "--sampler", "balanced", "--bootstrap", "--seed", str(seed),
             "--steps", str(args.steps),
+            "--max-seconds", str(config.CAPS["wm_train"]),
         ]), path, True))
 
     pretrust = results / f"trust_{tag}_prepolicy.json"
@@ -137,6 +158,7 @@ def round_plan(args, round_index, mix):
             "--scale", "full", "--data", str(data), "--wm", *map(str, wm_paths),
             "--algorithm", "ppo", "--latent-mode", "sample", "--ball-guard",
             "--seed", str(seed), "--updates", str(args.updates),
+            "--max-seconds", str(config.CAPS["dream"]),
             "--tag", f"{tag}_ppo_seed{seed}", "--out", str(policy),
         ]), policy, True))
         trust = results / f"trust_{tag}_candidate{index}.json"
@@ -166,7 +188,9 @@ def round_plan(args, round_index, mix):
                 "--wm", *map(str, wm_paths), "--algorithm", "reinforce",
                 "--latent-mode", "sample", "--ball-guard",
                 "--seed", str(config.ROUND_TWO["policy_seeds"][0]),
-                "--updates", str(args.updates), "--tag", f"{tag}_reinforce",
+                "--updates", str(args.updates),
+                "--max-seconds", str(config.CAPS["dream"]),
+                "--tag", f"{tag}_reinforce",
                 "--out", str(ablation),
             ]), ablation, True))
         stages.append(("reinforce-development", remote_command(
@@ -266,6 +290,16 @@ def main():
 
     previous_selection = None
     for round_index in range(args.max_rounds):
+        # Resume-safe: a prior pretrust failure must not fall through into
+        # unpaid-for policy stages just because the pretrust *command* ok'd.
+        if round_index < len(manifest["rounds"]):
+            synthetic = prior_round_pretrust_stop(manifest["rounds"][round_index])
+            if synthetic is not None:
+                failed = synthetic["candidates"][0]["failed_trust_gates"]
+                previous_selection = synthetic
+                print(f"[campaign] SKIP round-{round_index} "
+                      f"(prior pretrust stop: {failed or ['overall_pass=false']})")
+                continue
         mix = acquisition_mix(previous_selection)
         stages, selection_path = round_plan(args, round_index, mix)
         if len(manifest["rounds"]) <= round_index:
@@ -279,6 +313,20 @@ def main():
             prior = manifest["stages"].get(stage_id)
             if prior and prior.get("ok"):
                 print(f"[campaign] SKIP {stage_id}")
+                # Reconstruct round_failure from stored trust when skipping.
+                if name == "pretrust":
+                    trust = prior.get("trust") or {}
+                    gates = trust.get("gates") or {}
+                    failed_gates = [
+                        gate_name for gate_name, gate in gates.items()
+                        if not gate.get("available", False)
+                        or gate.get("pass") is not True
+                    ]
+                    if trust.get("overall_pass") is not True or failed_gates:
+                        round_failure = {
+                            "candidates": [{
+                                "failed_trust_gates": failed_gates}]}
+                        break
                 continue
             print(f"[campaign] {'RUN' if args.execute else 'DRY-RUN'} "
                   f"{stage_id}\n  {shlex.join(command)}")
