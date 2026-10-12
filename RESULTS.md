@@ -393,7 +393,7 @@ Recovered onto this lineage from prior campaign branch work:
   export unchanged. Final panel unused. Prior 17.5% trust-failed stochastic
   policy not exported.
 - **Live (policy-0 resume):** continuing from step 100 with `--init-from`;
-  latest observed **update 200/2500** dream_return=-0.073 at ~983s
+  latest observed **update 390/2500** dream_return=-0.062 at ~2846s
   wall in the current Modal job (`results/campaign_logs/round-2_policy-0.log`).
   wall in the current Modal job (`results/campaign_logs/round-2_policy-0.log`).
 
