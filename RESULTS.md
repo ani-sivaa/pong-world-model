@@ -360,6 +360,39 @@ an 80% win-rate requirement.
   WM train logs `wm_log_r*_wm*.json`, manifest
   `results/honest_campaign_v1_campaign_manifest.json`.
 
+### Honest research cycle (2026-08-13) — binding repairs + trust-pass flywheel
+Recovered onto this lineage from prior campaign branch work:
+
+- Binding-trust repair package: `latent_inject_gain=2.5`, relative utilization
+  hinge (`utilization_coef=0.15`, target `5e-6`), `ballless_reward_coef=3.0`,
+  `acquisition_mix_binding_repair`, CAPS `wm_train=10800` / `dream=14400`.
+- `honest_campaign_v2` outcomes:
+  - r0 pretrust: ballless FAIL (util cleared).
+  - r1 pretrust **PASS** → dream PPO → development best **9.33%** wins
+    (below **12%** dream-v2 control; not eligible / not promoted).
+  - r2 pretrust **PASS** (util **4.74e-5**, ballless **0.033**).
+  - r2 `policy-0` reached ~180/2500 imagined updates then Modal
+    `ResourceExhaustedError` (workspace spend limit). Partial checkpoint
+    on volume at **step 100**.
+- **Not promoted.** Demo/web export unchanged. Final panel unused.
+
+### Honest research cycle (2026-10-12) — resume after spend-limit clear
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal client_ok; profile `default`.
+- Env credit telemetry = **$25**. GPU smoke **PASS**: Tesla T4,
+  torch 2.13.0+cu130, 20 train steps in 1.747s
+  (`results/campaign_logs/modal_smoke_2026-10-12.log`).
+- Binding repairs + resume hardening ported to this branch; unit tests 24/24.
+- **Did not** re-burn collect→WM on the old v1 binding failures. Resume target:
+  `honest_campaign_v2` round-2 `policy-0` with `--init-from`
+  `/vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt` (step 100).
+- Trust gates (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033).
+- Transfer vs 12% dream-v2 control: r1 best **9.33%** (below control);
+  round-2 policy incomplete → no new development panel yet.
+- Promotion: **not promoted** pending round-2 policy completion. Demo/web
+  export unchanged. Final panel unused. Prior 17.5% trust-failed stochastic
+  policy not exported.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
