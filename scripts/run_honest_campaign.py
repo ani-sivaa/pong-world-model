@@ -279,6 +279,26 @@ def main():
     manifest_path = config.RESULTS_DIR / f"{args.tag}_campaign_manifest.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text())
+        # Clearing a prior hard-stop lets the same tag resume paid stages
+        # after credits/auth are restored without rewriting stage history.
+        if args.execute and manifest.get("status") in {
+            "budget_or_auth_exhausted",
+            "blocked_credit_telemetry_unavailable",
+            "blocked_current_run_environment_not_refreshed",
+            "stage_failed",
+        }:
+            resume_attempts = list(manifest.get("resume_attempts") or [])
+            resume_attempts.append({
+                "at": time.time(),
+                "from_status": manifest.get("status"),
+                "credit_balance_usd": credit,
+                "credit_telemetry_source": source,
+                "credit_telemetry_status": telemetry_status,
+            })
+            manifest["resume_attempts"] = resume_attempts
+            manifest["status"] = "running"
+            manifest["modal_credit_telemetry_status"] = telemetry_status
+            _write(manifest_path, manifest)
     else:
         manifest = {
             "preregistration": preregistration(args),
@@ -328,6 +348,11 @@ def main():
                                 "failed_trust_gates": failed_gates}]}
                         break
                 continue
+            # Resume interrupted dream-policy training from the volume
+            # checkpoint when a prior attempt wrote periodic progress.
+            if (name.startswith("policy-") and prior and not prior.get("ok")
+                    and "--init-from" not in command):
+                command = list(command) + ["--init-from", str(artifact)]
             print(f"[campaign] {'RUN' if args.execute else 'DRY-RUN'} "
                   f"{stage_id}\n  {shlex.join(command)}")
             if not args.execute:
