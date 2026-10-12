@@ -393,8 +393,8 @@ Recovered onto this lineage from prior campaign branch work:
   export unchanged. Final panel unused. Prior 17.5% trust-failed stochastic
   policy not exported.
 - **Live (policy-0 resume):** Modal continued after a mid-job restart from the
-  periodic checkpoint at update 1000; latest **update 1320/2500**
-  dream_return=-0.065 (~3532s since restart).
+  periodic checkpoint at update 1000; latest **update 1650/2500**
+  dream_return=-0.048 (~7178s since restart).
   wall in the current Modal job (`results/campaign_logs/round-2_policy-0.log`).
 
 
