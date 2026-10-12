@@ -400,9 +400,9 @@ Recovered onto this lineage from prior campaign branch work:
   **0.0%** (Wilson pooled CI [8.673617379884035e-19, 0.012642971224546034]);
   mean hits ≈ 0.33/ep; mean point −1.0. **Below** the 12% dream-v2 control
   and below r1 best 9.33%.
-- **Live:** round-2 `policy-1` (seed 314) launched after policy-0; no demo
-  export; final panel unused; prior 17.5% trust-failed stochastic policy not
-  exported.
+- **Live:** round-2 `policy-1` (seed 314) in flight (~update 400/2500);
+  no demo export; final panel unused; prior 17.5% trust-failed stochastic
+  policy not exported.
 
 ## Phase 4
 ## Phase 4 — web demo — COMPLETE (both models)
