@@ -392,12 +392,19 @@ Recovered onto this lineage from prior campaign branch work:
 - Promotion: **not promoted** pending round-2 policy completion. Demo/web
   export unchanged. Final panel unused. Prior 17.5% trust-failed stochastic
   policy not exported.
-- **Live (policy-0 resume):** Modal continued after a mid-job restart from the
-  periodic checkpoint at update 1000; latest **update 1970/2500**
-  dream_return=-0.050 (~10733s since restart).
-  wall in the current Modal job (`results/campaign_logs/round-2_policy-0.log`).
+- **Round-2 policy-0 complete (2026-10-12):** wall-clock stop at update
+  **2302/2500** (`DREAM_OK`, ckpt on volume). Mid-job Modal restart had
+  reloaded the step-1000 periodic checkpoint with a fresh 14400s window.
+- **policy-trust-0:** **PASS** (overall_pass=True).
+- **development-0** (seeds 7001/7003/7013, 100 eps): mean win rate
+  **0.0%** (Wilson pooled CI [8.673617379884035e-19, 0.012642971224546034]);
+  mean hits ≈ 0.33/ep; mean point −1.0. **Below** the 12% dream-v2 control
+  and below r1 best 9.33%.
+- **Live:** round-2 `policy-1` (seed 314) launched after policy-0; no demo
+  export; final panel unused; prior 17.5% trust-failed stochastic policy not
+  exported.
 
-
+## Phase 4
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
