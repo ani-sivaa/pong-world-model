@@ -29,6 +29,11 @@
       "at": 1791890264.0685937,
       "note": "r2 policy-1 resumed from 1200; latest update 1250 dream_return=-0.054",
       "timestamp": "2026-10-13T11:17:44Z"
+    },
+    {
+      "at": 1791890947.6913857,
+      "note": "r2 policy-1 mid-flight update 1320/2500 dream_return=-0.043 wall_s=1144",
+      "timestamp": "2026-10-13T11:29:07Z"
     }
   ],
   "modal_credit_note": "MODAL_CREDIT_BALANCE_USD=25 at 2026-10-13 start; billing metered~11.51 credits~9.89 billed~0",
