@@ -69,6 +69,31 @@ def fetch_volume(remote_path, local_path):
     ], cwd=REPO)
 
 
+def volume_checkpoint_exists(remote_path):
+    """True when a Modal volume object exists at the checkpoint path.
+
+    Used to resume interrupted dream-policy stages after a controller crash
+    that never recorded ``ok=False`` (so SKIP/init-from would otherwise miss
+    a partial ``/vol/checkpoints/...pt``).
+    """
+    rel = str(remote_path).removeprefix("/vol/").lstrip("/")
+    parent, _, name = rel.rpartition("/")
+    if not name:
+        return False
+    result = subprocess.run(
+        [sys.executable, "-m", "modal", "volume", "ls", "worldmodel-vol",
+         parent or "."],
+        cwd=REPO, capture_output=True, text=True)
+    if result.returncode != 0:
+        return False
+    needle = f"{parent}/{name}" if parent else name
+    return any(
+        line.strip().rstrip("/").endswith(needle)
+        or line.strip().rstrip("/").endswith(name)
+        for line in (result.stdout or "").splitlines()
+    )
+
+
 def remote_command(module, argv, gpu=True):
     return [
         sys.executable, "-m", "infra.remote", "--module", module,
@@ -349,10 +374,16 @@ def main():
                         break
                 continue
             # Resume interrupted dream-policy training from the volume
-            # checkpoint when a prior attempt wrote periodic progress.
-            if (name.startswith("policy-") and prior and not prior.get("ok")
-                    and "--init-from" not in command):
+            # checkpoint when a prior attempt wrote periodic progress, or when
+            # a mid-flight controller exit left an unmarked partial checkpoint.
+            if (name.startswith("policy-") and "--init-from" not in command
+                    and (
+                        (prior and not prior.get("ok"))
+                        or (not prior and volume_checkpoint_exists(artifact))
+                    )):
                 command = list(command) + ["--init-from", str(artifact)]
+                print(f"[campaign] resume {stage_id} via --init-from "
+                      f"{artifact}")
             print(f"[campaign] {'RUN' if args.execute else 'DRY-RUN'} "
                   f"{stage_id}\n  {shlex.join(command)}")
             if not args.execute:

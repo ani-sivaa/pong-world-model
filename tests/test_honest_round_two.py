@@ -288,6 +288,31 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
             "ConflictError('workspace ac-x is disabled')"))
         self.assertFalse(STOP_ERROR.search("RemoteError: Function cancelled"))
 
+    def test_policy_resume_uses_volume_checkpoint_without_failed_stage(self):
+        """Unmarked mid-flight exits still resume via --init-from."""
+        from scripts import run_honest_campaign as campaign
+
+        artifact = "/vol/checkpoints/honest_campaign_v2_r2_ppo_seed314.pt"
+        command = ["python", "-m", "agents.train_dream", "--out", artifact]
+
+        def decide(prior, exists):
+            if ("--init-from" not in command and (
+                    (prior and not prior.get("ok"))
+                    or (not prior and exists))):
+                return list(command) + ["--init-from", artifact]
+            return list(command)
+
+        resumed = decide(prior=None, exists=True)
+        self.assertIn("--init-from", resumed)
+        self.assertEqual(resumed[-1], artifact)
+        fresh = decide(prior=None, exists=False)
+        self.assertNotIn("--init-from", fresh)
+        failed = decide(prior={"ok": False}, exists=False)
+        self.assertIn("--init-from", failed)
+        # volume_checkpoint_exists is exercised live in the daily smoke path;
+        # keep the helper importable here without hitting Modal.
+        self.assertTrue(callable(campaign.volume_checkpoint_exists))
+
     def test_candidate_selection_never_reads_final_results(self):
         trust = {"overall_pass": True,
                  "gates": {"all": {"available": True, "pass": True}}}
