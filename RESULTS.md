@@ -404,7 +404,25 @@ Recovered onto this lineage from prior campaign branch work:
   no demo export; final panel unused; prior 17.5% trust-failed stochastic
   policy not exported.
 
-## Phase 4
+### Honest research cycle (2026-10-13) — continue r2 policy-1
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal profile `default` ok.
+- Env credit telemetry = **$25** (start-of-run static). Billing snapshot:
+  metered ≈ $11.51 / credits applied ≈ $9.89 / billed $0.00 (not a live
+  remaining-credit field).
+- GPU smoke **PASS**: Tesla T4, torch 2.13.0+cu130, 20 train steps in 1.285s
+  (`results/campaign_logs/modal_smoke_2026-10-13.log`).
+- Binding repairs already trusted on this lineage (r1/r2 pretrust PASS). **Did
+  not** re-burn collect→WM for the old v1 latent-collapse / ballless pair.
+- Volume resume: `honest_campaign_v2_r2_ppo_seed314.pt` at **step 1200/2500**.
+  Controller now `--init-from` that checkpoint when a partial volume artifact
+  exists without a recorded stage failure (mid-flight controller exit).
+- Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033);
+  r2 policy-trust-0 PASS; development-0 **0%** wins (<12% dream-v2 control).
+- Resume target: round-2 `policy-1` → policy-trust-1 → development-1 →
+  remaining seeds if credits allow. No demo export unless trust+promotion.
+  Final panel unused. Prior 17.5% trust-failed stochastic policy not exported.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
