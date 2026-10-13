@@ -31,6 +31,22 @@ def to_dev(x, dev, dtype=torch.float32):
     return torch.from_numpy(np.ascontiguousarray(x)).to(dev, dtype)
 
 
+def interior_ball_mass(frames: torch.Tensor) -> torch.Tensor:
+    """Sum of soft ball pixels, excluding walls and paddle columns.
+
+    Matches ``scripts.evaluate_trust._has_ball``'s interior mask so the
+    ballless-reward training penalty targets the same invariant.
+    """
+    if frames.ndim == 4:
+        frames = frames[:, 0]
+    mass_map = frames.clone()
+    mass_map[:, 0, :] = 0
+    mass_map[:, config.ENV["H"] - 1, :] = 0
+    for x in (config.ENV["left_x"], config.ENV["right_x"]):
+        mass_map[:, :, x:x + config.ENV["paddle_w"]] = 0
+    return mass_map.sum(dim=(1, 2))
+
+
 def event_balanced_weights(events: torch.Tensor, alive: torch.Tensor,
                            clip: float = 20.0) -> torch.Tensor:
     """Inverse-frequency event weights, normalized over valid examples."""
@@ -51,7 +67,9 @@ def event_balanced_weights(events: torch.Tensor, alive: torch.Tensor,
 
 
 def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
-                   free_bits=None, return_kl=False, events=None):
+                   free_bits=None, return_kl=False, events=None,
+                   utilization_coef=None, utilization_target=None,
+                   ballless_reward_coef=None, ballless_mass_tau=None):
     stack_u8, acts, targets_u8, rews, dns, alive = batch
     B, k = acts.shape
     stack = to_dev(stack_u8, dev) / 255.0
@@ -72,9 +90,23 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
     rew_loss = torch.zeros((), device=dev)
     done_loss = torch.zeros((), device=dev)
     kl_loss = torch.zeros((), device=dev)
+    util_loss = torch.zeros((), device=dev)
+    ballless_loss = torch.zeros((), device=dev)
     is_stochastic = isinstance(wm, StochasticWorldModel)
     kl_coef = config.WM["kl_coef"] if kl_coef is None else kl_coef
     free_bits = config.WM["free_bits"] if free_bits is None else free_bits
+    utilization_coef = (
+        config.WM.get("utilization_coef", 0.0) if utilization_coef is None
+        else utilization_coef)
+    utilization_target = (
+        config.WM.get("utilization_target", 0.0) if utilization_target is None
+        else utilization_target)
+    ballless_reward_coef = (
+        config.WM.get("ballless_reward_coef", 0.0) if ballless_reward_coef is None
+        else ballless_reward_coef)
+    ballless_mass_tau = (
+        config.WM.get("ballless_mass_tau", 0.75) if ballless_mass_tau is None
+        else ballless_mass_tau)
     cur = stack
     for j in range(k):
         if is_stochastic:
@@ -96,6 +128,20 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
             # for collapsing completely to the prior.
             per_example_kl = kl_per_dim.clamp_min(free_bits).sum(dim=-1)
             kl_loss = kl_loss + (per_example_kl * frame_mask).mean()
+            if utilization_coef > 0 and wm.training:
+                # Relative hinge: O(1) when collapsed, 0 at/above target. Absolute
+                # MSE hinges were ~1e-6 and drowned by frame BCE (~1e-2).
+                sample_a = torch.sigmoid(wm(
+                    cur, acts_t[:, j], latent_mode="sample")[0])
+                sample_b = torch.sigmoid(wm(
+                    cur, acts_t[:, j], latent_mode="sample")[0])
+                sample_var = (sample_a - sample_b).square().mean(dim=(1, 2, 3))
+                # Two-sample MSE ≈ 2·Var; compare against 2·target so the trust
+                # gate's multi-sample variance floor is the intended scale.
+                target = max(2.0 * float(utilization_target), 1e-12)
+                util_loss = util_loss + (
+                    F.relu(1.0 - sample_var / target) * frame_mask
+                ).mean()
         if v2:
             # reward/done AT step j are valid whenever the episode is alive at j
             rt = to_dev(rews[:, j], dev)
@@ -103,18 +149,43 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
                                    * head_weights[:, j]).mean()
             done_loss = done_loss + (F.binary_cross_entropy_with_logits(
                 d, dns_t[:, j], reduction="none") * head_weights[:, j]).mean()
+            if ballless_reward_coef > 0:
+                pred_frame = torch.sigmoid(logits[:, 0])
+                pred_mass = interior_ball_mass(pred_frame)
+                soft_w = torch.exp(-pred_mass / max(ballless_mass_tau, 1e-6))
+                # Match evaluate_trust._has_ball: a frame is ballless iff no
+                # interior pixel exceeds 0.5. Soft mass alone under-penalized
+                # empty-looking frames that still triggered the hard gate.
+                interior = pred_frame.clone()
+                interior[:, 0, :] = 0
+                interior[:, config.ENV["H"] - 1, :] = 0
+                for x in (config.ENV["left_x"], config.ENV["right_x"]):
+                    interior[:, :, x:x + config.ENV["paddle_w"]] = 0
+                hard_ballless = (interior.amax(dim=(1, 2)) <= 0.5).float()
+                ballless_w = torch.maximum(soft_w, hard_ballless)
+                ballless_loss = ballless_loss + (
+                    F.relu(r) * ballless_w * alive_t[:, j]
+                ).mean()
         if j + 1 < k:  # feed own prediction back in, gradient intact
             cur = torch.cat([cur[:, 1:], torch.sigmoid(logits)], dim=1)
 
     frame_loss = frame_loss / k
     kl_loss = kl_loss / k
+    util_loss = util_loss / k
+    ballless_loss = ballless_loss / k
     total = frame_loss + (kl_coef * kl_loss if is_stochastic else 0.0)
+    if is_stochastic and utilization_coef > 0:
+        total = total + utilization_coef * util_loss
     if v2:
         rew_loss, done_loss = rew_loss / k, done_loss / k
         total = total + config.WM["reward_loss_weight"] * rew_loss \
                       + config.WM["done_loss_weight"] * done_loss
+        if ballless_reward_coef > 0:
+            total = total + ballless_reward_coef * ballless_loss
     losses = (total, frame_loss, rew_loss, done_loss)
-    return (*losses, kl_loss) if return_kl else losses
+    if return_kl:
+        return (*losses, kl_loss, util_loss, ballless_loss)
+    return losses
 
 
 def main():
@@ -194,7 +265,7 @@ def main():
 
     log = {"step": [], "loss": [], "frame": [], "reward": [], "done": [], "kl": [],
            "kl_beta": [], "prior_std": [], "posterior_prior_kl": [],
-           "latent_utilization": [],
+           "latent_utilization": [], "util_loss": [], "ballless_loss": [],
            "batch_events": [], "val_frame": [], "val_step": [],
            "val_event_frame": []}
     t0 = time.time()
@@ -205,7 +276,7 @@ def main():
         kl_warmup_steps = max(1, int(steps * args.kl_warmup_frac))
         kl_beta = args.kl_coef * min(1.0, step / kl_warmup_steps)
         with torch.amp.autocast(dev.type, enabled=use_amp):
-            total, fl, rl, dl, kl = compute_losses(
+            total, fl, rl, dl, kl, util_l, ballless_l = compute_losses(
                 wm, b, dev, args.v2, config.WM["change_loss_weight"],
                 kl_coef=kl_beta, free_bits=args.free_bits, return_kl=True,
                 events=batch_info["events"])
@@ -230,6 +301,8 @@ def main():
             log["done"].append(float(dl.detach()))
             log["kl"].append(float(kl.detach()))
             log["kl_beta"].append(float(kl_beta))
+            log["util_loss"].append(float(util_l.detach()))
+            log["ballless_loss"].append(float(ballless_l.detach()))
             if isinstance(wm, StochasticWorldModel):
                 with torch.no_grad():
                     diagnostic_n = min(16, len(b[0]))
@@ -257,17 +330,19 @@ def main():
                              "latent_utilization"):
                     log[name].append(None)
             log["batch_events"].append(event_log)
-            print(f"  step {step}/{steps} k={k} loss={float(total):.5f} "
-                  f"frame={float(fl):.5f} rew={float(rl):.5f} "
-                  f"done={float(dl):.5f} kl={float(kl):.5f} events={event_log} "
-                  f"{time.time()-t0:.0f}s", flush=True)
+            print(f"  step {step}/{steps} k={k} loss={float(total.detach()):.5f} "
+                  f"frame={float(fl.detach()):.5f} rew={float(rl.detach()):.5f} "
+                  f"done={float(dl.detach()):.5f} kl={float(kl.detach()):.5f} "
+                  f"util={float(util_l.detach()):.5f} "
+                  f"ballless={float(ballless_l.detach()):.5f} "
+                  f"events={event_log} {time.time()-t0:.0f}s", flush=True)
         if step % 1000 == 0 or step == steps:
             wm.eval()
             with torch.no_grad(), torch.amp.autocast(dev.type, enabled=use_amp):
                 vb, val_info = data.sample(
                     min(batch, 64), K, val=True, sampler="natural",
                     return_info=True)
-                _, vfl, _, _, _ = compute_losses(
+                _, vfl, _, _, _, _, _ = compute_losses(
                     wm, vb, dev, args.v2, config.WM["change_loss_weight"],
                     kl_coef=args.kl_coef, free_bits=args.free_bits, return_kl=True)
                 per_event = {}
@@ -276,7 +351,7 @@ def main():
                     if not mask.any():
                         continue
                     event_batch = tuple(x[mask] for x in vb)
-                    _, event_fl, _, _, _ = compute_losses(
+                    _, event_fl, _, _, _, _, _ = compute_losses(
                         wm, event_batch, dev, args.v2,
                         config.WM["change_loss_weight"], kl_coef=args.kl_coef,
                         free_bits=args.free_bits, return_kl=True)

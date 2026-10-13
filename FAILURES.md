@@ -57,3 +57,13 @@ ImportError: No module named infra.does_not_exist
   after ≤2 pretrust failures with no promotion/demo export.
 - Collision check: only this Cloud Agent was RUNNING on the branch; no
   second controller started.
+
+## Dream wall-clock cap — honest_campaign_v2 r2 policy-2 — 2026-10-13
+- Phase: `agents.train_dream` seed 2718 under `CAPS.dream=14400`.
+- Symptom: `[dream] WALL-CLOCK CAP at update 1465` then `DREAM_OK` with
+  checkpoint `/vol/checkpoints/honest_campaign_v2_r2_ppo_seed2718.pt`.
+  Not a Modal spend-limit failure (billing remained billed $0).
+- Impact: policy-2 entered policy-trust/development with a partial update
+  count (1465/2500). Trust still **PASS**; development mean win rate 0%.
+- Action: accepted as protocol-compliant wall stop; volume checkpoint kept
+  for a future `--init-from` resume. No demo export; final panel unused.
