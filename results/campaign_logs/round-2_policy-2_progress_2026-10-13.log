@@ -1,6 +1,10 @@
-at=2026-10-13T17:19:35Z
-latest=(990, -0.047, 9730)
-rate_upd_per_s=0.10177
-projected_wall_stop_update≈1465
-billing_metered_approx=17.76
-credits_applied_approx=16.01
+at=2026-10-13T18:40:00Z
+status=DREAM_OK_WALL_STOP
+final_update=1465
+target_updates=2500
+final_dream_return=-0.057
+wall_s=14411
+policy_trust_2=PASS
+development_2_mean_win_rate=0.0
+selection_eligible=false
+vs_dream_v2_control_12pct=below

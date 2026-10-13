@@ -423,13 +423,24 @@ Recovered onto this lineage from prior campaign branch work:
 - **development-1** (seeds 7001/7003/7013, 100 eps): mean win rate **0.0%**
   (Wilson pooled CI same floor as development-0); mean point −1.0; hits
   ≈ 0.11/ep. **Below** the 12% dream-v2 control and below r1 best 9.33%.
-- **Live:** round-2 `policy-2` (seed 2718) at update **990/2500** (wall 9730s / 14400 → projected wall-stop ~1465). Metered ≈ $17.8 / credits ≈ $16.0. No demo export; final panel unused.
-
-- Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033);
-  r2 policy-trust-0 PASS; development-0 **0%** wins (<12% dream-v2 control).
-- Resume target: round-2 `policy-1` → policy-trust-1 → development-1 →
-  remaining seeds if credits allow. No demo export unless trust+promotion.
-  Final panel unused. Prior 17.5% trust-failed stochastic policy not exported.
+- **Round-2 policy-2 complete (wall-stop):** seed 2718 from scratch → update
+  **1465/2500** (`DREAM_OK` after `WALL-CLOCK CAP`, wall ≈ 14411s,
+  dream_return −0.057). Volume checkpoint retained for a later `--init-from`.
+- **policy-trust-2:** **PASS**. **development-2:** mean win rate **0.0%**
+  (hits ≈ 0.5/ep; mean point −1.0). Below the 12% dream-v2 control.
+- **Selection:** `eligible=false` (all three r2 candidates at 0% development
+  wins; each strict-trust PASS). Controller status
+  `development_threshold_not_met_before_round_limit`.
+- **Credits (end of cycle):** Modal billing metered ≈ **$19.10** / credits
+  applied ≈ **$17.35** / billed **$0**. Env `MODAL_CREDIT_BALANCE_USD=25`
+  remains start telemetry only.
+- **Transfer vs 12% dream-v2 control:** r1 best **9.33%** still leads; r2
+  development panel is **0% / 0% / 0%** for seeds 42 / 314 / 2718.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final
+  panel unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed
+  stochastic policy not exported.
+- Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033); all three
+  r2 policy-trust reports PASS. Binding repairs held; no collect→WM reburn.
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
