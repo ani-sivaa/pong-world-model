@@ -1,9 +1,9 @@
-at=2026-10-13T14:07:43Z
+at=2026-10-13T14:48:13Z
+status=DREAM_OK
+final_update=2500
+final_dream_return=-0.051
+wall_s=12412
 init_from_step=1200
-latest=(2320, -0.058, 10687)
-n_progress_lines=113
-rate_upd_per_s=0.10482
-remaining_to_2500=180
-eta_s_approx=1717
-billing_metered_approx=14.63
-credits_applied_approx=12.88
+policy_trust_1=PASS
+development_1_mean_win_rate=0.0
+vs_dream_v2_control_12pct=below

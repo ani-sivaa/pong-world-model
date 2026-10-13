@@ -417,7 +417,15 @@ Recovered onto this lineage from prior campaign branch work:
 - Volume resume: `honest_campaign_v2_r2_ppo_seed314.pt` at **step 1200/2500**.
   Controller now `--init-from` that checkpoint when a partial volume artifact
   exists without a recorded stage failure (mid-flight controller exit).
-- **Live (mid-flight):** `policy-1` at update **2320/2500** (from 1200; dream_return=-0.058; ~0.105 upd/s; eta ~0.5h). Metered spend ≈ $14.6 / credits ≈ $12.9. No demo export; final panel unused.
+- **Round-2 policy-1 complete (2026-10-13):** resumed from update 1200 →
+  **2500/2500** (`DREAM_OK`, wall ≈ 12412s, final dream_return −0.051).
+- **policy-trust-1:** **PASS** (overall_pass=True; 0 failed gates).
+- **development-1** (seeds 7001/7003/7013, 100 eps): mean win rate **0.0%**
+  (Wilson pooled CI same floor as development-0); mean point −1.0; hits
+  ≈ 0.11/ep. **Below** the 12% dream-v2 control and below r1 best 9.33%.
+- **Live:** round-2 `policy-2` (seed 2718) in flight from scratch; no demo
+  export; final panel unused; prior 17.5% trust-failed stochastic policy not
+  exported.
 
 - Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033);
   r2 policy-trust-0 PASS; development-0 **0%** wins (<12% dream-v2 control).
