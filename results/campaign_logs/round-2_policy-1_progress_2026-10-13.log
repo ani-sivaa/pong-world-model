@@ -1,8 +1,9 @@
-at=2026-10-13T12:06:39Z
+at=2026-10-13T12:36:59Z
 init_from_step=1200
-latest=(1550, -0.069, 3339)
-n_progress_lines=36
-rate_upd_per_s=0.10490
-remaining_to_2500=950
-eta_s_approx=9056
-note=do_not_rewrite_manifest_while_controller_locked
+latest=(1750, -0.061, 5247)
+n_progress_lines=56
+rate_upd_per_s=0.10487
+remaining_to_2500=750
+eta_s_approx=7152
+billing_metered_approx=13.01
+credits_applied_approx=11.39

@@ -417,7 +417,7 @@ Recovered onto this lineage from prior campaign branch work:
 - Volume resume: `honest_campaign_v2_r2_ppo_seed314.pt` at **step 1200/2500**.
   Controller now `--init-from` that checkpoint when a partial volume artifact
   exists without a recorded stage failure (mid-flight controller exit).
-- **Live (mid-flight):** `policy-1` at update **1550/2500** (from 1200; dream_return=-0.069; ~0.105 upd/s; eta ~2.5h). Controller lock held; Modal app active. No demo export; final panel unused.
+- **Live (mid-flight):** `policy-1` at update **1750/2500** (from 1200; dream_return=-0.061; ~0.105 upd/s; eta ~2.0h). Metered spend ≈ $13.0 / credits ≈ $11.4. No demo export; final panel unused.
 
 - Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033);
   r2 policy-trust-0 PASS; development-0 **0%** wins (<12% dream-v2 control).
