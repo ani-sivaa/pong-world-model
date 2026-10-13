@@ -1,9 +1,9 @@
-at=2026-10-13T12:36:59Z
+at=2026-10-13T13:17:24Z
 init_from_step=1200
-latest=(1750, -0.061, 5247)
-n_progress_lines=56
-rate_upd_per_s=0.10487
-remaining_to_2500=750
-eta_s_approx=7152
-billing_metered_approx=13.01
-credits_applied_approx=11.39
+latest=(2000, -0.053, 7628)
+n_progress_lines=81
+rate_upd_per_s=0.10491
+remaining_to_2500=500
+eta_s_approx=4766
+billing_metered_approx=13.82
+credits_applied_approx=12.07
