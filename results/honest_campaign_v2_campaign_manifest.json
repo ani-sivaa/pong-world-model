@@ -24,6 +24,11 @@
       "at": 1791889699.4997318,
       "note": "Daily resume: auth+GPU smoke OK; r2 policy-1 volume ckpt at step 1200/2500; controller will --init-from; binding repairs already clearing pretrust on this lineage; no collect\u2192WM reburn.",
       "timestamp": "2026-10-13T11:10:00Z"
+    },
+    {
+      "at": 1791890264.0685937,
+      "note": "r2 policy-1 resumed from 1200; latest update 1250 dream_return=-0.054",
+      "timestamp": "2026-10-13T11:17:44Z"
     }
   ],
   "modal_credit_note": "MODAL_CREDIT_BALANCE_USD=25 at 2026-10-13 start; billing metered~11.51 credits~9.89 billed~0",
@@ -1977,5 +1982,5 @@
       "wall_seconds": 7054.605870246887
     }
   },
-  "status": "running"
+  "status": "dry_run_complete"
 }
