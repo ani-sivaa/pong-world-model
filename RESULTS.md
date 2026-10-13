@@ -423,7 +423,7 @@ Recovered onto this lineage from prior campaign branch work:
 - **development-1** (seeds 7001/7003/7013, 100 eps): mean win rate **0.0%**
   (Wilson pooled CI same floor as development-0); mean point −1.0; hits
   ≈ 0.11/ep. **Below** the 12% dream-v2 control and below r1 best 9.33%.
-- **Live:** round-2 `policy-2` (seed 2718) at update **250/2500** (~0.102 upd/s; wall 2453s / cap 14400 → likely wall-stop near ~1468 before 2500 unless resumed). No demo export; final panel unused.
+- **Live:** round-2 `policy-2` (seed 2718) at update **620/2500** (~0.102 upd/s; wall 6090s / 14400 → projected wall-stop ~1466). Metered ≈ $16.8 / credits ≈ $15.1. No demo export; final panel unused.
 
 - Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033);
   r2 policy-trust-0 PASS; development-0 **0%** wins (<12% dream-v2 control).

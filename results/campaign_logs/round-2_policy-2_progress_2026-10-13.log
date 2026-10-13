@@ -1,7 +1,7 @@
-at=2026-10-13T15:18:43Z
-latest=(250, -0.073, 2453)
-rate_upd_per_s=0.10201
-remaining_to_2500=2250
-eta_s_uncapped=22057
-wall_remaining_cap≈11947
-projected_wall_stop_update≈1468
+at=2026-10-13T16:19:12Z
+latest=(620, -0.051, 6090)
+rate_upd_per_s=0.10184
+remaining_to_2500=1880
+projected_wall_stop_update≈1466
+billing_metered_approx=16.82
+credits_applied_approx=15.07
