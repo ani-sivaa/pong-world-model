@@ -1,7 +1,8 @@
-at=2026-10-13T11:29:07Z
+at=2026-10-13T12:06:39Z
 init_from_step=1200
-latest=(1320, -0.043, 1144)
-n_progress_lines=13
-rate_upd_per_s=0.10512
-remaining_to_2500=1180
-eta_s_approx=11238
+latest=(1550, -0.069, 3339)
+n_progress_lines=36
+rate_upd_per_s=0.10490
+remaining_to_2500=950
+eta_s_approx=9056
+note=do_not_rewrite_manifest_while_controller_locked
