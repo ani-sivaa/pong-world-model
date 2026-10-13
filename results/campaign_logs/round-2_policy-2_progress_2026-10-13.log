@@ -1,7 +1,6 @@
-at=2026-10-13T16:19:12Z
-latest=(620, -0.051, 6090)
-rate_upd_per_s=0.10184
-remaining_to_2500=1880
-projected_wall_stop_update≈1466
-billing_metered_approx=16.82
-credits_applied_approx=15.07
+at=2026-10-13T17:19:35Z
+latest=(990, -0.047, 9730)
+rate_upd_per_s=0.10177
+projected_wall_stop_update≈1465
+billing_metered_approx=17.76
+credits_applied_approx=16.01
