@@ -490,6 +490,9 @@ Recovered onto this lineage from prior campaign branch work:
   round 4 from the ballless failure.
 - **Live round-4 execute started:** calibration mix (`rare=.40`) + strengthened
   ballless penalty. Dream PPO remains gated on pretrust.
+- **Round-4 collect complete (~639s):** calibration mix confirmed; WM-0 training
+  started with `ballless_reward_coef=6.0`.
+
 
 
 
