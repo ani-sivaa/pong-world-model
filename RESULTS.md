@@ -473,6 +473,10 @@ Recovered onto this lineage from prior campaign branch work:
   `results/campaign_evidence/v2_r3_collect_meta.json`.
 - **Live:** `round-3:wm-0` training started (18k stochastic steps, balanced
   sampler + bootstrap). Dream PPO still gated on pretrust.
+- **Round-3 wm-0 complete:** `WM_TRAIN_OK` 18,000 steps, final val frame
+  **0.00553**, wall ≈ 6971s. Training-time latent util ≈ 2e-4 with ballless
+  penalty ≈ 0 (hinge healthy vs the 1e-7 gate). `wm-1` started.
+
 
 
 

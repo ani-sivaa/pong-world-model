@@ -2,4 +2,7 @@
 COLLECT_ADAPTIVE_OK T=1000000 transfer-repair mix rare=.35
 2026-10-14T11:17Z round-3:wm-0 STARTED (18k steps, stochastic, balanced+bootstrap)
 2026-10-14T11:53Z wm-0 mid-flight step 9100/18000 k=5 util≈0.00183 ballless≈0 loss≈0.0096
-billing_snapshot metered≈19.76 credits_applied≈18.01 billed=0
+2026-10-14T13:13Z wm-0 COMPLETE WM_TRAIN_OK steps=18000 final_val=0.00553 wall≈6971s
+  final util≈2.0e-4 ballless≈0 (training hinge healthy vs 1e-7 gate)
+2026-10-14T13:13Z wm-1 STARTED
+billing_snapshot metered≈21.19 credits_applied≈19.44 billed=0
