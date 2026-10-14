@@ -234,6 +234,11 @@
       "pretrust_overall_pass": false,
       "selection_report": "/vol/results/selection_honest_campaign_v2_r3.json",
       "stopped_before_policy": true
+    },
+    {
+      "acquisition_mix": "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10",
+      "index": 4,
+      "selection_report": "/vol/results/selection_honest_campaign_v2_r4.json"
     }
   ],
   "stages": {
@@ -2868,5 +2873,5 @@
       "wall_seconds": 7081.108204126358
     }
   },
-  "status": "running"
+  "status": "development_threshold_not_met_before_round_limit"
 }
