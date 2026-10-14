@@ -1,3 +1,5 @@
 2026-10-14T11:17Z round-3:collect COMPLETE ok wall≈570s
 COLLECT_ADAPTIVE_OK T=1000000 transfer-repair mix rare=.35
 2026-10-14T11:17Z round-3:wm-0 STARTED (18k steps, stochastic, balanced+bootstrap)
+2026-10-14T11:53Z wm-0 mid-flight step 9100/18000 k=5 util≈0.00183 ballless≈0 loss≈0.0096
+billing_snapshot metered≈19.76 credits_applied≈18.01 billed=0
