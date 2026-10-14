@@ -476,6 +476,9 @@ Recovered onto this lineage from prior campaign branch work:
 - **Round-3 wm-0 complete:** `WM_TRAIN_OK` 18,000 steps, final val frame
   **0.00553**, wall ≈ 6971s. Training-time latent util ≈ 2e-4 with ballless
   penalty ≈ 0 (hinge healthy vs the 1e-7 gate). `wm-1` started.
+- **Round-3 wm-1 complete:** `WM_TRAIN_OK` 18,000 steps, final val frame
+  **0.00769**, wall ≈ 6933s. `wm-2` training started afterward.
+
 
 
 

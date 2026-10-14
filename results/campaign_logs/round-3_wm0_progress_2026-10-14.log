@@ -8,3 +8,6 @@ COLLECT_ADAPTIVE_OK T=1000000 transfer-repair mix rare=.35
 billing_snapshot metered≈21.19 credits_applied≈19.44 billed=0
 2026-10-14T14:20Z wm-1 mid-flight step 12000/18000 k=5 util≈0.002 ballless≈0
 billing_snapshot metered≈22.37 credits_applied≈20.48 billed=0
+2026-10-14T15:09Z wm-1 COMPLETE WM_TRAIN_OK steps=18000 final_val=0.00769 wall≈6933s
+2026-10-14T15:09Z wm-2 STARTED (step ~3000 by 15:20)
+billing_snapshot metered≈23.29 credits_applied≈21.40 billed=0
