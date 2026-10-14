@@ -488,6 +488,9 @@ Recovered onto this lineage from prior campaign branch work:
   `ballless_reward_coef` 3.0→**6.0**, tighten `ballless_mass_tau` 0.5→**0.35**,
   and let the controller select `acquisition_mix_calibration` (rare=.40) for
   round 4 from the ballless failure.
+- **Live round-4 execute started:** calibration mix (`rare=.40`) + strengthened
+  ballless penalty. Dream PPO remains gated on pretrust.
+
 
 
 
