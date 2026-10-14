@@ -345,6 +345,7 @@ def main():
             # Allow extending max_rounds after a completed-but-below-threshold
             # cycle (e.g. transfer-repair round after r2 0% development).
             "development_threshold_not_met_before_round_limit",
+            "dry_run_complete",
         }:
             resume_attempts = list(manifest.get("resume_attempts") or [])
             resume_attempts.append({
@@ -584,10 +585,13 @@ def main():
             # allowed; using it to launch another round is not.
             return result.returncode
 
-    manifest["status"] = (
-        "development_threshold_not_met_before_round_limit"
-        if args.execute else "dry_run_complete")
-    _write(manifest_path, manifest)
+    if args.execute:
+        manifest["status"] = "development_threshold_not_met_before_round_limit"
+        _write(manifest_path, manifest)
+    elif manifest.get("status") in {None, "dry_run", "running", "dry_run_complete"}:
+        # Do not clobber a prior execute terminal status with dry_run_complete.
+        manifest["status"] = "dry_run_complete"
+        _write(manifest_path, manifest)
     return 0
 
 

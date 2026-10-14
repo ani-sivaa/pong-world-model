@@ -460,6 +460,15 @@ Recovered onto this lineage from prior campaign branch work:
   acquisition mix and warm-start dream PPO weights from the best prior
   development checkpoint (`r1_ppo_seed314`, 9.33%) with a reset update
   counter — then continue the flywheel into round 3.
+- Transfer-repair code landed + unit tests green (27/27). Dry-run plan for
+  round 3 uses mix `tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10`
+  and `--init-from r1_ppo_seed314 --warm-start` on all three dream PPO seeds.
+- **Live execute started (2026-10-14):** controller skipped r0–r2 completed
+  stages, fetched r1/r2 selections, and launched `round-3:collect` on Modal
+  with the transfer-repair mix (confirmed in the live `infra.remote` argv).
+  Stochastic collector checkpoint is the r1 9.33% policy. No demo export;
+  final panel unused.
+
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load

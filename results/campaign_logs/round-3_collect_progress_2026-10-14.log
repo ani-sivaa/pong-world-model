@@ -1,0 +1,5 @@
+2026-10-14T11:08Z live round-3:collect started
+mix=tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10
+stochastic_checkpoint=/vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt
+seed=4409 transitions=1000000
+note=transfer-repair flywheel; binding gates already cleared on this lineage
