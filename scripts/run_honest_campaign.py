@@ -520,6 +520,17 @@ def main():
                 _write(manifest_path, manifest)
                 break
         if not args.execute:
+            # Dry-run still advances previous_selection from local selection
+            # reports so later-round mix planning matches execute semantics.
+            if round_failure is not None:
+                previous_selection = round_failure
+            else:
+                local_selection = (
+                    config.RESULTS_DIR
+                    / f"{args.tag}_r{round_index}_selection.json")
+                if local_selection.exists():
+                    previous_selection = json.loads(
+                        local_selection.read_text())
             continue
         if round_failure is not None:
             previous_selection = round_failure
