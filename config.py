@@ -249,6 +249,12 @@ CAMPAIGN = dict(
     # moderate stochastic pressure when BOTH binding gates fail.
     acquisition_mix_binding_repair=(
         "tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10"),
+    # After trust passes but development stays below the dream-v2 12% control
+    # (r2 collapsed to 0% under the default mix), keep rare miss/score pressure
+    # high and moderate stochastic share while warm-starting dream PPO from the
+    # best prior development checkpoint.
+    acquisition_mix_transfer_repair=(
+        "tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10"),
     acquisition_mix_uncertainty=(
         "tracker=.05,rare=.20,redteam=.40,stochastic=.25,natural=.10"),
 )

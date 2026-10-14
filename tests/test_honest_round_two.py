@@ -264,6 +264,38 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
         self.assertEqual(mix, config.CAMPAIGN["acquisition_mix_binding_repair"])
         self.assertNotEqual(mix, config.CAMPAIGN["acquisition_mix_collapse"])
 
+    def test_below_control_development_selects_transfer_repair_mix(self):
+        selection = {
+            "eligible": False,
+            "candidates": [
+                {"failed_trust_gates": [], "development_mean_win_rate": 0.0},
+                {"failed_trust_gates": [], "development_mean_win_rate": 0.0933},
+                {"failed_trust_gates": [], "development_mean_win_rate": 0.0},
+            ],
+        }
+        mix = acquisition_mix(selection)
+        self.assertEqual(
+            mix, config.CAMPAIGN["acquisition_mix_transfer_repair"])
+        self.assertNotEqual(mix, config.CAMPAIGN["acquisition_mix_default"])
+
+    def test_policy_warm_start_adds_reset_counter_flags(self):
+        args = SimpleNamespace(
+            tag="campaign-test", redteam="/vol/checkpoints/red.pt",
+            stochastic_policy="/vol/checkpoints/stochastic.pt",
+            base_wm=["/vol/checkpoints/old.pt"], transitions=100,
+            steps=1, updates=1,
+            policy_warm_start="/vol/checkpoints/best_prior.pt")
+        stages, _ = round_plan(
+            args, 1, config.CAMPAIGN["acquisition_mix_transfer_repair"])
+        policy_cmds = [
+            " ".join(command) for name, command, *_ in stages
+            if name.startswith("policy-") and "trust" not in name
+        ]
+        self.assertEqual(len(policy_cmds), 3)
+        for joined in policy_cmds:
+            self.assertIn("--init-from /vol/checkpoints/best_prior.pt", joined)
+            self.assertIn("--warm-start", joined)
+
     def test_prior_pretrust_stop_blocks_policy_resume(self):
         stopped = prior_round_pretrust_stop({
             "stopped_before_policy": True,

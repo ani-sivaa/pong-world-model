@@ -113,6 +113,18 @@ def prior_round_pretrust_stop(manifest_round):
     return {"candidates": [{"failed_trust_gates": failed}]}
 
 
+def best_development_win_rate(selection):
+    """Highest development mean among candidates, or None if unavailable."""
+    if not selection:
+        return None
+    rates = [
+        candidate.get("development_mean_win_rate")
+        for candidate in selection.get("candidates", [])
+        if candidate.get("development_mean_win_rate") is not None
+    ]
+    return max(rates) if rates else None
+
+
 def acquisition_mix(previous_selection):
     if not previous_selection:
         return config.CAMPAIGN["acquisition_mix_default"]
@@ -133,6 +145,12 @@ def acquisition_mix(previous_selection):
         return config.CAMPAIGN["acquisition_mix_calibration"]
     if "uncertainty_rank_corr" in failed:
         return config.CAMPAIGN["acquisition_mix_uncertainty"]
+    # Trust passed but transfer stayed below the dream-v2 control: keep rare
+    # event pressure instead of falling back to the default mix that produced
+    # the round-2 0% development collapse.
+    best = best_development_win_rate(previous_selection)
+    if best is not None and best < config.ROUND_TWO["minimum_win_rate"]:
+        return config.CAMPAIGN["acquisition_mix_transfer_repair"]
     return config.CAMPAIGN["acquisition_mix_default"]
 
 
@@ -176,16 +194,25 @@ def round_plan(args, round_index, mix):
     ]), pretrust, True))
 
     policies, trusts, developments = [], [], []
+    warm_start = getattr(args, "policy_warm_start", None)
     for index, seed in enumerate(config.ROUND_TWO["policy_seeds"]):
         policy = checkpoints / f"{tag}_ppo_seed{seed}.pt"
         policies.append(policy)
-        stages.append((f"policy-{index}", remote_command("agents.train_dream", [
+        policy_argv = [
             "--scale", "full", "--data", str(data), "--wm", *map(str, wm_paths),
             "--algorithm", "ppo", "--latent-mode", "sample", "--ball-guard",
             "--seed", str(seed), "--updates", str(args.updates),
             "--max-seconds", str(config.CAPS["dream"]),
             "--tag", f"{tag}_ppo_seed{seed}", "--out", str(policy),
-        ]), policy, True))
+        ]
+        # Transfer repair: load best prior development weights with a reset
+        # update counter. Mid-run resume still uses plain --init-from only.
+        if warm_start:
+            policy_argv.extend([
+                "--init-from", str(warm_start), "--warm-start",
+            ])
+        stages.append((f"policy-{index}", remote_command(
+            "agents.train_dream", policy_argv), policy, True))
         trust = results / f"trust_{tag}_candidate{index}.json"
         trusts.append(trust)
         stages.append((f"policy-trust-{index}", remote_command(
@@ -273,6 +300,10 @@ def parser():
                         default=config.CAMPAIGN["max_rounds"])
     result.add_argument("--retries", type=int,
                         default=config.CAMPAIGN["max_stage_retries"])
+    result.add_argument(
+        "--policy-warm-start", default=None,
+        help="optional prior policy checkpoint; dream PPO loads weights with "
+             "--warm-start (reset update counter) for transfer repair")
     return result
 
 
@@ -311,6 +342,9 @@ def main():
             "blocked_credit_telemetry_unavailable",
             "blocked_current_run_environment_not_refreshed",
             "stage_failed",
+            # Allow extending max_rounds after a completed-but-below-threshold
+            # cycle (e.g. transfer-repair round after r2 0% development).
+            "development_threshold_not_met_before_round_limit",
         }:
             resume_attempts = list(manifest.get("resume_attempts") or [])
             resume_attempts.append({
@@ -319,6 +353,8 @@ def main():
                 "credit_balance_usd": credit,
                 "credit_telemetry_source": source,
                 "credit_telemetry_status": telemetry_status,
+                "policy_warm_start": getattr(args, "policy_warm_start", None),
+                "max_rounds": args.max_rounds,
             })
             manifest["resume_attempts"] = resume_attempts
             manifest["status"] = "running"
@@ -376,12 +412,23 @@ def main():
             # Resume interrupted dream-policy training from the volume
             # checkpoint when a prior attempt wrote periodic progress, or when
             # a mid-flight controller exit left an unmarked partial checkpoint.
-            if (name.startswith("policy-") and "--init-from" not in command
-                    and (
-                        (prior and not prior.get("ok"))
-                        or (not prior and volume_checkpoint_exists(artifact))
-                    )):
-                command = list(command) + ["--init-from", str(artifact)]
+            # A partial of THIS artifact always wins over a planned warm-start
+            # from a prior-round policy (continue step count, no --warm-start).
+            if name.startswith("policy-") and (
+                    (prior and not prior.get("ok"))
+                    or volume_checkpoint_exists(artifact)):
+                stripped = []
+                skip_next = False
+                for token in command:
+                    if skip_next:
+                        skip_next = False
+                        continue
+                    if token in {"--init-from", "--warm-start"}:
+                        if token == "--init-from":
+                            skip_next = True
+                        continue
+                    stripped.append(token)
+                command = stripped + ["--init-from", str(artifact)]
                 print(f"[campaign] resume {stage_id} via --init-from "
                       f"{artifact}")
             print(f"[campaign] {'RUN' if args.execute else 'DRY-RUN'} "
