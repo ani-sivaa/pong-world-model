@@ -468,6 +468,12 @@ Recovered onto this lineage from prior campaign branch work:
   with the transfer-repair mix (confirmed in the live `infra.remote` argv).
   Stochastic collector checkpoint is the r1 9.33% policy. No demo export;
   final panel unused.
+- **Round-3 collect complete (~570s wall):** `COLLECT_ADAPTIVE_OK` T=1,000,000,
+  real_only=True, transfer-repair mix (`rare=.35`). Evidence:
+  `results/campaign_evidence/v2_r3_collect_meta.json`.
+- **Live:** `round-3:wm-0` training started (18k stochastic steps, balanced
+  sampler + bootstrap). Dream PPO still gated on pretrust.
+
 
 
 ## Phase 4 — web demo — COMPLETE (both models)

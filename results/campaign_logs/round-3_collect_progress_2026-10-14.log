@@ -3,3 +3,5 @@ mix=tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10
 stochastic_checkpoint=/vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt
 seed=4409 transitions=1000000
 note=transfer-repair flywheel; binding gates already cleared on this lineage
+2026-10-14T11:17Z COMPLETE COLLECT_ADAPTIVE_OK T=1000000 wall≈570s
+streams: tracker=100k rare=350k redteam=200k stochastic=250k natural=100k

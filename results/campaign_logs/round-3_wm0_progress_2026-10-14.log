@@ -1,0 +1,3 @@
+2026-10-14T11:17Z round-3:collect COMPLETE ok wall≈570s
+COLLECT_ADAPTIVE_OK T=1000000 transfer-repair mix rare=.35
+2026-10-14T11:17Z round-3:wm-0 STARTED (18k steps, stochastic, balanced+bootstrap)
