@@ -492,6 +492,9 @@ Recovered onto this lineage from prior campaign branch work:
   ballless penalty. Dream PPO remains gated on pretrust.
 - **Round-4 collect complete (~639s):** calibration mix confirmed; WM-0 training
   started with `ballless_reward_coef=6.0`.
+- **Round-4 wm-0 complete:** final val **0.00696**, util hinge ≈ 1.1e-3,
+  ballless train penalty ≈ 0. `wm-1` in flight.
+
 
 
 

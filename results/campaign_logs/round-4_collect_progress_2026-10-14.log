@@ -7,3 +7,6 @@ billing_snapshot metered≈25.31 credits_applied≈23.42 billed=0
 2026-10-14T18:50Z wm-0 mid-flight step 15600/18000
 billing_snapshot metered≈26.89 credits_applied≈25.00 billed=0
 note=credits telemetry balance fully applied; watching for spend-limit
+2026-10-14T19:16Z wm-0 COMPLETE final_val=0.00696 util≈1.08e-3 ballless≈0
+2026-10-14T19:55Z wm-1 mid-flight step 9300/18000
+billing_snapshot metered≈27.88 credits_applied≈25.99 billed=0
