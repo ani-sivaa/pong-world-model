@@ -442,6 +442,25 @@ Recovered onto this lineage from prior campaign branch work:
 - Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033); all three
   r2 policy-trust reports PASS. Binding repairs held; no collect→WM reburn.
 
+### Honest research cycle (2026-10-14) — continue after r2 development collapse
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal profile `default` ok; client_ok.
+- Env credit telemetry = **$25** (start-of-run static). Billing snapshot at
+  start: metered ≈ $18.97 / credits applied ≈ $17.22 / billed $0.00.
+- GPU smoke **PASS**: Tesla T4, torch 2.13.0+cu130, 20 train steps in 1.655s
+  (`results/campaign_logs/modal_smoke_2026-10-14.log`).
+- Continued from latest campaign lineage (`honest_campaign_v2` on prior daily
+  branch tip): binding repairs already clear pretrust (r1/r2 util+ballless
+  PASS). **Did not** re-burn collect→WM for the old v1 latent-collapse pair.
+- Prior cycle end state: r2 selection `eligible=false`; development **0%/0%/0%**
+  vs r1 best **9.33%** and the **12%** dream-v2 control; not promoted; final
+  panel unused; no demo export.
+- Today's concrete lever (transfer, not binding): after trust-pass rounds whose
+  development max stays below the 12% control, prefer a transfer-repair
+  acquisition mix and warm-start dream PPO weights from the best prior
+  development checkpoint (`r1_ppo_seed314`, 9.33%) with a reset update
+  counter — then continue the flywheel into round 3.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
