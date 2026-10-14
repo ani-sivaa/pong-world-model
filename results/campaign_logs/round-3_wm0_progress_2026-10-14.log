@@ -6,3 +6,5 @@ COLLECT_ADAPTIVE_OK T=1000000 transfer-repair mix rare=.35
   final util≈2.0e-4 ballless≈0 (training hinge healthy vs 1e-7 gate)
 2026-10-14T13:13Z wm-1 STARTED
 billing_snapshot metered≈21.19 credits_applied≈19.44 billed=0
+2026-10-14T14:20Z wm-1 mid-flight step 12000/18000 k=5 util≈0.002 ballless≈0
+billing_snapshot metered≈22.37 credits_applied≈20.48 billed=0
