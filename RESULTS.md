@@ -478,6 +478,17 @@ Recovered onto this lineage from prior campaign branch work:
   penalty ≈ 0 (hinge healthy vs the 1e-7 gate). `wm-1` started.
 - **Round-3 wm-1 complete:** `WM_TRAIN_OK` 18,000 steps, final val frame
   **0.00769**, wall ≈ 6933s. `wm-2` training started afterward.
+- **Round-3 wm-2 complete:** `WM_TRAIN_OK` 18,000 steps, final val **0.00734**,
+  wall ≈ 6960s.
+- **Round-3 pretrust: FAIL** (no dream PPO; science rule honored).
+  - `stochastic_latent_utilization` **PASS** 4.11e-5 ≥ 1e-7
+  - `ballless_positive_rate` **FAIL** 0.122 > 0.05
+  - Evidence: `results/campaign_evidence/v2_r3_pretrust.json`
+- Concrete ballless repair before another collect→WM burn: raise
+  `ballless_reward_coef` 3.0→**6.0**, tighten `ballless_mass_tau` 0.5→**0.35**,
+  and let the controller select `acquisition_mix_calibration` (rare=.40) for
+  round 4 from the ballless failure.
+
 
 
 

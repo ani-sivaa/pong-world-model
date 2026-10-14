@@ -13,3 +13,6 @@ billing_snapshot metered≈22.37 credits_applied≈20.48 billed=0
 billing_snapshot metered≈23.29 credits_applied≈21.40 billed=0
 2026-10-14T16:20Z wm-2 mid-flight step 13500/18000 k=5 util≈1.4e-4 ballless≈0
 billing_snapshot metered≈24.40 credits_applied≈22.51 billed=0
+2026-10-14T17:07Z wm-2 COMPLETE final_val=0.00734
+2026-10-14T17:07Z pretrust FAIL ballless=0.122 util=4.11e-5 PASS; no policy stages
+billing_snapshot metered≈25.18 credits_applied≈23.29 billed=0

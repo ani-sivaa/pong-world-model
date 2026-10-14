@@ -107,8 +107,10 @@ WM = dict(
     # is near zero (trust invariant uses the same interior-ball definition).
     # Round-0 full trust cleared latent utilization (5.6e-4) but ballless
     # stayed at 0.123 > 0.05 — raise the consistency weight for later rounds.
-    ballless_reward_coef=3.0,
-    ballless_mass_tau=0.5,   # soft mass scale; ~exp(-mass/tau) ballless weight
+    # Round-3 transfer-repair cleared util (4.1e-5) but ballless returned at
+    # 0.122; raise the penalty and tighten soft mass tau before round 4.
+    ballless_reward_coef=6.0,
+    ballless_mass_tau=0.35,  # soft mass scale; ~exp(-mass/tau) ballless weight
     head_event_balance=True,
     head_weight_clip=20.0,
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp

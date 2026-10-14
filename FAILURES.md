@@ -67,3 +67,11 @@ ImportError: No module named infra.does_not_exist
   count (1465/2500). Trust still **PASS**; development mean win rate 0%.
 - Action: accepted as protocol-compliant wall stop; volume checkpoint kept
   for a future `--init-from` resume. No demo export; final panel unused.
+
+## Round-3 pretrust ballless fail — honest_campaign_v2 — 2026-10-14
+- Phase: transfer-repair flywheel after r2 0% development collapse.
+- Collect+3×WM completed on mix rare=.35; latent utilization **passed**
+  (4.11e-5). `ballless_positive_rate` **failed** at 0.122 > 0.05.
+- Action: did **not** train dream policies. Strengthened ballless training
+  penalty (coef 6.0, tau 0.35) and queued round 4 under calibration mix
+  (rare=.40). No demo export; final panel unused.
