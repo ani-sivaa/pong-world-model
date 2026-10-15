@@ -108,9 +108,12 @@ WM = dict(
     # Round-0 full trust cleared latent utilization (5.6e-4) but ballless
     # stayed at 0.123 > 0.05 — raise the consistency weight for later rounds.
     # Round-3 transfer-repair cleared util (4.1e-5) but ballless returned at
-    # 0.122; raise the penalty and tighten soft mass tau before round 4.
-    ballless_reward_coef=6.0,
-    ballless_mass_tau=0.35,  # soft mass scale; ~exp(-mass/tau) ballless weight
+    # 0.122; round-4 with coef=6/tau=0.35 improved to 0.071 (4/56) but still
+    # failed the 0.05 gate. Raise again and tighten soft mass tau; hinge at
+    # the trust threshold (see wm.train ballless relu(r-0.05)).
+    ballless_reward_coef=12.0,
+    ballless_mass_tau=0.20,  # soft mass scale; ~exp(-mass/tau) ballless weight
+    ballless_reward_hinge=0.05,  # match evaluate_trust positive threshold
     head_event_balance=True,
     head_weight_clip=20.0,
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp

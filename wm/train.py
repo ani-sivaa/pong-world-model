@@ -107,6 +107,7 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
     ballless_mass_tau = (
         config.WM.get("ballless_mass_tau", 0.75) if ballless_mass_tau is None
         else ballless_mass_tau)
+    ballless_reward_hinge = float(config.WM.get("ballless_reward_hinge", 0.05))
     cur = stack
     for j in range(k):
         if is_stochastic:
@@ -163,8 +164,12 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
                     interior[:, :, x:x + config.ENV["paddle_w"]] = 0
                 hard_ballless = (interior.amax(dim=(1, 2)) <= 0.5).float()
                 ballless_w = torch.maximum(soft_w, hard_ballless)
+                # Hinge at the trust gate's positive-reward threshold so the
+                # loss targets exactly the ballless_positive_rate violations
+                # (predicted reward > 0.05 on ballless frames), not every
+                # tiny positive reward that would not fail the gate.
                 ballless_loss = ballless_loss + (
-                    F.relu(r) * ballless_w * alive_t[:, j]
+                    F.relu(r - ballless_reward_hinge) * ballless_w * alive_t[:, j]
                 ).mean()
         if j + 1 < k:  # feed own prediction back in, gradient intact
             cur = torch.cat([cur[:, 1:], torch.sigmoid(logits)], dim=1)
