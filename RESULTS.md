@@ -545,6 +545,24 @@ Recovered onto this lineage from prior campaign branch work:
   (`trust_honest_campaign_v2_r4_ballless_ft_prepolicy.json`). Dream PPO still
   gated. Billing at launch: metered ≈ $31.20 / billed $0.
 
+- **Ballless fine-tune interrupted by Modal spend limit (HARD STOP):**
+  - `wm-0`: **21000**/21000 complete under coef=12 / tau=0.20 / hinge=0.05
+    (final val **0.00595**).
+  - `wm-1`: wall/disabled at step **20000**/21000 (coef=12 applied in ckpt).
+  - `wm-2`: still **18000** under prior coef=6 / tau=0.35 (not fine-tuned).
+  - Re-pretrust **not run** on the mismatched ensemble.
+- End billing snapshot: metered ≈ **$31.94** / billed ≈ **$0.05**. Env
+  `MODAL_CREDIT_BALANCE_USD=25` remains start telemetry only.
+- **Trust gates (latest completed):** r4 pretrust util **PASS** 5.84e-5;
+  ballless **FAIL** 0.071 (near-miss vs r3 0.122). r1/r2 still the last
+  trust-passing policy rounds.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 produced **no** new policies this cycle.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status: `budget_or_auth_exhausted`.
+
 
 
 

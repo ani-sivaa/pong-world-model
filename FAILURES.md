@@ -96,3 +96,16 @@ ImportError: No module named infra.does_not_exist
 - Action: did **not** train dream policies. Planned same-data fine-tune with
   stronger ballless hinge (coef 12, tau 0.20, threshold-aligned relu(r-0.05)).
   No demo export; final panel unused.
+
+## Modal spend limit — r4 ballless fine-tune wm-1 — 2026-10-15
+- Phase: same-data ballless fine-tune after r4 pretrust near-miss (0.071).
+- wm-0 completed 18000→21000 under coef=12/tau=0.20/hinge=0.05 (val 0.00595).
+- wm-1 reached step **20000**/21000 then Modal returned
+  `ConflictError: workspace ... is disabled` /
+  `Workspace ... has exceeded its spend limit`. GPU smoke afterward fails the
+  same spend-limit gate. Billing snapshot: metered ≈ $31.94 / billed ≈ $0.05.
+- Impact: wm-2 never fine-tuned (still step 18000, coef=6). Ensemble is
+  intentionally **not** re-pretrusted while members disagree on the ballless
+  hinge. No dream PPO; no demo export; final panel unused.
+- Action: recorded hard stop in campaign manifest
+  (`budget_or_auth_exhausted`); stopped paid launches for this cycle.

@@ -9,6 +9,22 @@
       "timestamp": "2026-08-13T16:37:50Z",
       "updates_reached": 180,
       "updates_target": 2500
+    },
+    {
+      "ballless_config": {
+        "wm0_wm1": "coef=12 tau=0.20 hinge=0.05",
+        "wm2": "coef=6 tau=0.35 (not fine-tuned)"
+      },
+      "billing_note": "metered~31.94 billed~0.05",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ConflictError: workspace disabled / exceeded its spend limit during wm-1 fine-tune after wm-0 reached 21000",
+      "kind": "modal_spend_limit",
+      "stage": "r4_ballless_finetune:wm-1",
+      "timestamp": "2026-10-15T13:14:00Z"
     }
   ],
   "live_notes": [
@@ -49,6 +65,11 @@
       "at": 1792067152.640703,
       "note": "r4 pretrust FAIL ballless=0.071 (util PASS). Improved vs r3 0.122. Next: stronger ballless (coef 12, tau 0.20, hinge at 0.05) + fine-tune existing r4 WMs on same data \u2014 no new collect.",
       "timestamp": "2026-10-15T12:20:00Z"
+    },
+    {
+      "at": 1792073106.2110264,
+      "note": "HARD STOP: Modal spend limit / workspace disabled during r4 ballless fine-tune. wm0=21000 (new hinge), wm1=20000 partial (new hinge), wm2=18000 (old coef=6). Did not re-pretrust mismatched ensemble. No dream PPO. No demo export. Final panel unused. Best prior transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-15T13:15:00Z"
     }
   ],
   "modal_credit_note": "end 2026-10-13: metered\u224819.10 credits_applied\u224817.35 billed\u22480; MODAL_CREDIT_BALANCE_USD start telemetry=25",
@@ -123,9 +144,9 @@
     ]
   },
   "promotion": {
-    "at": "2026-10-13T18:45:19Z",
+    "at": "2026-10-15T13:15:00Z",
     "promoted": false,
-    "reason": "Round-2 complete: all three development candidates mean_win_rate=0.0 (<12% dream-v2 control; < r1 best 9.33%). Selection eligible=false. Final panel unused. Demo/web export unchanged. policy-2 wall-stopped at 1465/2500 under CAPS.dream=14400."
+    "reason": "Daily cycle stopped on Modal spend limit during same-data ballless fine-tune after r4 pretrust near-miss (ballless 0.071). No new development panel; not promoted; demo unchanged."
   },
   "resume_attempts": [
     {
@@ -3191,5 +3212,5 @@
       "wall_seconds": 3993.3427221775055
     }
   },
-  "status": "development_threshold_not_met_before_round_limit"
+  "status": "budget_or_auth_exhausted"
 }
