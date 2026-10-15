@@ -86,3 +86,13 @@ ImportError: No module named infra.does_not_exist
   anneal CosineAnnealingLR over the *remaining* step budget instead of
   `last_epoch` without optimizer state. Cleared failed `round-4:wm-0` stage
   and relaunched. No collect reburn; no demo export.
+
+## Round-4 pretrust ballless near-miss — honest_campaign_v2 — 2026-10-15
+- Phase: calibration-mix r4 after strengthening ballless_reward_coef to 6.0.
+- Collect recovered; wm0/wm1 no-op; wm2 resumed 11000→18000.
+- Latent utilization **passed** (5.84e-5). `ballless_positive_rate` **failed**
+  at **0.071** (4/56 ballless frames) — improved from r3's 0.122 but still
+  above the 0.05 gate.
+- Action: did **not** train dream policies. Planned same-data fine-tune with
+  stronger ballless hinge (coef 12, tau 0.20, threshold-aligned relu(r-0.05)).
+  No demo export; final panel unused.

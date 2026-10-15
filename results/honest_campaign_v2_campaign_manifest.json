@@ -44,6 +44,11 @@
       "at": 1792062471.221997,
       "note": "Daily resume: auth+GPU smoke OK (T4 2.721s); metered~$30.07 credits~$28.18 billed$0; r4 collect recovered; WM step-resume added; finishing wm-2 then pretrust under ballless_reward_coef=6.0. No demo export.",
       "timestamp": "2026-10-15T11:10:00Z"
+    },
+    {
+      "at": 1792067152.640703,
+      "note": "r4 pretrust FAIL ballless=0.071 (util PASS). Improved vs r3 0.122. Next: stronger ballless (coef 12, tau 0.20, hinge at 0.05) + fine-tune existing r4 WMs on same data \u2014 no new collect.",
+      "timestamp": "2026-10-15T12:20:00Z"
     }
   ],
   "modal_credit_note": "end 2026-10-13: metered\u224819.10 credits_applied\u224817.35 billed\u22480; MODAL_CREDIT_BALANCE_USD start telemetry=25",
@@ -251,9 +256,26 @@
     },
     {
       "acquisition_mix": "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10",
+      "failed_trust_gates": [
+        "ballless_positive_rate"
+      ],
+      "gate_values": {
+        "ballless_positive_rate": {
+          "pass": false,
+          "threshold": 0.05,
+          "value": 0.07142857142857142
+        },
+        "stochastic_latent_utilization": {
+          "pass": true,
+          "threshold": 1e-07,
+          "value": 5.843772305524908e-05
+        }
+      },
       "index": 4,
-      "note": "2026-10-15 resume: calibration mix rare=.40; collect recovered; wm0/wm1 complete on volume; wm2 at step 11000/18000 pending resume; pretrust not yet run. ballless_reward_coef=6.0.",
-      "selection_report": "/vol/results/selection_honest_campaign_v2_r4.json"
+      "note": "2026-10-15: wm2 resumed 11000\u219218000; pretrust FAIL ballless=0.071 (4/56) util PASS 5.84e-5; improved vs r3 0.122 but still above 0.05. No dream PPO.",
+      "pretrust_overall_pass": false,
+      "selection_report": "/vol/results/selection_honest_campaign_v2_r4.json",
+      "stopped_before_policy": true
     }
   ],
   "stages": {
@@ -2917,7 +2939,257 @@
       "ok": true,
       "recovered_at": 1792062471.2219908,
       "returncode": 0
+    },
+    "round-4:pretrust": {
+      "artifact": "/vol/results/trust_honest_campaign_v2_r4_prepolicy.json",
+      "attempts": 1,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "infra.remote",
+        "--module",
+        "scripts.evaluate_trust",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r4",
+        "--wm",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt",
+        "--stochastic-samples",
+        "8",
+        "--out",
+        "/vol/results/trust_honest_campaign_v2_r4_prepolicy.json",
+        "--tag",
+        "honest_campaign_v2_r4_prepolicy"
+      ],
+      "evidence": "/workspace/results/campaign_evidence/v2_r4_pretrust.json",
+      "log": "/workspace/results/campaign_logs/round-4_pretrust.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "trust": {
+        "gates": {
+          "ballless_positive_rate": {
+            "available": true,
+            "operator": "<=",
+            "pass": false,
+            "threshold": 0.05,
+            "value": 0.07142857142857142
+          },
+          "done_brier": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.18,
+            "value": 0.0034229918383061886
+          },
+          "dream_real_reward_gap": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.3,
+            "value": 0.008075206085099278
+          },
+          "forced_scenario_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.2,
+            "value": 0.0038425033899024325
+          },
+          "natural_rollout_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.12,
+            "value": 0.008255813501235014
+          },
+          "policy_lockstep_mse": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.16,
+            "value": 0.0021198796594008628
+          },
+          "reward_mae": {
+            "available": true,
+            "operator": "<=",
+            "pass": true,
+            "threshold": 0.35,
+            "value": 0.0018272596644237638
+          },
+          "stochastic_latent_utilization": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1e-07,
+            "value": 5.843772305524908e-05
+          },
+          "stochastic_posterior_prior_kl": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.0001,
+            "value": 1.1016710996627808
+          },
+          "stochastic_prior_sample_frame_mse": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1e-07,
+            "value": 0.00015524165064562112
+          },
+          "stochastic_prior_std": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.001,
+            "value": 2.0385196208953857
+          },
+          "stochastic_serve_direction_coverage": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 1.0,
+            "value": 1.0
+          },
+          "uncertainty_rank_corr": {
+            "available": true,
+            "operator": ">=",
+            "pass": true,
+            "threshold": 0.1,
+            "value": 0.39973606863611955
+          }
+        },
+        "overall_pass": false
+      },
+      "wall_seconds": 21.976394414901733
+    },
+    "round-4:wm-0": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt",
+      "attempts": 1,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r4",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt",
+        "--tag",
+        "honest_campaign_v2_r4_wm0",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "42",
+        "--steps",
+        "18000",
+        "--max-seconds",
+        "10800",
+        "--init-from",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt"
+      ],
+      "log": "/workspace/results/campaign_logs/round-4_wm-0.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 13.446023941040039
+    },
+    "round-4:wm-1": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt",
+      "attempts": 1,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r4",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt",
+        "--tag",
+        "honest_campaign_v2_r4_wm1",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "314",
+        "--steps",
+        "18000",
+        "--max-seconds",
+        "10800",
+        "--init-from",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt"
+      ],
+      "log": "/workspace/results/campaign_logs/round-4_wm-1.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 11.06627368927002
+    },
+    "round-4:wm-2": {
+      "artifact": "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt",
+      "attempts": 1,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "infra.remote",
+        "--module",
+        "wm.train",
+        "--gpu",
+        "--",
+        "--scale",
+        "full",
+        "--data",
+        "/vol/data/honest_campaign_v2_r4",
+        "--out",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt",
+        "--tag",
+        "honest_campaign_v2_r4_wm2",
+        "--v2",
+        "--stochastic",
+        "--sampler",
+        "balanced",
+        "--bootstrap",
+        "--seed",
+        "2718",
+        "--steps",
+        "18000",
+        "--max-seconds",
+        "10800",
+        "--init-from",
+        "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt"
+      ],
+      "log": "/workspace/results/campaign_logs/round-4_wm-2.log",
+      "modal_compute_cost_usd": null,
+      "modal_gpu_stage": true,
+      "ok": true,
+      "returncode": 0,
+      "wall_seconds": 3993.3427221775055
     }
   },
-  "status": "running"
+  "status": "development_threshold_not_met_before_round_limit"
 }

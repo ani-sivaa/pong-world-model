@@ -527,6 +527,19 @@ Recovered onto this lineage from prior campaign branch work:
   First resume attempt hit a CosineAnnealingLR `initial_lr` KeyError (logged in
   FAILURES.md) and was fixed before relaunch.
 
+- **Round-4 wm-2 complete (resume):** step 11000→**18000**, final val
+  **0.00691**, wall ≈ 3966s (`WM_TRAIN_OK`).
+- **Round-4 pretrust: FAIL** (no dream PPO; science rule honored).
+  - `stochastic_latent_utilization` **PASS** 5.84e-5 ≥ 1e-7
+  - `ballless_positive_rate` **FAIL** 0.071 > 0.05 (4 violations / 56
+    ballless frames) — improved vs r3's **0.122** but still above gate
+  - Evidence: `results/campaign_evidence/v2_r4_pretrust.json`
+- Next concrete repair (no new collect→WM burn): raise
+  `ballless_reward_coef` 6→**12**, tighten `ballless_mass_tau` 0.35→**0.20**,
+  hinge positive reward at the trust threshold (`relu(r-0.05)`), then
+  fine-tune the three r4 WMs +3000 steps from the finished checkpoints and
+  re-run pretrust.
+
 
 
 
