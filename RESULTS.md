@@ -520,6 +520,13 @@ Recovered onto this lineage from prior campaign branch work:
   prior 17.5% trust-failed stochastic policy not exported.
 - Transfer control unchanged: dream v2 **12%**; r1 best development **9.33%**;
   r2 development **0%/0%/0%**.
+- **Live execute (2026-10-15):** controller skipped r0–r3 completed/stopped
+  stages; `round-4:collect` recovered SKIP; `wm-0`/`wm-1` no-op resumed in
+  ~13s/`~11s` (`already complete at step 18000`); `wm-2` resumed from step
+  **11000**/18000 with `ballless_reward_coef=6.0` (train ballless≈0 so far).
+  First resume attempt hit a CosineAnnealingLR `initial_lr` KeyError (logged in
+  FAILURES.md) and was fixed before relaunch.
+
 
 
 
