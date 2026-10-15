@@ -327,20 +327,27 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
         artifact = "/vol/checkpoints/honest_campaign_v2_r2_ppo_seed314.pt"
         command = ["python", "-m", "agents.train_dream", "--out", artifact]
 
-        def decide(prior, exists):
-            if ("--init-from" not in command and (
+        def decide(name, prior, exists):
+            resumable = (
+                name.startswith("policy-") or name.startswith("wm-")
+            ) and "trust" not in name
+            if resumable and (
                     (prior and not prior.get("ok"))
-                    or (not prior and exists))):
+                    or (not prior and exists)):
                 return list(command) + ["--init-from", artifact]
             return list(command)
 
-        resumed = decide(prior=None, exists=True)
+        resumed = decide("policy-1", prior=None, exists=True)
         self.assertIn("--init-from", resumed)
         self.assertEqual(resumed[-1], artifact)
-        fresh = decide(prior=None, exists=False)
+        fresh = decide("policy-1", prior=None, exists=False)
         self.assertNotIn("--init-from", fresh)
-        failed = decide(prior={"ok": False}, exists=False)
+        failed = decide("policy-1", prior={"ok": False}, exists=False)
         self.assertIn("--init-from", failed)
+        wm_resume = decide("wm-2", prior=None, exists=True)
+        self.assertIn("--init-from", wm_resume)
+        trust_no = decide("policy-trust-1", prior=None, exists=True)
+        self.assertNotIn("--init-from", trust_no)
         # volume_checkpoint_exists is exercised live in the daily smoke path;
         # keep the helper importable here without hitting Modal.
         self.assertTrue(callable(campaign.volume_checkpoint_exists))

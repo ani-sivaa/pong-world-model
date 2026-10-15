@@ -248,18 +248,30 @@ def main():
     model_cfg = dict(config.WM, latent_dim=args.latent_dim,
                      kl_coef=args.kl_coef, free_bits=args.free_bits,
                      kl_warmup_frac=args.kl_warmup_frac)
+    start_step = 0
     if args.init_from:
+        # Continue unfinished runs from the saved step counter instead of
+        # restarting the 18k budget (avoids reburning completed ensemble
+        # members when only one WM wall-stopped mid-round).
+        ckpt_meta = torch.load(args.init_from, map_location="cpu",
+                               weights_only=True)
+        start_step = int(ckpt_meta.get("step", 0) or 0)
         wm = load_wm(args.init_from, dev, with_heads=args.v2)
         if args.stochastic != isinstance(wm, StochasticWorldModel):
             raise ValueError("--stochastic must match --init-from checkpoint model type")
         model_cfg = dict(wm.model_config, kl_coef=args.kl_coef,
                          free_bits=args.free_bits)
+        print(f"[wm.train] resume --init-from={args.init_from} "
+              f"start_step={start_step}/{steps}", flush=True)
     else:
         model_cls = StochasticWorldModel if args.stochastic else WorldModel
         wm = model_cls(with_heads=args.v2, cfg=model_cfg).to(dev)
     opt = torch.optim.AdamW(wm.parameters(), lr=config.WM["lr"],
                             weight_decay=config.WM["weight_decay"])
-    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=steps)
+    # Align cosine schedule with the resumed step so LR does not jump back
+    # to the start of annealing after a mid-run wall-stop.
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(
+        opt, T_max=steps, last_epoch=(start_step - 1) if start_step > 0 else -1)
     use_amp = dev.type == "cuda"
     scaler = torch.amp.GradScaler(enabled=use_amp)
 
@@ -269,7 +281,18 @@ def main():
            "batch_events": [], "val_frame": [], "val_step": [],
            "val_event_frame": []}
     t0 = time.time()
-    for step in range(1, steps + 1):
+    if start_step >= steps:
+        # Volume already holds a finished checkpoint for this budget.
+        print(f"[wm.train] already complete at step {start_step}/{steps}; "
+              f"reusing {args.init_from}", flush=True)
+        if Path(args.init_from).resolve() != out.resolve():
+            import shutil
+            shutil.copy2(args.init_from, out)
+        print(f"WM_TRAIN_OK tag={tag} steps={start_step} "
+              f"final_val=reused wall={time.time()-t0:.0f}s ckpt={out}")
+        return
+    step = start_step
+    for step in range(start_step + 1, steps + 1):
         k = 1 if step <= warmup_end else K
         b, batch_info = data.sample(
             batch, k, sampler=args.sampler, return_info=True)

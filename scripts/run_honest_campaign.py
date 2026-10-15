@@ -410,12 +410,17 @@ def main():
                                 "failed_trust_gates": failed_gates}]}
                         break
                 continue
-            # Resume interrupted dream-policy training from the volume
+            # Resume interrupted dream-policy or WM training from the volume
             # checkpoint when a prior attempt wrote periodic progress, or when
             # a mid-flight controller exit left an unmarked partial checkpoint.
             # A partial of THIS artifact always wins over a planned warm-start
             # from a prior-round policy (continue step count, no --warm-start).
-            if name.startswith("policy-") and (
+            # WM resumes use the same --init-from path; wm.train continues from
+            # the saved step counter (and no-ops when already at budget).
+            resumable = (
+                name.startswith("policy-") or name.startswith("wm-")
+            ) and "trust" not in name
+            if resumable and (
                     (prior and not prior.get("ok"))
                     or volume_checkpoint_exists(artifact)):
                 stripped = []
