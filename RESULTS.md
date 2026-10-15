@@ -539,6 +539,11 @@ Recovered onto this lineage from prior campaign branch work:
   hinge positive reward at the trust threshold (`relu(r-0.05)`), then
   fine-tune the three r4 WMs +3000 steps from the finished checkpoints and
   re-run pretrust.
+- **Live ballless fine-tune started (2026-10-15):** same r4 dataset, no new
+  collect. Sequential `--init-from` continues each WM 18000→**21000** under
+  coef=12 / tau=0.20 / hinge=0.05, then re-pretrust
+  (`trust_honest_campaign_v2_r4_ballless_ft_prepolicy.json`). Dream PPO still
+  gated. Billing at launch: metered ≈ $31.20 / billed $0.
 
 
 
