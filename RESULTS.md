@@ -495,6 +495,32 @@ Recovered onto this lineage from prior campaign branch work:
 - **Round-4 wm-0 complete:** final val **0.00696**, util hinge ≈ 1.1e-3,
   ballless train penalty ≈ 0. `wm-1` in flight.
 
+### Honest research cycle (2026-10-15) — finish r4 WM + pretrust
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal profile `default` ok; client_ok.
+- Env credit telemetry = **$25** (start-of-run static). Billing snapshot at
+  start: metered ≈ **$30.07** / credits applied ≈ **$28.18** / billed **$0**.
+- GPU smoke **PASS**: Tesla T4, torch 2.13.0+cu130, 20 train steps in 2.721s
+  (`results/campaign_logs/modal_smoke_2026-10-15.log`).
+- Continued from latest campaign tip (`honest_campaign_v2` on prior daily
+  branch): binding repairs still clear latent util on this lineage; r3 failed
+  **only** `ballless_positive_rate` (0.122). Round 4 already collected under
+  calibration mix (`rare=.40`) with `ballless_reward_coef=6.0` /
+  `ballless_mass_tau=0.35`.
+- Volume recovery (2026-10-15):
+  - `r4_wm0.pt` **complete** (step 18000); `r4_wm1.pt` **complete** (18000);
+  - `r4_wm2.pt` **partial** (step **11000**/18000) — no train log yet;
+  - no `trust_honest_campaign_v2_r4_prepolicy.json` yet.
+- Concrete repair this cycle (not another blind collect→WM): add WM
+  step-resume via `--init-from` (continue saved step counter; no-op when
+  already at budget) so the controller finishes `wm-2` without reburning
+  `wm-0`/`wm-1` or recollecting. Collect stage recovered into the manifest.
+- Dream PPO remains gated on r4 pretrust. Warm-start from r1 seed314 (9.33%)
+  stays planned if pretrust passes. No demo export; final panel unused;
+  prior 17.5% trust-failed stochastic policy not exported.
+- Transfer control unchanged: dream v2 **12%**; r1 best development **9.33%**;
+  r2 development **0%/0%/0%**.
+
 
 
 
