@@ -93,9 +93,27 @@ WM = dict(
     act_embed=32,
     latent_dim=16,           # stochastic CVAE dynamics latent
     stochastic_heads_deterministic=True,
-    kl_coef=1e-3,
-    kl_warmup_frac=0.30,    # linear beta warmup; avoids early posterior collapse
-    free_bits=0.05,          # nats per latent dimension
+    # Prior full-scale rounds collapsed late: prior_std stayed healthy while
+    # sample-to-sample frame variance fell below the 1e-7 trust gate. Slightly
+    # weaker KL, longer warmup, stronger z injection, and an explicit
+    # utilization hinge target the binding stochastic_latent_utilization fail.
+    kl_coef=5e-4,
+    kl_warmup_frac=0.50,    # linear beta warmup; avoids early posterior collapse
+    free_bits=0.08,          # nats per latent dimension
+    latent_inject_gain=2.5,  # residual scale for z at the dynamics bottleneck
+    utilization_coef=0.15,   # relative hinge weight (O(1) when collapsed)
+    utilization_target=5e-6, # soft floor above full-scale latent_utilization_min
+    # ballless_positive_rate: refuse positive reward when predicted ball mass
+    # is near zero (trust invariant uses the same interior-ball definition).
+    # Round-0 full trust cleared latent utilization (5.6e-4) but ballless
+    # stayed at 0.123 > 0.05 — raise the consistency weight for later rounds.
+    # Round-3 transfer-repair cleared util (4.1e-5) but ballless returned at
+    # 0.122; round-4 with coef=6/tau=0.35 improved to 0.071 (4/56) but still
+    # failed the 0.05 gate. Raise again and tighten soft mass tau; hinge at
+    # the trust threshold (see wm.train ballless relu(r-0.05)).
+    ballless_reward_coef=12.0,
+    ballless_mass_tau=0.20,  # soft mass scale; ~exp(-mass/tau) ballless weight
+    ballless_reward_hinge=0.05,  # match evaluate_trust positive threshold
     head_event_balance=True,
     head_weight_clip=20.0,
     change_loss_weight=15.0, # per-pixel weight = 1 + w*|next - last|; keeps the tiny ball sharp
@@ -231,6 +249,17 @@ CAMPAIGN = dict(
         "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10"),
     acquisition_mix_collapse=(
         "tracker=.05,rare=.20,redteam=.20,stochastic=.45,natural=.10"),
+    # Prior collapse-only mix raised stochastic share and made ballless worse
+    # without lifting latent utilization. Prefer rare miss/score context plus
+    # moderate stochastic pressure when BOTH binding gates fail.
+    acquisition_mix_binding_repair=(
+        "tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10"),
+    # After trust passes but development stays below the dream-v2 12% control
+    # (r2 collapsed to 0% under the default mix), keep rare miss/score pressure
+    # high and moderate stochastic share while warm-starting dream PPO from the
+    # best prior development checkpoint.
+    acquisition_mix_transfer_repair=(
+        "tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10"),
     acquisition_mix_uncertainty=(
         "tracker=.05,rare=.20,redteam=.40,stochastic=.25,natural=.10"),
 )
@@ -256,8 +285,8 @@ SCALES = dict(
 
 # ---------------------------------------------------- wall-clock caps (s) --
 CAPS = dict(
-    collect=1_800, wm_train=7_200, wm_eval=1_800, ablation=5_400,
-    ppo=5_400, wm_v2=3_600, dream=5_400, transfer=1_800,
+    collect=1_800, wm_train=10_800, wm_eval=1_800, ablation=5_400,
+    ppo=5_400, wm_v2=3_600, dream=14_400, transfer=1_800,
 )
 
 ABLATION_FRACS = (0.10, 0.25, 0.50, 1.00)

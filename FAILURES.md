@@ -57,3 +57,55 @@ ImportError: No module named infra.does_not_exist
   after ≤2 pretrust failures with no promotion/demo export.
 - Collision check: only this Cloud Agent was RUNNING on the branch; no
   second controller started.
+
+## Dream wall-clock cap — honest_campaign_v2 r2 policy-2 — 2026-10-13
+- Phase: `agents.train_dream` seed 2718 under `CAPS.dream=14400`.
+- Symptom: `[dream] WALL-CLOCK CAP at update 1465` then `DREAM_OK` with
+  checkpoint `/vol/checkpoints/honest_campaign_v2_r2_ppo_seed2718.pt`.
+  Not a Modal spend-limit failure (billing remained billed $0).
+- Impact: policy-2 entered policy-trust/development with a partial update
+  count (1465/2500). Trust still **PASS**; development mean win rate 0%.
+- Action: accepted as protocol-compliant wall stop; volume checkpoint kept
+  for a future `--init-from` resume. No demo export; final panel unused.
+
+## Round-3 pretrust ballless fail — honest_campaign_v2 — 2026-10-14
+- Phase: transfer-repair flywheel after r2 0% development collapse.
+- Collect+3×WM completed on mix rare=.35; latent utilization **passed**
+  (4.11e-5). `ballless_positive_rate` **failed** at 0.122 > 0.05.
+- Action: did **not** train dream policies. Strengthened ballless training
+  penalty (coef 6.0, tau 0.35) and queued round 4 under calibration mix
+  (rare=.40). No demo export; final panel unused.
+
+## WM step-resume CosineAnnealingLR initial_lr — 2026-10-15
+- Phase: `honest_campaign_v2` round-4:wm-0 resume via `--init-from` after
+  adding saved-step continuation.
+- Symptom: Modal GPU job failed immediately with
+  `KeyError: param 'initial_lr' is not specified in param_groups[0] when
+  resuming scheduler with last_epoch >= 0`.
+- Action: moved the already-complete early-return before optimizer creation;
+  anneal CosineAnnealingLR over the *remaining* step budget instead of
+  `last_epoch` without optimizer state. Cleared failed `round-4:wm-0` stage
+  and relaunched. No collect reburn; no demo export.
+
+## Round-4 pretrust ballless near-miss — honest_campaign_v2 — 2026-10-15
+- Phase: calibration-mix r4 after strengthening ballless_reward_coef to 6.0.
+- Collect recovered; wm0/wm1 no-op; wm2 resumed 11000→18000.
+- Latent utilization **passed** (5.84e-5). `ballless_positive_rate` **failed**
+  at **0.071** (4/56 ballless frames) — improved from r3's 0.122 but still
+  above the 0.05 gate.
+- Action: did **not** train dream policies. Planned same-data fine-tune with
+  stronger ballless hinge (coef 12, tau 0.20, threshold-aligned relu(r-0.05)).
+  No demo export; final panel unused.
+
+## Modal spend limit — r4 ballless fine-tune wm-1 — 2026-10-15
+- Phase: same-data ballless fine-tune after r4 pretrust near-miss (0.071).
+- wm-0 completed 18000→21000 under coef=12/tau=0.20/hinge=0.05 (val 0.00595).
+- wm-1 reached step **20000**/21000 then Modal returned
+  `ConflictError: workspace ... is disabled` /
+  `Workspace ... has exceeded its spend limit`. GPU smoke afterward fails the
+  same spend-limit gate. Billing snapshot: metered ≈ $31.94 / billed ≈ $0.05.
+- Impact: wm-2 never fine-tuned (still step 18000, coef=6). Ensemble is
+  intentionally **not** re-pretrusted while members disagree on the ballless
+  hinge. No dream PPO; no demo export; final panel unused.
+- Action: recorded hard stop in campaign manifest
+  (`budget_or_auth_exhausted`); stopped paid launches for this cycle.
