@@ -266,20 +266,6 @@ def main():
     else:
         model_cls = StochasticWorldModel if args.stochastic else WorldModel
         wm = model_cls(with_heads=args.v2, cfg=model_cfg).to(dev)
-    opt = torch.optim.AdamW(wm.parameters(), lr=config.WM["lr"],
-                            weight_decay=config.WM["weight_decay"])
-    # Align cosine schedule with the resumed step so LR does not jump back
-    # to the start of annealing after a mid-run wall-stop.
-    sched = torch.optim.lr_scheduler.CosineAnnealingLR(
-        opt, T_max=steps, last_epoch=(start_step - 1) if start_step > 0 else -1)
-    use_amp = dev.type == "cuda"
-    scaler = torch.amp.GradScaler(enabled=use_amp)
-
-    log = {"step": [], "loss": [], "frame": [], "reward": [], "done": [], "kl": [],
-           "kl_beta": [], "prior_std": [], "posterior_prior_kl": [],
-           "latent_utilization": [], "util_loss": [], "ballless_loss": [],
-           "batch_events": [], "val_frame": [], "val_step": [],
-           "val_event_frame": []}
     t0 = time.time()
     if start_step >= steps:
         # Volume already holds a finished checkpoint for this budget.
@@ -291,6 +277,21 @@ def main():
         print(f"WM_TRAIN_OK tag={tag} steps={start_step} "
               f"final_val=reused wall={time.time()-t0:.0f}s ckpt={out}")
         return
+    opt = torch.optim.AdamW(wm.parameters(), lr=config.WM["lr"],
+                            weight_decay=config.WM["weight_decay"])
+    # Anneal over the remaining step budget. Avoid CosineAnnealingLR(last_epoch)
+    # without optimizer state — PyTorch requires initial_lr and is easy to get
+    # wrong across versions when resuming mid-run.
+    remaining = max(steps - start_step, 1)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=remaining)
+    use_amp = dev.type == "cuda"
+    scaler = torch.amp.GradScaler(enabled=use_amp)
+
+    log = {"step": [], "loss": [], "frame": [], "reward": [], "done": [], "kl": [],
+           "kl_beta": [], "prior_std": [], "posterior_prior_kl": [],
+           "latent_utilization": [], "util_loss": [], "ballless_loss": [],
+           "batch_events": [], "val_frame": [], "val_step": [],
+           "val_event_frame": []}
     step = start_step
     for step in range(start_step + 1, steps + 1):
         k = 1 if step <= warmup_end else K

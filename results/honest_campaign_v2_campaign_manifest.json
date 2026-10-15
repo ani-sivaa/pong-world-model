@@ -150,6 +150,15 @@
       "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "credit_telemetry_status": "available",
       "from_status": "budget_or_auth_exhausted"
+    },
+    {
+      "at": 1792062508.613688,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "development_threshold_not_met_before_round_limit",
+      "max_rounds": 5,
+      "policy_warm_start": "/vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt"
     }
   ],
   "rounds": [
@@ -2910,5 +2919,5 @@
       "returncode": 0
     }
   },
-  "status": "development_threshold_not_met_before_round_limit"
+  "status": "running"
 }

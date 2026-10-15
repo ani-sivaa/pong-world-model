@@ -75,3 +75,14 @@ ImportError: No module named infra.does_not_exist
 - Action: did **not** train dream policies. Strengthened ballless training
   penalty (coef 6.0, tau 0.35) and queued round 4 under calibration mix
   (rare=.40). No demo export; final panel unused.
+
+## WM step-resume CosineAnnealingLR initial_lr — 2026-10-15
+- Phase: `honest_campaign_v2` round-4:wm-0 resume via `--init-from` after
+  adding saved-step continuation.
+- Symptom: Modal GPU job failed immediately with
+  `KeyError: param 'initial_lr' is not specified in param_groups[0] when
+  resuming scheduler with last_epoch >= 0`.
+- Action: moved the already-complete early-return before optimizer creation;
+  anneal CosineAnnealingLR over the *remaining* step budget instead of
+  `last_epoch` without optimizer state. Cleared failed `round-4:wm-0` stage
+  and relaunched. No collect reburn; no demo export.
