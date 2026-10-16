@@ -109,3 +109,25 @@ ImportError: No module named infra.does_not_exist
   hinge. No dream PPO; no demo export; final panel unused.
 - Action: recorded hard stop in campaign manifest
   (`budget_or_auth_exhausted`); stopped paid launches for this cycle.
+
+## Modal spend limit still blocks daily resume — 2026-10-16
+- Phase: daily honest research cron on
+  `cursor/honest-research-cycle-c8aa` (continued from `3c24@f318a07`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `default`; billing summary readable (metered ≈ $32.07 / credits
+  applied ≈ $30 / billed ≈ $0.02). Env balance $25 is start telemetry only.
+- Symptom: `modal run scripts/smoke_modal.py` and CPU
+  `infra.remote --module infra.hello` both raise
+  `ResourceExhaustedError: Workspace ... has exceeded its spend limit`.
+  Volume `ls`/`get` still succeed.
+- Volume audit (fetched ckpt metadata only):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+- Impact: cannot finish ballless FT, cannot re-pretrust, cannot dream-train.
+  No collect→WM burn attempted (science rule: repair first).
+- Action: recorded hard stop + resume attempt in campaign manifest; stopped
+  paid launches. Local unit tests still pass (27). Evidence:
+  `results/campaign_logs/modal_smoke_2026-10-16.log`,
+  `volume_ckpt_audit_2026-10-16.log`, `unit_tests_2026-10-16.log`.
