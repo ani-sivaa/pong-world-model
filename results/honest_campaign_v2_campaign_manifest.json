@@ -25,6 +25,31 @@
       "kind": "modal_spend_limit",
       "stage": "r4_ballless_finetune:wm-1",
       "timestamp": "2026-10-15T13:14:00Z"
+    },
+    {
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-10-16:gpu_smoke",
+      "timestamp": "2026-10-16T11:06:50Z",
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "billing_note": "metered~32.07 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "ballless_config": {
+        "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
+        "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
+        "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
+      },
+      "auth": {
+        "token_verified": true,
+        "credentials_present": true,
+        "modal_profile": "default",
+        "gpu_smoke": "FAIL spend_limit",
+        "cpu_remote": "FAIL spend_limit",
+        "volume_read": "OK"
+      }
     }
   ],
   "live_notes": [
@@ -70,9 +95,14 @@
       "at": 1792073106.2110264,
       "note": "HARD STOP: Modal spend limit / workspace disabled during r4 ballless fine-tune. wm0=21000 (new hinge), wm1=20000 partial (new hinge), wm2=18000 (old coef=6). Did not re-pretrust mismatched ensemble. No dream PPO. No demo export. Final panel unused. Best prior transfer still r1 9.33% < 12% dream-v2 control.",
       "timestamp": "2026-10-15T13:15:00Z"
+    },
+    {
+      "at": 1792148810.6529968,
+      "timestamp": "2026-10-16T11:06:50Z",
+      "note": "Daily resume 2026-10-16 on branch cursor/honest-research-cycle-c8aa (continued from 3c24 tip): MODAL_TOKEN_* + MODAL_CREDIT_BALANCE_USD present; modal token verify OK; billing metered~$32.07 / credits~$30 / billed~$0.02. GPU smoke + CPU remote both ResourceExhausted spend limit \u2014 no paid jobs. Volume checkpoint audit: r4_wm0=21000 coef12, r4_wm1=20000 coef12, r4_wm2=18000 coef6. Did not re-pretrust mismatched ensemble; no dream PPO; no demo export. Binding repair still pending: finish wm1\u219221000 + wm2 FT under coef=12 then re-pretrust. Best transfer still r1 9.33% < 12% dream-v2 control. Not promoted."
     }
   ],
-  "modal_credit_note": "end 2026-10-13: metered\u224819.10 credits_applied\u224817.35 billed\u22480; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+  "modal_credit_note": "end 2026-10-16: metered\u224832.07 credits_applied\u224830 billed\u22480.02; MODAL_CREDIT_BALANCE_USD start telemetry=25; spend limit blocks launches",
   "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
   "modal_credit_telemetry_status": "available",
   "preregistration": {
@@ -144,9 +174,9 @@
     ]
   },
   "promotion": {
-    "at": "2026-10-15T13:15:00Z",
+    "at": "2026-10-16T11:06:50Z",
     "promoted": false,
-    "reason": "Daily cycle stopped on Modal spend limit during same-data ballless fine-tune after r4 pretrust near-miss (ballless 0.071). No new development panel; not promoted; demo unchanged."
+    "reason": "Daily cycle 2026-10-16: auth OK but Modal spend limit blocks GPU/CPU jobs. Cannot finish r4 ballless fine-tune / re-pretrust. No new development panel; not promoted; demo unchanged."
   },
   "resume_attempts": [
     {
@@ -185,6 +215,37 @@
       "from_status": "development_threshold_not_met_before_round_limit",
       "max_rounds": 5,
       "policy_warm_start": "/vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt"
+    },
+    {
+      "timestamp": "2026-10-16T11:06:50Z",
+      "at": 1792148810.6529968,
+      "from_status": "budget_or_auth_exhausted",
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "token_verified": true,
+      "gpu_smoke_ok": false,
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "paid_jobs_launched": 0,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "step": 21000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "step": 20000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "step": 18000,
+          "ballless_reward_coef": 6.0
+        }
+      },
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "branch": "cursor/honest-research-cycle-c8aa",
+      "continued_from": "cursor/honest-research-cycle-3c24@f318a07"
     }
   ],
   "rounds": [
