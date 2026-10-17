@@ -607,6 +607,47 @@ Recovered onto this lineage from prior campaign branch work:
 
 
 
+### Honest research cycle (2026-10-17) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-f4b7` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-cycle-c8aa` (`bd4121b`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary JSON ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.22** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-17.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-17.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15/16 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-17.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-17.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-17.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
