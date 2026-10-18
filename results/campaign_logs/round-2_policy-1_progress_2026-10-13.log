@@ -1,0 +1,9 @@
+at=2026-10-13T14:48:13Z
+status=DREAM_OK
+final_update=2500
+final_dream_return=-0.051
+wall_s=12412
+init_from_step=1200
+policy_trust_1=PASS
+development_1_mean_win_rate=0.0
+vs_dream_v2_control_12pct=below

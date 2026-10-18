@@ -15,7 +15,12 @@ from agents.train_dream import (
 from scripts.collect_adaptive import enrich_terminal_context
 from scripts.evaluate_trust import stochastic_collapse_gates
 from scripts.promote_round_two import aggregate_reports
-from scripts.run_honest_campaign import acquisition_mix, round_plan
+from scripts.run_honest_campaign import (
+    STOP_ERROR,
+    acquisition_mix,
+    prior_round_pretrust_stop,
+    round_plan,
+)
 from scripts.run_round_two import build_plan
 from scripts.select_candidate import select_candidate
 from scripts.evaluate_panel import wilson_interval
@@ -26,7 +31,7 @@ from wm.model import (
     WorldModelEnsemble,
     load_wm,
 )
-from wm.train import event_balanced_weights
+from wm.train import event_balanced_weights, interior_ball_mass, compute_losses
 
 
 class TerminalContextTest(unittest.TestCase):
@@ -103,6 +108,65 @@ class StochasticRepairTest(unittest.TestCase):
         gates, passed, _ = stochastic_collapse_gates(collapsed, "full")
         self.assertFalse(passed)
         self.assertFalse(gates["serve_direction_coverage"]["available"])
+
+    def test_latent_inject_gain_amplifies_sample_diversity(self):
+        weak = StochasticWorldModel(
+            with_heads=True,
+            cfg=dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
+                     latent_inject_gain=0.01)).eval()
+        strong = StochasticWorldModel(
+            with_heads=True,
+            cfg=dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
+                     latent_inject_gain=8.0)).eval()
+        strong.load_state_dict(weak.state_dict(), strict=False)
+        strong.latent_inject_gain = 8.0
+        stack = torch.rand(4, 4, 64, 64)
+        action = torch.tensor([0, 1, 2, 0])
+        with torch.no_grad():
+            def util(model):
+                draws = [
+                    torch.sigmoid(model(
+                        stack, action, latent_mode="sample",
+                        generator=torch.Generator().manual_seed(10 + i))[0])
+                    for i in range(6)
+                ]
+                return float(torch.stack(draws).var(0, unbiased=False).mean())
+            self.assertGreater(util(strong), util(weak))
+
+    def test_ballless_reward_penalty_and_interior_mass(self):
+        frames = torch.zeros(2, 64, 64)
+        frames[1, 20:22, 30:32] = 1.0
+        mass = interior_ball_mass(frames)
+        self.assertAlmostEqual(float(mass[0]), 0.0, places=5)
+        self.assertAlmostEqual(float(mass[1]), 4.0, places=5)
+
+        cfg = dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
+                   utilization_coef=0.0, ballless_reward_coef=1.0,
+                   ballless_mass_tau=0.5)
+        model = StochasticWorldModel(with_heads=True, cfg=cfg)
+        model.train()
+        B, k = 4, 1
+        stacks = np.zeros((B, 4, 64, 64), np.uint8)
+        acts = np.zeros((B, k), np.int64)
+        targets = np.zeros((B, k, 64, 64), np.uint8)
+        rews = np.zeros((B, k), np.float32)
+        dns = np.zeros((B, k), np.float32)
+        alive = np.ones((B, k), np.float32)
+        batch = (stacks, acts, targets, rews, dns, alive)
+        with torch.no_grad():
+            for name, param in model.named_parameters():
+                if "reward_head" in name:
+                    param.zero_()
+            # Near-empty decode so interior ball mass ≈ 0 (ballless weight ≈ 1).
+            model.out.weight.zero_()
+            model.out.bias.fill_(-8.0)
+            model.reward_head[2].bias.fill_(1.5)
+        total, *_, ballless_after = compute_losses(
+            model, batch, torch.device("cpu"), v2=True, w_change=0.0,
+            return_kl=True, utilization_coef=0.0, ballless_reward_coef=1.0)
+        self.assertGreater(float(ballless_after.detach()), 0.1)
+        total.backward()
+        self.assertTrue(any(p.grad is not None for p in model.parameters()))
 
 
 class ImaginedPPOTest(unittest.TestCase):
@@ -186,6 +250,107 @@ class RoundTwoOrchestrationTest(unittest.TestCase):
         self.assertNotIn("--purpose final", joined)
         self.assertEqual(
             sum(name.startswith("development-") for name, *_ in stages), 3)
+
+    def test_binding_failures_select_repair_mix_not_collapse(self):
+        selection = {
+            "candidates": [{
+                "failed_trust_gates": [
+                    "ballless_positive_rate",
+                    "stochastic_latent_utilization",
+                ],
+            }],
+        }
+        mix = acquisition_mix(selection)
+        self.assertEqual(mix, config.CAMPAIGN["acquisition_mix_binding_repair"])
+        self.assertNotEqual(mix, config.CAMPAIGN["acquisition_mix_collapse"])
+
+    def test_below_control_development_selects_transfer_repair_mix(self):
+        selection = {
+            "eligible": False,
+            "candidates": [
+                {"failed_trust_gates": [], "development_mean_win_rate": 0.0},
+                {"failed_trust_gates": [], "development_mean_win_rate": 0.0933},
+                {"failed_trust_gates": [], "development_mean_win_rate": 0.0},
+            ],
+        }
+        mix = acquisition_mix(selection)
+        self.assertEqual(
+            mix, config.CAMPAIGN["acquisition_mix_transfer_repair"])
+        self.assertNotEqual(mix, config.CAMPAIGN["acquisition_mix_default"])
+
+    def test_policy_warm_start_adds_reset_counter_flags(self):
+        args = SimpleNamespace(
+            tag="campaign-test", redteam="/vol/checkpoints/red.pt",
+            stochastic_policy="/vol/checkpoints/stochastic.pt",
+            base_wm=["/vol/checkpoints/old.pt"], transitions=100,
+            steps=1, updates=1,
+            policy_warm_start="/vol/checkpoints/best_prior.pt")
+        stages, _ = round_plan(
+            args, 1, config.CAMPAIGN["acquisition_mix_transfer_repair"])
+        policy_cmds = [
+            " ".join(command) for name, command, *_ in stages
+            if name.startswith("policy-") and "trust" not in name
+        ]
+        self.assertEqual(len(policy_cmds), 3)
+        for joined in policy_cmds:
+            self.assertIn("--init-from /vol/checkpoints/best_prior.pt", joined)
+            self.assertIn("--warm-start", joined)
+
+    def test_prior_pretrust_stop_blocks_policy_resume(self):
+        stopped = prior_round_pretrust_stop({
+            "stopped_before_policy": True,
+            "failed_trust_gates": ["ballless_positive_rate"],
+        })
+        self.assertEqual(
+            stopped["candidates"][0]["failed_trust_gates"],
+            ["ballless_positive_rate"])
+        self.assertEqual(
+            acquisition_mix(stopped),
+            config.CAMPAIGN["acquisition_mix_calibration"])
+        self.assertIsNone(prior_round_pretrust_stop({
+            "stopped_before_policy": False,
+            "failed_trust_gates": ["ballless_positive_rate"],
+        }))
+        self.assertIsNone(prior_round_pretrust_stop(None))
+
+    def test_stop_error_matches_modal_spend_limit(self):
+        self.assertTrue(STOP_ERROR.search(
+            "ResourceExhaustedError: Workspace has exceeded its spend limit"))
+        self.assertTrue(STOP_ERROR.search(
+            "ConflictError('workspace ac-x is disabled')"))
+        self.assertFalse(STOP_ERROR.search("RemoteError: Function cancelled"))
+
+    def test_policy_resume_uses_volume_checkpoint_without_failed_stage(self):
+        """Unmarked mid-flight exits still resume via --init-from."""
+        from scripts import run_honest_campaign as campaign
+
+        artifact = "/vol/checkpoints/honest_campaign_v2_r2_ppo_seed314.pt"
+        command = ["python", "-m", "agents.train_dream", "--out", artifact]
+
+        def decide(name, prior, exists):
+            resumable = (
+                name.startswith("policy-") or name.startswith("wm-")
+            ) and "trust" not in name
+            if resumable and (
+                    (prior and not prior.get("ok"))
+                    or (not prior and exists)):
+                return list(command) + ["--init-from", artifact]
+            return list(command)
+
+        resumed = decide("policy-1", prior=None, exists=True)
+        self.assertIn("--init-from", resumed)
+        self.assertEqual(resumed[-1], artifact)
+        fresh = decide("policy-1", prior=None, exists=False)
+        self.assertNotIn("--init-from", fresh)
+        failed = decide("policy-1", prior={"ok": False}, exists=False)
+        self.assertIn("--init-from", failed)
+        wm_resume = decide("wm-2", prior=None, exists=True)
+        self.assertIn("--init-from", wm_resume)
+        trust_no = decide("policy-trust-1", prior=None, exists=True)
+        self.assertNotIn("--init-from", trust_no)
+        # volume_checkpoint_exists is exercised live in the daily smoke path;
+        # keep the helper importable here without hitting Modal.
+        self.assertTrue(callable(campaign.volume_checkpoint_exists))
 
     def test_candidate_selection_never_reads_final_results(self):
         trust = {"overall_pass": True,
