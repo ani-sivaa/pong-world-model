@@ -22,7 +22,8 @@ import config  # noqa: E402
 
 STOP_ERROR = re.compile(
     r"(insufficient.*credit|quota.*exceed|payment required|not authenticated|"
-    r"unauthorized|credit.*exhaust)", re.IGNORECASE)
+    r"unauthorized|credit.*exhaust|spend limit|resourceexhausted|"
+    r"workspace .* disabled|exceeded its spend)", re.IGNORECASE)
 
 
 def modal_credit_telemetry():
@@ -68,11 +69,60 @@ def fetch_volume(remote_path, local_path):
     ], cwd=REPO)
 
 
+def volume_checkpoint_exists(remote_path):
+    """True when a Modal volume object exists at the checkpoint path.
+
+    Used to resume interrupted dream-policy stages after a controller crash
+    that never recorded ``ok=False`` (so SKIP/init-from would otherwise miss
+    a partial ``/vol/checkpoints/...pt``).
+    """
+    rel = str(remote_path).removeprefix("/vol/").lstrip("/")
+    parent, _, name = rel.rpartition("/")
+    if not name:
+        return False
+    result = subprocess.run(
+        [sys.executable, "-m", "modal", "volume", "ls", "worldmodel-vol",
+         parent or "."],
+        cwd=REPO, capture_output=True, text=True)
+    if result.returncode != 0:
+        return False
+    needle = f"{parent}/{name}" if parent else name
+    return any(
+        line.strip().rstrip("/").endswith(needle)
+        or line.strip().rstrip("/").endswith(name)
+        for line in (result.stdout or "").splitlines()
+    )
+
+
 def remote_command(module, argv, gpu=True):
     return [
         sys.executable, "-m", "infra.remote", "--module", module,
         "--gpu" if gpu else "--cpu", "--", *argv,
     ]
+
+
+def prior_round_pretrust_stop(manifest_round):
+    """If a prior run stopped before policy, return a synthetic selection.
+
+    Resume must not re-enter dream-policy stages after a failed pretrust just
+    because the pretrust command itself returned ok=True.
+    """
+    if not manifest_round or not manifest_round.get("stopped_before_policy"):
+        return None
+    failed = list(manifest_round.get("failed_trust_gates") or [])
+    return {"candidates": [{"failed_trust_gates": failed}]}
+
+
+def best_development_win_rate(selection):
+    """Highest development mean among candidates, or None if unavailable."""
+    if not selection:
+        return None
+    rates = [
+        candidate.get("development_mean_win_rate")
+        for candidate in selection.get("candidates", [])
+        if candidate.get("development_mean_win_rate") is not None
+    ]
+    return max(rates) if rates else None
 
 
 def acquisition_mix(previous_selection):
@@ -82,12 +132,25 @@ def acquisition_mix(previous_selection):
         gate for candidate in previous_selection.get("candidates", [])
         for gate in candidate.get("failed_trust_gates", [])
     }
+    # Prefer the binding-repair mix whenever latent utilization failed.
+    # The old collapse mix (stochastic=.45) repeatedly made ballless worse
+    # without clearing the utilization gate.
+    if "stochastic_latent_utilization" in failed:
+        return config.CAMPAIGN["acquisition_mix_binding_repair"]
+    if "ballless_positive_rate" in failed:
+        return config.CAMPAIGN["acquisition_mix_calibration"]
     if any(name.startswith("stochastic_") for name in failed):
         return config.CAMPAIGN["acquisition_mix_collapse"]
     if {"reward_mae", "done_brier", "dream_real_reward_gap"} & failed:
         return config.CAMPAIGN["acquisition_mix_calibration"]
     if "uncertainty_rank_corr" in failed:
         return config.CAMPAIGN["acquisition_mix_uncertainty"]
+    # Trust passed but transfer stayed below the dream-v2 control: keep rare
+    # event pressure instead of falling back to the default mix that produced
+    # the round-2 0% development collapse.
+    best = best_development_win_rate(previous_selection)
+    if best is not None and best < config.ROUND_TWO["minimum_win_rate"]:
+        return config.CAMPAIGN["acquisition_mix_transfer_repair"]
     return config.CAMPAIGN["acquisition_mix_default"]
 
 
@@ -120,6 +183,7 @@ def round_plan(args, round_index, mix):
             "--tag", f"{tag}_wm{index}", "--v2", "--stochastic",
             "--sampler", "balanced", "--bootstrap", "--seed", str(seed),
             "--steps", str(args.steps),
+            "--max-seconds", str(config.CAPS["wm_train"]),
         ]), path, True))
 
     pretrust = results / f"trust_{tag}_prepolicy.json"
@@ -130,15 +194,25 @@ def round_plan(args, round_index, mix):
     ]), pretrust, True))
 
     policies, trusts, developments = [], [], []
+    warm_start = getattr(args, "policy_warm_start", None)
     for index, seed in enumerate(config.ROUND_TWO["policy_seeds"]):
         policy = checkpoints / f"{tag}_ppo_seed{seed}.pt"
         policies.append(policy)
-        stages.append((f"policy-{index}", remote_command("agents.train_dream", [
+        policy_argv = [
             "--scale", "full", "--data", str(data), "--wm", *map(str, wm_paths),
             "--algorithm", "ppo", "--latent-mode", "sample", "--ball-guard",
             "--seed", str(seed), "--updates", str(args.updates),
+            "--max-seconds", str(config.CAPS["dream"]),
             "--tag", f"{tag}_ppo_seed{seed}", "--out", str(policy),
-        ]), policy, True))
+        ]
+        # Transfer repair: load best prior development weights with a reset
+        # update counter. Mid-run resume still uses plain --init-from only.
+        if warm_start:
+            policy_argv.extend([
+                "--init-from", str(warm_start), "--warm-start",
+            ])
+        stages.append((f"policy-{index}", remote_command(
+            "agents.train_dream", policy_argv), policy, True))
         trust = results / f"trust_{tag}_candidate{index}.json"
         trusts.append(trust)
         stages.append((f"policy-trust-{index}", remote_command(
@@ -166,7 +240,9 @@ def round_plan(args, round_index, mix):
                 "--wm", *map(str, wm_paths), "--algorithm", "reinforce",
                 "--latent-mode", "sample", "--ball-guard",
                 "--seed", str(config.ROUND_TWO["policy_seeds"][0]),
-                "--updates", str(args.updates), "--tag", f"{tag}_reinforce",
+                "--updates", str(args.updates),
+                "--max-seconds", str(config.CAPS["dream"]),
+                "--tag", f"{tag}_reinforce",
                 "--out", str(ablation),
             ]), ablation, True))
         stages.append(("reinforce-development", remote_command(
@@ -224,6 +300,10 @@ def parser():
                         default=config.CAMPAIGN["max_rounds"])
     result.add_argument("--retries", type=int,
                         default=config.CAMPAIGN["max_stage_retries"])
+    result.add_argument(
+        "--policy-warm-start", default=None,
+        help="optional prior policy checkpoint; dream PPO loads weights with "
+             "--warm-start (reset update counter) for transfer repair")
     return result
 
 
@@ -255,6 +335,32 @@ def main():
     manifest_path = config.RESULTS_DIR / f"{args.tag}_campaign_manifest.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text())
+        # Clearing a prior hard-stop lets the same tag resume paid stages
+        # after credits/auth are restored without rewriting stage history.
+        if args.execute and manifest.get("status") in {
+            "budget_or_auth_exhausted",
+            "blocked_credit_telemetry_unavailable",
+            "blocked_current_run_environment_not_refreshed",
+            "stage_failed",
+            # Allow extending max_rounds after a completed-but-below-threshold
+            # cycle (e.g. transfer-repair round after r2 0% development).
+            "development_threshold_not_met_before_round_limit",
+            "dry_run_complete",
+        }:
+            resume_attempts = list(manifest.get("resume_attempts") or [])
+            resume_attempts.append({
+                "at": time.time(),
+                "from_status": manifest.get("status"),
+                "credit_balance_usd": credit,
+                "credit_telemetry_source": source,
+                "credit_telemetry_status": telemetry_status,
+                "policy_warm_start": getattr(args, "policy_warm_start", None),
+                "max_rounds": args.max_rounds,
+            })
+            manifest["resume_attempts"] = resume_attempts
+            manifest["status"] = "running"
+            manifest["modal_credit_telemetry_status"] = telemetry_status
+            _write(manifest_path, manifest)
     else:
         manifest = {
             "preregistration": preregistration(args),
@@ -266,6 +372,16 @@ def main():
 
     previous_selection = None
     for round_index in range(args.max_rounds):
+        # Resume-safe: a prior pretrust failure must not fall through into
+        # unpaid-for policy stages just because the pretrust *command* ok'd.
+        if round_index < len(manifest["rounds"]):
+            synthetic = prior_round_pretrust_stop(manifest["rounds"][round_index])
+            if synthetic is not None:
+                failed = synthetic["candidates"][0]["failed_trust_gates"]
+                previous_selection = synthetic
+                print(f"[campaign] SKIP round-{round_index} "
+                      f"(prior pretrust stop: {failed or ['overall_pass=false']})")
+                continue
         mix = acquisition_mix(previous_selection)
         stages, selection_path = round_plan(args, round_index, mix)
         if len(manifest["rounds"]) <= round_index:
@@ -279,7 +395,48 @@ def main():
             prior = manifest["stages"].get(stage_id)
             if prior and prior.get("ok"):
                 print(f"[campaign] SKIP {stage_id}")
+                # Reconstruct round_failure from stored trust when skipping.
+                if name == "pretrust":
+                    trust = prior.get("trust") or {}
+                    gates = trust.get("gates") or {}
+                    failed_gates = [
+                        gate_name for gate_name, gate in gates.items()
+                        if not gate.get("available", False)
+                        or gate.get("pass") is not True
+                    ]
+                    if trust.get("overall_pass") is not True or failed_gates:
+                        round_failure = {
+                            "candidates": [{
+                                "failed_trust_gates": failed_gates}]}
+                        break
                 continue
+            # Resume interrupted dream-policy or WM training from the volume
+            # checkpoint when a prior attempt wrote periodic progress, or when
+            # a mid-flight controller exit left an unmarked partial checkpoint.
+            # A partial of THIS artifact always wins over a planned warm-start
+            # from a prior-round policy (continue step count, no --warm-start).
+            # WM resumes use the same --init-from path; wm.train continues from
+            # the saved step counter (and no-ops when already at budget).
+            resumable = (
+                name.startswith("policy-") or name.startswith("wm-")
+            ) and "trust" not in name
+            if resumable and (
+                    (prior and not prior.get("ok"))
+                    or volume_checkpoint_exists(artifact)):
+                stripped = []
+                skip_next = False
+                for token in command:
+                    if skip_next:
+                        skip_next = False
+                        continue
+                    if token in {"--init-from", "--warm-start"}:
+                        if token == "--init-from":
+                            skip_next = True
+                        continue
+                    stripped.append(token)
+                command = stripped + ["--init-from", str(artifact)]
+                print(f"[campaign] resume {stage_id} via --init-from "
+                      f"{artifact}")
             print(f"[campaign] {'RUN' if args.execute else 'DRY-RUN'} "
                   f"{stage_id}\n  {shlex.join(command)}")
             if not args.execute:
@@ -369,6 +526,17 @@ def main():
                 _write(manifest_path, manifest)
                 break
         if not args.execute:
+            # Dry-run still advances previous_selection from local selection
+            # reports so later-round mix planning matches execute semantics.
+            if round_failure is not None:
+                previous_selection = round_failure
+            else:
+                local_selection = (
+                    config.RESULTS_DIR
+                    / f"{args.tag}_r{round_index}_selection.json")
+                if local_selection.exists():
+                    previous_selection = json.loads(
+                        local_selection.read_text())
             continue
         if round_failure is not None:
             previous_selection = round_failure
@@ -422,10 +590,13 @@ def main():
             # allowed; using it to launch another round is not.
             return result.returncode
 
-    manifest["status"] = (
-        "development_threshold_not_met_before_round_limit"
-        if args.execute else "dry_run_complete")
-    _write(manifest_path, manifest)
+    if args.execute:
+        manifest["status"] = "development_threshold_not_met_before_round_limit"
+        _write(manifest_path, manifest)
+    elif manifest.get("status") in {None, "dry_run", "running", "dry_run_complete"}:
+        # Do not clobber a prior execute terminal status with dry_run_complete.
+        manifest["status"] = "dry_run_complete"
+        _write(manifest_path, manifest)
     return 0
 
 
