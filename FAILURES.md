@@ -249,3 +249,27 @@ ImportError: No module named infra.does_not_exist
   paid launches. Local unit tests still pass (33). Evidence:
   `results/campaign_logs/modal_smoke_2026-10-21.log`,
   `volume_ckpt_audit_2026-10-21.log`, `unit_tests_2026-10-21.log`.
+
+## Modal spend limit still blocks daily resume — 2026-10-22
+- Phase: daily honest research cron on
+  `cursor/pong-world-model-research-e88d` (continued from latest
+  `pong-world-model-research-4679` tip `5ceaa82` / base `c57f`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary readable (metered ≈ $32.69 / credits
+  applied ≈ $30 / billed ≈ $0.02). Env balance $25 is start telemetry only.
+- Symptom: `infra.remote` GPU smoke (`scripts.smoke_modal`) and CPU
+  remote hello both raise
+  `ResourceExhaustedError: Workspace ... has exceeded its spend limit`.
+  Volume `ls`/`get` still succeed.
+- Volume audit (fetched ckpt metadata only):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+- Impact: cannot finish ballless FT, cannot re-pretrust, cannot dream-train.
+  No collect→WM burn attempted (science rule: repair first; binding FT still
+  unfinished).
+- Action: recorded hard stop + resume attempt in campaign manifest; stopped
+  paid launches. Local unit tests still pass (33). Evidence:
+  `results/campaign_logs/modal_smoke_2026-10-22.log`,
+  `volume_ckpt_audit_2026-10-22.log`, `unit_tests_2026-10-22.log`.
