@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/infra/remote.py", line 323, in <module>
+    sys.exit(_main())
+             ^^^^^^^
+  File "/workspace/infra/remote.py", line 316, in _main
+    result = launch(args.module, passthrough, gpu=gpu)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/infra/remote.py", line 140, in launch
+    with app.run():
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/modal/app.py", line 494, in run
+    async with _run_app(
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/modal/runner.py", line 418, in _run_app
+    running_app: RunningApp = await _init_local_app_new(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/modal/runner.py", line 99, in _init_local_app_new
+    app_resp, _ = await gather_cancel_on_exc(  # TODO: use TaskGroup?
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/modal/_utils/async_utils.py", line 1163, in gather_cancel_on_exc
+    await asyncio.gather(*input_tasks, return_exceptions=False)  # handle cancellations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/modal/_utils/async_utils.py", line 1159, in gather_cancel_on_exc
+    return await asyncio.gather(*input_tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+modal.exception.ResourceExhaustedError: Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit
+ResourceExhaustedError: Workspace has exceeded its spend limit
+CPU_PROBE_FAIL spend_limit

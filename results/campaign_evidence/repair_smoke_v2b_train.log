@@ -1,0 +1,9 @@
+[wm.train] tag=repair_smoke_v2b dev=cpu steps=200 batch=32 T=5000 train_end=4766 v2=True frac=1.0 sampler=natural seed=42 bootstrap=True bootstrap_frac=1.0 model_type=stochastic events=False priorities=False
+/workspace/wm/train.py:322: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  print(f"  step {step}/{steps} k={k} loss={float(total):.5f} "
+  step 1/200 k=1 loss=1.52538 frame=0.82801 rew=0.00107 done=0.69630 kl=1.80611 util=0.00000 ballless=0.00000 events={'ordinary': 32} 0s
+  step 100/200 k=5 loss=0.13957 frame=0.03587 rew=0.00030 done=0.10097 kl=2.04809 util=0.00931 ballless=0.00000 events={'ordinary': 32} 47s
+  step 200/200 k=5 loss=0.11719 frame=0.02139 rew=0.00006 done=0.09493 kl=1.63378 util=0.00000 ballless=0.00000 events={'ordinary': 32} 152s
+  [ckpt] step 200 val_frame=0.02227 val_events={'ordinary': 0.022274043411016464} -> checkpoints/repair_smoke_v2b.pt
+WM_TRAIN_OK tag=repair_smoke_v2b steps=200 final_val=0.02227 wall=153s ckpt=checkpoints/repair_smoke_v2b.pt
