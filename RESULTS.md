@@ -360,6 +360,610 @@ an 80% win-rate requirement.
   WM train logs `wm_log_r*_wm*.json`, manifest
   `results/honest_campaign_v1_campaign_manifest.json`.
 
+### Honest research cycle (2026-08-13) — binding repairs + trust-pass flywheel
+Recovered onto this lineage from prior campaign branch work:
+
+- Binding-trust repair package: `latent_inject_gain=2.5`, relative utilization
+  hinge (`utilization_coef=0.15`, target `5e-6`), `ballless_reward_coef=3.0`,
+  `acquisition_mix_binding_repair`, CAPS `wm_train=10800` / `dream=14400`.
+- `honest_campaign_v2` outcomes:
+  - r0 pretrust: ballless FAIL (util cleared).
+  - r1 pretrust **PASS** → dream PPO → development best **9.33%** wins
+    (below **12%** dream-v2 control; not eligible / not promoted).
+  - r2 pretrust **PASS** (util **4.74e-5**, ballless **0.033**).
+  - r2 `policy-0` reached ~180/2500 imagined updates then Modal
+    `ResourceExhaustedError` (workspace spend limit). Partial checkpoint
+    on volume at **step 100**.
+- **Not promoted.** Demo/web export unchanged. Final panel unused.
+
+### Honest research cycle (2026-10-12) — resume after spend-limit clear
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal client_ok; profile `default`.
+- Env credit telemetry = **$25**. GPU smoke **PASS**: Tesla T4,
+  torch 2.13.0+cu130, 20 train steps in 1.747s
+  (`results/campaign_logs/modal_smoke_2026-10-12.log`).
+- Binding repairs + resume hardening ported to this branch; unit tests 24/24.
+- **Did not** re-burn collect→WM on the old v1 binding failures. Resume target:
+  `honest_campaign_v2` round-2 `policy-0` with `--init-from`
+  `/vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt` (step 100).
+- Trust gates (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033).
+- Transfer vs 12% dream-v2 control: r1 best **9.33%** (below control);
+  round-2 policy incomplete → no new development panel yet.
+- Promotion: **not promoted** pending round-2 policy completion. Demo/web
+  export unchanged. Final panel unused. Prior 17.5% trust-failed stochastic
+  policy not exported.
+- **Round-2 policy-0 complete (2026-10-12):** wall-clock stop at update
+  **2302/2500** (`DREAM_OK`, ckpt on volume). Mid-job Modal restart had
+  reloaded the step-1000 periodic checkpoint with a fresh 14400s window.
+- **policy-trust-0:** **PASS** (overall_pass=True).
+- **development-0** (seeds 7001/7003/7013, 100 eps): mean win rate
+  **0.0%** (Wilson pooled CI [8.673617379884035e-19, 0.012642971224546034]);
+  mean hits ≈ 0.33/ep; mean point −1.0. **Below** the 12% dream-v2 control
+  and below r1 best 9.33%.
+- **Live:** round-2 `policy-1` (seed 314) in flight (~update 400/2500);
+  no demo export; final panel unused; prior 17.5% trust-failed stochastic
+  policy not exported.
+
+### Honest research cycle (2026-10-13) — continue r2 policy-1
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal profile `default` ok.
+- Env credit telemetry = **$25** (start-of-run static). Billing snapshot:
+  metered ≈ $11.51 / credits applied ≈ $9.89 / billed $0.00 (not a live
+  remaining-credit field).
+- GPU smoke **PASS**: Tesla T4, torch 2.13.0+cu130, 20 train steps in 1.285s
+  (`results/campaign_logs/modal_smoke_2026-10-13.log`).
+- Binding repairs already trusted on this lineage (r1/r2 pretrust PASS). **Did
+  not** re-burn collect→WM for the old v1 latent-collapse / ballless pair.
+- Volume resume: `honest_campaign_v2_r2_ppo_seed314.pt` at **step 1200/2500**.
+  Controller now `--init-from` that checkpoint when a partial volume artifact
+  exists without a recorded stage failure (mid-flight controller exit).
+- **Round-2 policy-1 complete (2026-10-13):** resumed from update 1200 →
+  **2500/2500** (`DREAM_OK`, wall ≈ 12412s, final dream_return −0.051).
+- **policy-trust-1:** **PASS** (overall_pass=True; 0 failed gates).
+- **development-1** (seeds 7001/7003/7013, 100 eps): mean win rate **0.0%**
+  (Wilson pooled CI same floor as development-0); mean point −1.0; hits
+  ≈ 0.11/ep. **Below** the 12% dream-v2 control and below r1 best 9.33%.
+- **Round-2 policy-2 complete (wall-stop):** seed 2718 from scratch → update
+  **1465/2500** (`DREAM_OK` after `WALL-CLOCK CAP`, wall ≈ 14411s,
+  dream_return −0.057). Volume checkpoint retained for a later `--init-from`.
+- **policy-trust-2:** **PASS**. **development-2:** mean win rate **0.0%**
+  (hits ≈ 0.5/ep; mean point −1.0). Below the 12% dream-v2 control.
+- **Selection:** `eligible=false` (all three r2 candidates at 0% development
+  wins; each strict-trust PASS). Controller status
+  `development_threshold_not_met_before_round_limit`.
+- **Credits (end of cycle):** Modal billing metered ≈ **$19.10** / credits
+  applied ≈ **$17.35** / billed **$0**. Env `MODAL_CREDIT_BALANCE_USD=25`
+  remains start telemetry only.
+- **Transfer vs 12% dream-v2 control:** r1 best **9.33%** still leads; r2
+  development panel is **0% / 0% / 0%** for seeds 42 / 314 / 2718.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final
+  panel unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed
+  stochastic policy not exported.
+- Trust (latest): r2 pretrust PASS (util 4.74e-5, ballless 0.033); all three
+  r2 policy-trust reports PASS. Binding repairs held; no collect→WM reburn.
+
+### Honest research cycle (2026-10-14) — continue after r2 development collapse
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal profile `default` ok; client_ok.
+- Env credit telemetry = **$25** (start-of-run static). Billing snapshot at
+  start: metered ≈ $18.97 / credits applied ≈ $17.22 / billed $0.00.
+- GPU smoke **PASS**: Tesla T4, torch 2.13.0+cu130, 20 train steps in 1.655s
+  (`results/campaign_logs/modal_smoke_2026-10-14.log`).
+- Continued from latest campaign lineage (`honest_campaign_v2` on prior daily
+  branch tip): binding repairs already clear pretrust (r1/r2 util+ballless
+  PASS). **Did not** re-burn collect→WM for the old v1 latent-collapse pair.
+- Prior cycle end state: r2 selection `eligible=false`; development **0%/0%/0%**
+  vs r1 best **9.33%** and the **12%** dream-v2 control; not promoted; final
+  panel unused; no demo export.
+- Today's concrete lever (transfer, not binding): after trust-pass rounds whose
+  development max stays below the 12% control, prefer a transfer-repair
+  acquisition mix and warm-start dream PPO weights from the best prior
+  development checkpoint (`r1_ppo_seed314`, 9.33%) with a reset update
+  counter — then continue the flywheel into round 3.
+- Transfer-repair code landed + unit tests green (27/27). Dry-run plan for
+  round 3 uses mix `tracker=.10,rare=.35,redteam=.20,stochastic=.25,natural=.10`
+  and `--init-from r1_ppo_seed314 --warm-start` on all three dream PPO seeds.
+- **Live execute started (2026-10-14):** controller skipped r0–r2 completed
+  stages, fetched r1/r2 selections, and launched `round-3:collect` on Modal
+  with the transfer-repair mix (confirmed in the live `infra.remote` argv).
+  Stochastic collector checkpoint is the r1 9.33% policy. No demo export;
+  final panel unused.
+- **Round-3 collect complete (~570s wall):** `COLLECT_ADAPTIVE_OK` T=1,000,000,
+  real_only=True, transfer-repair mix (`rare=.35`). Evidence:
+  `results/campaign_evidence/v2_r3_collect_meta.json`.
+- **Live:** `round-3:wm-0` training started (18k stochastic steps, balanced
+  sampler + bootstrap). Dream PPO still gated on pretrust.
+- **Round-3 wm-0 complete:** `WM_TRAIN_OK` 18,000 steps, final val frame
+  **0.00553**, wall ≈ 6971s. Training-time latent util ≈ 2e-4 with ballless
+  penalty ≈ 0 (hinge healthy vs the 1e-7 gate). `wm-1` started.
+- **Round-3 wm-1 complete:** `WM_TRAIN_OK` 18,000 steps, final val frame
+  **0.00769**, wall ≈ 6933s. `wm-2` training started afterward.
+- **Round-3 wm-2 complete:** `WM_TRAIN_OK` 18,000 steps, final val **0.00734**,
+  wall ≈ 6960s.
+- **Round-3 pretrust: FAIL** (no dream PPO; science rule honored).
+  - `stochastic_latent_utilization` **PASS** 4.11e-5 ≥ 1e-7
+  - `ballless_positive_rate` **FAIL** 0.122 > 0.05
+  - Evidence: `results/campaign_evidence/v2_r3_pretrust.json`
+- Concrete ballless repair before another collect→WM burn: raise
+  `ballless_reward_coef` 3.0→**6.0**, tighten `ballless_mass_tau` 0.5→**0.35**,
+  and let the controller select `acquisition_mix_calibration` (rare=.40) for
+  round 4 from the ballless failure.
+- **Live round-4 execute started:** calibration mix (`rare=.40`) + strengthened
+  ballless penalty. Dream PPO remains gated on pretrust.
+- **Round-4 collect complete (~639s):** calibration mix confirmed; WM-0 training
+  started with `ballless_reward_coef=6.0`.
+- **Round-4 wm-0 complete:** final val **0.00696**, util hinge ≈ 1.1e-3,
+  ballless train penalty ≈ 0. `wm-1` in flight.
+
+### Honest research cycle (2026-10-15) — finish r4 WM + pretrust
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; Modal profile `default` ok; client_ok.
+- Env credit telemetry = **$25** (start-of-run static). Billing snapshot at
+  start: metered ≈ **$30.07** / credits applied ≈ **$28.18** / billed **$0**.
+- GPU smoke **PASS**: Tesla T4, torch 2.13.0+cu130, 20 train steps in 2.721s
+  (`results/campaign_logs/modal_smoke_2026-10-15.log`).
+- Continued from latest campaign tip (`honest_campaign_v2` on prior daily
+  branch): binding repairs still clear latent util on this lineage; r3 failed
+  **only** `ballless_positive_rate` (0.122). Round 4 already collected under
+  calibration mix (`rare=.40`) with `ballless_reward_coef=6.0` /
+  `ballless_mass_tau=0.35`.
+- Volume recovery (2026-10-15):
+  - `r4_wm0.pt` **complete** (step 18000); `r4_wm1.pt` **complete** (18000);
+  - `r4_wm2.pt` **partial** (step **11000**/18000) — no train log yet;
+  - no `trust_honest_campaign_v2_r4_prepolicy.json` yet.
+- Concrete repair this cycle (not another blind collect→WM): add WM
+  step-resume via `--init-from` (continue saved step counter; no-op when
+  already at budget) so the controller finishes `wm-2` without reburning
+  `wm-0`/`wm-1` or recollecting. Collect stage recovered into the manifest.
+- Dream PPO remains gated on r4 pretrust. Warm-start from r1 seed314 (9.33%)
+  stays planned if pretrust passes. No demo export; final panel unused;
+  prior 17.5% trust-failed stochastic policy not exported.
+- Transfer control unchanged: dream v2 **12%**; r1 best development **9.33%**;
+  r2 development **0%/0%/0%**.
+- **Live execute (2026-10-15):** controller skipped r0–r3 completed/stopped
+  stages; `round-4:collect` recovered SKIP; `wm-0`/`wm-1` no-op resumed in
+  ~13s/`~11s` (`already complete at step 18000`); `wm-2` resumed from step
+  **11000**/18000 with `ballless_reward_coef=6.0` (train ballless≈0 so far).
+  First resume attempt hit a CosineAnnealingLR `initial_lr` KeyError (logged in
+  FAILURES.md) and was fixed before relaunch.
+
+- **Round-4 wm-2 complete (resume):** step 11000→**18000**, final val
+  **0.00691**, wall ≈ 3966s (`WM_TRAIN_OK`).
+- **Round-4 pretrust: FAIL** (no dream PPO; science rule honored).
+  - `stochastic_latent_utilization` **PASS** 5.84e-5 ≥ 1e-7
+  - `ballless_positive_rate` **FAIL** 0.071 > 0.05 (4 violations / 56
+    ballless frames) — improved vs r3's **0.122** but still above gate
+  - Evidence: `results/campaign_evidence/v2_r4_pretrust.json`
+- Next concrete repair (no new collect→WM burn): raise
+  `ballless_reward_coef` 6→**12**, tighten `ballless_mass_tau` 0.35→**0.20**,
+  hinge positive reward at the trust threshold (`relu(r-0.05)`), then
+  fine-tune the three r4 WMs +3000 steps from the finished checkpoints and
+  re-run pretrust.
+- **Live ballless fine-tune started (2026-10-15):** same r4 dataset, no new
+  collect. Sequential `--init-from` continues each WM 18000→**21000** under
+  coef=12 / tau=0.20 / hinge=0.05, then re-pretrust
+  (`trust_honest_campaign_v2_r4_ballless_ft_prepolicy.json`). Dream PPO still
+  gated. Billing at launch: metered ≈ $31.20 / billed $0.
+
+- **Ballless fine-tune interrupted by Modal spend limit (HARD STOP):**
+  - `wm-0`: **21000**/21000 complete under coef=12 / tau=0.20 / hinge=0.05
+    (final val **0.00595**).
+  - `wm-1`: wall/disabled at step **20000**/21000 (coef=12 applied in ckpt).
+  - `wm-2`: still **18000** under prior coef=6 / tau=0.35 (not fine-tuned).
+  - Re-pretrust **not run** on the mismatched ensemble.
+- End billing snapshot: metered ≈ **$31.94** / billed ≈ **$0.05**. Env
+  `MODAL_CREDIT_BALANCE_USD=25` remains start telemetry only.
+- **Trust gates (latest completed):** r4 pretrust util **PASS** 5.84e-5;
+  ballless **FAIL** 0.071 (near-miss vs r3 0.122). r1/r2 still the last
+  trust-passing policy rounds.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 produced **no** new policies this cycle.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status: `budget_or_auth_exhausted`.
+
+### Honest research cycle (2026-10-16) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-c8aa` from `cursor/honest-research-cycle-3c24`
+  (`f318a07`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `default`; billing summary JSON ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.07** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-16.log`). CPU remote hello also
+  blocked by the same spend-limit gate.
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-16.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **27** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-16.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-16.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
+
+
+
+
+
+### Honest research cycle (2026-10-17) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-f4b7` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-cycle-c8aa` (`bd4121b`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary JSON ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.22** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-17.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-17.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15/16 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-17.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-17.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-17.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+### Honest research cycle (2026-10-18) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-9cb9` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-cycle-f4b7` (`a7e205f`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary JSON ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.38** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-18.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-18.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15/16/17 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-18.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-18.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-18.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+### Honest research cycle (2026-10-19) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-c155` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-cycle-9cb9` (`a853efa`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary JSON ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.54** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-19.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-19.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15/16/17/18 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-19.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-19.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-19.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+### Honest research cycle (2026-10-20) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-loop-8058` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-cycle-c155` (`5530748`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.69** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-20.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-20.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15…19 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-20.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-20.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-20.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+### Honest research cycle (2026-10-21) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/pong-world-model-research-4679` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-loop-8058` (`5237f1e`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.69** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-21.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-21.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15…20 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-21.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-21.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-21.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
+### Honest research cycle (2026-10-22) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/pong-world-model-research-e88d` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/pong-world-model-research-4679` (`5ceaa82`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.69** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-22.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-22.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15…21 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-22.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-22.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-22.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
+### Honest research cycle (2026-10-23) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/pong-world-model-research-1033` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/pong-world-model-research-e88d` (`6b6c10a`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.69** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-23.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-23.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15…22 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-23.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-23.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-23.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
+### Honest research cycle (2026-10-24) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-5100` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/pong-world-model-research-1033` (`be81600`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.69** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-24.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-24.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15…23 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-24.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-24.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-24.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
+
+### Honest research cycle (2026-10-25) — auth OK, spend limit hard stop
+- Continued latest campaign tip onto daily branch
+  `cursor/honest-research-cycle-be10` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/honest-research-cycle-5100` (`f5bf4a7`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; billing summary ok. Env credit telemetry = **$25**
+  (start-of-run static only).
+- Billing snapshot: metered ≈ **$32.69** / credits applied ≈ **$30** /
+  billed ≈ **$0.02**.
+- GPU smoke **FAIL** (spend limit): `ResourceExhaustedError: Workspace ... has
+  exceeded its spend limit`
+  (`results/campaign_logs/modal_smoke_2026-10-25.log`). CPU remote hello also
+  blocked by the same spend-limit gate
+  (`results/campaign_logs/modal_cpu_probe_2026-10-25.log`).
+- Volume reads still work. Checkpoint audit confirms mismatched r4 ballless
+  fine-tune ensemble unchanged vs 2026-10-15…24 (no re-pretrust):
+  - `r4_wm0.pt` step **21000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm1.pt` step **20000**, coef=12 / tau=0.20 / hinge=0.05
+  - `r4_wm2.pt` step **18000**, coef=6 / tau=0.35 (not fine-tuned)
+  → `results/campaign_logs/volume_ckpt_audit_2026-10-25.log`
+- **No paid jobs launched** this cycle. Did **not** start another collect→WM
+  round (binding repair still unfinished; spend limit is the blocker).
+- Local repair-code regression: **33** unit tests passed
+  (`results/campaign_logs/unit_tests_2026-10-25.log`).
+- **Trust gates (unchanged since 2026-10-15):** latest completed r4 pretrust
+  util **PASS** 5.84e-5; ballless **FAIL** 0.071. r1/r2 remain the last
+  trust-passing policy rounds. Ballless FT re-pretrust still blocked.
+- **Transfer vs 12% dream-v2 control:** r1 best development **9.33%** still
+  leads; r2 **0%/0%/0%**; r3/r4 still produced **no** new policies.
+- **Promotion:** **not promoted.** Demo/web export **unchanged.** Final panel
+  unused (`final_evaluation_uses=0`). Prior 17.5% trust-failed stochastic
+  policy not exported.
+- Manifest status remains `budget_or_auth_exhausted` with a new
+  `resume_attempts` entry and hard-stop note for 2026-10-25.
+- **Resume next (when spend limit clears):** finish `wm1` 20000→21000 and
+  `wm2` 18000→21000 under coef=12 / tau=0.20 / hinge=0.05 on the same r4
+  data; re-pretrust; only then dream PPO with warm-start r1 seed314.
+
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
