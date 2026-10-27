@@ -300,6 +300,31 @@
         "cpu_remote": "FAIL spend_limit",
         "volume_read": "OK"
       }
+    },
+    {
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-10-27:gpu_smoke",
+      "timestamp": "2026-10-27T11:04:44Z",
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "ballless_config": {
+        "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
+        "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
+        "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
+      },
+      "auth": {
+        "token_verified": true,
+        "credentials_present": true,
+        "modal_profile": "ani-sivaa",
+        "gpu_smoke": "FAIL spend_limit",
+        "cpu_remote": "FAIL spend_limit",
+        "volume_read": "OK"
+      }
     }
   ],
   "live_notes": [
@@ -399,9 +424,14 @@
       "timestamp": "2026-10-26T11:03:24Z",
       "at": 1793012604.513491,
       "note": "2026-10-26 daily resume on branch cursor/honest-research-cycle-929d (fast-forward from honest-research-cycle-be10@f39f0bd): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+    },
+    {
+      "timestamp": "2026-10-27T11:04:44Z",
+      "at": 1793099084.0516038,
+      "note": "2026-10-27 daily resume on branch cursor/honest-research-loop-760a (fast-forward from honest-research-cycle-929d@a28db36): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
     }
   ],
-  "modal_credit_note": "start telemetry $25; billing metered~32.69 credits~30 billed~0.02; spend limit blocks apps",
+  "modal_credit_note": "2026-10-27: env MODAL_CREDIT_BALANCE_USD=25 is start telemetry only; modal billing summary metered~32.69 / credits~30 / billed~0.02; Workspace spend limit still blocks GPU and CPU apps after token verify OK.",
   "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
   "modal_credit_telemetry_status": "available",
   "preregistration": {
@@ -855,6 +885,37 @@
       "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-929d",
       "continued_from": "cursor/honest-research-cycle-be10@f39f0bd"
+    },
+    {
+      "timestamp": "2026-10-27T11:04:44Z",
+      "at": 1793099084.0516038,
+      "from_status": "budget_or_auth_exhausted",
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "token_verified": true,
+      "gpu_smoke_ok": false,
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "paid_jobs_launched": 0,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "step": 21000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "step": 20000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "step": 18000,
+          "ballless_reward_coef": 6.0
+        }
+      },
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "branch": "cursor/honest-research-loop-760a",
+      "continued_from": "cursor/honest-research-cycle-929d@a28db36"
     }
   ],
   "rounds": [
