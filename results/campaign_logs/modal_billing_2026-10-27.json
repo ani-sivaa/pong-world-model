@@ -3,11 +3,24 @@
   "billed_cost": "0.02000000",
   "adjustments": {
     "credits": "-30.00000000",
-    "free_storage": "-2.67427964"
+    "free_storage": "-2.67427964",
+    "network_egress_allowance": "0E-8",
+    "plan_cost": "0E-8",
+    "reservation_adjustment": "-0E-8"
   },
   "metered_cost_breakdown": {
     "ephemeral_apps": "30.01649639",
+    "network_egress": "0E-8",
+    "llm_tokens": "0E-8",
     "volumes": "2.67427964"
   },
-  "note": "Parsed from `modal billing summary` on 2026-10-27; figures match 2026-10-26 snapshot (Metered 32.69 / Credits -30 / Billed $0.02)."
+  "summary_cli": {
+    "metered_cost_approx": 32.69,
+    "ephemeral_apps_approx": 30.02,
+    "volumes_approx": 2.67,
+    "credits_approx": -30.0,
+    "billed_cost_usd": 0.02
+  },
+  "date_utc": "2026-10-27",
+  "note": "modal billing summary matches 2026-10-26 snapshot; spend limit still active."
 }
