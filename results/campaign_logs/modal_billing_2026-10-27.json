@@ -1,0 +1,13 @@
+{
+  "metered_cost": "32.69427964",
+  "billed_cost": "0.02000000",
+  "adjustments": {
+    "credits": "-30.00000000",
+    "free_storage": "-2.67427964"
+  },
+  "metered_cost_breakdown": {
+    "ephemeral_apps": "30.01649639",
+    "volumes": "2.67427964"
+  },
+  "note": "Parsed from `modal billing summary` on 2026-10-27; figures match 2026-10-26 snapshot (Metered 32.69 / Credits -30 / Billed $0.02)."
+}
