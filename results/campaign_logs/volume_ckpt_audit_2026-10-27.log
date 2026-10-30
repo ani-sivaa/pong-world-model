@@ -1,0 +1,6 @@
+# Volume checkpoint audit — 2026-10-27 (worldmodel-vol)
+# Fetched to /tmp for step/config inspection only; not committed binaries.
+honest_campaign_v2_r4_wm0.pt step=21000 ballless_reward_coef=12.0 ballless_mass_tau=0.2 ballless_reward_hinge=0.05
+honest_campaign_v2_r4_wm1.pt step=20000 ballless_reward_coef=12.0 ballless_mass_tau=0.2 ballless_reward_hinge=0.05
+honest_campaign_v2_r4_wm2.pt step=18000 ballless_reward_coef=6.0 ballless_mass_tau=0.35 ballless_reward_hinge=None (missing hinge key; not fine-tuned)
+# Ensemble mismatched on ballless hinge — do not re-pretrust until wm1 finishes 21000 and wm2 FT under coef=12.
