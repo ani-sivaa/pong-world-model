@@ -563,9 +563,9 @@
     ]
   },
   "promotion": {
-    "at": "2026-10-29T11:07:32Z",
+    "at": "2026-10-30T11:05:02Z",
     "promoted": false,
-    "reason": "Daily cycle 2026-10-29: auth OK but Modal spend limit blocks GPU/CPU jobs. Cannot finish r4 ballless fine-tune / re-pretrust. No new development panel; not promoted; demo unchanged."
+    "reason": "Daily cycle 2026-10-30: auth OK but Modal spend limit blocks GPU/CPU jobs. Cannot finish r4 ballless fine-tune / re-pretrust. No new development panel; not promoted; demo unchanged."
   },
   "resume_attempts": [
     {
@@ -1038,6 +1038,37 @@
       "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-d71b",
       "continued_from": "cursor/honest-research-cycle-0e13@2100f60"
+    },
+    {
+      "timestamp": "2026-10-30T11:05:02Z",
+      "at": 1793358302.114357,
+      "from_status": "budget_or_auth_exhausted",
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "token_verified": true,
+      "gpu_smoke_ok": false,
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "paid_jobs_launched": 0,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "step": 21000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "step": 20000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "step": 18000,
+          "ballless_reward_coef": 6.0
+        }
+      },
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "branch": "cursor/world-model-research-loop-0929",
+      "continued_from": "cursor/honest-research-cycle-d71b@f36f489"
     }
   ],
   "rounds": [
@@ -4065,5 +4096,6 @@
       "wall_seconds": 3993.3427221775055
     }
   },
-  "status": "budget_or_auth_exhausted"
+  "status": "budget_or_auth_exhausted",
+  "hard_stop_note": "2026-10-30: Modal spend limit still blocks GPU and CPU apps after token verify OK. Volume r4 ballless FT ensemble still mismatched (wm0@21000 coef12, wm1@20000 coef12, wm2@18000 coef6). No re-pretrust; no collect\u2192WM; no dream PPO; no demo export."
 }
