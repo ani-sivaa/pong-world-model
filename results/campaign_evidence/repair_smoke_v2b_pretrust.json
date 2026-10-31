@@ -1,0 +1,490 @@
+{
+  "data": "data/smoke",
+  "deterministic_epistemic_prior": true,
+  "gates": {
+    "ballless_positive_rate": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.5,
+      "value": 0.0
+    },
+    "done_brier": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.55,
+      "value": 0.011582492850720882
+    },
+    "dream_real_reward_gap": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 1.5,
+      "value": 0.002832122799009085
+    },
+    "forced_scenario_mse": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.45,
+      "value": 0.004471849390894985
+    },
+    "natural_rollout_mse": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.35,
+      "value": 0.011091413303055533
+    },
+    "policy_lockstep_mse": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 0.4,
+      "value": 0.01104448067976614
+    },
+    "reward_mae": {
+      "available": true,
+      "operator": "<=",
+      "pass": true,
+      "threshold": 1.5,
+      "value": 0.001409289543516934
+    },
+    "stochastic_latent_utilization": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 1e-08,
+      "value": 0.0001169006573036313
+    },
+    "stochastic_posterior_prior_kl": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 1e-06,
+      "value": 1.701040506362915
+    },
+    "stochastic_prior_sample_frame_mse": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 1e-08,
+      "value": 0.0001581824035383761
+    },
+    "stochastic_prior_std": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 0.0001,
+      "value": 1.4364935159683228
+    },
+    "stochastic_serve_direction_coverage": {
+      "available": true,
+      "operator": ">=",
+      "pass": true,
+      "threshold": 0.0,
+      "value": 1.0
+    },
+    "uncertainty_rank_corr": {
+      "available": false,
+      "pass": null,
+      "reason": "uncertainty or real error is constant",
+      "threshold": -1.0
+    }
+  },
+  "headed_checkpoints": [
+    "checkpoints/repair_smoke_v2b.pt"
+  ],
+  "measurements": {
+    "current_policy_lockstep": {
+      "dream_real_reward_gap": {
+        "available": true,
+        "count": 160,
+        "value": 0.002832122799009085
+      },
+      "frame_mse": {
+        "available": true,
+        "steps": 20,
+        "transitions": 160,
+        "value": 0.01104448067976614
+      },
+      "policy": "deterministic_tracker"
+    },
+    "forced_scenarios": {
+      "intercept": {
+        "mse": {
+          "available": true,
+          "steps": 1,
+          "value": 0.0033039467335736514
+        },
+        "observed_real_event": "hit",
+        "predicted_rewards": [
+          0.0008879154920578003
+        ],
+        "real_rewards": [
+          0.10000000149011612
+        ]
+      },
+      "miss": {
+        "mse": {
+          "available": true,
+          "steps": 5,
+          "value": 0.004705429922359251
+        },
+        "observed_real_event": "concede",
+        "predicted_rewards": [
+          0.0008861012756824493,
+          0.0008896365761756897,
+          0.0008915998041629791,
+          0.0008890107274055481,
+          0.0008872821927070618
+        ],
+        "real_rewards": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0
+        ]
+      }
+    },
+    "natural_logged_action_rollout": {
+      "available": true,
+      "curve": [
+        0.0027522308038902257,
+        0.003029565657267493,
+        0.004352767135381133,
+        0.005663595334937686,
+        0.006163883769777053,
+        0.007788491740019235,
+        0.008887927965290497,
+        0.009569403416175001,
+        0.010692907967736302,
+        0.011157405485033935,
+        0.012313655121620736,
+        0.013534773422356471,
+        0.01399103346261579,
+        0.01452194919386086,
+        0.015356027992497016,
+        0.01531319120975129,
+        0.016461574683954407,
+        0.01599723374501845,
+        0.016911551836259836,
+        0.017369096117667272
+      ],
+      "horizon": 20,
+      "value": 0.011091413303055533,
+      "windows": 16
+    },
+    "physical_invariants": {
+      "ballless_positive_rate": {
+        "available": true,
+        "ballless_frames": 16,
+        "value": 0.0,
+        "violations": 0
+      },
+      "frame_probability_bounds": {
+        "available": true,
+        "value": 1.0
+      },
+      "mean_wall_intensity": {
+        "available": true,
+        "value": 0.9811015725135803
+      }
+    },
+    "reward_done_calibration": {
+      "by_sample_source": {
+        "event_balanced": {
+          "done_brier": {
+            "available": true,
+            "value": 0.015404613688588142
+          },
+          "done_negative_brier": {
+            "available": true,
+            "count": 126,
+            "value": 0.00011937142699025571
+          },
+          "done_positive_brier": {
+            "available": true,
+            "count": 2,
+            "value": 0.9783749580383301
+          },
+          "event_boundary_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'boundary' samples"
+          },
+          "event_concede_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'concede' samples"
+          },
+          "event_done_truncation_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'done_truncation' samples"
+          },
+          "event_hit_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'hit' samples"
+          },
+          "event_miss_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'miss' samples"
+          },
+          "event_ordinary_reward_mae": {
+            "available": true,
+            "count": 128,
+            "value": 0.0017841611988842487
+          },
+          "event_score_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'score' samples"
+          },
+          "event_serve_near_terminal_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'serve_near_terminal' samples"
+          },
+          "frame_mse": {
+            "available": true,
+            "value": 0.0027922193985432386
+          },
+          "reward_mae": {
+            "available": true,
+            "value": 0.0017841611988842487
+          },
+          "reward_nonzero_mae": {
+            "available": true,
+            "count": 1,
+            "value": 0.0991089940071106
+          },
+          "reward_zero_mae": {
+            "available": true,
+            "count": 127,
+            "value": 0.0010178240481764078
+          },
+          "uncertainty_high_error_auroc": {
+            "available": true,
+            "value": 0.5
+          },
+          "uncertainty_rank_corr": {
+            "available": false,
+            "reason": "uncertainty or real error is constant"
+          }
+        },
+        "natural": {
+          "done_brier": {
+            "available": true,
+            "value": 0.0077603720128536224
+          },
+          "done_negative_brier": {
+            "available": true,
+            "count": 127,
+            "value": 0.00011916103539988399
+          },
+          "done_positive_brier": {
+            "available": true,
+            "count": 1,
+            "value": 0.9781941175460815
+          },
+          "event_boundary_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'boundary' samples"
+          },
+          "event_concede_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'concede' samples"
+          },
+          "event_done_truncation_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'done_truncation' samples"
+          },
+          "event_hit_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'hit' samples"
+          },
+          "event_miss_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'miss' samples"
+          },
+          "event_ordinary_reward_mae": {
+            "available": true,
+            "count": 128,
+            "value": 0.001034417888149619
+          },
+          "event_score_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'score' samples"
+          },
+          "event_serve_near_terminal_reward_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no event 'serve_near_terminal' samples"
+          },
+          "frame_mse": {
+            "available": true,
+            "value": 0.0028510629199445248
+          },
+          "reward_mae": {
+            "available": true,
+            "value": 0.001034417888149619
+          },
+          "reward_nonzero_mae": {
+            "available": false,
+            "count": 0,
+            "reason": "no nonzero-reward samples"
+          },
+          "reward_zero_mae": {
+            "available": true,
+            "count": 128,
+            "value": 0.001034417888149619
+          },
+          "uncertainty_high_error_auroc": {
+            "available": true,
+            "value": 0.5
+          },
+          "uncertainty_rank_corr": {
+            "available": false,
+            "reason": "uncertainty or real error is constant"
+          }
+        }
+      },
+      "done_brier": {
+        "available": true,
+        "value": 0.011582492850720882
+      },
+      "done_negative_brier": {
+        "available": true,
+        "count": 253,
+        "value": 0.00011926581646548584
+      },
+      "done_positive_brier": {
+        "available": true,
+        "count": 3,
+        "value": 0.9783146977424622
+      },
+      "event_boundary_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'boundary' samples"
+      },
+      "event_concede_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'concede' samples"
+      },
+      "event_done_truncation_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'done_truncation' samples"
+      },
+      "event_hit_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'hit' samples"
+      },
+      "event_miss_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'miss' samples"
+      },
+      "event_ordinary_reward_mae": {
+        "available": true,
+        "count": 256,
+        "value": 0.001409289543516934
+      },
+      "event_score_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'score' samples"
+      },
+      "event_serve_near_terminal_reward_mae": {
+        "available": false,
+        "count": 0,
+        "reason": "no event 'serve_near_terminal' samples"
+      },
+      "frame_mse": {
+        "available": true,
+        "value": 0.00282164104282856
+      },
+      "reward_mae": {
+        "available": true,
+        "value": 0.001409289543516934
+      },
+      "reward_nonzero_mae": {
+        "available": true,
+        "count": 1,
+        "value": 0.0991089940071106
+      },
+      "reward_zero_mae": {
+        "available": true,
+        "count": 255,
+        "value": 0.001026153564453125
+      },
+      "uncertainty_high_error_auroc": {
+        "available": true,
+        "value": 0.5
+      },
+      "uncertainty_rank_corr": {
+        "available": false,
+        "reason": "uncertainty or real error is constant"
+      }
+    },
+    "uncertainty": {
+      "high_error_auroc": {
+        "available": true,
+        "value": 0.5
+      },
+      "rank_correlation": {
+        "available": false,
+        "reason": "uncertainty or real error is constant"
+      },
+      "stochastic_diagnostics": {
+        "available": true,
+        "latent_utilization": 0.0001169006573036313,
+        "mean_prior_sample_frame_mse": 0.00015818239808140788,
+        "posterior_prior_kl": 1.701040506362915,
+        "prior_sample_frame_mse": 0.0001581824035383761,
+        "prior_std": 1.4364935159683228,
+        "samples": 8,
+        "serve_direction_coverage": 1.0
+      }
+    }
+  },
+  "overall_pass": true,
+  "policy": null,
+  "samples": {
+    "event_balanced": 128,
+    "natural": 128
+  },
+  "scale": "smoke",
+  "schema_version": 1,
+  "seed": 42,
+  "tag": "repair_smoke_v2b",
+  "thresholds": {
+    "ballless_positive_rate_max": 0.5,
+    "done_brier_max": 0.55,
+    "dream_real_reward_gap_max": 1.5,
+    "forced_scenario_mse_max": 0.45,
+    "latent_utilization_min": 1e-08,
+    "natural_rollout_mse_max": 0.35,
+    "policy_lockstep_mse_max": 0.4,
+    "posterior_prior_kl_min": 1e-06,
+    "prior_sample_frame_mse_min": 1e-08,
+    "prior_std_min": 0.0001,
+    "reward_mae_max": 1.5,
+    "serve_direction_coverage_min": 0.0,
+    "uncertainty_rank_corr_min": -1.0
+  }
+}
