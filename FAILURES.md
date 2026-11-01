@@ -489,3 +489,18 @@ ImportError: No module named infra.does_not_exist
   paid launches. Local unit tests still pass (33). Evidence:
   `results/campaign_logs/modal_smoke_2026-10-31.log`,
   `volume_ckpt_audit_2026-10-31.log`, `unit_tests_2026-10-31.log`.
+
+## Modal spend limit CLEARED — resume r4 ballless fine-tune — 2026-11-01
+- Auth: token verify OK; profile `ani-sivaa`. Env credit telemetry $25 (start only).
+- Billing period appears reset: `modal billing summary` metered ≈ $0 at probe time
+  (prior cycle metered ≈ $32.69 / credits ≈ $30 / billed ≈ $0.02).
+- GPU smoke **PASS** (T4 hello 3.06s); CPU remote hello **PASS** (3.04s).
+- Volume audit unchanged pre-resume: wm0@21000 coef12; wm1@20000 coef12;
+  wm2@18000 coef6/tau0.35 (not fine-tuned).
+- Action: resumed sequential ballless FT under coef=12 / tau=0.20 / hinge=0.05
+  on same `/vol/data/honest_campaign_v2_r4` (no new collect→WM burn):
+  - wm1: 20000→21000 (seed 314)
+  - wm2: 18000→21000 (seed 2718)
+  - wm0 already complete; re-pretrust gated until ensemble matches.
+- Logs: `results/campaign_logs/r4_ballless_finetune_2026-11-01.log`,
+  `round-4_wm-*_ballless_ft_2026-11-01.log`, progress sidecar.
