@@ -535,3 +535,9 @@ ImportError: No module named infra.does_not_exist
 - **Update 2026-11-01 true-target re-pretrust PASS:** overall **True**.
   util **PASS** 3.61e-5; ballless **PASS** **0.0476** (1 violation / 21
   ballless frames). Dream PPO unlocked with warm-start from r1 seed314.
+
+- **Update 2026-11-01 dream PPO launched:** three parallel imagined PPO runs
+  (seeds 42/314/2718), each `--init-from` r1 seed314 with `--warm-start`,
+  against the matched r4 true-ballless WM ensemble. Policy gradients remain
+  inside the WM only. Logs:
+  `results/campaign_logs/round-4_true_ballless_ppo_seed*_2026-11-01.log`.
