@@ -526,3 +526,8 @@ ImportError: No module named infra.does_not_exist
   `wm.train` hinge via `hard_ballless_mask` (pred OR true). Then FT
   21000→23000 under same coef=12 / tau=0.20 / hinge=0.05 and re-pretrust.
 - Dream PPO still gated. Demo export unchanged.
+
+- **Update 2026-11-01 true-target FT complete:** parallel wm0/1/2 21000→**23000**
+  under coef=12 / tau=0.20 / hinge=0.05 with pred∨true ballless mask.
+  Final val: wm0 **0.00740**, wm1 **0.01006**, wm2 **0.00897**. Billing ≈ $1.72
+  metered / $0 billed. Re-pretrust launching next.
