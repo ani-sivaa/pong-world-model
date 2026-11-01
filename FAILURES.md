@@ -504,3 +504,8 @@ ImportError: No module named infra.does_not_exist
   - wm0 already complete; re-pretrust gated until ensemble matches.
 - Logs: `results/campaign_logs/r4_ballless_finetune_2026-11-01.log`,
   `round-4_wm-*_ballless_ft_2026-11-01.log`, progress sidecar.
+
+- **Update 2026-11-01 wm-1 complete:** step 20000→**21000**, final val **0.00764**,
+  wall ≈ 527s (`WM_TRAIN_OK`). Checkpoint written in-place to
+  `/vol/checkpoints/honest_campaign_v2_r4_wm1.pt` under coef=12 / tau=0.20 /
+  hinge=0.05. wm-2 fine-tune launching next (18000→21000).

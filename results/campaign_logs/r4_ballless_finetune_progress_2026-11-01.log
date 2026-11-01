@@ -1,2 +1,5 @@
 2026-11-01T11:07:31Z starting r4 ballless FT resume (wm1 then wm2)
 2026-11-01T11:07:31Z launching wm-1 seed=314 21000 under coef=12
+2026-11-01T11:16:32Z wm-1 exit=0
+2026-11-01T11:16:32Z launching wm-2 seed=2718 21000 under coef=12
+# note: wm1@21000 complete val=0.00764 wall=527s; wm2 launching
