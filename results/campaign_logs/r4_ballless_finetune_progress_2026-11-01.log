@@ -3,3 +3,6 @@
 2026-11-01T11:16:32Z wm-1 exit=0
 2026-11-01T11:16:32Z launching wm-2 seed=2718 21000 under coef=12
 # note: wm1@21000 complete val=0.00764 wall=527s; wm2 launching
+2026-11-01T11:51:41Z wm-2 exit=0
+2026-11-01T11:51:41Z FT sequence done rc1=0 rc2=0
+# note: wm2@21000 complete val=0.00925 wall=1073s; ensemble matched — re-pretrust next

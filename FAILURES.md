@@ -509,3 +509,10 @@ ImportError: No module named infra.does_not_exist
   wall ≈ 527s (`WM_TRAIN_OK`). Checkpoint written in-place to
   `/vol/checkpoints/honest_campaign_v2_r4_wm1.pt` under coef=12 / tau=0.20 /
   hinge=0.05. wm-2 fine-tune launching next (18000→21000).
+
+- **Update 2026-11-01 wm-2 complete:** step 18000→**21000** (one mid-run resume
+  from step 19000 after Modal retry), final val **0.00925**, wall ≈ 1073s
+  (`WM_TRAIN_OK`). In-place ckpt under coef=12 / tau=0.20 / hinge=0.05.
+- **Ensemble now matched** at step 21000 / coef=12 for wm0/wm1/wm2. Re-pretrust
+  launched next; still no dream PPO until pretrust PASS. Billing mid-cycle
+  metered ≈ $0.77 / billed $0 (credits applied).
