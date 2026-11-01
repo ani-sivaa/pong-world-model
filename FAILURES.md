@@ -516,3 +516,13 @@ ImportError: No module named infra.does_not_exist
 - **Ensemble now matched** at step 21000 / coef=12 for wm0/wm1/wm2. Re-pretrust
   launched next; still no dream PPO until pretrust PASS. Billing mid-cycle
   metered ≈ $0.77 / billed $0 (credits applied).
+
+## r4 ballless-FT re-pretrust FAIL — true-target hinge repair — 2026-11-01
+- Matched ensemble re-pretrust: util **PASS** 5.19e-5; ballless **FAIL**
+  **0.111** (1 violation / 9 ballless frames). Prior r4 pretrust was 0.071
+  (4/56); FT reduced ballless mass but the small denominator fails the rate.
+- Predicted-ballless&positive training signal was ~0 during coef=12 FT.
+- Concrete repair (no new collect→WM): supervise TRUE ballless targets in
+  `wm.train` hinge via `hard_ballless_mask` (pred OR true). Then FT
+  21000→23000 under same coef=12 / tau=0.20 / hinge=0.05 and re-pretrust.
+- Dream PPO still gated. Demo export unchanged.
