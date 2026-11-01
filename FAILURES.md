@@ -531,3 +531,7 @@ ImportError: No module named infra.does_not_exist
   under coef=12 / tau=0.20 / hinge=0.05 with pred∨true ballless mask.
   Final val: wm0 **0.00740**, wm1 **0.01006**, wm2 **0.00897**. Billing ≈ $1.72
   metered / $0 billed. Re-pretrust launching next.
+
+- **Update 2026-11-01 true-target re-pretrust PASS:** overall **True**.
+  util **PASS** 3.61e-5; ballless **PASS** **0.0476** (1 violation / 21
+  ballless frames). Dream PPO unlocked with warm-start from r1 seed314.
