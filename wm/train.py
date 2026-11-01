@@ -47,6 +47,22 @@ def interior_ball_mass(frames: torch.Tensor) -> torch.Tensor:
     return mass_map.sum(dim=(1, 2))
 
 
+def hard_ballless_mask(frames: torch.Tensor) -> torch.Tensor:
+    """Per-example hard ballless flag matching ``evaluate_trust._has_ball``.
+
+    A frame is ballless iff no interior (non-wall, non-paddle) pixel exceeds
+    0.5. Accepts ``[B,H,W]`` or ``[B,1,H,W]``.
+    """
+    if frames.ndim == 4:
+        frames = frames[:, 0]
+    interior = frames.clone()
+    interior[:, 0, :] = 0
+    interior[:, config.ENV["H"] - 1, :] = 0
+    for x in (config.ENV["left_x"], config.ENV["right_x"]):
+        interior[:, :, x:x + config.ENV["paddle_w"]] = 0
+    return (interior.amax(dim=(1, 2)) <= 0.5).float()
+
+
 def event_balanced_weights(events: torch.Tensor, alive: torch.Tensor,
                            clip: float = 20.0) -> torch.Tensor:
     """Inverse-frequency event weights, normalized over valid examples."""
@@ -157,13 +173,16 @@ def compute_losses(wm, batch, dev, v2, w_change, kl_coef=None,
                 # Match evaluate_trust._has_ball: a frame is ballless iff no
                 # interior pixel exceeds 0.5. Soft mass alone under-penalized
                 # empty-looking frames that still triggered the hard gate.
-                interior = pred_frame.clone()
-                interior[:, 0, :] = 0
-                interior[:, config.ENV["H"] - 1, :] = 0
-                for x in (config.ENV["left_x"], config.ENV["right_x"]):
-                    interior[:, :, x:x + config.ENV["paddle_w"]] = 0
-                hard_ballless = (interior.amax(dim=(1, 2)) <= 0.5).float()
-                ballless_w = torch.maximum(soft_w, hard_ballless)
+                hard_pred_ballless = hard_ballless_mask(pred_frame)
+                # Also supervise from TRUE ballless targets. After the coef=12
+                # fine-tune, predicted-ballless&positive was ~0 in training
+                # batches while trust still saw 1 rollout violation (9 ballless
+                # frames → rate 0.111). True miss/concede frames keep a
+                # non-zero hinge signal on the reward head even when the
+                # decode still shows a ball.
+                hard_true_ballless = hard_ballless_mask(targets[:, j])
+                ballless_w = torch.maximum(
+                    soft_w, torch.maximum(hard_pred_ballless, hard_true_ballless))
                 # Hinge at the trust gate's positive-reward threshold so the
                 # loss targets exactly the ballless_positive_rate violations
                 # (predicted reward > 0.05 on ballless frames), not every

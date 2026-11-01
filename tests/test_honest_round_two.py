@@ -134,11 +134,16 @@ class StochasticRepairTest(unittest.TestCase):
             self.assertGreater(util(strong), util(weak))
 
     def test_ballless_reward_penalty_and_interior_mass(self):
+        from wm.train import hard_ballless_mask
+
         frames = torch.zeros(2, 64, 64)
         frames[1, 20:22, 30:32] = 1.0
         mass = interior_ball_mass(frames)
         self.assertAlmostEqual(float(mass[0]), 0.0, places=5)
         self.assertAlmostEqual(float(mass[1]), 4.0, places=5)
+        hard = hard_ballless_mask(frames)
+        self.assertEqual(float(hard[0]), 1.0)
+        self.assertEqual(float(hard[1]), 0.0)
 
         cfg = dict(config.WM, base_channels=8, act_embed=8, latent_dim=4,
                    utilization_coef=0.0, ballless_reward_coef=1.0,
@@ -167,6 +172,29 @@ class StochasticRepairTest(unittest.TestCase):
         self.assertGreater(float(ballless_after.detach()), 0.1)
         total.backward()
         self.assertTrue(any(p.grad is not None for p in model.parameters()))
+
+        # True-target supervision: decode keeps a visible ball, but the ground-
+        # truth target is empty → hinge must still fire on the reward head.
+        model2 = StochasticWorldModel(with_heads=True, cfg=cfg)
+        model2.train()
+        targets_ball = np.zeros((B, k, 64, 64), np.uint8)
+        targets_ball[:, 0, 20:22, 30:32] = 255  # unused; we override decode
+        true_empty = np.zeros((B, k, 64, 64), np.uint8)
+        batch_true = (stacks, acts, true_empty, rews, dns, alive)
+        with torch.no_grad():
+            for name, param in model2.named_parameters():
+                if "reward_head" in name:
+                    param.zero_()
+            # Force a bright ball in the decode so pred-ballless weight ≈ 0.
+            model2.out.weight.zero_()
+            model2.out.bias.fill_(8.0)
+            model2.reward_head[2].bias.fill_(1.5)
+        total2, *_, ballless_true = compute_losses(
+            model2, batch_true, torch.device("cpu"), v2=True, w_change=0.0,
+            return_kl=True, utilization_coef=0.0, ballless_reward_coef=1.0)
+        self.assertGreater(float(ballless_true.detach()), 0.1)
+        total2.backward()
+        self.assertTrue(any(p.grad is not None for p in model2.parameters()))
 
 
 class ImaginedPPOTest(unittest.TestCase):

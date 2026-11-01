@@ -111,6 +111,9 @@ WM = dict(
     # 0.122; round-4 with coef=6/tau=0.35 improved to 0.071 (4/56) but still
     # failed the 0.05 gate. Raise again and tighten soft mass tau; hinge at
     # the trust threshold (see wm.train ballless relu(r-0.05)).
+    # 2026-11-01 coef=12 FT cut ballless frames 56→9 but left 1 violation
+    # (rate 0.111). Keep coef=12 and add true-target ballless supervision in
+    # wm.train rather than another collect→WM burn on the same calibration mix.
     ballless_reward_coef=12.0,
     ballless_mass_tau=0.20,  # soft mass scale; ~exp(-mass/tau) ballless weight
     ballless_reward_hinge=0.05,  # match evaluate_trust positive threshold
