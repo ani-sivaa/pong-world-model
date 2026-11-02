@@ -6,3 +6,4 @@ pid=3712 seed=314 log=results/campaign_logs/round-4_true_ballless_ppo_seed314_re
 2026-11-02T11:06:55Z launch resume seed=2718
 pid=3738 seed=2718 log=results/campaign_logs/round-4_true_ballless_ppo_seed2718_resume_2026-11-02.log
 2026-11-02T11:06:55Z all three resumes launched
+2026-11-02T11:18:24Z mid-flight: seed42~570 seed314~760 seed2718~1530; ~10s/update

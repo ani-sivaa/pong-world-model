@@ -1208,6 +1208,46 @@ Recovered onto this lineage from prior campaign branch work:
   data; re-pretrust; only then dream PPO with warm-start r1 seed314.
 
 
+
+### Honest research cycle (2026-11-01) — spend limit cleared; ballless repair PASS
+- Continued latest campaign tip onto daily branch
+  `cursor/world-model-research-loop-60bf` from `cursor/honest-research-cycle-c57f`
+  via fast-forward of `cursor/world-model-research-loop-ef61`.
+- Auth + GPU/CPU probes **PASS**; billing period reset (metered near $0 at start).
+- Finished mismatched r4 ballless fine-tune to matched ensemble @21000 / coef=12,
+  then true-target (`pred∨true`) hinge FT 21000→**23000**.
+- Re-pretrust after predicted-only FT: ballless **FAIL** 0.111.
+- Re-pretrust after true-target FT: overall **PASS** — util **3.61e-5**,
+  ballless **0.0476**. Dream PPO unlocked.
+- Launched three warm-start dream PPO runs (seeds 42/314/2718) from r1 seed314
+  against the r4 true-ballless WM ensemble. Cycle ended mid-training.
+
+### Honest research cycle (2026-11-02) — resume incomplete dream PPO
+- Daily branch `cursor/pong-world-model-trust-2112` fast-forwarded from latest
+  campaign tip `cursor/world-model-research-loop-60bf` (`e008564`).
+- Auth gate: credentials present; `modal token set --verify` **OK**; profile
+  `ani-sivaa`; env credit telemetry **$25** (start-of-run static only).
+- Billing at probe: metered ≈ **$15.50** / credits applied ≈ **$15.50** /
+  billed **$0** (below prior spend-limit ceiling).
+- GPU smoke **PASS** (T4 1.075s); CPU remote hello **PASS** (3.9s).
+- Volume audit: WM ensemble matched @**23000** / coef=12 / tau=0.20 / hinge=0.05.
+  Dream PPO incomplete from Nov-1 launch: seed42@**500**, seed314@**700**,
+  seed2718@**1462** of 2500.
+- Pretrust (unchanged, still PASS): util 3.61e-5; ballless 0.0476.
+- Action: resumed all three seeds with plain `--init-from` (no warm-start) so
+  update counters continue. Policy gradients remain inside the frozen WM only.
+  No new collect→WM round (binding repair already cleared pretrust).
+- Local unit tests: **33** passed.
+- Mid-flight note: resumes running on Modal; development eval / promotion /
+  demo export deferred until policies finish (or honest wall-stop) and
+  policy-trust + development panel complete.
+- **Transfer vs 12% dream-v2 control:** prior best development still r1
+  **9.33%**; r4 policies not yet evaluated.
+- **Promotion:** not yet decided this cycle. Final panel unused.
+- **Resume next after this cycle's PPO finishes:** policy-trust ×3 →
+  development panel ×3 → selection vs 12% control; only then consider
+  promotion / demo export.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
