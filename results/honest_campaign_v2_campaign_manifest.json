@@ -519,6 +519,11 @@
       "timestamp": "2026-10-31T11:05:50Z",
       "at": 1793444755.670096,
       "note": "2026-10-31 daily resume on branch cursor/world-model-research-loop-ef61 (fast-forward from world-model-research-loop-0929@1ed8413): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+    },
+    {
+      "at": 1793638010.66086,
+      "timestamp": "2026-11-02T16:46:50Z",
+      "note": "2026-11-02 cycle complete: resumed incomplete dream PPO to 2500; all policy-trust PASS; development 8.67%/19.0%/9.33%; selection not eligible for 80% promotion; best transfer 19% > 12% control; no demo export."
     }
   ],
   "modal_credit_note": "2026-10-31: env MODAL_CREDIT_BALANCE_USD=25 is start telemetry only; modal billing summary metered~32.69 / credits~30 / billed~0.02; Workspace spend limit still blocks GPU and CPU apps after token verify OK.",
@@ -593,9 +598,13 @@
     ]
   },
   "promotion": {
-    "at": "2026-10-31T11:05:50Z",
+    "at": "2026-11-02T16:46:50Z",
     "promoted": false,
-    "reason": "Daily cycle 2026-10-31: auth OK but Modal spend limit blocks GPU/CPU jobs. Cannot finish r4 ballless fine-tune / re-pretrust. No new development panel; not promoted; demo unchanged."
+    "reason": "Best development 19% (candidate seed314) exceeds 12% dream-v2 control but fails preregistered 80% promotion threshold; final panel not consumed; demo unchanged.",
+    "best_development_mean_win_rate": 0.19,
+    "best_candidate_index": 1,
+    "best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "control_dream_v2_win_rate": 0.12
   },
   "resume_attempts": [
     {
@@ -1130,6 +1139,46 @@
       "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/world-model-research-loop-ef61",
       "continued_from": "cursor/world-model-research-loop-0929@1ed8413"
+    },
+    {
+      "timestamp": "2026-11-02T16:46:50Z",
+      "at": 1793638010.66086,
+      "from_status": "budget_or_auth_exhausted",
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "token_verified": true,
+      "gpu_smoke_ok": true,
+      "gpu_smoke_error": null,
+      "paid_jobs_launched": 5,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "step": 23000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "step": 23000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "step": 23000,
+          "ballless_reward_coef": 12.0
+        },
+        "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+          "step": 2500
+        },
+        "honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
+          "step": 2500
+        },
+        "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+          "step": 2500
+        }
+      },
+      "reason": "Auth+GPU OK; finished incomplete r4 true-ballless dream PPO to 2500; policy-trust PASS \u00d73; development best 19% (seed314) > 12% control but <80% promotion; not promoted; no demo export; final panel unused.",
+      "branch": "cursor/pong-world-model-trust-2112",
+      "continued_from": "cursor/world-model-research-loop-60bf@e008564"
     }
   ],
   "rounds": [
@@ -1222,26 +1271,30 @@
     },
     {
       "acquisition_mix": "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10",
-      "failed_trust_gates": [
-        "ballless_positive_rate"
-      ],
+      "failed_trust_gates": [],
       "gate_values": {
         "ballless_positive_rate": {
-          "pass": false,
+          "pass": true,
           "threshold": 0.05,
-          "value": 0.07142857142857142
+          "value": 0.047619047619047616
         },
         "stochastic_latent_utilization": {
           "pass": true,
           "threshold": 1e-07,
-          "value": 5.843772305524908e-05
+          "value": 3.612642103689723e-05
         }
       },
       "index": 4,
-      "note": "2026-10-15: wm2 resumed 11000\u219218000; pretrust FAIL ballless=0.071 (4/56) util PASS 5.84e-5; improved vs r3 0.122 but still above 0.05. No dream PPO.",
-      "pretrust_overall_pass": false,
-      "selection_report": "/vol/results/selection_honest_campaign_v2_r4.json",
-      "stopped_before_policy": true
+      "note": "2026-11-02: true-target ballless FT@23000 pretrust PASS; dream PPO 2500\u00d73 complete; policy-trust PASS; development best 19% (seed314) >12% control, <80% promotion.",
+      "pretrust_overall_pass": true,
+      "selection_report": "/vol/results/selection_honest_campaign_v2_r4_true_ballless.json",
+      "stopped_before_policy": false,
+      "policy_stage_reached": true,
+      "development_metrics": {
+        "candidate0_seed42": 0.0867,
+        "candidate1_seed314": 0.19,
+        "candidate2_seed2718": 0.0933
+      }
     }
   ],
   "stages": {
@@ -4157,6 +4210,6 @@
       "wall_seconds": 3993.3427221775055
     }
   },
-  "status": "budget_or_auth_exhausted",
-  "hard_stop_note": "2026-10-31: Modal spend limit still blocks GPU and CPU apps after token verify OK. Volume r4 ballless FT ensemble still mismatched (wm0@21000 coef12, wm1@20000 coef12, wm2@18000 coef6). No re-pretrust; no collect\u2192WM; no dream PPO; no demo export."
+  "status": "development_threshold_not_met_before_round_limit",
+  "hard_stop_note": "2026-11-02: r4 true-ballless dream PPO completed (2500\u00d73). Best development 19% (seed314) beats 12% dream-v2 control but below 80% promotion threshold. Not promoted; final panel unused; demo unchanged."
 }

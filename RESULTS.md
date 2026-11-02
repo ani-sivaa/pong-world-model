@@ -1222,31 +1222,40 @@ Recovered onto this lineage from prior campaign branch work:
 - Launched three warm-start dream PPO runs (seeds 42/314/2718) from r1 seed314
   against the r4 true-ballless WM ensemble. Cycle ended mid-training.
 
-### Honest research cycle (2026-11-02) — resume incomplete dream PPO
+### Honest research cycle (2026-11-02) — dream PPO complete; best dev 19%
 - Daily branch `cursor/pong-world-model-trust-2112` fast-forwarded from latest
   campaign tip `cursor/world-model-research-loop-60bf` (`e008564`).
 - Auth gate: credentials present; `modal token set --verify` **OK**; profile
   `ani-sivaa`; env credit telemetry **$25** (start-of-run static only).
-- Billing at probe: metered ≈ **$15.50** / credits applied ≈ **$15.50** /
-  billed **$0** (below prior spend-limit ceiling).
+- Billing: start metered ≈ **$15.50**; end metered ≈ **$28.88** / credits
+  applied ≈ **$28.88** / billed **$0**.
 - GPU smoke **PASS** (T4 1.075s); CPU remote hello **PASS** (3.9s).
-- Volume audit: WM ensemble matched @**23000** / coef=12 / tau=0.20 / hinge=0.05.
-  Dream PPO incomplete from Nov-1 launch: seed42@**500**, seed314@**700**,
-  seed2718@**1462** of 2500.
-- Pretrust (unchanged, still PASS): util 3.61e-5; ballless 0.0476.
-- Action: resumed all three seeds with plain `--init-from` (no warm-start) so
-  update counters continue. Policy gradients remain inside the frozen WM only.
-  No new collect→WM round (binding repair already cleared pretrust).
+- Volume: WM ensemble matched @**23000** / coef=12. Pretrust still **PASS**
+  (util 3.61e-5; ballless 0.0476). No new collect→WM (binding already cleared).
+- Dream PPO resumes (policy grads inside frozen WM only):
+  - seed2718: 1462→**2500** (`DREAM_OK`)
+  - seed42: 500→1960 wall → resume2 →**2500**
+  - seed314: 700→2143 wall → resume2 →**2500**
+- Policy-trust (all three): **PASS** (ballless down to ~0.005 on seed2718).
+- Development panel (seeds 7001/7003/7013 × 100 eps):
+  | candidate | seed | mean win | Wilson 95% CI |
+  |---|---|---|---|
+  | 0 | 42 | **8.67%** | [6.0%, 12.4%] |
+  | 1 | 314 | **19.0%** | [15.0%, 23.8%] |
+  | 2 | 2718 | **9.33%** | [6.5%, 13.2%] |
+- **Transfer vs 12% dream-v2 control:** candidate-1 **19%** beats the control
+  (CI entirely above 12%). Prior best was r1 **9.33%**.
+- Selection: highest development is candidate-1, but **not eligible** for the
+  preregistered 80% promotion threshold → `selected_policy=null`.
+- **Promotion:** **not promoted.** Final panel unused
+  (`final_evaluation_uses=0`). Demo/web export **unchanged**. Prior 17.5%
+  trust-failed stochastic policy not exported.
 - Local unit tests: **33** passed.
-- Mid-flight note: resumes running on Modal; development eval / promotion /
-  demo export deferred until policies finish (or honest wall-stop) and
-  policy-trust + development panel complete.
-- **Transfer vs 12% dream-v2 control:** prior best development still r1
-  **9.33%**; r4 policies not yet evaluated.
-- **Promotion:** not yet decided this cycle. Final panel unused.
-- **Resume next after this cycle's PPO finishes:** policy-trust ×3 →
-  development panel ×3 → selection vs 12% control; only then consider
-  promotion / demo export.
+- Evidence: `results/campaign_evidence/v2_r4_true_ballless_candidate{0,1,2}_{trust,development}.json`,
+  `v2_r4_true_ballless_selection.json`, resume logs under `results/campaign_logs/`.
+- **Resume next:** either strengthen dream transfer further under the same
+  trust-passing WM, or accept 19% as new development leader still short of
+  80% promotion. Do not burn collect→WM while pretrust holds.
 
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
