@@ -13,3 +13,4 @@ pid=3738 seed=2718 log=results/campaign_logs/round-4_true_ballless_ppo_seed2718_
 pid=4803 seed=42
 2026-11-02T15:08:28Z launch resume2 seed=314
 pid=4830 seed=314
+2026-11-02T16:45:12Z all three seeds at 2500; launching policy-trust+development for 42 and 314
