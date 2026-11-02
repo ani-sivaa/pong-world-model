@@ -1,0 +1,18 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-qRw58Up8mDKCp6zGSaWNWN
+✓ Created objects.
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+[dream] continuing from /vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt (update 1462)
+[dream] dev=cuda updates=2500 B=256 H=40 members=3 frame_mode=mean wm=['/vol/checkpoints/honest_campaign_v2_r4_wm0.pt', '/vol/checkpoints/honest_campaign_v2_r4_wm1.pt', '/vol/checkpoints/honest_campaign_v2_r4_wm2.pt']
+  update 1463/2500 dream_return=+0.005 alive_len=21.2/40 ent=0.362 unc=0.00298 penalty=0.00221 12s
+  update 1470/2500 dream_return=+0.005 alive_len=21.5/40 ent=0.383 unc=0.00317 penalty=0.00214 80s
+  update 1480/2500 dream_return=+0.004 alive_len=21.1/40 ent=0.368 unc=0.00319 penalty=0.00232 177s
+  update 1490/2500 dream_return=+0.002 alive_len=22.1/40 ent=0.400 unc=0.00307 penalty=0.00216 274s
+  update 1500/2500 dream_return=+0.014 alive_len=20.5/40 ent=0.366 unc=0.00297 penalty=0.00200 372s
+  update 1510/2500 dream_return=+0.003 alive_len=20.6/40 ent=0.372 unc=0.00314 penalty=0.00218 470s
+  update 1520/2500 dream_return=+0.016 alive_len=21.8/40 ent=0.359 unc=0.00302 penalty=0.00218 568s
+  update 1530/2500 dream_return=+0.002 alive_len=22.2/40 ent=0.388 unc=0.00313 penalty=0.00230 666s
