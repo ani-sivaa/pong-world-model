@@ -552,3 +552,12 @@ ImportError: No module named infra.does_not_exist
   update counters continue. Policy gradients remain inside the frozen WM.
 - Next: policy-trust + development panel only after checkpoints reach budget
   or honest wall-stop; no demo export until development promotion.
+
+
+## Dream wall-clock cap — r4 true-ballless resume — 2026-11-02
+- Phase: first resume of incomplete Nov-1 dream PPO seeds.
+- seed42: WALL at update **1960**/2500 (`DREAM_OK`, wall 14410s).
+- seed314: WALL at update **2143**/2500 (`DREAM_OK`, wall 14411s).
+- seed2718: completed **2500**/2500 earlier (no wall).
+- Action: second `--init-from` resume (no warm-start) for seeds 42/314 to
+  finish the preregistered 2500-update budget before policy-trust/development.

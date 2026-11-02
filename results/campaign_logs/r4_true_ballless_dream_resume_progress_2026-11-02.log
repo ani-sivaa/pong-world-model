@@ -8,3 +8,8 @@ pid=3738 seed=2718 log=results/campaign_logs/round-4_true_ballless_ppo_seed2718_
 2026-11-02T11:06:55Z all three resumes launched
 2026-11-02T11:18:24Z mid-flight: seed42~570 seed314~760 seed2718~1530; ~10s/update
 2026-11-02T14:09:30Z seed2718 DREAM_OK updates=2500; launching policy-trust
+2026-11-02T15:08:03Z wall-stop seed42@1960 seed314@2143; second resume to 2500
+2026-11-02T15:08:03Z launch resume2 seed=42
+pid=4803 seed=42
+2026-11-02T15:08:28Z launch resume2 seed=314
+pid=4830 seed=314

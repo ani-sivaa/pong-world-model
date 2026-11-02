@@ -119,3 +119,77 @@ https://modal.com/apps/ani-sivaa/main/ap-pRYfIpRKA6tnXqt4wbkl0v
   update 1780/2500 dream_return=+0.014 alive_len=20.9/40 ent=0.364 unc=0.00299 penalty=0.00214 10776s
   update 1790/2500 dream_return=+0.009 alive_len=23.6/40 ent=0.386 unc=0.00300 penalty=0.00224 10876s
   update 1800/2500 dream_return=-0.005 alive_len=21.4/40 ent=0.361 unc=0.00296 penalty=0.00222 10977s
+  update 1810/2500 dream_return=+0.002 alive_len=21.4/40 ent=0.367 unc=0.00309 penalty=0.00234 11077s
+  update 1820/2500 dream_return=+0.004 alive_len=22.0/40 ent=0.363 unc=0.00306 penalty=0.00233 11177s
+  update 1830/2500 dream_return=+0.024 alive_len=20.3/40 ent=0.331 unc=0.00296 penalty=0.00221 11277s
+  update 1840/2500 dream_return=+0.023 alive_len=22.0/40 ent=0.372 unc=0.00286 penalty=0.00207 11377s
+  update 1850/2500 dream_return=-0.004 alive_len=21.1/40 ent=0.398 unc=0.00300 penalty=0.00220 11476s
+  update 1860/2500 dream_return=+0.014 alive_len=20.9/40 ent=0.403 unc=0.00296 penalty=0.00207 11576s
+  update 1870/2500 dream_return=+0.023 alive_len=22.6/40 ent=0.357 unc=0.00309 penalty=0.00219 11675s
+  update 1880/2500 dream_return=-0.009 alive_len=21.3/40 ent=0.384 unc=0.00301 penalty=0.00231 11775s
+  update 1890/2500 dream_return=+0.009 alive_len=19.8/40 ent=0.382 unc=0.00299 penalty=0.00207 11874s
+  update 1900/2500 dream_return=+0.013 alive_len=21.5/40 ent=0.356 unc=0.00288 penalty=0.00213 11974s
+  update 1910/2500 dream_return=+0.007 alive_len=20.8/40 ent=0.373 unc=0.00310 penalty=0.00215 12074s
+  update 1920/2500 dream_return=+0.004 alive_len=21.4/40 ent=0.378 unc=0.00294 penalty=0.00202 12174s
+  update 1930/2500 dream_return=+0.003 alive_len=21.6/40 ent=0.376 unc=0.00311 penalty=0.00221 12274s
+  update 1940/2500 dream_return=-0.001 alive_len=21.6/40 ent=0.384 unc=0.00307 penalty=0.00233 12374s
+  update 1950/2500 dream_return=+0.006 alive_len=22.9/40 ent=0.361 unc=0.00286 penalty=0.00215 12475s
+  update 1960/2500 dream_return=+0.021 alive_len=21.0/40 ent=0.376 unc=0.00307 penalty=0.00223 12575s
+  update 1970/2500 dream_return=+0.004 alive_len=21.8/40 ent=0.391 unc=0.00307 penalty=0.00234 12676s
+  update 1980/2500 dream_return=-0.003 alive_len=19.7/40 ent=0.371 unc=0.00303 penalty=0.00219 12776s
+  update 1990/2500 dream_return=-0.020 alive_len=20.6/40 ent=0.392 unc=0.00305 penalty=0.00228 12876s
+  update 2000/2500 dream_return=-0.002 alive_len=21.3/40 ent=0.383 unc=0.00303 penalty=0.00223 12977s
+  update 2010/2500 dream_return=+0.012 alive_len=20.6/40 ent=0.393 unc=0.00289 penalty=0.00218 13077s
+  update 2020/2500 dream_return=-0.005 alive_len=21.8/40 ent=0.391 unc=0.00315 penalty=0.00233 13177s
+  update 2030/2500 dream_return=-0.002 alive_len=20.0/40 ent=0.390 unc=0.00310 penalty=0.00227 13278s
+  update 2040/2500 dream_return=+0.006 alive_len=20.8/40 ent=0.373 unc=0.00290 penalty=0.00209 13378s
+  update 2050/2500 dream_return=+0.009 alive_len=20.5/40 ent=0.398 unc=0.00297 penalty=0.00210 13479s
+  update 2060/2500 dream_return=+0.004 alive_len=22.2/40 ent=0.392 unc=0.00307 penalty=0.00225 13579s
+  update 2070/2500 dream_return=+0.022 alive_len=21.9/40 ent=0.403 unc=0.00329 penalty=0.00242 13680s
+  update 2080/2500 dream_return=-0.007 alive_len=20.3/40 ent=0.360 unc=0.00289 penalty=0.00210 13780s
+  update 2090/2500 dream_return=-0.006 alive_len=19.8/40 ent=0.357 unc=0.00314 penalty=0.00214 13880s
+  update 2100/2500 dream_return=+0.002 alive_len=20.5/40 ent=0.366 unc=0.00335 penalty=0.00238 13980s
+  update 2110/2500 dream_return=+0.018 alive_len=22.2/40 ent=0.320 unc=0.00298 penalty=0.00219 14080s
+  update 2120/2500 dream_return=+0.025 alive_len=22.5/40 ent=0.359 unc=0.00312 penalty=0.00226 14180s
+  update 2130/2500 dream_return=+0.001 alive_len=22.0/40 ent=0.322 unc=0.00291 penalty=0.00205 14280s
+  update 2140/2500 dream_return=+0.002 alive_len=20.9/40 ent=0.347 unc=0.00292 penalty=0.00210 14380s
+[dream] WALL-CLOCK CAP at update 2143 — saving and exiting
+DREAM_OK updates=2143 final_dream_return=+0.002 ckpt=/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt wall=14411s
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-pRYfIpRKA6tnXqt4wbkl0v
+=== REMOTE RESULT ===
+{
+  "module": "agents.train_dream",
+  "argv": [
+    "--scale",
+    "full",
+    "--data",
+    "/vol/data/honest_campaign_v2_r4",
+    "--wm",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt",
+    "--algorithm",
+    "ppo",
+    "--latent-mode",
+    "sample",
+    "--ball-guard",
+    "--seed",
+    "314",
+    "--updates",
+    "2500",
+    "--max-seconds",
+    "14400",
+    "--tag",
+    "honest_campaign_v2_r4_true_ballless_ppo_seed314",
+    "--out",
+    "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "--init-from",
+    "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 14415.86
+}

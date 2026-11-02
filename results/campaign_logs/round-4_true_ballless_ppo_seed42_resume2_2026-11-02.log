@@ -1,0 +1,11 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-jLhqqCEEMaln4BpUh9vIE5
+✓ Created objects.
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+[dream] continuing from /vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt (update 1960)
+[dream] dev=cuda updates=2500 B=256 H=40 members=3 frame_mode=mean wm=['/vol/checkpoints/honest_campaign_v2_r4_wm0.pt', '/vol/checkpoints/honest_campaign_v2_r4_wm1.pt', '/vol/checkpoints/honest_campaign_v2_r4_wm2.pt']
+  update 1961/2500 dream_return=+0.014 alive_len=21.8/40 ent=0.310 unc=0.00311 penalty=0.00229 12s
