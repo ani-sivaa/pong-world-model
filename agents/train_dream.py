@@ -137,6 +137,10 @@ def main():
                     help="zero reward+continuation in ball-less dreamed frames")
     ap.add_argument("--init-from", default=None,
                     help="policy checkpoint to continue training from")
+    ap.add_argument(
+        "--warm-start", action="store_true",
+        help="with --init-from, load weights but reset the update counter "
+             "(transfer repair); omit to resume mid-run progress")
     ap.add_argument("--max-seconds", type=int, default=config.CAPS["dream"])
     args = ap.parse_args()
 
@@ -160,9 +164,15 @@ def main():
     if args.init_from:
         ckpt = torch.load(args.init_from, map_location="cpu", weights_only=True)
         policy.load_state_dict(ckpt["model"])
-        start_update = int(ckpt.get("step", 0)) + 1
-        print(f"[dream] continuing from {args.init_from} (update {ckpt['step']})",
-              flush=True)
+        if args.warm_start:
+            start_update = 1
+            print(f"[dream] warm-start weights from {args.init_from} "
+                  f"(prior step {ckpt.get('step', '?')}; counter reset)",
+                  flush=True)
+        else:
+            start_update = int(ckpt.get("step", 0)) + 1
+            print(f"[dream] continuing from {args.init_from} "
+                  f"(update {ckpt['step']})", flush=True)
     if start_update > updates:
         raise ValueError(
             f"checkpoint is already at update {start_update - 1}, "
