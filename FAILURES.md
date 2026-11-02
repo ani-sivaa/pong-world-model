@@ -541,3 +541,14 @@ ImportError: No module named infra.does_not_exist
   against the matched r4 true-ballless WM ensemble. Policy gradients remain
   inside the WM only. Logs:
   `results/campaign_logs/round-4_true_ballless_ppo_seed*_2026-11-01.log`.
+
+
+## Dream PPO mid-run resume — honest_campaign_v2 r4 true-ballless — 2026-11-02
+- Phase: continue Nov-1 warm-start dream PPO after pretrust PASS (ballless 0.0476).
+- Auth/GPU/CPU probes green; spend limit cleared this billing window.
+- Volume audit: policies incomplete at steps seed42@500, seed314@700,
+  seed2718@1462 of 2500 (WM ensemble matched @23000 / coef=12).
+- Action: resumed each seed with plain `--init-from` (no `--warm-start`) so
+  update counters continue. Policy gradients remain inside the frozen WM.
+- Next: policy-trust + development panel only after checkpoints reach budget
+  or honest wall-stop; no demo export until development promotion.
