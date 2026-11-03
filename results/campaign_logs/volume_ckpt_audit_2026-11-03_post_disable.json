@@ -1,0 +1,74 @@
+honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt step= 2600 mb= 1.37
+honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt step= 2600 mb= 1.37
+honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt step= 2600 mb= 1.37
+honest_campaign_v2_r4_true_ballless_ppo_seed42.pt step= 2500 mb= 1.37
+honest_campaign_v2_r4_true_ballless_ppo_seed314.pt step= 2500 mb= 1.37
+honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt step= 2500 mb= 1.37
+{
+  "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt": {
+    "size_mb": 1.37,
+    "step": 2600,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "cfg.seed": 42,
+    "cfg.algorithm": "ppo"
+  },
+  "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt": {
+    "size_mb": 1.37,
+    "step": 2600,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "cfg.seed": 314,
+    "cfg.algorithm": "ppo"
+  },
+  "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt": {
+    "size_mb": 1.37,
+    "step": 2600,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "cfg.seed": 2718,
+    "cfg.algorithm": "ppo"
+  },
+  "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+    "size_mb": 1.37,
+    "step": 2500,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "cfg.seed": 42,
+    "cfg.algorithm": "ppo"
+  },
+  "honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
+    "size_mb": 1.37,
+    "step": 2500,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "cfg.seed": 314,
+    "cfg.algorithm": "ppo"
+  },
+  "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+    "size_mb": 1.37,
+    "step": 2500,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "cfg.seed": 2718,
+    "cfg.algorithm": "ppo"
+  }
+}

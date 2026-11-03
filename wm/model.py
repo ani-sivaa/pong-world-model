@@ -140,6 +140,10 @@ class StochasticWorldModel(WorldModel):
         self.latent_proj = nn.Sequential(
             nn.Linear(latent_dim, context_dim), nn.SiLU(),
         )
+        # Fixed residual gain so sampled z cannot be ignored by a vanishing
+        # projection while skip connections carry most of the frame. Legacy
+        # checkpoints without the config key keep gain=1.0 via load_wm.
+        self.latent_inject_gain = float(cfg.get("latent_inject_gain", 1.0))
 
     @staticmethod
     def _stats(raw: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
@@ -170,7 +174,7 @@ class StochasticWorldModel(WorldModel):
 
     def _decode(self, context: torch.Tensor, latent: torch.Tensor, skips):
         latent_map = self.latent_proj(latent)[:, :, None, None]
-        dynamics = context + latent_map
+        dynamics = context + self.latent_inject_gain * latent_map
         s1, s2, s3 = skips
         x = self.d3(dynamics, s3)
         x = self.d2(x, s2)
@@ -267,7 +271,7 @@ def load_wm(ckpt_path, device, with_heads=False) -> WorldModel:
         raise ValueError(f"unsupported world-model type: {model_type!r}")
     model_cfg = dict(config.WM)
     for key in ("base_channels", "act_embed", "latent_dim",
-                "stochastic_heads_deterministic"):
+                "stochastic_heads_deterministic", "latent_inject_gain"):
         if key in saved_cfg:
             model_cfg[key] = saved_cfg[key]
     if model_type == "stochastic" \
@@ -276,6 +280,9 @@ def load_wm(ckpt_path, device, with_heads=False) -> WorldModel:
         # latent-conditioned outcome-head behavior. New training writes the
         # explicit flag and uses deterministic heads.
         model_cfg["stochastic_heads_deterministic"] = False
+    if model_type == "stochastic" and "latent_inject_gain" not in saved_cfg:
+        # Pre-repair stochastic checkpoints used unit residual injection.
+        model_cfg["latent_inject_gain"] = 1.0
     model_cls = StochasticWorldModel if model_type == "stochastic" else WorldModel
     wm = model_cls(with_heads=with_heads, cfg=model_cfg)
     missing, unexpected = wm.load_state_dict(ckpt["model"], strict=False)

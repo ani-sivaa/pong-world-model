@@ -1,0 +1,9 @@
+# Volume checkpoint audit — 2026-11-02 (worldmodel-vol)
+# Fetched via Volume.read_file for metadata only; binaries not committed.
+honest_campaign_v2_r4_wm0.pt {"size_mb": 15.33, "step": 23000, "cfg.ballless_reward_coef": 12.0, "cfg.ballless_mass_tau": 0.2, "cfg.ballless_reward_hinge": 0.05, "cfg.seed": 42}
+honest_campaign_v2_r4_wm1.pt {"size_mb": 15.33, "step": 23000, "cfg.ballless_reward_coef": 12.0, "cfg.ballless_mass_tau": 0.2, "cfg.ballless_reward_hinge": 0.05, "cfg.seed": 314}
+honest_campaign_v2_r4_wm2.pt {"size_mb": 15.33, "step": 23000, "cfg.ballless_reward_coef": 12.0, "cfg.ballless_mass_tau": 0.2, "cfg.ballless_reward_hinge": 0.05, "cfg.seed": 2718}
+honest_campaign_v2_r4_true_ballless_ppo_seed42.pt {"size_mb": 1.37, "step": 500, "cfg.seed": 42, "cfg.algorithm": "ppo"}
+honest_campaign_v2_r4_true_ballless_ppo_seed314.pt {"size_mb": 1.37, "step": 700, "cfg.seed": 314, "cfg.algorithm": "ppo"}
+honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt {"size_mb": 1.37, "step": 1462, "cfg.seed": 2718, "cfg.algorithm": "ppo"}
+honest_campaign_v2_r1_ppo_seed314.pt {"size_mb": 1.37, "step": 1461, "cfg.seed": 314, "cfg.algorithm": "ppo"}

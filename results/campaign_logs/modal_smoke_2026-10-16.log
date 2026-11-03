@@ -1,0 +1,8 @@
+# Modal GPU smoke — 2026-10-16
+# Auth: modal token set --verify OK (profile default)
+# Env: MODAL_TOKEN_ID/SECRET present; MODAL_CREDIT_BALANCE_USD=25 (start telemetry)
+# Billing summary (spend fields only): metered_cost≈32.065; credits≈-30; billed≈0.02
+# Command: python3 -m modal run scripts/smoke_modal.py
+MODAL_SMOKE_FAIL ResourceExhaustedError: Workspace has exceeded its spend limit
+# Also blocked: python3 -m infra.remote --module infra.hello --cpu
+# Volume reads still OK: modal volume ls/get worldmodel-vol succeeded
