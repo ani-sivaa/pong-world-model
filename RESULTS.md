@@ -1280,6 +1280,34 @@ Recovered onto this lineage from prior campaign branch work:
 - No demo export; final panel unused; prior 17.5% trust-failed stochastic
   policy not exported.
 
+- **Live ext5k dream PPO launched** (three parallel Modal GPU jobs): continue
+  from the completed 2500-update true-ballless policies toward **5000** updates
+  under the frozen r4 WM ensemble (`--ball-guard`, PPO, latent-mode=sample).
+  Out paths:
+  `/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed{42,314,2718}.pt`.
+- **HARD STOP (Modal spend limit / workspace disabled):** all three jobs died
+  near update **2660**/5000 with `ConflictError: workspace ... is disabled`.
+  Volume retained periodic checkpoints at step **2600**. Post-stop GPU smoke
+  fails with spend-limit; volume reads still work.
+- End billing: metered ≈ **$30.07** / credits ≈ **$30** / billed ≈ **$0.07**.
+- No new policy-trust or development panel for the incomplete ext5k policies
+  (science rule: do not promote/export mid-failure). Prior completed panel
+  remains the transfer evidence:
+  | candidate | seed | mean win | vs 12% control |
+  |---|---|---|---|
+  | 0 | 42 | 8.67% | below |
+  | 1 | 314 | **19.0%** | **above** (CI [15.0%, 23.8%]) |
+  | 2 | 2718 | 9.33% | below/touching |
+- **Promotion:** **not promoted** (80% threshold unmet; ext5k incomplete).
+  Final panel unused. Demo/web export **unchanged**. Prior 17.5% trust-failed
+  stochastic policy not exported.
+- Evidence: `results/campaign_logs/round-4_true_ballless_ext5k_ppo_seed*_2026-11-03.log`,
+  `volume_ckpt_audit_2026-11-03*.json`, `modal_smoke_2026-11-03_post_disable.log`.
+- **Resume next (when spend limit clears):** finish ext5k 2600→5000 via
+  `--init-from` (no warm-start), then policy-trust + development under the
+  same trust-passing WM. Do not burn collect→WM while pretrust holds.
+
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
