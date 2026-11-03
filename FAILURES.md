@@ -561,3 +561,26 @@ ImportError: No module named infra.does_not_exist
 - seed2718: completed **2500**/2500 earlier (no wall).
 - Action: second `--init-from` resume (no warm-start) for seeds 42/314 to
   finish the preregistered 2500-update budget before policy-trust/development.
+
+## Modal spend limit — r4 true-ballless ext5k dream PPO — 2026-11-03
+- Phase: daily honest research cron on
+  `cursor/pong-world-model-research-5dce` (FF from `trust-2112@3e15e94`).
+- Auth gate: credentials present; `modal token set --verify` **OK**; GPU+CPU
+  smoke **PASS** at start. Pretrust still **PASS** on r4 true-ballless WM
+  (util 3.61e-5; ballless 0.0476). Binding gates clear — no collect→WM reburn.
+- Action attempted: continue dream PPO 2500→5000 under frozen r4 WM for seeds
+  42/314/2718 (policy gradients inside WM only; ball-guard on).
+- Progress before stop: all three reached ~update **2660**/5000; volume
+  periodic checkpoints at step **2600**
+  (`honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed{42,314,2718}.pt`).
+- Symptom: `ConflictError: workspace ... is disabled` mid-job; subsequent
+  `modal run` returns `Workspace ... has exceeded its spend limit`.
+- Billing end: metered ≈ **$30.07** / credits applied ≈ **$30** / billed
+  ≈ **$0.07**. Env `MODAL_CREDIT_BALANCE_USD=25` remains start telemetry.
+- Impact: cannot finish 5000-update extension; cannot re-run policy-trust or
+  development for the incomplete ext5k policies. Prior completed 2500-update
+  development leader (**19%** seed314) retained. No demo export; final panel
+  unused.
+- Action: hard-stop recorded; paid launches stopped for this cycle. Resume
+  next when spend limit clears: `--init-from` ext5k@2600 → 5000, then
+  policy-trust + development.
