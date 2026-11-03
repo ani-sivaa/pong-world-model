@@ -1257,6 +1257,29 @@ Recovered onto this lineage from prior campaign branch work:
   trust-passing WM, or accept 19% as new development leader still short of
   80% promotion. Do not burn collect→WM while pretrust holds.
 
+
+
+### Honest research cycle (2026-11-03) — extend dream under trust-pass WM
+- Daily branch `cursor/pong-world-model-research-5dce` fast-forwarded from latest
+  campaign tip `cursor/pong-world-model-trust-2112` (`3e15e94`).
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; env credit telemetry **$25** (start-of-run static only).
+- Billing snapshot at start: metered ≈ **$28.77** / credits applied ≈ **$28.77** /
+  billed **$0**.
+- GPU smoke **PASS** (T4 0.981s); CPU remote hello **PASS** (2.71s).
+- Volume audit: WM ensemble matched @**23000** / coef=12; true-ballless policies
+  all at **2500** updates. Pretrust still **PASS** (util 3.61e-5; ballless 0.0476).
+- Binding gates already cleared on this lineage — **did not** re-burn
+  collect→WM. Concrete lever today: more dream-train compute under the frozen
+  r4 true-ballless ensemble (continue 2500→**5000** updates for seeds
+  42/314/2718; policy gradients inside WM only).
+- Prior development leader: seed314 **19.0%** (CI [15.0%, 23.8%]) vs 12%
+  dream-v2 control. Promotion still blocked by 80% threshold.
+- Local unit tests: **33** passed.
+- No demo export; final panel unused; prior 17.5% trust-failed stochastic
+  policy not exported.
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
