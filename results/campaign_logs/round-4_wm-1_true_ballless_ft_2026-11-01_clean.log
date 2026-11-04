@@ -1,0 +1,33 @@
+✓ Initialized. View run at
+[wm.train] tag=honest_campaign_v2_r4_wm1_true_ballless_ft dev=cuda steps=23000 batch=128 T=1000000 train_end=900000 v2=True frac=1.0 sampler=balanced seed=314 bootstrap=True bootstrap_frac=1.0 model_type=stochastic events=True priorities=True
+[wm.train] resume --init-from=/vol/checkpoints/honest_campaign_v2_r4_wm1.pt start_step=21000/23000
+step 21100/23000 k=5 loss=0.00216 frame=0.00110 rew=0.00005 done=0.00016 kl=0.98649 util=0.00239 ballless=0.00000 events={'ordinary': 16, 'hit': 16, 'score': 22, 'concede': 20, 'done_truncation': 20, 'serve_near_terminal': 14, 'miss': 20} 57s
+step 21200/23000 k=5 loss=0.00331 frame=0.00233 rew=0.00025 done=0.00024 kl=0.97352 util=0.00000 ballless=0.00000 events={'ordinary': 21, 'hit': 15, 'score': 17, 'concede': 19, 'done_truncation': 16, 'serve_near_terminal': 23, 'miss': 17} 108s
+step 21300/23000 k=5 loss=0.00637 frame=0.00166 rew=0.00013 done=0.00397 kl=0.99748 util=0.00075 ballless=0.00000 events={'ordinary': 23, 'hit': 12, 'score': 13, 'concede': 21, 'done_truncation': 16, 'serve_near_terminal': 20, 'miss': 23} 160s
+step 21400/23000 k=5 loss=0.00231 frame=0.00157 rew=0.00005 done=0.00022 kl=0.94670 util=0.00000 ballless=0.00000 events={'ordinary': 17, 'hit': 12, 'score': 15, 'concede': 19, 'done_truncation': 22, 'serve_near_terminal': 13, 'miss': 30} 212s
+step 21500/23000 k=5 loss=0.02593 frame=0.00335 rew=0.00262 done=0.01877 kl=0.98265 util=0.00000 ballless=0.00006 events={'ordinary': 19, 'hit': 17, 'score': 26, 'concede': 19, 'done_truncation': 13, 'serve_near_terminal': 18, 'miss': 16} 264s
+step 21600/23000 k=5 loss=0.00238 frame=0.00109 rew=0.00005 done=0.00076 kl=0.96260 util=0.00000 ballless=0.00000 events={'ordinary': 17, 'hit': 19, 'score': 20, 'concede': 14, 'done_truncation': 19, 'serve_near_terminal': 18, 'miss': 21} 316s
+step 21700/23000 k=5 loss=0.00226 frame=0.00126 rew=0.00005 done=0.00050 kl=0.87643 util=0.00005 ballless=0.00000 events={'ordinary': 13, 'hit': 18, 'score': 18, 'concede': 21, 'done_truncation': 28, 'serve_near_terminal': 12, 'miss': 18} 368s
+step 21800/23000 k=5 loss=0.00206 frame=0.00136 rew=0.00002 done=0.00021 kl=0.94643 util=0.00000 ballless=0.00000 events={'ordinary': 15, 'hit': 18, 'score': 16, 'concede': 20, 'done_truncation': 19, 'serve_near_terminal': 21, 'miss': 19} 419s
+step 21900/23000 k=5 loss=0.03441 frame=0.00095 rew=0.00005 done=0.03283 kl=1.00029 util=0.00048 ballless=0.00000 events={'ordinary': 15, 'hit': 16, 'score': 23, 'concede': 24, 'done_truncation': 22, 'serve_near_terminal': 14, 'miss': 14} 471s
+step 22000/23000 k=5 loss=0.00233 frame=0.00113 rew=0.00002 done=0.00062 kl=0.86184 util=0.00082 ballless=0.00000 events={'ordinary': 16, 'hit': 11, 'score': 17, 'concede': 28, 'done_truncation': 24, 'serve_near_terminal': 12, 'miss': 20} 523s
+[ckpt] step 22000 val_frame=0.00911 val_events={'ordinary': 0.009090173058211803, 'hit': 0.013236023485660553, 'done_truncation': 0.0011218348518013954, 'serve_near_terminal': 0.006880483124405146} -> /vol/checkpoints/honest_campaign_v2_r4_wm1.pt
+step 22100/23000 k=5 loss=0.00244 frame=0.00091 rew=0.00002 done=0.00102 kl=0.96142 util=0.00000 ballless=0.00000 events={'ordinary': 18, 'hit': 20, 'score': 14, 'concede': 20, 'done_truncation': 20, 'serve_near_terminal': 18, 'miss': 18} 576s
+step 22200/23000 k=5 loss=0.02893 frame=0.00106 rew=0.00002 done=0.02737 kl=0.93772 util=0.00000 ballless=0.00000 events={'ordinary': 10, 'hit': 20, 'score': 16, 'concede': 14, 'done_truncation': 21, 'serve_near_terminal': 20, 'miss': 27} 628s
+step 22300/23000 k=5 loss=0.00217 frame=0.00101 rew=0.00005 done=0.00065 kl=0.90356 util=0.00000 ballless=0.00000 events={'ordinary': 18, 'hit': 13, 'score': 22, 'concede': 18, 'done_truncation': 19, 'serve_near_terminal': 20, 'miss': 18} 681s
+step 22400/23000 k=5 loss=0.00341 frame=0.00214 rew=0.00003 done=0.00077 kl=0.93537 util=0.00000 ballless=0.00000 events={'ordinary': 20, 'hit': 15, 'score': 22, 'concede': 16, 'done_truncation': 24, 'serve_near_terminal': 15, 'miss': 16} 733s
+step 22500/23000 k=5 loss=0.00203 frame=0.00061 rew=0.00001 done=0.00093 kl=0.94776 util=0.00000 ballless=0.00000 events={'ordinary': 24, 'hit': 11, 'score': 28, 'concede': 9, 'done_truncation': 18, 'serve_near_terminal': 19, 'miss': 19} 785s
+step 22600/23000 k=5 loss=0.00212 frame=0.00086 rew=0.00001 done=0.00077 kl=0.94032 util=0.00000 ballless=0.00000 events={'ordinary': 22, 'hit': 14, 'score': 24, 'concede': 15, 'done_truncation': 15, 'serve_near_terminal': 14, 'miss': 24} 837s
+step 22700/23000 k=5 loss=0.00165 frame=0.00060 rew=0.00002 done=0.00057 kl=0.91131 util=0.00000 ballless=0.00000 events={'ordinary': 18, 'hit': 18, 'score': 11, 'concede': 23, 'done_truncation': 18, 'serve_near_terminal': 21, 'miss': 19} 889s
+step 22800/23000 k=5 loss=0.00238 frame=0.00123 rew=0.00003 done=0.00060 kl=0.91201 util=0.00045 ballless=0.00000 events={'ordinary': 18, 'hit': 16, 'score': 18, 'concede': 16, 'done_truncation': 24, 'serve_near_terminal': 19, 'miss': 17} 942s
+step 22900/23000 k=5 loss=0.00768 frame=0.00107 rew=0.00550 done=0.00060 kl=0.94928 util=0.00006 ballless=0.00000 events={'ordinary': 18, 'hit': 22, 'score': 17, 'concede': 21, 'done_truncation': 16, 'serve_near_terminal': 16, 'miss': 18} 994s
+step 23000/23000 k=5 loss=0.00234 frame=0.00099 rew=0.00002 done=0.00075 kl=0.97972 util=0.00061 ballless=0.00000 events={'ordinary': 20, 'hit': 11, 'score': 16, 'concede': 13, 'done_truncation': 21, 'serve_near_terminal': 21, 'miss': 26} 1046s
+[ckpt] step 23000 val_frame=0.01006 val_events={'ordinary': 0.011763242073357105, 'hit': 0.0029583077412098646, 'serve_near_terminal': 0.00249963509850204} -> /vol/checkpoints/honest_campaign_v2_r4_wm1.pt
+WM_TRAIN_OK tag=honest_campaign_v2_r4_wm1_true_ballless_ft steps=23000 final_val=0.01006 wall=1048s ckpt=/vol/checkpoints/honest_campaign_v2_r4_wm1.pt
+Stopping app - local entrypoint completed.
+=== REMOTE RESULT ===
+"module": "wm.train",
+"--max-seconds",
+"ok": true,
+"error": null,
+"seconds": 1051.27

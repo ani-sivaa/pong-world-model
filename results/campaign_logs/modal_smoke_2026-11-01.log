@@ -1,0 +1,32 @@
+date_utc=2026-11-01T11:06:08Z
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-YlYUh4rkPOeES0m5sHLmFR
+✓ Created objects.
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+python: 3.11.12 (main, May 21 2025, 23:34:13) [GCC 12.2.0]
+argv: ['infra.hello', '--tag', 'smoke_2026-11-01']
+torch: 2.13.0+cu130 cuda_available: True
+cuda_device: Tesla T4
+sentinel_written: /vol/results/hello_smoke_2026-11-01.txt
+sentinel_readback: tag=smoke_2026-11-01 host=modal cuda=True python=3.11.12
+HELLO_OK smoke_2026-11-01
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-YlYUh4rkPOeES0m5sHLmFR
+=== REMOTE RESULT ===
+{
+  "module": "infra.hello",
+  "argv": [
+    "--tag",
+    "smoke_2026-11-01"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 3.06
+}
+GPU_SMOKE_EXIT=0
