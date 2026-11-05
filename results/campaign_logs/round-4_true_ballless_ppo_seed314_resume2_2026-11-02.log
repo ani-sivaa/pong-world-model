@@ -1,0 +1,87 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-YDwOLltD3yrEMH5lbQrV8w
+✓ Created objects.
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+[dream] continuing from /vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt (update 2143)
+[dream] dev=cuda updates=2500 B=256 H=40 members=3 frame_mode=mean wm=['/vol/checkpoints/honest_campaign_v2_r4_wm0.pt', '/vol/checkpoints/honest_campaign_v2_r4_wm1.pt', '/vol/checkpoints/honest_campaign_v2_r4_wm2.pt']
+  update 2144/2500 dream_return=+0.010 alive_len=21.4/40 ent=0.354 unc=0.00305 penalty=0.00226 25s
+  update 2150/2500 dream_return=+0.011 alive_len=22.5/40 ent=0.359 unc=0.00293 penalty=0.00214 91s
+  update 2160/2500 dream_return=-0.005 alive_len=22.1/40 ent=0.385 unc=0.00303 penalty=0.00227 200s
+  update 2170/2500 dream_return=+0.012 alive_len=21.3/40 ent=0.363 unc=0.00298 penalty=0.00206 309s
+  update 2180/2500 dream_return=+0.009 alive_len=19.6/40 ent=0.363 unc=0.00298 penalty=0.00212 418s
+  update 2190/2500 dream_return=+0.006 alive_len=21.3/40 ent=0.350 unc=0.00298 penalty=0.00216 527s
+  update 2200/2500 dream_return=-0.005 alive_len=20.2/40 ent=0.380 unc=0.00288 penalty=0.00221 636s
+  update 2210/2500 dream_return=-0.006 alive_len=21.9/40 ent=0.356 unc=0.00308 penalty=0.00229 746s
+  update 2220/2500 dream_return=+0.008 alive_len=19.6/40 ent=0.342 unc=0.00286 penalty=0.00211 855s
+  update 2230/2500 dream_return=-0.000 alive_len=21.6/40 ent=0.356 unc=0.00324 penalty=0.00239 965s
+  update 2240/2500 dream_return=+0.012 alive_len=21.6/40 ent=0.350 unc=0.00305 penalty=0.00227 1074s
+  update 2250/2500 dream_return=+0.017 alive_len=22.3/40 ent=0.357 unc=0.00289 penalty=0.00207 1183s
+  update 2260/2500 dream_return=+0.003 alive_len=20.5/40 ent=0.365 unc=0.00319 penalty=0.00228 1292s
+  update 2270/2500 dream_return=-0.001 alive_len=21.3/40 ent=0.347 unc=0.00323 penalty=0.00237 1402s
+  update 2280/2500 dream_return=+0.010 alive_len=21.3/40 ent=0.364 unc=0.00310 penalty=0.00209 1511s
+  update 2290/2500 dream_return=+0.009 alive_len=20.6/40 ent=0.348 unc=0.00299 penalty=0.00210 1621s
+  update 2300/2500 dream_return=+0.008 alive_len=20.7/40 ent=0.363 unc=0.00304 penalty=0.00221 1730s
+  update 2310/2500 dream_return=+0.019 alive_len=21.5/40 ent=0.329 unc=0.00311 penalty=0.00222 1840s
+  update 2320/2500 dream_return=-0.007 alive_len=20.9/40 ent=0.338 unc=0.00317 penalty=0.00229 1949s
+  update 2330/2500 dream_return=-0.003 alive_len=20.7/40 ent=0.370 unc=0.00302 penalty=0.00225 2059s
+  update 2340/2500 dream_return=+0.010 alive_len=23.9/40 ent=0.346 unc=0.00295 penalty=0.00216 2168s
+  update 2350/2500 dream_return=-0.016 alive_len=20.1/40 ent=0.362 unc=0.00323 penalty=0.00230 2277s
+  update 2360/2500 dream_return=-0.008 alive_len=20.1/40 ent=0.370 unc=0.00303 penalty=0.00225 2387s
+  update 2370/2500 dream_return=+0.014 alive_len=21.9/40 ent=0.357 unc=0.00309 penalty=0.00223 2497s
+  update 2380/2500 dream_return=-0.004 alive_len=22.3/40 ent=0.386 unc=0.00286 penalty=0.00211 2607s
+  update 2390/2500 dream_return=+0.005 alive_len=21.6/40 ent=0.371 unc=0.00288 penalty=0.00206 2716s
+  update 2400/2500 dream_return=+0.000 alive_len=20.5/40 ent=0.359 unc=0.00314 penalty=0.00221 2826s
+  update 2410/2500 dream_return=+0.012 alive_len=20.0/40 ent=0.399 unc=0.00298 penalty=0.00224 2935s
+  update 2420/2500 dream_return=+0.005 alive_len=21.1/40 ent=0.386 unc=0.00291 penalty=0.00209 3045s
+  update 2430/2500 dream_return=-0.003 alive_len=21.6/40 ent=0.391 unc=0.00310 penalty=0.00232 3154s
+  update 2440/2500 dream_return=+0.011 alive_len=22.3/40 ent=0.366 unc=0.00309 penalty=0.00239 3263s
+  update 2450/2500 dream_return=+0.019 alive_len=21.4/40 ent=0.351 unc=0.00321 penalty=0.00236 3372s
+  update 2460/2500 dream_return=+0.008 alive_len=20.5/40 ent=0.376 unc=0.00285 penalty=0.00199 3481s
+  update 2470/2500 dream_return=-0.001 alive_len=21.8/40 ent=0.335 unc=0.00315 penalty=0.00213 3590s
+  update 2480/2500 dream_return=+0.021 alive_len=22.4/40 ent=0.343 unc=0.00305 penalty=0.00221 3700s
+  update 2490/2500 dream_return=+0.018 alive_len=20.4/40 ent=0.319 unc=0.00318 penalty=0.00222 3809s
+  update 2500/2500 dream_return=+0.009 alive_len=21.2/40 ent=0.351 unc=0.00308 penalty=0.00220 3918s
+DREAM_OK updates=2500 final_dream_return=+0.009 ckpt=/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt wall=3920s
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-YDwOLltD3yrEMH5lbQrV8w
+=== REMOTE RESULT ===
+{
+  "module": "agents.train_dream",
+  "argv": [
+    "--scale",
+    "full",
+    "--data",
+    "/vol/data/honest_campaign_v2_r4",
+    "--wm",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt",
+    "--algorithm",
+    "ppo",
+    "--latent-mode",
+    "sample",
+    "--ball-guard",
+    "--seed",
+    "314",
+    "--updates",
+    "2500",
+    "--max-seconds",
+    "14400",
+    "--tag",
+    "honest_campaign_v2_r4_true_ballless_ppo_seed314",
+    "--out",
+    "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "--init-from",
+    "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 3928.45
+}

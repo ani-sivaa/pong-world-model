@@ -1,0 +1,4 @@
+# Auth: modal token set --verify OK; profile ani-sivaa; env MODAL_CREDIT_BALANCE_USD=25 (start telemetry)
+# Billing summary (spend fields only): metered_cost≈32.38; credits≈-30; billed≈0.02
+# GPU smoke:
+MODAL_SMOKE_FAIL ResourceExhaustedError: Workspace has exceeded its spend limit
