@@ -606,3 +606,26 @@ ImportError: No module named infra.does_not_exist
   stochastic policy not exported.
 - Action: hard-stop recorded; paid launches not started. Resume next when
   spend limit clears.
+
+## Modal spend limit — daily resume blocked before ext5k finish — 2026-11-05
+- Phase: daily honest research cron on
+  `cursor/world-model-research-loop-5eda` (FF from latest campaign tip
+  `cursor/pong-world-model-research-2207@9a21696`; base
+  `cursor/honest-research-cycle-c57f`).
+- Auth gate: credentials present; `modal token set --verify` **OK**; profile
+  `ani-sivaa`. Env `MODAL_CREDIT_BALANCE_USD=25` is start telemetry only.
+- GPU smoke **FAIL** spend limit; CPU remote hello **FAIL** spend limit.
+  Volume reads **OK** (direct `modal.Volume.read_file`).
+- Billing: metered ≈ **$30.40** / credits applied ≈ **$30** / billed ≈ **$0.07**.
+- Binding pretrust still held from prior true-ballless repair (util PASS
+  3.61e-5; ballless PASS 0.0476) — **no collect→WM reburn** attempted.
+- Planned lever (blocked): resume incomplete ext5k dream PPO 2600→5000 under
+  frozen r4 WM for seeds 42/314/2718 (`--init-from`, no warm-start).
+- Volume audit confirms ext5k seeds still at step **2600**/5000; completed
+  true-ballless policies remain at **2500**; WM ensemble @**23000**/coef=12.
+- Impact: cannot advance dream training, policy-trust, or development panel.
+  Prior development leader (**19%** seed314) retained vs 12% dream-v2 control.
+  Not promoted; final panel unused; demo unchanged; prior 17.5% trust-failed
+  stochastic policy not exported.
+- Action: hard-stop recorded; paid launches not started. Resume next when
+  spend limit clears.
