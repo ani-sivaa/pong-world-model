@@ -1,0 +1,6 @@
+date_utc=2026-10-24
+╭─ Error ──────────────────────────────────────────────────────────────────────╮
+│ Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit             │
+╰──────────────────────────────────────────────────────────────────────────────╯
+GPU_SMOKE_FAIL spend_limit_or_other rc=1
+GPU_SMOKE_FAIL spend_limit

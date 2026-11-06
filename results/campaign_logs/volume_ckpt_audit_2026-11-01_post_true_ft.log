@@ -1,0 +1,5 @@
+# Volume checkpoint audit — 2026-11-01 POST true-target ballless FT
+honest_campaign_v2_r4_wm0.pt step=23000 ballless_reward_coef=12.0 ballless_mass_tau=0.2 ballless_reward_hinge=0.05
+honest_campaign_v2_r4_wm1.pt step=23000 ballless_reward_coef=12.0 ballless_mass_tau=0.2 ballless_reward_hinge=0.05
+honest_campaign_v2_r4_wm2.pt step=23000 ballless_reward_coef=12.0 ballless_mass_tau=0.2 ballless_reward_hinge=0.05
+# Ensemble matched at step 23000 / coef=12 — re-pretrust next.

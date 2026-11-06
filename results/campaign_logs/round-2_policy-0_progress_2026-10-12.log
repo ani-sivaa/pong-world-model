@@ -1,0 +1,37 @@
+  update 100/2500 dream_return=-0.078 alive_len=22.8/40 ent=0.756 unc=0.00361 penalty=0.00406 999s
+  update 110/2500 dream_return=-0.076 alive_len=20.5/40 ent=0.723 unc=0.00376 penalty=0.00413 1099s
+Stopping app - uncaught exception raised locally: ConflictError('workspace ac-oJog8MNZeQOfUZh7bYuf2X is disabled').
+    self.attempt_token = await self._retry_input(metadata)
+modal.exception.ConflictError: workspace ac-oJog8MNZeQOfUZh7bYuf2X is disabled
+modal.exception.ResourceExhaustedError: Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit
+modal.exception.ResourceExhaustedError: Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit
+[dream] continuing from /vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt (update 100)
+  update 101/2500 dream_return=-0.071 alive_len=21.0/40 ent=0.763 unc=0.00351 penalty=0.00380 12s
+  update 110/2500 dream_return=-0.077 alive_len=20.6/40 ent=0.817 unc=0.00368 penalty=0.00404 99s
+  update 200/2500 dream_return=-0.073 alive_len=23.0/40 ent=0.704 unc=0.00350 penalty=0.00396 983s
+  update 300/2500 dream_return=-0.075 alive_len=22.7/40 ent=0.717 unc=0.00372 penalty=0.00390 1964s
+  update 400/2500 dream_return=-0.079 alive_len=22.0/40 ent=0.702 unc=0.00379 penalty=0.00417 2944s
+  update 500/2500 dream_return=-0.058 alive_len=21.9/40 ent=0.693 unc=0.00382 penalty=0.00396 3924s
+  update 600/2500 dream_return=-0.065 alive_len=22.2/40 ent=0.694 unc=0.00367 penalty=0.00400 4904s
+  update 700/2500 dream_return=-0.050 alive_len=21.9/40 ent=0.596 unc=0.00388 penalty=0.00399 5886s
+  update 800/2500 dream_return=-0.061 alive_len=21.9/40 ent=0.548 unc=0.00341 penalty=0.00363 6870s
+  update 900/2500 dream_return=-0.058 alive_len=22.7/40 ent=0.608 unc=0.00360 penalty=0.00386 7852s
+  update 1000/2500 dream_return=-0.070 alive_len=23.2/40 ent=0.585 unc=0.00371 penalty=0.00389 8839s
+[dream] continuing from /vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt (update 1000)
+  update 1100/2500 dream_return=-0.054 alive_len=23.0/40 ent=0.519 unc=0.00330 penalty=0.00366 1101s
+  update 1200/2500 dream_return=-0.053 alive_len=22.9/40 ent=0.476 unc=0.00378 penalty=0.00392 2206s
+  update 1300/2500 dream_return=-0.067 alive_len=21.9/40 ent=0.515 unc=0.00370 penalty=0.00396 3311s
+  update 1400/2500 dream_return=-0.050 alive_len=22.4/40 ent=0.499 unc=0.00362 penalty=0.00385 4417s
+  update 1500/2500 dream_return=-0.039 alive_len=22.1/40 ent=0.467 unc=0.00366 penalty=0.00390 5522s
+  update 1600/2500 dream_return=-0.040 alive_len=21.8/40 ent=0.462 unc=0.00374 penalty=0.00388 6626s
+  update 1700/2500 dream_return=-0.052 alive_len=22.2/40 ent=0.423 unc=0.00314 penalty=0.00342 7732s
+  update 1800/2500 dream_return=-0.051 alive_len=23.1/40 ent=0.454 unc=0.00340 penalty=0.00364 8845s
+  update 1900/2500 dream_return=-0.057 alive_len=23.6/40 ent=0.449 unc=0.00352 penalty=0.00375 9959s
+  update 2000/2500 dream_return=-0.061 alive_len=23.2/40 ent=0.414 unc=0.00354 penalty=0.00365 11066s
+  update 2100/2500 dream_return=-0.048 alive_len=21.3/40 ent=0.413 unc=0.00329 penalty=0.00344 12170s
+  update 2200/2500 dream_return=-0.036 alive_len=22.6/40 ent=0.406 unc=0.00380 penalty=0.00373 13275s
+  update 2300/2500 dream_return=-0.045 alive_len=22.5/40 ent=0.398 unc=0.00323 penalty=0.00346 14382s
+[dream] WALL-CLOCK CAP at update 2302 — saving and exiting
+DREAM_OK updates=2302 final_dream_return=-0.045 ckpt=/vol/checkpoints/honest_campaign_v2_r2_ppo_seed42.pt wall=14406s
+=== REMOTE RESULT ===
+  "ok": true,
