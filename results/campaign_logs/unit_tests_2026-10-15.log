@@ -1,0 +1,33 @@
+test_gae_matches_one_step_return (tests.test_honest_round_two.ImaginedPPOTest.test_gae_matches_one_step_return) ... ok
+test_ppo_backward_updates_policy_only (tests.test_honest_round_two.ImaginedPPOTest.test_ppo_backward_updates_policy_only) ... ok
+test_below_control_development_selects_transfer_repair_mix (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_below_control_development_selects_transfer_repair_mix) ... ok
+test_binding_failures_select_repair_mix_not_collapse (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_binding_failures_select_repair_mix_not_collapse) ... ok
+test_campaign_separates_development_and_final_panels (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_campaign_separates_development_and_final_panels) ... ok
+test_candidate_selection_never_reads_final_results (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_candidate_selection_never_reads_final_results) ... ok
+test_dry_plan_is_gated_has_three_seeds_and_no_export (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_dry_plan_is_gated_has_three_seeds_and_no_export) ... ok
+test_policy_resume_uses_volume_checkpoint_without_failed_stage (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_policy_resume_uses_volume_checkpoint_without_failed_stage)
+Unmarked mid-flight exits still resume via --init-from. ... ok
+test_policy_warm_start_adds_reset_counter_flags (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_policy_warm_start_adds_reset_counter_flags) ... ok
+test_prior_pretrust_stop_blocks_policy_resume (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_prior_pretrust_stop_blocks_policy_resume) ... ok
+test_promotion_requires_every_seed_and_gate (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_promotion_requires_every_seed_and_gate) ... ok
+test_stop_error_matches_modal_spend_limit (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_stop_error_matches_modal_spend_limit) ... ok
+test_wilson_interval_contains_observed_rate (tests.test_honest_round_two.RoundTwoOrchestrationTest.test_wilson_interval_contains_observed_rate) ... ok
+test_ballless_reward_penalty_and_interior_mass (tests.test_honest_round_two.StochasticRepairTest.test_ballless_reward_penalty_and_interior_mass) ... ok
+test_collapse_and_unavailable_diagnostics_fail_closed (tests.test_honest_round_two.StochasticRepairTest.test_collapse_and_unavailable_diagnostics_fail_closed) ... ok
+test_event_balancing_equalizes_class_mass (tests.test_honest_round_two.StochasticRepairTest.test_event_balancing_equalizes_class_mass) ... ok
+test_latent_changes_frames_not_reward_or_done_heads (tests.test_honest_round_two.StochasticRepairTest.test_latent_changes_frames_not_reward_or_done_heads) ... ok
+test_latent_inject_gain_amplifies_sample_diversity (tests.test_honest_round_two.StochasticRepairTest.test_latent_inject_gain_amplifies_sample_diversity) ... ok
+test_legacy_stochastic_checkpoint_preserves_latent_heads (tests.test_honest_round_two.StochasticRepairTest.test_legacy_stochastic_checkpoint_preserves_latent_heads) ... ok
+test_context_stays_real_history_and_does_not_cross_done (tests.test_honest_round_two.TerminalContextTest.test_context_stays_real_history_and_does_not_cross_done) ... ok
+test_old_checkpoint_and_ensemble_statistics (tests.test_wm_ensemble.WorldModelEnsembleTest.test_old_checkpoint_and_ensemble_statistics) ... ok
+test_pessimism_penalty_discount_and_threshold (tests.test_wm_ensemble.WorldModelEnsembleTest.test_pessimism_penalty_discount_and_threshold) ... ok
+test_seeded_window_bootstrap_is_reproducible_and_diverse (tests.test_wm_ensemble.WorldModelEnsembleTest.test_seeded_window_bootstrap_is_reproducible_and_diverse) ... ok
+test_single_member_has_zero_disagreement (tests.test_wm_ensemble.WorldModelEnsembleTest.test_single_member_has_zero_disagreement) ... ok
+test_stochastic_checkpoint_auto_load_and_prior_modes (tests.test_wm_ensemble.WorldModelEnsembleTest.test_stochastic_checkpoint_auto_load_and_prior_modes) ... ok
+test_stochastic_ensemble_epistemic_metrics_are_deterministic (tests.test_wm_ensemble.WorldModelEnsembleTest.test_stochastic_ensemble_epistemic_metrics_are_deterministic) ... ok
+test_stochastic_kl_is_finite_and_backpropagates (tests.test_wm_ensemble.WorldModelEnsembleTest.test_stochastic_kl_is_finite_and_backpropagates) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.415s
+
+OK
