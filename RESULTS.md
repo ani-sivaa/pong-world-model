@@ -1461,6 +1461,44 @@ Recovered onto this lineage from prior campaign branch work:
   same trust-passing WM. Do not burn collect→WM while pretrust holds.
 
 
+### Honest research cycle (2026-11-08) — spend limit still blocks ext5k resume
+- Daily branch `cursor/pong-world-model-research-aefe` fast-forwarded from latest
+  campaign tip `cursor/world-model-research-loop-82da` (`8692ea5`); automation
+  base remains `cursor/honest-research-cycle-c57f`.
+- Auth gate: `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` /
+  `MODAL_CREDIT_BALANCE_USD` **present**; `modal token set --verify` **OK**;
+  profile `ani-sivaa`; env credit telemetry **$25** (start-of-run static only).
+- Billing: metered ≈ **$30.88** / credits applied ≈ **$30** / billed ≈ **$0.07**.
+- GPU smoke **FAIL** (spend limit); CPU remote hello **FAIL** (spend limit).
+  Volume reads still work.
+- Volume audit: WM ensemble matched @**23000** / coef=12; true-ballless policies
+  @**2500**; incomplete ext5k policies still @**2600**/5000 for seeds 42/314/2718.
+- Pretrust still **PASS** on the held r4 true-ballless lineage (util 3.61e-5;
+  ballless 0.0476). Binding gates clear — **did not** re-burn collect→WM.
+- Planned concrete lever (blocked by spend): resume ext5k dream PPO
+  2600→5000 via `--init-from` (no warm-start) under the frozen trust-pass WM,
+  then policy-trust + development. Policy gradients remain inside the WM only.
+- Local unit tests: **33** passed.
+- No paid Modal training jobs launched this cycle.
+- Held transfer evidence (completed 2500-update panel; no new panel):
+  | candidate | seed | mean win | vs 12% control |
+  |---|---|---|---|
+  | 0 | 42 | 8.67% | below |
+  | 1 | 314 | **19.0%** | **above** (CI [15.0%, 23.8%]) |
+  | 2 | 2718 | 9.33% | below/touching |
+- **Promotion:** **not promoted** (80% threshold unmet; ext5k incomplete).
+  Final panel unused (`final_evaluation_uses=0`). Demo/web export **unchanged**.
+  Prior 17.5% trust-failed stochastic policy not exported.
+- Evidence: `results/campaign_logs/modal_auth_verify_2026-11-08.log`,
+  `modal_smoke_2026-11-08.log`, `modal_cpu_probe_2026-11-08.log`,
+  `modal_billing_2026-11-08.json`, `volume_ckpt_audit_2026-11-08.json`,
+  `unit_tests_2026-11-08.log`.
+- **Resume next (when spend limit clears):** finish ext5k 2600→5000 via
+  `--init-from` (no warm-start), then policy-trust + development under the
+  same trust-passing WM. Do not burn collect→WM while pretrust holds.
+
+
+
 ## Phase 4 — web demo — COMPLETE (both models)
 - Headless-browser verification (Playwright): page loads, ONNX models load
   (no fallback banner), zero console/page errors, simulation advances, agent
