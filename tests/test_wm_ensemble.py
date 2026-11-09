@@ -118,7 +118,7 @@ class WorldModelEnsembleTest(unittest.TestCase):
             np.zeros((batch_size, 1), np.float32),
             np.ones((batch_size, 1), np.float32),
         )
-        total, _, _, _, kl = compute_losses(
+        total, _, _, _, kl, _, _ = compute_losses(
             model, batch, torch.device("cpu"), False, 1.0,
             kl_coef=0.1, free_bits=0.0, return_kl=True)
         total.backward()
