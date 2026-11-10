@@ -1,0 +1,28 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-sbHfgtDURC2RZ6J4ESjSvU
+✓ Created objects.
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+DEVELOPMENT_PANEL_OK mean_win_rate=0.1900 ci95=[0.14963485033440665, 0.23820379182481183] report=/vol/results/development_honest_campaign_v2_r4_true_ballless_candidate1.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-sbHfgtDURC2RZ6J4ESjSvU
+=== REMOTE RESULT ===
+{
+  "module": "scripts.evaluate_panel",
+  "argv": [
+    "--purpose",
+    "development",
+    "--policy",
+    "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "--out",
+    "/vol/results/development_honest_campaign_v2_r4_true_ballless_candidate1.json"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 5.92
+}

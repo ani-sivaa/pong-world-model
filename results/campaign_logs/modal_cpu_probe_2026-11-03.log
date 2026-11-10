@@ -1,0 +1,26 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-gNHAr2NjylJpOmFx2zWij1
+✓ Created objects.
+├── ✓ Uploaded /workspace
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+python: 3.11.12 (main, May 21 2025, 23:34:13) [GCC 12.2.0]
+argv: ['infra.hello']
+torch: 2.13.0+cu130 cuda_available: False
+sentinel_written: /vol/results/hello_hello.txt
+sentinel_readback: tag=hello host=modal cuda=False python=3.11.12
+HELLO_OK hello
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-gNHAr2NjylJpOmFx2zWij1
+=== REMOTE RESULT ===
+{
+  "module": "infra.hello",
+  "argv": [],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 2.71
+}

@@ -37,7 +37,10 @@ import config
 from infra.modal_common import VOL_NAME, app, image, volume
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-VENV_PY = str(REPO_ROOT / ".venv" / "bin" / "python")
+_VENV_CANDIDATE = REPO_ROOT / ".venv" / "bin" / "python"
+# Prefer the repo venv when present; otherwise use the active interpreter so
+# volume fetch / local fallback still work in Cloud Agent images without .venv.
+VENV_PY = str(_VENV_CANDIDATE) if _VENV_CANDIDATE.is_file() else sys.executable
 FAILURES_MD = REPO_ROOT / "FAILURES.md"
 
 # Generous, fixed at decoration time (Modal 1.x can't change timeout per call):
