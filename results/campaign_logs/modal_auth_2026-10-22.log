@@ -1,0 +1,6 @@
+credentials_present id=True secret=True balance_env_set=True
+MODAL_CREDIT_BALANCE_USD_start_telemetry=25
+Verifying token against https://api.modal.com,https://api.modal2.com
+Token verified successfully!
+Token written to profile ani-sivaa.
+profile=ani-sivaa

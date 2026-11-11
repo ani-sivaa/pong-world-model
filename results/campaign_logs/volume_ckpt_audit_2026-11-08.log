@@ -1,0 +1,12 @@
+wm0 top keys: ['config', 'model', 'model_type', 'step']
+config <class 'dict'> ['base_channels', 'act_embed', 'latent_dim', 'stochastic_heads_deterministic', 'kl_coef', 'kl_warmup_frac', 'free_bits', 'latent_inject_gain', 'utilization_coef', 'utilization_target', 'ballless_reward_coef', 'ballless_mass_tau', 'ballless_reward_hinge', 'head_event_balance', 'head_weight_clip', 'change_loss_weight', 'lr', 'weight_decay', 'batch_size', 'unroll_k', 'warmup_frac', 'grad_clip', 'val_frac', 'reward_loss_weight', 'done_loss_weight', 'v2', 'model_type', 'data_frac', 'sampler', 'seed']
+honest_campaign_v2_r4_wm0.pt step=23000 mb=14.618 coef=12.0
+honest_campaign_v2_r4_wm1.pt step=23000 mb=14.618 coef=12.0
+honest_campaign_v2_r4_wm2.pt step=23000 mb=14.618 coef=12.0
+honest_campaign_v2_r4_true_ballless_ppo_seed42.pt step=2500 mb=1.308
+honest_campaign_v2_r4_true_ballless_ppo_seed314.pt step=2500 mb=1.308
+honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt step=2500 mb=1.308
+honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt step=2600 mb=1.308
+honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt step=2600 mb=1.308
+honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt step=2600 mb=1.308
+WROTE results/campaign_logs/volume_ckpt_audit_2026-11-08.json
