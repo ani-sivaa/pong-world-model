@@ -1,0 +1,18 @@
+# Volume checkpoint audit 2026-11-12
+volume=worldmodel-vol
+method=modal.Volume.read_file (no paid app)
+OK honest_campaign_v2_r4_wm0.pt step=23000 mb=15.328 coef=12.0
+OK honest_campaign_v2_r4_wm1.pt step=23000 mb=15.328 coef=12.0
+OK honest_campaign_v2_r4_wm2.pt step=23000 mb=15.328 coef=12.0
+OK honest_campaign_v2_r4_true_ballless_ppo_seed42.pt step=2500 mb=1.372 coef=None
+OK honest_campaign_v2_r4_true_ballless_ppo_seed314.pt step=2500 mb=1.372 coef=None
+OK honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt step=2500 mb=1.372 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt step=2600 mb=1.372 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt step=2600 mb=1.372 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt step=2600 mb=1.372 coef=None
+
+# Summary
+WM ensemble @23000 / ballless_reward_coef=12.0
+true-ballless policies @2500
+ext5k policies still @2600/5000
+pretrust held PASS (util 3.61e-5; ballless 0.0476) — no collect→WM reburn
