@@ -1,0 +1,4 @@
+# GPU smoke 2026-11-04 — BLOCKED by Modal spend limit
+# Auth: token verify OK (see modal_auth_verify_2026-11-04.log)
+# Command: python3 -m modal run scripts/smoke_modal.py
+Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit

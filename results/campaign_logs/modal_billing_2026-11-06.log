@@ -1,0 +1,8 @@
+Usage: modal billing [OPTIONS] COMMAND [ARGS]...
+
+  View workspace billing information.
+
+Commands:
+  summary  Generate a billing summary for the workspace.
+  report   Generate a billing report for the workspace.
+  rates    Return current pricing rates.
