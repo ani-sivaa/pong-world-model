@@ -1966,6 +1966,12 @@
       "pretrust_held": true,
       "collect_wm_reburn": false,
       "daily_branch": "cursor/world-model-research-loop-6f49"
+    },
+    {
+      "at": "2026-11-12T11:02:39Z",
+      "branch": "cursor/world-model-research-loop-0096",
+      "outcome": "budget_or_auth_exhausted",
+      "note": "Auth OK; GPU/CPU spend-limit blocked; volume unchanged ext5k@2600; no paid jobs."
     }
   ],
   "rounds": [
@@ -5127,5 +5133,28 @@
     "paid_jobs_launched": 0,
     "daily_branch": "cursor/world-model-research-loop-6f49",
     "continued_from": "cursor/world-model-research-loop-6967@45d5b5f"
+  },
+  "this_cycle_2026_11_12": {
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "control_dream_v2_win_rate": 0.12,
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "completed_at": "2026-11-12T11:02:39Z",
+    "outcome": "budget_or_auth_exhausted",
+    "ext5k_saved_step": 2600,
+    "ext5k_target": 5000,
+    "best_completed_development": 0.19,
+    "promoted": false,
+    "demo_exported": false,
+    "final_evaluation_uses": 0,
+    "paid_jobs_launched": 0,
+    "daily_branch": "cursor/world-model-research-loop-0096",
+    "continued_from": "cursor/world-model-research-loop-6f49@3ca1e72",
+    "billing_metered_approx": 31.53,
+    "billing_credits_applied_approx": 30.0,
+    "billing_billed_approx": 0.07,
+    "binding_pretrust_held": true,
+    "gpu_smoke": "FAIL_spend_limit",
+    "cpu_probe": "FAIL_spend_limit"
   }
 }
