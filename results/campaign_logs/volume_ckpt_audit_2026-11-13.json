@@ -1,0 +1,119 @@
+{
+  "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt": {
+    "cfg.algorithm": "ppo",
+    "cfg.seed": 2718,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "size_mb": 1.37,
+    "step": 2600
+  },
+  "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt": {
+    "cfg.algorithm": "ppo",
+    "cfg.seed": 314,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "size_mb": 1.37,
+    "step": 2600
+  },
+  "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt": {
+    "cfg.algorithm": "ppo",
+    "cfg.seed": 42,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "size_mb": 1.37,
+    "step": 2600
+  },
+  "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+    "cfg.algorithm": "ppo",
+    "cfg.seed": 2718,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "size_mb": 1.37,
+    "step": 2500
+  },
+  "honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
+    "cfg.algorithm": "ppo",
+    "cfg.seed": 314,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "size_mb": 1.37,
+    "step": 2500
+  },
+  "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+    "cfg.algorithm": "ppo",
+    "cfg.seed": 42,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "step"
+    ],
+    "size_mb": 1.37,
+    "step": 2500
+  },
+  "honest_campaign_v2_r4_wm0.pt": {
+    "cfg.ballless_mass_tau": 0.2,
+    "cfg.ballless_reward_coef": 12.0,
+    "cfg.ballless_reward_hinge": 0.05,
+    "cfg.seed": 42,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "model_type",
+      "step"
+    ],
+    "size_mb": 15.33,
+    "step": 23000
+  },
+  "honest_campaign_v2_r4_wm1.pt": {
+    "cfg.ballless_mass_tau": 0.2,
+    "cfg.ballless_reward_coef": 12.0,
+    "cfg.ballless_reward_hinge": 0.05,
+    "cfg.seed": 314,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "model_type",
+      "step"
+    ],
+    "size_mb": 15.33,
+    "step": 23000
+  },
+  "honest_campaign_v2_r4_wm2.pt": {
+    "cfg.ballless_mass_tau": 0.2,
+    "cfg.ballless_reward_coef": 12.0,
+    "cfg.ballless_reward_hinge": 0.05,
+    "cfg.seed": 2718,
+    "exists": true,
+    "keys": [
+      "config",
+      "model",
+      "model_type",
+      "step"
+    ],
+    "size_mb": 15.33,
+    "step": 23000
+  }
+}

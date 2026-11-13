@@ -1,0 +1,9 @@
+OK honest_campaign_v2_r4_wm0.pt step=23000 size_mb=15.33 coef=12.0
+OK honest_campaign_v2_r4_wm1.pt step=23000 size_mb=15.33 coef=12.0
+OK honest_campaign_v2_r4_wm2.pt step=23000 size_mb=15.33 coef=12.0
+OK honest_campaign_v2_r4_true_ballless_ppo_seed42.pt step=2500 size_mb=1.37 coef=None
+OK honest_campaign_v2_r4_true_ballless_ppo_seed314.pt step=2500 size_mb=1.37 coef=None
+OK honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt step=2500 size_mb=1.37 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt step=2600 size_mb=1.37 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt step=2600 size_mb=1.37 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt step=2600 size_mb=1.37 coef=None
