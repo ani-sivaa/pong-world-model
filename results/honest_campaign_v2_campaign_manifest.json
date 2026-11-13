@@ -1,5 +1,6 @@
 {
   "final_evaluation_uses": 0,
+  "hard_stop_note": "2026-11-13: Modal spend limit still blocks GPU/CPU remote; held r4 true-ballless pretrust PASS; ext5k stuck at 2600/5000; binding-repair code ported onto cursor/world-model-trust-repairs-e9b5.",
   "hard_stops": [
     {
       "billing_note": "metered~37.96 credits_applied~30 billed~6.59",
@@ -27,675 +28,681 @@
       "timestamp": "2026-10-15T13:14:00Z"
     },
     {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-10-16:gpu_smoke",
-      "timestamp": "2026-10-16T11:06:50Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "default",
+        "token_verified": true,
+        "volume_read": "OK"
+      },
+      "ballless_config": {
+        "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
+        "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
+        "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
+      },
       "billing_note": "metered~32.07 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
         "wm0": 21000,
         "wm1": 20000,
         "wm2": 18000
       },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-10-16:gpu_smoke",
+      "timestamp": "2026-10-16T11:06:50Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
+      },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "default",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-10-17:gpu_smoke",
-      "timestamp": "2026-10-17T11:15:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~32.22 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
         "wm0": 21000,
         "wm1": 20000,
         "wm2": 18000
       },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-10-17:gpu_smoke",
+      "timestamp": "2026-10-17T11:15:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
+      },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-10-18:gpu_smoke",
-      "timestamp": "2026-10-18T11:20:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~32.38 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
         "wm0": 21000,
         "wm1": 20000,
         "wm2": 18000
       },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-10-18:gpu_smoke",
+      "timestamp": "2026-10-18T11:20:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
+      },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-10-19:gpu_smoke",
-      "timestamp": "2026-10-19T11:20:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~32.54 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
         "wm0": 21000,
         "wm1": 20000,
         "wm2": 18000
       },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-10-19:gpu_smoke",
+      "timestamp": "2026-10-19T11:20:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
+      },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-20:gpu_smoke",
-      "timestamp": "2026-10-20T11:20:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-20T11:20:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-21:gpu_smoke",
-      "timestamp": "2026-10-21T11:20:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-21T11:20:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-22:gpu_smoke",
-      "timestamp": "2026-10-22T11:20:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-22T11:20:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-23:gpu_smoke",
-      "timestamp": "2026-10-23T11:06:30Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-23T11:06:30Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-24:gpu_smoke",
-      "timestamp": "2026-10-24T11:08:20Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-24T11:08:20Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-25:gpu_smoke",
-      "timestamp": "2026-10-25T11:04:16Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-25T11:04:16Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-26:gpu_smoke",
-      "timestamp": "2026-10-26T11:03:24Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-26T11:03:24Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-27:gpu_smoke",
-      "timestamp": "2026-10-27T11:04:44Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-27T11:04:44Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-28:gpu_smoke",
-      "timestamp": "2026-10-28T11:40:53Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-28T11:40:53Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-29:gpu_smoke",
-      "timestamp": "2026-10-29T11:07:32Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
+      "timestamp": "2026-10-29T11:07:32Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
         "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
-    },
-    {
+      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 21000,
+        "wm1": 20000,
+        "wm2": 18000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
       "stage": "daily_resume_2026-10-31:gpu_smoke",
-      "timestamp": "2026-10-31T11:05:50Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~32.69 credits_applied~30 billed~0.02; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 21000,
-        "wm1": 20000,
-        "wm2": 18000
-      },
-      "ballless_config": {
-        "wm0": "coef=12 tau=0.20 hinge=0.05 step=21000",
-        "wm1": "coef=12 tau=0.20 hinge=0.05 step=20000",
-        "wm2": "coef=6 tau=0.35 (not fine-tuned) step=18000"
-      },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      }
+      "timestamp": "2026-10-31T11:05:50Z"
     },
     {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-11-04:gpu_smoke",
-      "timestamp": "2026-11-04T11:05:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
+      },
+      "ballless_config": {
+        "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
+        "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
+        "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
+      },
       "billing_note": "metered~30.23 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
         "wm0": 23000,
         "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+        "wm2": 23000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "pretrust": {
+        "ballless_positive_rate": 0.0476,
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
+      "stage": "daily_resume_2026-11-04:gpu_smoke",
+      "timestamp": "2026-11-04T11:05:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      },
-      "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
-        "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-11-05:gpu_smoke",
-      "timestamp": "2026-11-05T11:10:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~30.40 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
         "wm0": 23000,
         "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+        "wm2": 23000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "pretrust": {
+        "ballless_positive_rate": 0.0476,
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
+      "stage": "daily_resume_2026-11-05:gpu_smoke",
+      "timestamp": "2026-11-05T11:10:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
+      "billing_note": "metered~30.56 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
+        "wm0": 23000,
+        "wm1": 23000,
+        "wm2": 23000
       },
-      "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
-        "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
-    },
-    {
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
+      "pretrust": {
+        "ballless_positive_rate": 0.0476,
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
       "stage": "daily_resume_2026-11-06:gpu_smoke",
-      "timestamp": "2026-11-06T11:02:58Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~30.56 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 23000,
-        "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+      "timestamp": "2026-11-06T11:02:58Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
+      "billing_note": "metered~30.56 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
+        "wm0": 23000,
+        "wm1": 23000,
+        "wm2": 23000
       },
-      "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
-        "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
-    },
-    {
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "kind": "modal_spend_limit",
+      "pretrust": {
+        "ballless_positive_rate": 0.0476,
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
       "stage": "daily_resume_2026-11-07:gpu_smoke",
-      "timestamp": "2026-11-07T11:05:24Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~30.56 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 23000,
-        "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+      "timestamp": "2026-11-07T11:05:24Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      },
-      "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
-        "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-11-08:gpu_smoke",
-      "timestamp": "2026-11-08T11:08:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~30.88 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
         "wm0": 23000,
         "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+        "wm2": 23000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "pretrust": {
+        "ballless_positive_rate": 0.0476,
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
+      "stage": "daily_resume_2026-11-08:gpu_smoke",
+      "timestamp": "2026-11-08T11:08:00Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      },
-      "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
-        "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-11-09:gpu_smoke",
-      "timestamp": "2026-11-09T11:07:03Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~31.05 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
         "wm0": 23000,
         "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+        "wm2": 23000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "pretrust": {
+        "ballless_positive_rate": 0.0476,
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
+      "stage": "daily_resume_2026-11-09:gpu_smoke",
+      "timestamp": "2026-11-09T11:07:03Z"
+    },
+    {
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      },
-      "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
-        "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
-    },
-    {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-11-10:gpu_smoke",
-      "timestamp": "2026-11-10T11:08:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
       "billing_note": "metered~31.21 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
       "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
         "wm0": 23000,
         "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+        "wm2": 23000
       },
-      "ballless_config": {
-        "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
-        "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
-        "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
-      },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
-      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
       "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
         "ballless_positive_rate": 0.0476,
-        "collect_wm_reburn": false
-      }
+        "collect_wm_reburn": false,
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
+      "stage": "daily_resume_2026-11-10:gpu_smoke",
+      "timestamp": "2026-11-10T11:08:00Z"
     },
     {
-      "kind": "modal_spend_limit",
-      "stage": "daily_resume_2026-11-11:gpu_smoke",
-      "timestamp": "2026-11-11T11:08:00Z",
-      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
-      "billing_note": "metered~31.37 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
-      "checkpoint_steps": {
-        "wm0": 23000,
-        "wm1": 23000,
-        "wm2": 23000,
-        "true_ballless_seed42": 2500,
-        "true_ballless_seed314": 2500,
-        "true_ballless_seed2718": 2500,
-        "ext5k_seed42": 2600,
-        "ext5k_seed314": 2600,
-        "ext5k_seed2718": 2600
+      "auth": {
+        "cpu_remote": "FAIL spend_limit",
+        "credentials_present": true,
+        "gpu_smoke": "FAIL spend_limit",
+        "modal_profile": "ani-sivaa",
+        "token_verified": true,
+        "volume_read": "OK"
       },
       "ballless_config": {
         "wm0": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm1": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask",
         "wm2": "coef=12 tau=0.20 hinge=0.05 step=23000 true_target_mask"
       },
-      "auth": {
-        "token_verified": true,
-        "credentials_present": true,
-        "modal_profile": "ani-sivaa",
-        "gpu_smoke": "FAIL spend_limit",
-        "cpu_remote": "FAIL spend_limit",
-        "volume_read": "OK"
+      "billing_note": "metered~31.37 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "ext5k_seed2718": 2600,
+        "ext5k_seed314": 2600,
+        "ext5k_seed42": 2600,
+        "true_ballless_seed2718": 2500,
+        "true_ballless_seed314": 2500,
+        "true_ballless_seed42": 2500,
+        "wm0": 23000,
+        "wm1": 23000,
+        "wm2": 23000
       },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
       "pretrust": {
-        "status": "PASS held",
-        "stochastic_latent_utilization": 3.61e-05,
         "ballless_positive_rate": 0.0476,
-        "note": "Held from r4 true-target ballless FT re-pretrust; no reburn this cycle"
-      }
+        "note": "Held from r4 true-target ballless FT re-pretrust; no reburn this cycle",
+        "status": "PASS held",
+        "stochastic_latent_utilization": 3.61e-05
+      },
+      "stage": "daily_resume_2026-11-11:gpu_smoke",
+      "timestamp": "2026-11-11T11:08:00Z"
+    },
+    {
+      "at": "2026-11-13T11:30:00Z",
+      "branch": "cursor/world-model-trust-repairs-e9b5",
+      "planned_lever_blocked": "ext5k_dream_ppo_2600_to_5000",
+      "reason": "modal_spend_limit"
     }
   ],
   "live_notes": [
@@ -744,116 +751,116 @@
     },
     {
       "at": 1792148810.6529968,
-      "timestamp": "2026-10-16T11:06:50Z",
-      "note": "Daily resume 2026-10-16 on branch cursor/honest-research-cycle-c8aa (continued from 3c24 tip): MODAL_TOKEN_* + MODAL_CREDIT_BALANCE_USD present; modal token verify OK; billing metered~$32.07 / credits~$30 / billed~$0.02. GPU smoke + CPU remote both ResourceExhausted spend limit \u2014 no paid jobs. Volume checkpoint audit: r4_wm0=21000 coef12, r4_wm1=20000 coef12, r4_wm2=18000 coef6. Did not re-pretrust mismatched ensemble; no dream PPO; no demo export. Binding repair still pending: finish wm1\u219221000 + wm2 FT under coef=12 then re-pretrust. Best transfer still r1 9.33% < 12% dream-v2 control. Not promoted."
+      "note": "Daily resume 2026-10-16 on branch cursor/honest-research-cycle-c8aa (continued from 3c24 tip): MODAL_TOKEN_* + MODAL_CREDIT_BALANCE_USD present; modal token verify OK; billing metered~$32.07 / credits~$30 / billed~$0.02. GPU smoke + CPU remote both ResourceExhausted spend limit \u2014 no paid jobs. Volume checkpoint audit: r4_wm0=21000 coef12, r4_wm1=20000 coef12, r4_wm2=18000 coef6. Did not re-pretrust mismatched ensemble; no dream PPO; no demo export. Binding repair still pending: finish wm1\u219221000 + wm2 FT under coef=12 then re-pretrust. Best transfer still r1 9.33% < 12% dream-v2 control. Not promoted.",
+      "timestamp": "2026-10-16T11:06:50Z"
     },
     {
-      "timestamp": "2026-10-17T11:15:00Z",
       "at": 1792235208.4266677,
-      "note": "2026-10-17 daily resume: auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted."
+      "note": "2026-10-17 daily resume: auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted.",
+      "timestamp": "2026-10-17T11:15:00Z"
     },
     {
-      "timestamp": "2026-10-18T11:20:00Z",
       "at": 1792321471.8505776,
-      "note": "2026-10-18 daily resume on branch cursor/honest-research-cycle-9cb9 (fast-forward from f4b7@a7e205f): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-18 daily resume on branch cursor/honest-research-cycle-9cb9 (fast-forward from f4b7@a7e205f): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-18T11:20:00Z"
     },
     {
-      "timestamp": "2026-10-19T11:20:00Z",
       "at": 1792408089.0856955,
-      "note": "2026-10-19 daily resume on branch cursor/honest-research-cycle-c155 (fast-forward from 9cb9@a853efa): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-19 daily resume on branch cursor/honest-research-cycle-c155 (fast-forward from 9cb9@a853efa): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-19T11:20:00Z"
     },
     {
-      "timestamp": "2026-10-20T11:20:00Z",
       "at": 1792494311.1115773,
-      "note": "2026-10-20 daily resume on branch cursor/honest-research-loop-8058 (fast-forward from c155@5530748): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-20 daily resume on branch cursor/honest-research-loop-8058 (fast-forward from c155@5530748): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-20T11:20:00Z"
     },
     {
-      "timestamp": "2026-10-21T11:20:00Z",
       "at": 1792580917.1147504,
-      "note": "2026-10-21 daily resume on branch cursor/pong-world-model-research-4679 (fast-forward from honest-research-loop-8058@5237f1e): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-21 daily resume on branch cursor/pong-world-model-research-4679 (fast-forward from honest-research-loop-8058@5237f1e): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-21T11:20:00Z"
     },
     {
-      "timestamp": "2026-10-22T11:20:00Z",
-      "note": "2026-10-22 daily resume: auth OK, spend limit hard stop; no paid jobs; r4 ballless FT ensemble still mismatched; not promoted."
+      "note": "2026-10-22 daily resume: auth OK, spend limit hard stop; no paid jobs; r4 ballless FT ensemble still mismatched; not promoted.",
+      "timestamp": "2026-10-22T11:20:00Z"
     },
     {
-      "timestamp": "2026-10-23T11:06:30Z",
       "at": 1792753590.620748,
-      "note": "2026-10-23 daily resume on branch cursor/pong-world-model-research-1033 (fast-forward from pong-world-model-research-e88d@6b6c10a): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-23 daily resume on branch cursor/pong-world-model-research-1033 (fast-forward from pong-world-model-research-e88d@6b6c10a): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-23T11:06:30Z"
     },
     {
-      "timestamp": "2026-10-24T11:08:20Z",
       "at": 1792840100.121566,
-      "note": "2026-10-24 daily resume on branch cursor/honest-research-cycle-5100 (fast-forward from pong-world-model-research-1033@be81600): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-24 daily resume on branch cursor/honest-research-cycle-5100 (fast-forward from pong-world-model-research-1033@be81600): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-24T11:08:20Z"
     },
     {
-      "timestamp": "2026-10-25T11:04:16Z",
       "at": 1792926256.9339583,
-      "note": "2026-10-25 daily resume on branch cursor/honest-research-cycle-be10 (fast-forward from honest-research-cycle-5100@f5bf4a7): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-25 daily resume on branch cursor/honest-research-cycle-be10 (fast-forward from honest-research-cycle-5100@f5bf4a7): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-25T11:04:16Z"
     },
     {
-      "timestamp": "2026-10-26T11:03:24Z",
       "at": 1793012604.513491,
-      "note": "2026-10-26 daily resume on branch cursor/honest-research-cycle-929d (fast-forward from honest-research-cycle-be10@f39f0bd): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-26 daily resume on branch cursor/honest-research-cycle-929d (fast-forward from honest-research-cycle-be10@f39f0bd): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-26T11:03:24Z"
     },
     {
-      "timestamp": "2026-10-27T11:04:44Z",
       "at": 1793099084.0516038,
-      "note": "2026-10-27 daily resume on branch cursor/honest-research-loop-760a (fast-forward from honest-research-cycle-929d@a28db36): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-27 daily resume on branch cursor/honest-research-loop-760a (fast-forward from honest-research-cycle-929d@a28db36): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-27T11:04:44Z"
     },
     {
-      "timestamp": "2026-10-28T11:40:53Z",
       "at": 1793187653.500806,
-      "note": "2026-10-28 daily resume on branch cursor/honest-research-cycle-0e13 (fast-forward from honest-research-loop-760a@7365e82): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-28 daily resume on branch cursor/honest-research-cycle-0e13 (fast-forward from honest-research-loop-760a@7365e82): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-28T11:40:53Z"
     },
     {
-      "timestamp": "2026-10-29T11:07:32Z",
       "at": 1793272052.556897,
-      "note": "2026-10-29 daily resume on branch cursor/honest-research-cycle-d71b (fast-forward from honest-research-cycle-0e13@2100f60): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-29 daily resume on branch cursor/honest-research-cycle-d71b (fast-forward from honest-research-cycle-0e13@2100f60): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-29T11:07:32Z"
     },
     {
-      "timestamp": "2026-10-31T11:05:50Z",
       "at": 1793444755.670096,
-      "note": "2026-10-31 daily resume on branch cursor/world-model-research-loop-ef61 (fast-forward from world-model-research-loop-0929@1ed8413): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control."
+      "note": "2026-10-31 daily resume on branch cursor/world-model-research-loop-ef61 (fast-forward from world-model-research-loop-0929@1ed8413): auth OK; spend limit still blocks GPU+CPU; volume audit unchanged (mismatched r4 ballless FT); no paid jobs; no re-pretrust; not promoted. Best transfer still r1 9.33% < 12% dream-v2 control.",
+      "timestamp": "2026-10-31T11:05:50Z"
     },
     {
       "at": 1793638010.66086,
-      "timestamp": "2026-11-02T16:46:50Z",
-      "note": "2026-11-02 cycle complete: resumed incomplete dream PPO to 2500; all policy-trust PASS; development 8.67%/19.0%/9.33%; selection not eligible for 80% promotion; best transfer 19% > 12% control; no demo export."
+      "note": "2026-11-02 cycle complete: resumed incomplete dream PPO to 2500; all policy-trust PASS; development 8.67%/19.0%/9.33%; selection not eligible for 80% promotion; best transfer 19% > 12% control; no demo export.",
+      "timestamp": "2026-11-02T16:46:50Z"
     },
     {
       "at": 1793876724.7982085,
-      "timestamp": "2026-11-05T11:10:00Z",
-      "note": "2026-11-05 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn."
+      "note": "2026-11-05 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn.",
+      "timestamp": "2026-11-05T11:10:00Z"
     },
     {
       "at": 1793962978.786222,
-      "timestamp": "2026-11-06T11:02:58Z",
-      "note": "2026-11-06 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn."
+      "note": "2026-11-06 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn.",
+      "timestamp": "2026-11-06T11:02:58Z"
     },
     {
       "at": 1794049524.866063,
-      "timestamp": "2026-11-07T11:05:24Z",
-      "note": "2026-11-07 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn."
+      "note": "2026-11-07 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn.",
+      "timestamp": "2026-11-07T11:05:24Z"
     },
     {
       "at": 1794136080.0,
-      "timestamp": "2026-11-08T11:08:00Z",
-      "note": "2026-11-08 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn."
+      "note": "2026-11-08 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn.",
+      "timestamp": "2026-11-08T11:08:00Z"
     },
     {
       "at": 1794222423.104836,
-      "timestamp": "2026-11-09T11:07:03Z",
-      "note": "2026-11-09 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn."
+      "note": "2026-11-09 cycle hard-stop: auth OK; GPU/CPU spend-limit; volume audit unchanged (WM@23000, true-ballless@2500, ext5k@2600); best transfer still 19% seed314 vs 12% control; not promoted; no demo; no collect\u2192WM reburn.",
+      "timestamp": "2026-11-09T11:07:03Z"
     },
     {
-      "timestamp": "2026-11-10T11:08:00Z",
-      "note": "2026-11-10 daily cycle: auth OK; spend limit blocks GPU/CPU; volume audit confirms ext5k@2600; pretrust held PASS; no paid jobs; best transfer remains 19% seed314; not promoted."
+      "note": "2026-11-10 daily cycle: auth OK; spend limit blocks GPU/CPU; volume audit confirms ext5k@2600; pretrust held PASS; no paid jobs; best transfer remains 19% seed314; not promoted.",
+      "timestamp": "2026-11-10T11:08:00Z"
     },
     {
+      "at": 1794395108.6107154,
       "note": "2026-11-11: Auth OK; spend limit blocks GPU/CPU; volume audit OK (ext5k@2600); pretrust held PASS; no collect\u2192WM; no paid jobs; best transfer still 19% seed314.",
-      "timestamp": "2026-11-11T11:08:00Z",
-      "at": 1794395108.6107154
+      "timestamp": "2026-11-11T11:08:00Z"
     }
   ],
   "modal_credit_note": "2026-11-11: env MODAL_CREDIT_BALANCE_USD=25 is start telemetry only; billing metered~31.37 credits~30 billed~0.07; GPU/CPU apps blocked by spend limit.",
@@ -928,15 +935,15 @@
     ]
   },
   "promotion": {
-    "at": "2026-11-11T11:08:00Z",
-    "promoted": false,
-    "reason": "Best completed development remains 19% (seed314 @2500) >12% control but <80% promotion; ext5k dream continuation still at step 2600 blocked by Modal spend limit on 2026-11-11; no new development panel; final panel unused; demo unchanged.",
-    "best_development_mean_win_rate": 0.19,
+    "at": "2026-11-13T11:30:00Z",
     "best_candidate_index": 1,
+    "best_development_mean_win_rate": 0.19,
     "best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
     "control_dream_v2_win_rate": 0.12,
+    "demo_exported": false,
     "final_evaluation_uses": 0,
-    "demo_exported": false
+    "promoted": false,
+    "reason": "Best completed development remains 19% (seed314 @2500) >12% control but <80% promotion; ext5k dream continuation still at step 2600 blocked by Modal spend limit on 2026-11-13; no new development panel; final panel unused; demo unchanged."
   },
   "resume_attempts": [
     {
@@ -977,964 +984,887 @@
       "policy_warm_start": "/vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt"
     },
     {
-      "timestamp": "2026-10-16T11:06:50Z",
       "at": 1792148810.6529968,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-c8aa",
-      "continued_from": "cursor/honest-research-cycle-3c24@f318a07"
+      "continued_from": "cursor/honest-research-cycle-3c24@f318a07",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-16T11:06:50Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-17T11:15:00Z",
       "at": 1792235208.4266677,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-f4b7",
-      "continued_from": "cursor/honest-research-cycle-c8aa@bd4121b"
+      "continued_from": "cursor/honest-research-cycle-c8aa@bd4121b",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-17T11:15:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-18T11:20:00Z",
       "at": 1792321471.8505776,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-9cb9",
-      "continued_from": "cursor/honest-research-cycle-f4b7@a7e205f"
+      "continued_from": "cursor/honest-research-cycle-f4b7@a7e205f",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-18T11:20:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-19T11:20:00Z",
       "at": 1792408089.0856955,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-c155",
-      "continued_from": "cursor/honest-research-cycle-9cb9@a853efa"
+      "continued_from": "cursor/honest-research-cycle-9cb9@a853efa",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-19T11:20:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-20T11:20:00Z",
       "at": 1792494311.1115773,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-loop-8058",
-      "continued_from": "cursor/honest-research-cycle-c155@5530748"
+      "continued_from": "cursor/honest-research-cycle-c155@5530748",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-20T11:20:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-21T11:20:00Z",
       "at": 1792580917.1147504,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/pong-world-model-research-4679",
-      "continued_from": "cursor/honest-research-loop-8058@5237f1e"
+      "continued_from": "cursor/honest-research-loop-8058@5237f1e",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-21T11:20:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-22T11:20:00Z",
       "at": 1792667037.8134246,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/pong-world-model-research-e88d",
-      "continued_from": "cursor/pong-world-model-research-4679@5ceaa82"
+      "continued_from": "cursor/pong-world-model-research-4679@5ceaa82",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-22T11:20:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-23T11:06:30Z",
       "at": 1792753590.620748,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/pong-world-model-research-1033",
-      "continued_from": "cursor/pong-world-model-research-e88d@6b6c10a"
+      "continued_from": "cursor/pong-world-model-research-e88d@6b6c10a",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-23T11:06:30Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-24T11:08:20Z",
       "at": 1792840100.121566,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-5100",
-      "continued_from": "cursor/pong-world-model-research-1033@be81600"
+      "continued_from": "cursor/pong-world-model-research-1033@be81600",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-24T11:08:20Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-25T11:04:16Z",
       "at": 1792926256.9339583,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-be10",
-      "continued_from": "cursor/honest-research-cycle-5100@f5bf4a7"
+      "continued_from": "cursor/honest-research-cycle-5100@f5bf4a7",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-25T11:04:16Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-26T11:03:24Z",
       "at": 1793012604.513491,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-929d",
-      "continued_from": "cursor/honest-research-cycle-be10@f39f0bd"
+      "continued_from": "cursor/honest-research-cycle-be10@f39f0bd",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-26T11:03:24Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-27T11:04:44Z",
       "at": 1793099084.0516038,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-loop-760a",
-      "continued_from": "cursor/honest-research-cycle-929d@a28db36"
+      "continued_from": "cursor/honest-research-cycle-929d@a28db36",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-27T11:04:44Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-28T11:40:53Z",
       "at": 1793187653.500806,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-0e13",
-      "continued_from": "cursor/honest-research-loop-760a@7365e82"
+      "continued_from": "cursor/honest-research-loop-760a@7365e82",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-28T11:40:53Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-29T11:07:32Z",
       "at": 1793272052.556897,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/honest-research-cycle-d71b",
-      "continued_from": "cursor/honest-research-cycle-0e13@2100f60"
+      "continued_from": "cursor/honest-research-cycle-0e13@2100f60",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-29T11:07:32Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 21000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 20000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
     },
     {
-      "timestamp": "2026-10-30T11:05:02Z",
       "at": 1793358302.114357,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "paid_jobs_launched": 0,
-      "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
-        }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
       "branch": "cursor/world-model-research-loop-0929",
-      "continued_from": "cursor/honest-research-cycle-d71b@f36f489"
-    },
-    {
-      "timestamp": "2026-10-31T11:05:50Z",
-      "at": 1793444755.670096,
-      "from_status": "budget_or_auth_exhausted",
+      "continued_from": "cursor/honest-research-cycle-d71b@f36f489",
+      "credentials_present": true,
       "credit_balance_usd": 25.0,
       "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "credit_telemetry_status": "available",
-      "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
+      "from_status": "budget_or_auth_exhausted",
       "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
       "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-30T11:05:02Z",
+      "token_verified": true,
       "volume_checkpoint_audit": {
         "honest_campaign_v2_r4_wm0.pt": {
-          "step": 21000,
-          "ballless_reward_coef": 12.0
+          "ballless_reward_coef": 12.0,
+          "step": 21000
         },
         "honest_campaign_v2_r4_wm1.pt": {
-          "step": 20000,
-          "ballless_reward_coef": 12.0
+          "ballless_reward_coef": 12.0,
+          "step": 20000
         },
         "honest_campaign_v2_r4_wm2.pt": {
-          "step": 18000,
-          "ballless_reward_coef": 6.0
+          "ballless_reward_coef": 6.0,
+          "step": 18000
         }
-      },
-      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
-      "branch": "cursor/world-model-research-loop-ef61",
-      "continued_from": "cursor/world-model-research-loop-0929@1ed8413"
+      }
     },
     {
-      "timestamp": "2026-11-02T16:46:50Z",
-      "at": 1793638010.66086,
-      "from_status": "budget_or_auth_exhausted",
+      "at": 1793444755.670096,
+      "billing_auth_ok": true,
+      "branch": "cursor/world-model-research-loop-ef61",
+      "continued_from": "cursor/world-model-research-loop-0929@1ed8413",
+      "credentials_present": true,
       "credit_balance_usd": 25.0,
       "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "credit_telemetry_status": "available",
-      "billing_auth_ok": true,
-      "credentials_present": true,
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth cleared; spend limit still blocks all Modal apps. Confirmed mismatched r4 ballless FT ensemble on volume; stopped without re-pretrust or collect\u2192WM burn.",
+      "timestamp": "2026-10-31T11:05:50Z",
       "token_verified": true,
-      "gpu_smoke_ok": true,
-      "gpu_smoke_error": null,
-      "paid_jobs_launched": 5,
       "volume_checkpoint_audit": {
         "honest_campaign_v2_r4_wm0.pt": {
-          "step": 23000,
-          "ballless_reward_coef": 12.0
+          "ballless_reward_coef": 12.0,
+          "step": 21000
         },
         "honest_campaign_v2_r4_wm1.pt": {
-          "step": 23000,
-          "ballless_reward_coef": 12.0
+          "ballless_reward_coef": 12.0,
+          "step": 20000
         },
         "honest_campaign_v2_r4_wm2.pt": {
-          "step": 23000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+          "ballless_reward_coef": 6.0,
+          "step": 18000
+        }
+      }
+    },
+    {
+      "at": 1793638010.66086,
+      "billing_auth_ok": true,
+      "branch": "cursor/pong-world-model-trust-2112",
+      "continued_from": "cursor/world-model-research-loop-60bf@e008564",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": null,
+      "gpu_smoke_ok": true,
+      "paid_jobs_launched": 5,
+      "reason": "Auth+GPU OK; finished incomplete r4 true-ballless dream PPO to 2500; policy-trust PASS \u00d73; development best 19% (seed314) > 12% control but <80% promotion; not promoted; no demo export; final panel unused.",
+      "timestamp": "2026-11-02T16:46:50Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
           "step": 2500
         },
         "honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
           "step": 2500
         },
-        "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+        "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
           "step": 2500
+        },
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 23000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 23000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 23000
         }
-      },
-      "reason": "Auth+GPU OK; finished incomplete r4 true-ballless dream PPO to 2500; policy-trust PASS \u00d73; development best 19% (seed314) > 12% control but <80% promotion; not promoted; no demo export; final panel unused.",
-      "branch": "cursor/pong-world-model-trust-2112",
-      "continued_from": "cursor/world-model-research-loop-60bf@e008564"
+      }
     },
     {
-      "timestamp": "2026-11-03T11:20:00Z",
       "at": 1793704173.29202,
-      "from_status": "development_threshold_not_met_before_round_limit",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": true,
-      "gpu_smoke_error": null,
-      "cpu_remote_ok": true,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 28.77,
-        "credits_applied_usd_approx": 28.77,
         "billed_cost_usd": 0.0,
+        "credits_applied_usd_approx": 28.77,
+        "metered_cost_usd_approx": 28.77,
         "note": "static env credit telemetry=25; not live remaining"
       },
+      "branch": "cursor/pong-world-model-research-5dce",
+      "continued_from": "cursor/pong-world-model-trust-2112@3e15e94",
+      "cpu_remote_ok": true,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "development_threshold_not_met_before_round_limit",
+      "gpu_smoke_error": null,
+      "gpu_smoke_ok": true,
+      "paid_jobs_launched": 2,
+      "reason": "Auth+GPU/CPU OK; pretrust still PASS on r4 true-ballless WM; binding gates cleared; launching extended dream PPO 2500\u21925000 under frozen WM (no collect\u2192WM burn); warm-continue from 19% seed314 leader and sibling seeds.",
+      "timestamp": "2026-11-03T11:20:00Z",
+      "token_verified": true,
       "volume_checkpoint_audit": {
-        "honest_campaign_v2_r4_wm0.pt": {
-          "step": 23000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm1.pt": {
-          "step": 23000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_wm2.pt": {
-          "step": 23000,
-          "ballless_reward_coef": 12.0
-        },
-        "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+        "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
           "step": 2500
         },
         "honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
           "step": 2500
         },
-        "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+        "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
           "step": 2500
+        },
+        "honest_campaign_v2_r4_wm0.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 23000
+        },
+        "honest_campaign_v2_r4_wm1.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 23000
+        },
+        "honest_campaign_v2_r4_wm2.pt": {
+          "ballless_reward_coef": 12.0,
+          "step": 23000
         }
+      }
+    },
+    {
+      "at": 1793707041.3103316,
+      "billing_auth_ok": true,
+      "billing_snapshot": {
+        "billed_cost_usd": 0.07,
+        "credits_applied_usd_approx": 30.0,
+        "metered_cost_usd_approx": 30.07
       },
-      "reason": "Auth+GPU/CPU OK; pretrust still PASS on r4 true-ballless WM; binding gates cleared; launching extended dream PPO 2500\u21925000 under frozen WM (no collect\u2192WM burn); warm-continue from 19% seed314 leader and sibling seeds.",
       "branch": "cursor/pong-world-model-research-5dce",
       "continued_from": "cursor/pong-world-model-trust-2112@3e15e94",
-      "paid_jobs_launched": 2
-    },
-    {
-      "timestamp": "2026-11-03T12:05:00Z",
-      "at": 1793707041.3103316,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "from_status": "running_extended_dream_under_trust_pass_wm",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
       "gpu_smoke_error": "Workspace exceeded its spend limit / workspace disabled",
+      "gpu_smoke_ok": false,
       "paid_jobs_launched": 5,
-      "billing_snapshot": {
-        "metered_cost_usd_approx": 30.07,
-        "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
-      },
-      "volume_checkpoint_audit": {
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
       "reason": "Auth+GPU OK at start; launched ext5k dream PPO under trust-pass WM; workspace disabled near update 2660 with ckpts at 2600; hard stop. Best transfer still 19% seed314. Not promoted; no demo.",
-      "branch": "cursor/pong-world-model-research-5dce",
-      "continued_from": "cursor/pong-world-model-trust-2112@3e15e94"
+      "timestamp": "2026-11-03T12:05:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
+          "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        }
+      }
     },
     {
-      "timestamp": "2026-11-04T11:05:00Z",
       "at": 1793790232.9612098,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 30.23,
+        "billed_cost_usd": 0.07,
         "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
+        "metered_cost_usd_approx": 30.23
       },
-      "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
       "branch": "cursor/pong-world-model-research-2207",
-      "continued_from": "cursor/pong-world-model-research-5dce@04eadb4"
+      "continued_from": "cursor/pong-world-model-research-5dce@04eadb4",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-04T11:05:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
+          "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        },
+        "wm0": {
+          "step": 23000
+        },
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
+        }
+      }
     },
     {
-      "timestamp": "2026-11-05T11:10:00Z",
       "at": 1793876724.7982085,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 30.4,
+        "billed_cost_usd": 0.07,
         "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
+        "metered_cost_usd_approx": 30.4
       },
-      "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
       "branch": "cursor/world-model-research-loop-5eda",
-      "continued_from": "cursor/pong-world-model-research-2207@9a21696"
+      "continued_from": "cursor/pong-world-model-research-2207@9a21696",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-05T11:10:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
+          "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        },
+        "wm0": {
+          "step": 23000
+        },
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
+        }
+      }
     },
     {
-      "timestamp": "2026-11-06T11:02:58Z",
       "at": 1793962978.0,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 30.56,
+        "billed_cost_usd": 0.07,
         "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
+        "metered_cost_usd_approx": 30.56
       },
-      "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
-      "unit_tests_passed": 33,
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
       "branch": "cursor/world-model-research-loop-68a1",
-      "continued_from": "cursor/world-model-research-loop-5eda@95275d4"
+      "continued_from": "cursor/world-model-research-loop-5eda@95275d4",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-06T11:02:58Z",
+      "token_verified": true,
+      "unit_tests_passed": 33,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
+          "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        },
+        "wm0": {
+          "step": 23000
+        },
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
+        }
+      }
     },
     {
-      "timestamp": "2026-11-07T11:05:24Z",
       "at": 1794049524.866063,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 30.56,
+        "billed_cost_usd": 0.07,
         "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
+        "metered_cost_usd_approx": 30.56
       },
-      "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
       "branch": "cursor/world-model-research-loop-82da",
-      "continued_from": "cursor/world-model-research-loop-68a1@59d68d5"
+      "continued_from": "cursor/world-model-research-loop-68a1@59d68d5",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-07T11:05:24Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
+          "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        },
+        "wm0": {
+          "step": 23000
+        },
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
+        }
+      }
     },
     {
-      "timestamp": "2026-11-08T11:08:00Z",
       "at": 1794136080.0,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 30.88,
+        "billed_cost_usd": 0.07,
         "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
+        "metered_cost_usd_approx": 30.88
       },
-      "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
       "branch": "cursor/pong-world-model-research-aefe",
-      "continued_from": "cursor/world-model-research-loop-82da@8692ea5"
+      "continued_from": "cursor/world-model-research-loop-82da@8692ea5",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-08T11:08:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
+          "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        },
+        "wm0": {
+          "step": 23000
+        },
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
+        }
+      }
     },
     {
-      "timestamp": "2026-11-09T11:07:03Z",
       "at": 1794222423.104836,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
       "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
       "billing_snapshot": {
-        "metered_cost_usd_approx": 31.05,
+        "billed_cost_usd": 0.07,
         "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
+        "metered_cost_usd_approx": 31.05
       },
-      "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
-          "step": 2600
-        },
-        "ext5k_seed314": {
-          "step": 2600
-        },
-        "ext5k_seed2718": {
-          "step": 2600
-        },
-        "true_ballless_seed314": {
-          "step": 2500
-        }
-      },
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
       "branch": "cursor/world-model-research-cycle-8953",
-      "continued_from": "cursor/pong-world-model-research-aefe@fe56648"
-    },
-    {
-      "timestamp": "2026-11-10T11:08:00Z",
-      "at": 1794308776.9719725,
-      "from_status": "budget_or_auth_exhausted",
+      "continued_from": "cursor/pong-world-model-research-aefe@fe56648",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
       "credit_balance_usd": 25.0,
       "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
       "credit_telemetry_status": "available",
-      "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
+      "from_status": "budget_or_auth_exhausted",
       "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
+      "gpu_smoke_ok": false,
       "paid_jobs_launched": 0,
-      "billing_snapshot": {
-        "metered_cost_usd_approx": 31.21,
-        "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
-      },
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-09T11:07:03Z",
+      "token_verified": true,
       "volume_checkpoint_audit": {
-        "wm0": {
-          "step": 23000
-        },
-        "wm1": {
-          "step": 23000
-        },
-        "wm2": {
-          "step": 23000
-        },
-        "ext5k_seed42": {
+        "ext5k_seed2718": {
           "step": 2600
         },
         "ext5k_seed314": {
           "step": 2600
         },
-        "ext5k_seed2718": {
+        "ext5k_seed42": {
           "step": 2600
         },
         "true_ballless_seed314": {
           "step": 2500
-        }
-      },
-      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
-      "branch": "cursor/world-model-research-loop-6967",
-      "continued_from": "cursor/world-model-research-cycle-8953@1ae374c"
-    },
-    {
-      "timestamp": "2026-11-11T11:08:00Z",
-      "at": 1794395108.6107163,
-      "from_status": "budget_or_auth_exhausted",
-      "credit_balance_usd": 25.0,
-      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-      "credit_telemetry_status": "available",
-      "billing_auth_ok": true,
-      "credentials_present": true,
-      "token_verified": true,
-      "gpu_smoke_ok": false,
-      "gpu_smoke_error": "Workspace exceeded its spend limit",
-      "cpu_remote_ok": false,
-      "paid_jobs_launched": 0,
-      "billing_snapshot": {
-        "metered_cost_usd_approx": 31.37,
-        "credits_applied_usd_approx": 30.0,
-        "billed_cost_usd": 0.07
-      },
-      "volume_checkpoint_audit": {
+        },
         "wm0": {
           "step": 23000
         },
@@ -1943,35 +1873,125 @@
         },
         "wm2": {
           "step": 23000
-        },
-        "ext5k_seed42": {
+        }
+      }
+    },
+    {
+      "at": 1794308776.9719725,
+      "billing_auth_ok": true,
+      "billing_snapshot": {
+        "billed_cost_usd": 0.07,
+        "credits_applied_usd_approx": 30.0,
+        "metered_cost_usd_approx": 31.21
+      },
+      "branch": "cursor/world-model-research-loop-6967",
+      "continued_from": "cursor/world-model-research-cycle-8953@1ae374c",
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "reason": "Auth OK; GPU/CPU blocked by spend limit before any paid resume. ext5k remains incomplete @2600. Best transfer still 19% seed314. Not promoted; no demo; no collect\u2192WM reburn while pretrust holds.",
+      "timestamp": "2026-11-10T11:08:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
+        "ext5k_seed2718": {
           "step": 2600
         },
         "ext5k_seed314": {
           "step": 2600
         },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed314": {
+          "step": 2500
+        },
+        "wm0": {
+          "step": 23000
+        },
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
+        }
+      }
+    },
+    {
+      "at": 1794395108.6107163,
+      "billing_auth_ok": true,
+      "billing_snapshot": {
+        "billed_cost_usd": 0.07,
+        "credits_applied_usd_approx": 30.0,
+        "metered_cost_usd_approx": 31.37
+      },
+      "collect_wm_reburn": false,
+      "cpu_remote_ok": false,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "credit_telemetry_status": "available",
+      "daily_branch": "cursor/world-model-research-loop-6f49",
+      "from_status": "budget_or_auth_exhausted",
+      "gpu_smoke_error": "Workspace exceeded its spend limit",
+      "gpu_smoke_ok": false,
+      "paid_jobs_launched": 0,
+      "pretrust_held": true,
+      "timestamp": "2026-11-11T11:08:00Z",
+      "token_verified": true,
+      "volume_checkpoint_audit": {
         "ext5k_seed2718": {
           "step": 2600
+        },
+        "ext5k_seed314": {
+          "step": 2600
+        },
+        "ext5k_seed42": {
+          "step": 2600
+        },
+        "true_ballless_seed2718": {
+          "step": 2500
+        },
+        "true_ballless_seed314": {
+          "step": 2500
         },
         "true_ballless_seed42": {
           "step": 2500
         },
-        "true_ballless_seed314": {
-          "step": 2500
+        "wm0": {
+          "step": 23000
         },
-        "true_ballless_seed2718": {
-          "step": 2500
+        "wm1": {
+          "step": 23000
+        },
+        "wm2": {
+          "step": 23000
         }
-      },
-      "pretrust_held": true,
-      "collect_wm_reburn": false,
-      "daily_branch": "cursor/world-model-research-loop-6f49"
+      }
     },
     {
       "at": "2026-11-12T11:02:39Z",
       "branch": "cursor/world-model-research-loop-0096",
-      "outcome": "budget_or_auth_exhausted",
-      "note": "Auth OK; GPU/CPU spend-limit blocked; volume unchanged ext5k@2600; no paid jobs."
+      "note": "Auth OK; GPU/CPU spend-limit blocked; volume unchanged ext5k@2600; no paid jobs.",
+      "outcome": "budget_or_auth_exhausted"
+    },
+    {
+      "agent": "daily_cron_automation",
+      "billing_auth_ok": true,
+      "branch": "cursor/world-model-trust-repairs-e9b5",
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
+      "gpu_smoke": "ResourceExhaustedError spend limit",
+      "modal_profile": "ani-sivaa",
+      "paid_jobs_launched": 0,
+      "reason": "spend limit hard stop before ext5k resume; repair code ported",
+      "timestamp": "2026-11-13T11:05:00Z"
     }
   ],
   "rounds": [
@@ -2064,6 +2084,11 @@
     },
     {
       "acquisition_mix": "tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10",
+      "development_metrics": {
+        "candidate0_seed42": 0.0867,
+        "candidate1_seed314": 0.19,
+        "candidate2_seed2718": 0.0933
+      },
       "failed_trust_gates": [],
       "gate_values": {
         "ballless_positive_rate": {
@@ -2079,15 +2104,10 @@
       },
       "index": 4,
       "note": "2026-11-02: true-target ballless FT@23000 pretrust PASS; dream PPO 2500\u00d73 complete; policy-trust PASS; development best 19% (seed314) >12% control, <80% promotion.",
+      "policy_stage_reached": true,
       "pretrust_overall_pass": true,
       "selection_report": "/vol/results/selection_honest_campaign_v2_r4_true_ballless.json",
-      "stopped_before_policy": false,
-      "policy_stage_reached": true,
-      "development_metrics": {
-        "candidate0_seed42": 0.0867,
-        "candidate1_seed314": 0.19,
-        "candidate2_seed2718": 0.0933
-      }
+      "stopped_before_policy": false
     }
   ],
   "stages": {
@@ -5004,157 +5024,193 @@
     }
   },
   "status": "budget_or_auth_exhausted",
-  "hard_stop_note": "2026-11-11: Auth OK; GPU/CPU blocked by Modal spend limit before ext5k resume. Volume still holds ext5k@2600 and completed true-ballless@2500. Best development remains 19% (seed314) vs 12% dream-v2 control. Not promoted; final panel unused; demo unchanged.",
   "this_cycle_2026_11_03": {
-    "plan": "Extend dream PPO under frozen r4 true-ballless ensemble to 5000 updates; re-run policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-03T12:05:00Z",
-    "outcome": "budget_or_auth_exhausted",
+    "control_dream_v2_win_rate": 0.12,
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
-    "final_evaluation_uses": 0
+    "final_evaluation_uses": 0,
+    "outcome": "budget_or_auth_exhausted",
+    "plan": "Extend dream PPO under frozen r4 true-ballless ensemble to 5000 updates; re-run policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_04": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-04T11:10:00Z",
-    "outcome": "budget_or_auth_exhausted",
+    "control_dream_v2_win_rate": 0.12,
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
-    "paid_jobs_launched": 0
+    "outcome": "budget_or_auth_exhausted",
+    "paid_jobs_launched": 0,
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_05": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-05T11:10:00Z",
-    "outcome": "budget_or_auth_exhausted",
+    "control_dream_v2_win_rate": 0.12,
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
-    "paid_jobs_launched": 0
+    "outcome": "budget_or_auth_exhausted",
+    "paid_jobs_launched": 0,
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_06": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-06T11:02:58Z",
-    "outcome": "budget_or_auth_exhausted",
+    "continued_from": "cursor/world-model-research-loop-5eda@95275d4",
+    "control_dream_v2_win_rate": 0.12,
+    "daily_branch": "cursor/world-model-research-loop-68a1",
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
+    "outcome": "budget_or_auth_exhausted",
     "paid_jobs_launched": 0,
-    "daily_branch": "cursor/world-model-research-loop-68a1",
-    "continued_from": "cursor/world-model-research-loop-5eda@95275d4"
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_07": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-07T11:05:24Z",
-    "outcome": "budget_or_auth_exhausted",
+    "continued_from": "cursor/world-model-research-loop-68a1@59d68d5",
+    "control_dream_v2_win_rate": 0.12,
+    "daily_branch": "cursor/world-model-research-loop-82da",
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
+    "outcome": "budget_or_auth_exhausted",
     "paid_jobs_launched": 0,
-    "daily_branch": "cursor/world-model-research-loop-82da",
-    "continued_from": "cursor/world-model-research-loop-68a1@59d68d5"
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_08": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-08T11:08:00Z",
-    "outcome": "budget_or_auth_exhausted",
+    "continued_from": "cursor/world-model-research-loop-82da@8692ea5",
+    "control_dream_v2_win_rate": 0.12,
+    "daily_branch": "cursor/pong-world-model-research-aefe",
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
+    "outcome": "budget_or_auth_exhausted",
     "paid_jobs_launched": 0,
-    "daily_branch": "cursor/pong-world-model-research-aefe",
-    "continued_from": "cursor/world-model-research-loop-82da@8692ea5"
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_10": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-10T11:08:00Z",
-    "outcome": "budget_or_auth_exhausted",
+    "continued_from": "cursor/world-model-research-cycle-8953@1ae374c",
+    "control_dream_v2_win_rate": 0.12,
+    "daily_branch": "cursor/world-model-research-loop-6967",
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
+    "outcome": "budget_or_auth_exhausted",
     "paid_jobs_launched": 0,
-    "daily_branch": "cursor/world-model-research-loop-6967",
-    "continued_from": "cursor/world-model-research-cycle-8953@1ae374c"
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_11": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
     "completed_at": "2026-11-11T11:08:00Z",
-    "outcome": "budget_or_auth_exhausted",
+    "continued_from": "cursor/world-model-research-loop-6967@45d5b5f",
+    "control_dream_v2_win_rate": 0.12,
+    "daily_branch": "cursor/world-model-research-loop-6f49",
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
-    "demo_exported": false,
     "final_evaluation_uses": 0,
+    "outcome": "budget_or_auth_exhausted",
     "paid_jobs_launched": 0,
-    "daily_branch": "cursor/world-model-research-loop-6f49",
-    "continued_from": "cursor/world-model-research-loop-6967@45d5b5f"
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
   },
   "this_cycle_2026_11_12": {
-    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
-    "control_dream_v2_win_rate": 0.12,
-    "prior_best_development": 0.19,
-    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "best_completed_development": 0.19,
+    "billing_billed_approx": 0.07,
+    "billing_credits_applied_approx": 30.0,
+    "billing_metered_approx": 31.53,
+    "binding_pretrust_held": true,
     "completed_at": "2026-11-12T11:02:39Z",
-    "outcome": "budget_or_auth_exhausted",
+    "continued_from": "cursor/world-model-research-loop-6f49@3ca1e72",
+    "control_dream_v2_win_rate": 0.12,
+    "cpu_probe": "FAIL_spend_limit",
+    "daily_branch": "cursor/world-model-research-loop-0096",
+    "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
-    "best_completed_development": 0.19,
-    "promoted": false,
+    "final_evaluation_uses": 0,
+    "gpu_smoke": "FAIL_spend_limit",
+    "outcome": "budget_or_auth_exhausted",
+    "paid_jobs_launched": 0,
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
+  },
+  "this_cycle_2026_11_13": {
+    "at": "2026-11-13T11:30:00Z",
+    "auth_ok": true,
+    "best_development_mean_win_rate": 0.19,
+    "billing": {
+      "billed_cost_usd": 0.07,
+      "credits_applied_usd_approx": 30.0,
+      "metered_cost_usd_approx": 31.7
+    },
+    "binding_repair_code_ported": true,
+    "blocker": "Modal workspace spend limit",
+    "branch": "cursor/world-model-trust-repairs-e9b5",
+    "continued_from": "cursor/world-model-research-loop-0096@ba7d16f",
+    "cpu_probe": "fail_spend_limit",
+    "credit_env_balance_usd_static": 25.0,
     "demo_exported": false,
     "final_evaluation_uses": 0,
+    "gpu_smoke": "fail_spend_limit",
+    "modal_profile": "ani-sivaa",
     "paid_jobs_launched": 0,
-    "daily_branch": "cursor/world-model-research-loop-0096",
-    "continued_from": "cursor/world-model-research-loop-6f49@3ca1e72",
-    "billing_metered_approx": 31.53,
-    "billing_credits_applied_approx": 30.0,
-    "billing_billed_approx": 0.07,
-    "binding_pretrust_held": true,
-    "gpu_smoke": "FAIL_spend_limit",
-    "cpu_probe": "FAIL_spend_limit"
+    "planned_lever": "resume ext5k dream PPO 2600\u21925000 via --init-from under frozen r4 WM",
+    "pretrust_ballless": 0.047619047619047616,
+    "pretrust_held": true,
+    "pretrust_latent_utilization": 3.612642103689723e-05,
+    "promotion": false,
+    "reburn_collect_wm": false,
+    "unit_tests_passed": 33,
+    "volume_audit": {
+      "ballless_reward_coef": 12.0,
+      "ext5k_policy_steps": 2600,
+      "ext5k_target_steps": 5000,
+      "true_ballless_policy_steps": 2500,
+      "wm_steps": 23000
+    },
+    "volume_reads": "ok",
+    "vs_dream_v2_control_12pct": "above (seed314)"
   }
 }
