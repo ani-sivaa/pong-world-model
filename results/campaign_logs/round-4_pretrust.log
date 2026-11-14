@@ -1,0 +1,120 @@
+[?25l⠋ Initializing...[2K✓ Initialized. View run at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m
+⠋ Initializing...[2K⠋ Initializing...
+[?25h[1A[2K[?25l⠋ Creating objects...[2K⠸ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠋ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠦ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠸ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠏ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠦ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠹ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠏ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠴ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠹ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠇ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠴ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠙ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+└── ⠇ Creating mount /workspace: Uploaded 60/62 missing files[2K[1A[2K[1A[2K⠴ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ⠋ Creating Function run_module_gpu...
+├── ⠋ Creating Function run_module_cpu...
+└── ⠋ Creating Function vol_read...[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K⠦ Creating objects...
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+[?25h[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K✓ Created objects.
+├── ✓ Uploaded PythonPackage:infra
+├── ✓ Uploaded /workspace
+├── ✓ Created Function run_module_gpu.
+├── ✓ Created Function run_module_cpu.
+└── ✓ Created Function vol_read.
+[?25l⠋ Running app...[2K⠸ Running app...[2K⠦ Running app...[2K⠏ Running app...[2K⠹ Running app...[2K⠴ Running app...[2K⠇ Running app...[2K⠙ Running app...[2K⠴ Running app...[2K⠇ Running app...[2K⠙ Running app...[2K⠼ Running app...[2K⠧ Running... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠋ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠧ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠋ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠦ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠏ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠹ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠴ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠇ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠹ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠴ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠇ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠙ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠏ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠹ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠴ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠏ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠹ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠴ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠇ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠙ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠙ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠏ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠏ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠹ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠴ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠇ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠙ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠇ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠙ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2KTRUST_EVAL_FAIL {"report": "/vol/results/trust_honest_campaign_v2_r4_prepolicy.json", "overall_pass": false}
+⠋ Running (1/1 containers active)... View app at [4mhttps://modal.com/apps/ani-siva[0m[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m
+[?25h[1A[2K[1A[2KStopping app - local entrypoint completed.
+✓ App completed. View run at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-bD4NAx1jFY6p6AkEsrBPtH[0m
+=== REMOTE RESULT ===
+{
+  "module": "scripts.evaluate_trust",
+  "argv": [
+    "--scale",
+    "full",
+    "--data",
+    "/vol/data/honest_campaign_v2_r4",
+    "--wm",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm0.pt",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm1.pt",
+    "/vol/checkpoints/honest_campaign_v2_r4_wm2.pt",
+    "--stochastic-samples",
+    "8",
+    "--out",
+    "/vol/results/trust_honest_campaign_v2_r4_prepolicy.json",
+    "--tag",
+    "honest_campaign_v2_r4_prepolicy"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 10.32
+}

@@ -1,0 +1,6 @@
+Verifying token against https://api.modal.com,https://api.modal2.com
+Token verified successfully!
+Token written to /home/ubuntu/.modal.toml in profile ani-sivaa.
+Warning: The MODAL_TOKEN_ID / MODAL_TOKEN_SECRET environment variables are set; 
+this will override your new credentials.
+AUTH_RC=0
