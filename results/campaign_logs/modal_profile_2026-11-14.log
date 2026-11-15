@@ -1,0 +1,4 @@
+# Modal profile for 2026-11-14 cycle
+profile: ani-sivaa
+token_verify: OK (see modal_auth_verify_2026-11-14.log)
+note: MODAL_TOKEN_ID/SECRET env vars override ~/.modal.toml credentials when set

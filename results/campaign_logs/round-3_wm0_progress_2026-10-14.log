@@ -1,0 +1,18 @@
+2026-10-14T11:17Z round-3:collect COMPLETE ok wall≈570s
+COLLECT_ADAPTIVE_OK T=1000000 transfer-repair mix rare=.35
+2026-10-14T11:17Z round-3:wm-0 STARTED (18k steps, stochastic, balanced+bootstrap)
+2026-10-14T11:53Z wm-0 mid-flight step 9100/18000 k=5 util≈0.00183 ballless≈0 loss≈0.0096
+2026-10-14T13:13Z wm-0 COMPLETE WM_TRAIN_OK steps=18000 final_val=0.00553 wall≈6971s
+  final util≈2.0e-4 ballless≈0 (training hinge healthy vs 1e-7 gate)
+2026-10-14T13:13Z wm-1 STARTED
+billing_snapshot metered≈21.19 credits_applied≈19.44 billed=0
+2026-10-14T14:20Z wm-1 mid-flight step 12000/18000 k=5 util≈0.002 ballless≈0
+billing_snapshot metered≈22.37 credits_applied≈20.48 billed=0
+2026-10-14T15:09Z wm-1 COMPLETE WM_TRAIN_OK steps=18000 final_val=0.00769 wall≈6933s
+2026-10-14T15:09Z wm-2 STARTED (step ~3000 by 15:20)
+billing_snapshot metered≈23.29 credits_applied≈21.40 billed=0
+2026-10-14T16:20Z wm-2 mid-flight step 13500/18000 k=5 util≈1.4e-4 ballless≈0
+billing_snapshot metered≈24.40 credits_applied≈22.51 billed=0
+2026-10-14T17:07Z wm-2 COMPLETE final_val=0.00734
+2026-10-14T17:07Z pretrust FAIL ballless=0.122 util=4.11e-5 PASS; no policy stages
+billing_snapshot metered≈25.18 credits_applied≈23.29 billed=0

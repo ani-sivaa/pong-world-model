@@ -1,0 +1,6 @@
+[collect_adaptive] loaded redteam policy: /tmp/tmp47z3mhl1/redteam.pt
+[collect_adaptive] redteam: T=24 policy=redteam
+----------------------------------------------------------------------
+Ran 33 tests in 2.552s
+
+OK

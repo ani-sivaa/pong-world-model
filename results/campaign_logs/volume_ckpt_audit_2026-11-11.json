@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-11",
+  "volume": "worldmodel-vol",
+  "checkpoints": {
+    "honest_campaign_v2_r4_wm0.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_wm0.pt",
+      "step": 23000,
+      "mb": 14.618,
+      "coef": 12.0
+    },
+    "honest_campaign_v2_r4_wm1.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_wm1.pt",
+      "step": 23000,
+      "mb": 14.618,
+      "coef": 12.0
+    },
+    "honest_campaign_v2_r4_wm2.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_wm2.pt",
+      "step": 23000,
+      "mb": 14.618,
+      "coef": 12.0
+    },
+    "honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt",
+      "step": 2500,
+      "mb": 1.308,
+      "coef": null
+    },
+    "honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+      "step": 2500,
+      "mb": 1.308,
+      "coef": null
+    },
+    "honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt",
+      "step": 2500,
+      "mb": 1.308,
+      "coef": null
+    },
+    "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt",
+      "step": 2600,
+      "mb": 1.308,
+      "coef": null
+    },
+    "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt",
+      "step": 2600,
+      "mb": 1.308,
+      "coef": null
+    },
+    "honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt": {
+      "path": "checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt",
+      "step": 2600,
+      "mb": 1.308,
+      "coef": null
+    }
+  }
+}

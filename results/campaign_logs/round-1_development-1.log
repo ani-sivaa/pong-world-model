@@ -1,0 +1,71 @@
+[?25l⠋ Initializing...[2K✓ Initialized. View run at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m
+⠋ Initializing...[2K⠋ Initializing...
+[?25h[1A[2K[?25l⠋ Creating objects...[2K⠸ Creating objects...
+├── 🔨 Created mount PythonPackage:infra
+└── ⠋ Creating mount /workspace: Finalizing index of 62 files[2K[1A[2K[1A[2K⠦ Creating objects...
+├── 🔨 Created mount PythonPackage:infra
+├── 🔨 Created mount /workspace
+├── 🔨 Created function run_module_gpu.
+├── 🔨 Created function run_module_cpu.
+└── 🔨 Created function vol_read.
+[?25h[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K✓ Created objects.
+├── 🔨 Created mount PythonPackage:infra
+├── 🔨 Created mount /workspace
+├── 🔨 Created function run_module_gpu.
+├── 🔨 Created function run_module_cpu.
+└── 🔨 Created function vol_read.
+[?25l⠋ Running app...[2K⠸ Running app...[2K⠦ Running app...[2K⠏ Running app...[2K⠹ Worker assigned... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠴ Running... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠇ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠙ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠴ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠇ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠙ Loading images (1 containers initializing)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠏ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠹ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠴ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠇ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠹ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠴ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠇ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠙ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠼ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2KDEVELOPMENT_PANEL_OK mean_win_rate=0.0933 ci95=[0.06536421957889091, 0.1315853970170732] report=/vol/results/development_honest_campaign_v2_r1_candidate1.json
+⠼ Running (1/1 containers active)... View app at [4mhttps://modal.com/apps/ani-siva[0m[2K⠧ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠸ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠦ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠏ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m[2K[1A[2K⠋ Running (1/1 containers active)... View app at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m
+[?25h[1A[2K[1A[2KStopping app - local entrypoint completed.
+✓ App completed. View run at 
+[4mhttps://modal.com/apps/ani-sivaa/main/ap-9EwlyVxAD7nQdeVsyUNgXJ[0m
+=== REMOTE RESULT ===
+{
+  "module": "scripts.evaluate_panel",
+  "argv": [
+    "--purpose",
+    "development",
+    "--policy",
+    "/vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt",
+    "--out",
+    "/vol/results/development_honest_campaign_v2_r1_candidate1.json"
+  ],
+  "timeout_hint": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 4.9
+}
