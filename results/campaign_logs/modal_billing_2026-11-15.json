@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-15",
+  "metered_cost_usd_approx": 32.02102106,
+  "credits_applied_usd_approx": 30.0,
+  "billed_cost_usd": 0.07,
+  "metered_cost_breakdown": {
+    "volumes": 1.95102106,
+    "network_egress": 0.0,
+    "llm_tokens": 0.0,
+    "ephemeral_apps": 30.06650257
+  },
+  "env_credit_balance_usd": 25.0,
+  "note": "env credit is start telemetry only; spend limit blocked paid apps"
+}
