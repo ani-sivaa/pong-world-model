@@ -1,0 +1,3 @@
+# CPU remote hello 2026-11-04 — BLOCKED by Modal spend limit
+# Command: python3 -m infra.remote --module infra.hello --cpu --
+modal.exception.ResourceExhaustedError: Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit

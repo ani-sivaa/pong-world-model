@@ -1,0 +1,10 @@
+# Modal auth verify 2026-11-14
+tokens_present: MODAL_TOKEN_ID=yes MODAL_TOKEN_SECRET=yes MODAL_CREDIT_BALANCE_USD=yes
+credit_bucket: ok (telemetry_set=yes value_not_printed)
+profile: ani-sivaa
+Verifying token against https://api.modal.com,https://api.modal2.com
+Token verified successfully!
+Token written to /home/ubuntu/.modal.toml in profile ani-sivaa.
+Warning: The MODAL_TOKEN_ID / MODAL_TOKEN_SECRET environment variables are set; 
+this will override your new credentials.
+verify_exit:0
