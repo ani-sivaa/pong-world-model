@@ -822,6 +822,22 @@
       },
       "binding_pretrust_held": true,
       "paid_jobs_launched": 0
+    },
+    {
+      "kind": "modal_spend_limit",
+      "stage": "daily_resume_2026-11-18:gpu_smoke",
+      "timestamp": "2026-11-18T11:10:00Z",
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "billing_note": "metered~32.51 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "checkpoint_steps": {
+        "wm0": 23000,
+        "wm1": 23000,
+        "wm2": 23000,
+        "true_ballless_ppo": 2500,
+        "ext5k_ppo": 2600
+      },
+      "binding_pretrust_held": true,
+      "paid_jobs_launched": 0
     }
   ],
   "live_notes": [
@@ -995,11 +1011,15 @@
       "at": 1794827136.6377907,
       "timestamp": "2026-11-16T11:05:36Z",
       "note": "2026-11-16 daily resume: auth OK; GPU/CPU spend-limit block; volume unchanged (WM@23000 coef=12; true-ballless@2500; ext5k@2600). Pretrust held PASS. No collect\u2192WM reburn; no paid jobs; best transfer still 19% seed314 vs 12% control."
+    },
+    {
+      "timestamp": "2026-11-18T11:10:00Z",
+      "note": "2026-11-18 daily resume: auth OK; GPU/CPU spend-limit block; volume unchanged (WM@23000 coef=12; true-ballless@2500; ext5k@2600). Pretrust held PASS. No collect\u2192WM reburn; no paid jobs; best transfer still 19% seed314 vs 12% control."
     }
   ],
-  "modal_credit_note": "MODAL_CREDIT_BALANCE_USD=25 is start telemetry only; billing metered\u224832.18 / credits\u224830 / billed\u22480.07; spend limit still blocks paid apps.",
-  "modal_credit_telemetry_source": "MODAL_CREDIT_BALANCE_USD",
-  "modal_credit_telemetry_status": "available",
+  "modal_credit_note": "MODAL_CREDIT_BALANCE_USD=25 is start-of-run telemetry only; live billing metered~32.51 credits_applied~30 billed~0.07",
+  "modal_credit_telemetry_source": "env:MODAL_CREDIT_BALANCE_USD",
+  "modal_credit_telemetry_status": "present_static_start_only",
   "preregistration": {
     "acquisition_seeds": [
       1103,
@@ -1071,13 +1091,14 @@
   "promotion": {
     "at": "2026-11-17T11:10:00Z",
     "promoted": false,
-    "reason": "Best completed development remains 19% (seed314 @2500) >12% control but <80% promotion; ext5k dream continuation still at step 2600 blocked by Modal spend limit on 2026-11-17; no new development panel; final panel unused; demo unchanged.",
+    "reason": "development best 19% < 80% threshold; ext5k incomplete at 2600/5000; spend limit blocks resume",
     "best_development_mean_win_rate": 0.19,
     "best_candidate_index": 1,
     "best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
     "control_dream_v2_win_rate": 0.12,
     "final_evaluation_uses": 0,
-    "demo_exported": false
+    "demo_exported": false,
+    "best_development_win_rate": 0.19
   },
   "resume_attempts": [
     {
@@ -2297,6 +2318,16 @@
       "reason": "Daily cron 2026-11-17: auth ok; pretrust held; GPU/CPU blocked by spend limit before ext5k 2600\u21925000 resume.",
       "outcome": "budget_or_auth_exhausted",
       "daily_branch": "cursor/pong-world-model-research-9549"
+    },
+    {
+      "timestamp": "2026-11-18T11:10:00Z",
+      "credentials_present": true,
+      "billing_auth_ok": true,
+      "credit_balance_usd": 25.0,
+      "paid_jobs_launched": 0,
+      "reason": "Daily cron 2026-11-18: auth ok; pretrust held; GPU/CPU blocked by spend limit before ext5k 2600\u21925000 resume.",
+      "outcome": "budget_or_auth_exhausted",
+      "daily_branch": "cursor/pong-model-research-cycle-5f6c"
     }
   ],
   "rounds": [
@@ -5329,7 +5360,7 @@
     }
   },
   "status": "budget_or_auth_exhausted",
-  "hard_stop_note": "2026-11-17: Auth OK; GPU/CPU blocked by Modal spend limit before ext5k resume. Volume still holds ext5k@2600 and completed true-ballless@2500. Best development remains 19% (seed314) vs 12% dream-v2 control. Not promoted; final panel unused; demo unchanged.",
+  "hard_stop_note": "2026-11-18: Auth OK; GPU/CPU blocked by Modal spend limit before ext5k resume. Volume still holds ext5k@2600 and completed true-ballless@2500. Best development remains 19% (seed314) vs 12% dream-v2 control. Not promoted; final panel unused; demo unchanged.",
   "this_cycle_2026_11_03": {
     "plan": "Extend dream PPO under frozen r4 true-ballless ensemble to 5000 updates; re-run policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
     "control_dream_v2_win_rate": 0.12,
@@ -5568,6 +5599,29 @@
     "daily_branch": "cursor/pong-world-model-research-9549",
     "continued_from": "cursor/world-model-research-loop-678c@313beba",
     "billing_metered_approx": 32.18,
+    "billing_credits_applied_approx": 30.0,
+    "billing_billed_approx": 0.07,
+    "binding_pretrust_held": true,
+    "gpu_smoke": "FAIL_spend_limit",
+    "cpu_probe": "FAIL_spend_limit"
+  },
+  "this_cycle_2026_11_18": {
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "control_dream_v2_win_rate": 0.12,
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "completed_at": "2026-11-18T11:10:00Z",
+    "outcome": "budget_or_auth_exhausted",
+    "ext5k_saved_step": 2600,
+    "ext5k_target": 5000,
+    "best_completed_development": 0.19,
+    "promoted": false,
+    "demo_exported": false,
+    "final_evaluation_uses": 0,
+    "paid_jobs_launched": 0,
+    "daily_branch": "cursor/pong-model-research-cycle-5f6c",
+    "continued_from": "cursor/pong-world-model-research-9549@3b459fc",
+    "billing_metered_approx": 32.51,
     "billing_credits_applied_approx": 30.0,
     "billing_billed_approx": 0.07,
     "binding_pretrust_held": true,
