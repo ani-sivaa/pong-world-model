@@ -1,0 +1,11 @@
+date=2026-11-20
+profile=ani-sivaa
+token_verify=OK
+env_credit_balance_usd=25
+note=MODAL_CREDIT_BALANCE_USD is start-of-run static telemetry only
+billing_metered_usd=32.83395130
+billing_credits_applied_usd=30.00
+billing_billed_usd=0.07
+gpu_smoke=FAIL spend_limit
+cpu_remote=FAIL spend_limit
+volume_reads=OK
