@@ -1,0 +1,75 @@
+{
+  "episodes_per_seed": 100,
+  "mean_win_rate": 0.08666666666666667,
+  "per_seed": [
+    {
+      "episodes": 100,
+      "loss_rate": 0.94,
+      "losses": 94,
+      "mean_hits": 0.46,
+      "mean_len": 70.3,
+      "mean_point": -0.88,
+      "seed": 7001,
+      "trunc_rate": 0.0,
+      "truncations": 0,
+      "win_rate": 0.06,
+      "win_rate_ci95": [
+        0.027786123963188192,
+        0.1247681544589592
+      ],
+      "wins": 6
+    },
+    {
+      "episodes": 100,
+      "loss_rate": 0.87,
+      "losses": 87,
+      "mean_hits": 0.61,
+      "mean_len": 77.21,
+      "mean_point": -0.74,
+      "seed": 7003,
+      "trunc_rate": 0.0,
+      "truncations": 0,
+      "win_rate": 0.13,
+      "win_rate_ci95": [
+        0.07757167427240512,
+        0.20980351440076428
+      ],
+      "wins": 13
+    },
+    {
+      "episodes": 100,
+      "loss_rate": 0.93,
+      "losses": 93,
+      "mean_hits": 0.7,
+      "mean_len": 89.03,
+      "mean_point": -0.86,
+      "seed": 7013,
+      "trunc_rate": 0.0,
+      "truncations": 0,
+      "win_rate": 0.07,
+      "win_rate_ci95": [
+        0.03431926106727268,
+        0.137495147390735
+      ],
+      "wins": 7
+    }
+  ],
+  "policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt",
+  "policy_frozen": true,
+  "policy_sha256": "605b74dee3a4bae5d4ef945f1c2a44155b4acd76c4c28ca40ca01c76d206982a",
+  "policy_updates_from_evaluation": 0,
+  "pooled_win_rate_ci95": [
+    0.05982889751804311,
+    0.12395595869424827
+  ],
+  "purpose": "development",
+  "schema_version": 1,
+  "seeds": [
+    7001,
+    7003,
+    7013
+  ],
+  "total_episodes": 300,
+  "total_wins": 26,
+  "wall_seconds": 2.533367872238159
+}

@@ -1,0 +1,4 @@
+date=2026-11-18
+probe=infra.remote --module infra.hello --cpu
+modal.exception.ResourceExhaustedError: Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit
+CPU_REMOTE_FAIL spend_limit
