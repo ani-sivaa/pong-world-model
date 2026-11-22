@@ -1,0 +1,11 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-ERzqMN2mnNno7ZDSFl3wkq
+✓ Created objects.
+├── ✓ Uploaded /workspace/scripts/smoke_modal.py
+├── ✓ Uploaded /workspace
+└── ✓ Created Function gpu_smoke.
+MODAL_SMOKE_OK {'gpu': 'Tesla T4', 'torch': '2.13.0+cu130', 'seed': 42, 
+'train_20steps_s': 1.285}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ani-sivaa/main/ap-ERzqMN2mnNno7ZDSFl3wkq

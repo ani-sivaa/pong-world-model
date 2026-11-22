@@ -1,0 +1,5 @@
+╭─ Error ──────────────────────────────────────────────────────────────────────╮
+│ Workspace ac-oJog8MNZeQOfUZh7bYuf2X has exceeded its spend limit             │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ResourceExhaustedError: Workspace has exceeded its spend limit
+GPU_SMOKE_FAIL spend_limit
