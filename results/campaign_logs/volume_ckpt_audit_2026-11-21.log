@@ -1,0 +1,25 @@
+date=2026-11-21
+method=modal.Volume.read_file (no paid app)
+WROTE results/campaign_logs/volume_ckpt_audit_2026-11-21.json
+{
+  "wm_steps": {
+    "/checkpoints/honest_campaign_v2_r4_wm0.pt": 23000,
+    "/checkpoints/honest_campaign_v2_r4_wm1.pt": 23000,
+    "/checkpoints/honest_campaign_v2_r4_wm2.pt": 23000
+  },
+  "wm_ballless_coef": {
+    "/checkpoints/honest_campaign_v2_r4_wm0.pt": 12.0,
+    "/checkpoints/honest_campaign_v2_r4_wm1.pt": 12.0,
+    "/checkpoints/honest_campaign_v2_r4_wm2.pt": 12.0
+  },
+  "true_ballless_ppo": {
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": 2500,
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": 2500,
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": 2500
+  },
+  "ext5k_ppo": {
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt": 2600,
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt": 2600,
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt": 2600
+  }
+}

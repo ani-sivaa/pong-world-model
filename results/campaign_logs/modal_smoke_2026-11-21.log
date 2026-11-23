@@ -1,0 +1,10 @@
+date=2026-11-21
+timestamp_utc=2026-11-21T11:03:04Z
+auth_verify=OK
+modal_profile=ani-sivaa
+modal_client=modal client version: 1.6.4
+env_credit_balance_usd_present=yes
+env_credit_balance_usd_numeric=25.0
+Error: Workspace has exceeded its spend limit
+GPU_SMOKE_FAIL spend_limit
+smoke_rc=1

@@ -1,0 +1,11 @@
+launched_at=2026-11-03T11:25:00Z
+plan=continue dream PPO 2500->5000 under frozen r4 true-ballless WM ensemble
+seeds=42,314,2718
+init_from=/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed{SEED}.pt
+out=/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed{SEED}.pt
+warm_start=false
+ball_guard=true
+algorithm=ppo
+latent_mode=sample
+max_seconds=14400
+no_collect_wm_reburn=true

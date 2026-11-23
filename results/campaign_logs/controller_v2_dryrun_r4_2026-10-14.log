@@ -1,0 +1,62 @@
+[campaign] SKIP round-0 (prior pretrust stop: ['ballless_positive_rate'])
+[campaign] SKIP round-1:collect
+[campaign] SKIP round-1:wm-0
+[campaign] SKIP round-1:wm-1
+[campaign] SKIP round-1:wm-2
+[campaign] SKIP round-1:pretrust
+[campaign] SKIP round-1:policy-0
+[campaign] SKIP round-1:policy-trust-0
+[campaign] SKIP round-1:development-0
+[campaign] SKIP round-1:policy-1
+[campaign] SKIP round-1:policy-trust-1
+[campaign] SKIP round-1:development-1
+[campaign] SKIP round-1:policy-2
+[campaign] SKIP round-1:policy-trust-2
+[campaign] SKIP round-1:development-2
+[campaign] SKIP round-1:selection
+[campaign] SKIP round-2:collect
+[campaign] SKIP round-2:wm-0
+[campaign] SKIP round-2:wm-1
+[campaign] SKIP round-2:wm-2
+[campaign] SKIP round-2:pretrust
+[campaign] SKIP round-2:policy-0
+[campaign] SKIP round-2:policy-trust-0
+[campaign] SKIP round-2:development-0
+[campaign] SKIP round-2:policy-1
+[campaign] SKIP round-2:policy-trust-1
+[campaign] SKIP round-2:development-1
+[campaign] SKIP round-2:policy-2
+[campaign] SKIP round-2:policy-trust-2
+[campaign] SKIP round-2:development-2
+[campaign] SKIP round-2:selection
+[campaign] SKIP round-3 (prior pretrust stop: ['ballless_positive_rate'])
+[campaign] DRY-RUN round-4:collect
+  /usr/bin/python3 -m infra.remote --module scripts.collect_adaptive --gpu -- --scale full --out /vol/data/honest_campaign_v2_r4 --self-check --seed 5519 --mix tracker=.05,rare=.40,redteam=.20,stochastic=.25,natural=.10 --redteam-checkpoint /vol/checkpoints/flywheel_full_v1_combined_redteam.pt --stochastic-checkpoint /vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt --world-model-checkpoint /vol/checkpoints/flywheel_full_v1_combined_final_wm0.pt /vol/checkpoints/flywheel_full_v1_combined_final_wm1.pt /vol/checkpoints/flywheel_full_v1_combined_final_wm2.pt --transitions 1000000
+[campaign] DRY-RUN round-4:wm-0
+  /usr/bin/python3 -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --out /vol/checkpoints/honest_campaign_v2_r4_wm0.pt --tag honest_campaign_v2_r4_wm0 --v2 --stochastic --sampler balanced --bootstrap --seed 42 --steps 18000 --max-seconds 10800
+[campaign] DRY-RUN round-4:wm-1
+  /usr/bin/python3 -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --out /vol/checkpoints/honest_campaign_v2_r4_wm1.pt --tag honest_campaign_v2_r4_wm1 --v2 --stochastic --sampler balanced --bootstrap --seed 314 --steps 18000 --max-seconds 10800
+[campaign] DRY-RUN round-4:wm-2
+  /usr/bin/python3 -m infra.remote --module wm.train --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --out /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --tag honest_campaign_v2_r4_wm2 --v2 --stochastic --sampler balanced --bootstrap --seed 2718 --steps 18000 --max-seconds 10800
+[campaign] DRY-RUN round-4:pretrust
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_trust --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --stochastic-samples 8 --out /vol/results/trust_honest_campaign_v2_r4_prepolicy.json --tag honest_campaign_v2_r4_prepolicy
+[campaign] DRY-RUN round-4:policy-0
+  /usr/bin/python3 -m infra.remote --module agents.train_dream --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --algorithm ppo --latent-mode sample --ball-guard --seed 42 --updates 2500 --max-seconds 14400 --tag honest_campaign_v2_r4_ppo_seed42 --out /vol/checkpoints/honest_campaign_v2_r4_ppo_seed42.pt --init-from /vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt --warm-start
+[campaign] DRY-RUN round-4:policy-trust-0
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_trust --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --policy /vol/checkpoints/honest_campaign_v2_r4_ppo_seed42.pt --seed 7001 --stochastic-samples 8 --out /vol/results/trust_honest_campaign_v2_r4_candidate0.json --tag honest_campaign_v2_r4_candidate0
+[campaign] DRY-RUN round-4:development-0
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_panel --cpu -- --purpose development --policy /vol/checkpoints/honest_campaign_v2_r4_ppo_seed42.pt --out /vol/results/development_honest_campaign_v2_r4_candidate0.json
+[campaign] DRY-RUN round-4:policy-1
+  /usr/bin/python3 -m infra.remote --module agents.train_dream --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --algorithm ppo --latent-mode sample --ball-guard --seed 314 --updates 2500 --max-seconds 14400 --tag honest_campaign_v2_r4_ppo_seed314 --out /vol/checkpoints/honest_campaign_v2_r4_ppo_seed314.pt --init-from /vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt --warm-start
+[campaign] DRY-RUN round-4:policy-trust-1
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_trust --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --policy /vol/checkpoints/honest_campaign_v2_r4_ppo_seed314.pt --seed 7001 --stochastic-samples 8 --out /vol/results/trust_honest_campaign_v2_r4_candidate1.json --tag honest_campaign_v2_r4_candidate1
+[campaign] DRY-RUN round-4:development-1
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_panel --cpu -- --purpose development --policy /vol/checkpoints/honest_campaign_v2_r4_ppo_seed314.pt --out /vol/results/development_honest_campaign_v2_r4_candidate1.json
+[campaign] DRY-RUN round-4:policy-2
+  /usr/bin/python3 -m infra.remote --module agents.train_dream --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --algorithm ppo --latent-mode sample --ball-guard --seed 2718 --updates 2500 --max-seconds 14400 --tag honest_campaign_v2_r4_ppo_seed2718 --out /vol/checkpoints/honest_campaign_v2_r4_ppo_seed2718.pt --init-from /vol/checkpoints/honest_campaign_v2_r1_ppo_seed314.pt --warm-start
+[campaign] DRY-RUN round-4:policy-trust-2
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_trust --gpu -- --scale full --data /vol/data/honest_campaign_v2_r4 --wm /vol/checkpoints/honest_campaign_v2_r4_wm0.pt /vol/checkpoints/honest_campaign_v2_r4_wm1.pt /vol/checkpoints/honest_campaign_v2_r4_wm2.pt --policy /vol/checkpoints/honest_campaign_v2_r4_ppo_seed2718.pt --seed 7001 --stochastic-samples 8 --out /vol/results/trust_honest_campaign_v2_r4_candidate2.json --tag honest_campaign_v2_r4_candidate2
+[campaign] DRY-RUN round-4:development-2
+  /usr/bin/python3 -m infra.remote --module scripts.evaluate_panel --cpu -- --purpose development --policy /vol/checkpoints/honest_campaign_v2_r4_ppo_seed2718.pt --out /vol/results/development_honest_campaign_v2_r4_candidate2.json
+[campaign] DRY-RUN round-4:selection
+  /usr/bin/python3 -m infra.remote --module scripts.select_candidate --cpu -- --policies /vol/checkpoints/honest_campaign_v2_r4_ppo_seed42.pt /vol/checkpoints/honest_campaign_v2_r4_ppo_seed314.pt /vol/checkpoints/honest_campaign_v2_r4_ppo_seed2718.pt --trust /vol/results/trust_honest_campaign_v2_r4_candidate0.json /vol/results/trust_honest_campaign_v2_r4_candidate1.json /vol/results/trust_honest_campaign_v2_r4_candidate2.json --development /vol/results/development_honest_campaign_v2_r4_candidate0.json /vol/results/development_honest_campaign_v2_r4_candidate1.json /vol/results/development_honest_campaign_v2_r4_candidate2.json --out /vol/results/selection_honest_campaign_v2_r4.json
