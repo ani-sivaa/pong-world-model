@@ -1,0 +1,15 @@
+date=2026-11-17
+credentials_present=yes
+MODAL_CREDIT_BALANCE_USD=25
+Verifying token against https://api.modal.com,https://api.modal2.com
+Token verified successfully!
+Token written to /home/ubuntu/.modal.toml in profile ani-sivaa.
+Warning: The MODAL_TOKEN_ID / MODAL_TOKEN_SECRET environment variables are set; 
+this will override your new credentials.
+profile=ani-sivaa
+                           
+    Profile     Workspace  
+ ───────────────────────── 
+  • ani-sivaa   ani-sivaa  
+                           
+Using ani-sivaa workspace based on environment variables

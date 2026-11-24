@@ -1,0 +1,12 @@
+date=2026-11-17
+volume=worldmodel-vol
+method=modal.Volume.read_file (no paid app)
+OK honest_campaign_v2_r4_wm0.pt step=23000 mb=14.618 coef=12.0
+OK honest_campaign_v2_r4_wm1.pt step=23000 mb=14.618 coef=12.0
+OK honest_campaign_v2_r4_wm2.pt step=23000 mb=14.618 coef=12.0
+OK honest_campaign_v2_r4_true_ballless_ppo_seed42.pt step=2500 mb=1.308 coef=None
+OK honest_campaign_v2_r4_true_ballless_ppo_seed314.pt step=2500 mb=1.308 coef=None
+OK honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt step=2500 mb=1.308 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt step=2600 mb=1.308 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt step=2600 mb=1.308 coef=None
+OK honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt step=2600 mb=1.308 coef=None
