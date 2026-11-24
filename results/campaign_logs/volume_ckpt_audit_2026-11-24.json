@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-24",
+  "timestamp_utc": "2026-11-24T11:02:23Z",
+  "volume": "worldmodel-vol",
+  "method": "modal.Volume.read_file",
+  "checkpoints": {
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt",
+      "bytes": 1371753,
+      "step": 2600,
+      "keys": [
+        "config",
+        "model",
+        "step"
+      ]
+    },
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt",
+      "bytes": 1371771,
+      "step": 2600,
+      "keys": [
+        "config",
+        "model",
+        "step"
+      ]
+    },
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt",
+      "bytes": 1371853,
+      "step": 2600,
+      "keys": [
+        "config",
+        "model",
+        "step"
+      ]
+    },
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt",
+      "bytes": 1371645,
+      "step": 2500,
+      "keys": [
+        "config",
+        "model",
+        "step"
+      ]
+    },
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+      "bytes": 1371663,
+      "step": 2500,
+      "keys": [
+        "config",
+        "model",
+        "step"
+      ]
+    },
+    "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt",
+      "bytes": 1371681,
+      "step": 2500,
+      "keys": [
+        "config",
+        "model",
+        "step"
+      ]
+    },
+    "/checkpoints/honest_campaign_v2_r4_wm0.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_wm0.pt",
+      "bytes": 15328266,
+      "step": 23000,
+      "keys": [
+        "config",
+        "model",
+        "model_type",
+        "step"
+      ],
+      "ballless_reward_coef": 12.0,
+      "latent_inject_gain": 2.5,
+      "model_type": "stochastic"
+    },
+    "/checkpoints/honest_campaign_v2_r4_wm1.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_wm1.pt",
+      "bytes": 15328266,
+      "step": 23000,
+      "keys": [
+        "config",
+        "model",
+        "model_type",
+        "step"
+      ],
+      "ballless_reward_coef": 12.0,
+      "latent_inject_gain": 2.5,
+      "model_type": "stochastic"
+    },
+    "/checkpoints/honest_campaign_v2_r4_wm2.pt": {
+      "ok": true,
+      "path": "/checkpoints/honest_campaign_v2_r4_wm2.pt",
+      "bytes": 15328266,
+      "step": 23000,
+      "keys": [
+        "config",
+        "model",
+        "model_type",
+        "step"
+      ],
+      "ballless_reward_coef": 12.0,
+      "latent_inject_gain": 2.5,
+      "model_type": "stochastic"
+    }
+  }
+}
