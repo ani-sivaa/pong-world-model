@@ -1,6 +1,6 @@
 {
   "final_evaluation_uses": 0,
-  "hard_stop_note": "2026-11-24: Auth OK; GPU/CPU blocked by Modal spend limit before ext5k resume. Volume still holds ext5k@2600 and completed true-ballless@2500. Best development remains 19% (seed314) vs 12% dream-v2 control. Not promoted; final panel unused; demo unchanged.",
+  "hard_stop_note": "2026-11-25: Auth OK; GPU/CPU blocked by Modal spend limit before ext5k resume. Volume still holds ext5k@2600 and completed true-ballless@2500. Best development remains 19% (seed314) vs 12% dream-v2 control. Not promoted; final panel unused; demo unchanged.",
   "hard_stops": [
     {
       "billing_note": "metered~37.96 credits_applied~30 billed~6.59",
@@ -919,6 +919,22 @@
       "paid_jobs_launched": 0,
       "stage": "daily_resume_2026-11-24:gpu_smoke",
       "timestamp": "2026-11-24T11:15:00Z"
+    },
+    {
+      "billing_note": "metered~33.65 credits_applied~30 billed~0.07; MODAL_CREDIT_BALANCE_USD start telemetry=25",
+      "binding_pretrust_held": true,
+      "checkpoint_steps": {
+        "ext5k_ppo": 2600,
+        "true_ballless_ppo": 2500,
+        "wm0": 23000,
+        "wm1": 23000,
+        "wm2": 23000
+      },
+      "error": "ResourceExhaustedError: Workspace has exceeded its spend limit (GPU smoke and CPU remote both blocked after token verify OK)",
+      "kind": "modal_spend_limit",
+      "paid_jobs_launched": 0,
+      "stage": "daily_resume_2026-11-25:gpu_smoke",
+      "timestamp": "2026-11-25T11:15:00Z"
     }
   ],
   "live_notes": [
@@ -1112,6 +1128,10 @@
     {
       "note": "2026-11-24 daily resume: auth OK; GPU/CPU spend-limit block; volume unchanged (WM@23000 coef=12; true-ballless@2500; ext5k@2600). Pretrust held PASS. No collect\u2192WM reburn; no paid jobs; best transfer still 19% seed314 vs 12% control.",
       "timestamp": "2026-11-24T11:15:00Z"
+    },
+    {
+      "note": "2026-11-25 daily resume: auth OK; GPU/CPU spend-limit block; volume unchanged (WM@23000 coef=12; true-ballless@2500; ext5k@2600). Pretrust held PASS. No collect\u2192WM reburn; no paid jobs; best transfer still 19% seed314 vs 12% control.",
+      "timestamp": "2026-11-25T11:15:00Z"
     }
   ],
   "modal_credit_note": "MODAL_CREDIT_BALANCE_USD=25 is start-of-run telemetry only; live billing metered~32.51 credits_applied~30 billed~0.07",
@@ -1186,7 +1206,7 @@
     ]
   },
   "promotion": {
-    "at": "2026-11-23T11:15:00Z",
+    "at": "2026-11-25T11:15:00Z",
     "best_candidate_index": 1,
     "best_development_mean_win_rate": 0.19,
     "best_development_win_rate": 0.19,
@@ -2475,6 +2495,16 @@
       "paid_jobs_launched": 0,
       "reason": "Daily cron 2026-11-24: auth ok; pretrust held; GPU/CPU blocked by spend limit before ext5k 2600\u21925000 resume.",
       "timestamp": "2026-11-24T11:15:00Z"
+    },
+    {
+      "billing_auth_ok": true,
+      "credentials_present": true,
+      "credit_balance_usd": 25.0,
+      "daily_branch": "cursor/world-model-research-loop-dd95",
+      "outcome": "budget_or_auth_exhausted",
+      "paid_jobs_launched": 0,
+      "reason": "Daily cron 2026-11-25: auth ok; pretrust held; GPU/CPU blocked by spend limit before ext5k 2600\u21925000 resume.",
+      "timestamp": "2026-11-25T11:15:00Z"
     }
   ],
   "rounds": [
@@ -5877,6 +5907,29 @@
     "control_dream_v2_win_rate": 0.12,
     "cpu_probe": "FAIL_spend_limit",
     "daily_branch": "cursor/honest-research-loop-7c04",
+    "demo_exported": false,
+    "ext5k_saved_step": 2600,
+    "ext5k_target": 5000,
+    "final_evaluation_uses": 0,
+    "gpu_smoke": "FAIL_spend_limit",
+    "outcome": "budget_or_auth_exhausted",
+    "paid_jobs_launched": 0,
+    "plan": "Resume incomplete ext5k dream PPO 2600\u21925000 under frozen r4 true-ballless ensemble; then policy-trust + development; no collect/WM/pretrust reburn; no demo export unless promotion.",
+    "prior_best_development": 0.19,
+    "prior_best_policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+    "promoted": false
+  },
+  "this_cycle_2026_11_25": {
+    "best_completed_development": 0.19,
+    "billing_billed_approx": 0.07,
+    "billing_credits_applied_approx": 30.0,
+    "billing_metered_approx": 33.64688154,
+    "binding_pretrust_held": true,
+    "completed_at": "2026-11-25T11:15:00Z",
+    "continued_from": "cursor/honest-research-loop-7c04@ffea4df",
+    "control_dream_v2_win_rate": 0.12,
+    "cpu_probe": "FAIL_spend_limit",
+    "daily_branch": "cursor/world-model-research-loop-dd95",
     "demo_exported": false,
     "ext5k_saved_step": 2600,
     "ext5k_target": 5000,
