@@ -1,0 +1,17 @@
+date=2026-11-25
+timestamp_utc=2026-11-25T11:04:03Z
+volume=worldmodel-vol
+method=modal.Volume.read_file (no paid app)
+listdir_ok count=63 matched=9
+OK /checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed42.pt bytes=1371753 step=2600
+OK /checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed314.pt bytes=1371771 step=2600
+OK /checkpoints/honest_campaign_v2_r4_true_ballless_ext5k_ppo_seed2718.pt bytes=1371853 step=2600
+OK /checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt bytes=1371645 step=2500
+OK /checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt bytes=1371663 step=2500
+OK /checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt bytes=1371681 step=2500
+OK /checkpoints/honest_campaign_v2_r4_wm0.pt bytes=15328266 step=23000
+OK /checkpoints/honest_campaign_v2_r4_wm1.pt bytes=15328266 step=23000
+OK /checkpoints/honest_campaign_v2_r4_wm2.pt bytes=15328266 step=23000
+META /checkpoints/honest_campaign_v2_r4_wm0.pt ballless_reward_coef=12.0 latent_inject_gain=2.5 model_type=stochastic
+META /checkpoints/honest_campaign_v2_r4_wm1.pt ballless_reward_coef=12.0 latent_inject_gain=2.5 model_type=stochastic
+META /checkpoints/honest_campaign_v2_r4_wm2.pt ballless_reward_coef=12.0 latent_inject_gain=2.5 model_type=stochastic

@@ -1,0 +1,17 @@
+{
+  "metered_cost": "0.68000000",
+  "billed_cost": "0E-8",
+  "adjustments": {
+    "credits": "-0.68000000",
+    "reservation_adjustment": "-0E-8",
+    "plan_cost": "0E-8",
+    "network_egress_allowance": "0E-8",
+    "free_storage": "-0E-8"
+  },
+  "metered_cost_breakdown": {
+    "ephemeral_apps": "0.67955211",
+    "network_egress": "0E-8",
+    "llm_tokens": "0E-8",
+    "volumes": "0E-8"
+  }
+}

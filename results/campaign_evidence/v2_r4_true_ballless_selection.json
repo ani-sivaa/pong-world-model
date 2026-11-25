@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "selection_uses_final_results": false,
+  "development_threshold": 0.8,
+  "candidates": [
+    {
+      "candidate_index": 0,
+      "policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed42.pt",
+      "strict_trust_pass": true,
+      "development_mean_win_rate": 0.08666666666666667,
+      "development_ci95": [
+        0.05982889751804311,
+        0.12395595869424827
+      ],
+      "eligible": false,
+      "failed_trust_gates": []
+    },
+    {
+      "candidate_index": 1,
+      "policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed314.pt",
+      "strict_trust_pass": true,
+      "development_mean_win_rate": 0.19,
+      "development_ci95": [
+        0.14963485033440665,
+        0.23820379182481183
+      ],
+      "eligible": false,
+      "failed_trust_gates": []
+    },
+    {
+      "candidate_index": 2,
+      "policy": "/vol/checkpoints/honest_campaign_v2_r4_true_ballless_ppo_seed2718.pt",
+      "strict_trust_pass": true,
+      "development_mean_win_rate": 0.09333333333333334,
+      "development_ci95": [
+        0.06536421957889091,
+        0.1315853970170732
+      ],
+      "eligible": false,
+      "failed_trust_gates": []
+    }
+  ],
+  "eligible": false,
+  "selected_policy": null,
+  "selected_candidate_index": null
+}
