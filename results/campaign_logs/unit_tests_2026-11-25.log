@@ -1,0 +1,17 @@
+date=2026-11-25
+runner=python3 -m unittest discover -s tests -q
+result=OK
+[collect_adaptive] loaded redteam policy: /tmp/tmpvtd15yp7/redteam.pt
+[collect_adaptive] redteam: T=24 policy=redteam
+----------------------------------------------------------------------
+Ran 33 tests in 1.666s
+
+OK
+tests=33
+raw:
+[collect_adaptive] loaded redteam policy: /tmp/tmpvtd15yp7/redteam.pt
+[collect_adaptive] redteam: T=24 policy=redteam
+----------------------------------------------------------------------
+Ran 33 tests in 1.666s
+
+OK
